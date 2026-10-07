@@ -1,0 +1,1982 @@
+diff --git a/ghost_buster/boundary.py b/ghost_buster/boundary.py
+index 0fb7281..b848105 100644
+--- a/ghost_buster/boundary.py
++++ b/ghost_buster/boundary.py
+@@ -178,6 +178,49 @@ def _is_stdlib(package: str) -> bool:
+     return package.split(".", 1)[0] in _stdlib_names()
+ 
+ 
++def _build_provides_for_repo(root: str, model: StructuralModel, by_tail: Dict[str, Set[str]],
++                             joined: "JoinedModel", opaque: Set[str]) -> None:
++    """Build the provides map for one repository, handling star-import expansion."""
++    def _normalise(dotted: str) -> str:
++        if dotted.endswith(".__init__"):
++            dotted = dotted[: -len(".__init__")]
++        elif dotted == "__init__":
++            return ""
++        parts = [p for p in dotted.split(".") if p]
++        while parts and parts[0] in _PACKAGE_PARENTS:
++            parts.pop(0)
++        return ".".join(parts)
++
++    def _surface(m) -> Set[str]:
++        return set(m.exported) | set(m.public_names) | set(m.bindings) | set(m.reexports)
++
++    for package in model.packages:
++        names: Set[str] = set()
++        for m in model.modules:
++            normalised = _normalise(m.dotted)
++            if not normalised or normalised.split(".", 1)[0] != package:
++                continue
++            surface = _surface(m)
++
++            for target in m.star_imports:
++                resolved = by_tail.get(target) or by_tail.get(target.split(".")[-1])
++                if resolved is None:
++                    opaque.add(normalised)
++                    joined.unresolved.append(
++                        f"{normalised} re-exports everything from '{target}', "
++                        f"which this scan could not resolve; its public "
++                        f"surface is therefore not enumerable and no name "
++                        f"will be reported missing from it")
++                else:
++                    surface |= resolved
++
++            names.update(surface)
++            joined.provides_module[normalised] = surface
++            if m.is_package:
++                names.update(n.split(".")[-1] for n in m.imports_internal)
++        joined.provides[package] = (root, names)
++
++
+ def build_joined_model(roots: Sequence, files_by_root: Dict[str, List[Path]]) -> JoinedModel:
+     joined = JoinedModel(repos=[str(Path(r).resolve()) for r in roots])
+     if len(joined.repos) < 2:
+@@ -190,17 +233,7 @@ def build_joined_model(roots: Sequence, files_by_root: Dict[str, List[Path]]) ->
+         files = files_by_root.get(root, [])
+         models[root] = build_model(root, files)
+ 
+-    # What each repository PROVIDES: its importable top-level packages and,
+-    # for each, every top-level name any of its modules exports.
+-    # A MODULE UNDER src/ STILL BELONGS TO ITS PACKAGE. `packages` reports
+-    # `gems` while every module is dotted `src.gems.*`, so a first-segment
+-    # comparison matched nothing and the repository was recorded as providing
+-    # NOTHING AT ALL -- which made every name imported from it "missing" and
+-    # every such import a CRITICAL. Measured 2026-09-10 joining two real
+-    # repositories: two criticals, both against imports that run fine.
+     def _normalise(dotted: str) -> str:
+-        """Drop layout directories and the __init__ suffix, so a module is
+-        named the way an importer would name it."""
+         if dotted.endswith(".__init__"):
+             dotted = dotted[: -len(".__init__")]
+         elif dotted == "__init__":
+@@ -210,21 +243,12 @@ def build_joined_model(roots: Sequence, files_by_root: Dict[str, List[Path]]) ->
+             parts.pop(0)
+         return ".".join(parts)
+ 
+-    # A NAME A MODULE RE-EXPORTS IS A NAME IT PROVIDES. Collecting only
+-    # definitions treated `__init__.py` as though it exported nothing, which
+-    # is the opposite of what an `__init__.py` is usually for.
+     def _surface(m) -> Set[str]:
+         return set(m.exported) | set(m.public_names) | set(m.bindings) | set(m.reexports)
+ 
+-    #: Modules whose surface cannot be enumerated because a star-import
+-    #: points somewhere this scan could not resolve. Their contents are
+-    #: unknowable, so a name is never reported missing from them.
+     opaque: Set[str] = set()
+ 
+     for root, model in models.items():
+-        # Index by the LAST dotted segment as well, so `gems.contracts`
+-        # resolves whether the scan saw it as `gems.contracts` or as
+-        # `src.gems.contracts` under a src layout.
+         by_tail: Dict[str, Set[str]] = {}
+         for m in model.modules:
+             tail = _normalise(m.dotted)
+@@ -233,37 +257,10 @@ def build_joined_model(roots: Sequence, files_by_root: Dict[str, List[Path]]) ->
+             by_tail.setdefault(tail, set()).update(_surface(m))
+             by_tail.setdefault(tail.split(".")[-1], set()).update(_surface(m))
+ 
+-        for package in model.packages:
+-            names: Set[str] = set()
+-            for m in model.modules:
+-                normalised = _normalise(m.dotted)
+-                if not normalised or normalised.split(".", 1)[0] != package:
+-                    continue
+-                surface = _surface(m)
+-
+-                # Expand `from X import *` against the joined set where X is
+-                # resolvable, and mark the module opaque where it is not.
+-                for target in m.star_imports:
+-                    resolved = by_tail.get(target) or by_tail.get(target.split(".")[-1])
+-                    if resolved is None:
+-                        opaque.add(normalised)
+-                        joined.unresolved.append(
+-                            f"{normalised} re-exports everything from '{target}', "
+-                            f"which this scan could not resolve; its public "
+-                            f"surface is therefore not enumerable and no name "
+-                            f"will be reported missing from it")
+-                    else:
+-                        surface |= resolved
+-
+-                names.update(surface)
+-                joined.provides_module[normalised] = surface
+-                if m.is_package:
+-                    names.update(n.split(".")[-1] for n in m.imports_internal)
+-            joined.provides[package] = (root, names)
++        _build_provides_for_repo(root, model, by_tail, joined, opaque)
+ 
+     joined.opaque_modules = opaque
+ 
+-    # What each repository REACHES FOR.
+     for root, model in models.items():
+         root_path = Path(root)
+         for m in model.modules:
+@@ -311,18 +308,19 @@ def _test_corpus(files_by_root: Dict[str, List[Path]]) -> str:
+     return "\n".join(chunks)
+ 
+ 
+-def derive_findings(joined: JoinedModel, files_by_root: Dict[str, List[Path]]) -> List[Finding]:
+-    if not joined.ran:
+-        return []
+-    out: List[Finding] = []
+-    corpus = _test_corpus(files_by_root)
+-
+-    for reach in joined.reaches:
++def _process_reaches(
++    joined: JoinedModel,
++    reaches: List,
++    corpus: str,
++) -> List[Finding]:
++    """Find findings for cross-repository imports and unexercised symbols."""
++    findings: List[Finding] = []
++    for reach in reaches:
+         provider = joined.provides.get(reach.package)
+         file = str(Path(reach.repo) / reach.module.replace(".", "/")) + ".py"
+ 
+         if provider is None:
+-            out.append(_finding(
++            findings.append(_finding(
+                 "boundary provider absent", Severity.MINOR, file,
+                 f"'{reach.module}' reaches for '{reach.package}', which no "
+                 f"repository in this joined set provides",
+@@ -341,11 +339,8 @@ def derive_findings(joined: JoinedModel, files_by_root: Dict[str, List[Path]]) -
+ 
+         provider_root, exported = provider
+         if provider_root == reach.repo:
+-            continue    # reaching for itself; not a boundary
++            continue
+ 
+-        # `from ccc.matching import X` must be resolved against ccc.matching,
+-        # not against every module in ccc. The union is the right answer only
+-        # for `from ccc import X`, where a package __init__ may re-export it.
+         if reach.source and reach.source != reach.package:
+             exact = joined.provides_module.get(reach.source)
+             if exact is None:
+@@ -356,16 +351,12 @@ def derive_findings(joined: JoinedModel, files_by_root: Dict[str, List[Path]]) -
+                 continue
+             exported = exact | joined.provides_module.get(reach.package, set())
+ 
+-        # A module whose surface could not be enumerated cannot be shown to
+-        # be missing anything. Abstain rather than accuse: this check is
+-        # CRITICAL, and a critical that is wrong costs more than one that is
+-        # absent.
+         if reach.source in joined.opaque_modules or reach.package in joined.opaque_modules:
+             continue
+ 
+         missing = [n for n in reach.names if n not in exported]
+         if missing:
+-            out.append(_finding(
++            findings.append(_finding(
+                 "cross repo import unresolved", Severity.CRITICAL, file,
+                 f"'{reach.module}' imports {', '.join(missing)} from "
+                 f"'{reach.package}', which does not export "
+@@ -387,7 +378,7 @@ def derive_findings(joined: JoinedModel, files_by_root: Dict[str, List[Path]]) -
+ 
+         untested = [n for n in reach.names if n and not re.search(rf"\b{re.escape(n)}\b", corpus)]
+         if untested:
+-            out.append(_finding(
++            findings.append(_finding(
+                 "boundary symbol untested", Severity.MAJOR, file,
+                 f"'{reach.module}' imports {', '.join(untested)} from "
+                 f"'{reach.package}', and no test in either repository mentions "
+@@ -406,10 +397,15 @@ def derive_findings(joined: JoinedModel, files_by_root: Dict[str, List[Path]]) -
+                  "reaching_module": reach.module},
+                 reach.line,
+             ))
++    return findings
++
+ 
+-    for dormant in joined.dormant_tests:
++def _process_dormant_tests(dormant_tests: List) -> List[Finding]:
++    """Generate findings for dormant boundary tests."""
++    findings: List[Finding] = []
++    for dormant in dormant_tests:
+         file = str(Path(dormant.repo) / dormant.module.replace(".", "/")) + ".py"
+-        out.append(_finding(
++        findings.append(_finding(
+             "dormant boundary test", Severity.INFORMATIONAL, file,
+             f"'{dormant.module}' holds a test that skips: {dormant.reason!r}",
+             "Inventory, not a complaint. A test written for a seam and waiting "
+@@ -420,7 +416,16 @@ def derive_findings(joined: JoinedModel, files_by_root: Dict[str, List[Path]]) -
+             "is indistinguishable from a test that does not exist.",
+             {"reason": dormant.reason, "module": dormant.module}, dormant.line,
+         ))
+-    return out
++    return findings
++
++
++def derive_findings(joined: JoinedModel, files_by_root: Dict[str, List[Path]]) -> List[Finding]:
++    if not joined.ran:
++        return []
++    corpus = _test_corpus(files_by_root)
++    findings = _process_reaches(joined, joined.reaches, corpus)
++    findings.extend(_process_dormant_tests(joined.dormant_tests))
++    return findings
+ 
+ 
+ def render_report(joined: JoinedModel, findings: List[Finding]) -> str:
+diff --git a/ghost_buster/cli.py b/ghost_buster/cli.py
+index f5833f5..dd792fe 100644
+--- a/ghost_buster/cli.py
++++ b/ghost_buster/cli.py
+@@ -69,16 +69,7 @@ def _print_report(new: List[Finding], known: List[Finding],
+         print("  (nothing new)\n")
+ 
+ 
+-def _build_parser() -> argparse.ArgumentParser:
+-    """Every flag in one place. Extracted from main() because ghost_buster's
+-    own `long_function` detector flagged main() at 194 lines against its
+-    threshold of 80 -- the argument table is the bulk of it and has no
+-    control flow, so lifting it out is the whole fix.
+-    """
+-    parser = argparse.ArgumentParser(prog="ghost_buster")
+-    # Consumed and exited on during parsing, so it works without the
+-    # required `path` positional -- which is the only way anyone would
+-    # ever type it.
++def _add_core_args(parser: argparse.ArgumentParser) -> None:
+     parser.add_argument(
+         "--version", action="version", version=version_string(),
+         help="print the version and exit",
+@@ -103,6 +94,9 @@ def _build_parser() -> argparse.ArgumentParser:
+              "another repo. Virtualenvs, site-packages, VCS dirs and tool "
+              "caches are always skipped.",
+     )
++
++
++def _add_operate_args(parser: argparse.ArgumentParser) -> None:
+     parser.add_argument(
+         "--operate", action="store_true",
+         help="OPT-IN. The surgeon operates: on a CLEAN tree, open a branch, apply "
+@@ -120,6 +114,9 @@ def _build_parser() -> argparse.ArgumentParser:
+         "--operate-dry-run", action="store_true",
+         help="with --operate: diagnose and assess candidacy, write nothing",
+     )
++
++
++def _add_report_args(parser: argparse.ArgumentParser) -> None:
+     parser.add_argument(
+         "--profile", action="store_true",
+         help="instrument the scan and report work done more than once with the "
+@@ -141,6 +138,9 @@ def _build_parser() -> argparse.ArgumentParser:
+              "learns across the library. (default: <path>/.ghost_casefile.json "
+              "if it exists)",
+     )
++
++
++def _add_annotate_args(parser: argparse.ArgumentParser) -> None:
+     parser.add_argument(
+         "--annotate-names", action="store_true",
+         help="OPT-IN, and the only thing ghost_buster does that writes to the "
+@@ -158,6 +158,9 @@ def _build_parser() -> argparse.ArgumentParser:
+         help="README to write the name-disagreement table into "
+              "(default: <path>/README.md)",
+     )
++
++
++def _add_mutate_args(parser: argparse.ArgumentParser) -> None:
+     parser.add_argument(
+         "--mutate", action="store_true",
+         help="OPT-IN, on cost -- one pytest process per mutant, so a large "
+@@ -175,6 +178,9 @@ def _build_parser() -> argparse.ArgumentParser:
+                         help="restrict mutation to test files whose path contains this")
+     parser.add_argument("--mutate-verbose", action="store_true",
+                         help="also list killed mutants and candidates that could not be judged")
++
++
++def _add_branches_args(parser: argparse.ArgumentParser) -> None:
+     parser.add_argument(
+         "--branches", action=argparse.BooleanOptionalAction, default=True,
+         help="ON BY DEFAULT (--no-branches to skip). Flag local/remote-tracking branches with commits not reflected in the "
+@@ -189,6 +195,9 @@ def _build_parser() -> argparse.ArgumentParser:
+         help="base branch to compare against (default: first of origin/main, "
+              "origin/master, main, master that resolves)",
+     )
++
++
++def _add_trust_and_test_args(parser: argparse.ArgumentParser) -> None:
+     parser.add_argument(
+         "--trust", action="store_true",
+         help="record consent for this repository's code to run here (its test suite, and "
+@@ -213,6 +222,9 @@ def _build_parser() -> argparse.ArgumentParser:
+                              "at the project's own virtualenv to run with its dependencies")
+     parser.add_argument("--tests-timeout", type=float, default=900.0, metavar="SECONDS",
+                         help="timeout for each pytest invocation, the full run included (default 900)")
++
++
++def _add_secrets_args(parser: argparse.ArgumentParser) -> None:
+     parser.add_argument(
+         "--secrets", action=argparse.BooleanOptionalAction, default=True,
+         help="ON BY DEFAULT (--no-secrets to skip). Scans the checked-out branch's git history for committed secrets with "
+@@ -224,6 +236,9 @@ def _build_parser() -> argparse.ArgumentParser:
+                         help="path to the gitleaks executable (default: gitleaks on PATH)")
+     parser.add_argument("--secrets-timeout", type=float, default=300.0, metavar="SECONDS",
+                         help="timeout for the gitleaks run (default 300)")
++
++
++def _add_correlate_args(parser: argparse.ArgumentParser) -> None:
+     parser.add_argument(
+         "--correlate-with", action="append", default=[], metavar="[LABEL=]FILE",
+         help="another repository's --json output, optionally named "
+@@ -233,6 +248,14 @@ def _build_parser() -> argparse.ArgumentParser:
+              "unrelated findings. Correlation over this run's own findings "
+              "always runs and needs no flag.",
+     )
++    parser.add_argument(
++        "--no-correlate", action="store_true",
++        help="skip the correlation pass entirely (it reads findings already "
++             "computed, runs no new scan, and is normally free)",
++    )
++
++
++def _add_project_and_kernel_args(parser: argparse.ArgumentParser) -> None:
+     parser.add_argument(
+         "--project", action=argparse.BooleanOptionalAction, default=True,
+         help="ON BY DEFAULT (--no-project to skip). Repository-shaped facts no "
+@@ -262,6 +285,9 @@ def _build_parser() -> argparse.ArgumentParser:
+         "--single-repo", action="store_true",
+         help="skip the joined-repository question and scan this repository alone",
+     )
++
++
++def _add_structure_args(parser: argparse.ArgumentParser) -> None:
+     parser.add_argument(
+         "--structure", action=argparse.BooleanOptionalAction, default=True,
+         help="ON BY DEFAULT (--no-structure to skip). Build a structural model "
+@@ -284,6 +310,9 @@ def _build_parser() -> argparse.ArgumentParser:
+         "--structure-report", action="store_true",
+         help="also print the full structural model in readable form",
+     )
++
++
++def _add_ledger_args(parser: argparse.ArgumentParser) -> None:
+     parser.add_argument(
+         "--ledger", action=argparse.BooleanOptionalAction, default=True,
+         help="ON BY DEFAULT (--no-ledger to skip). Remember this run in "
+@@ -305,11 +334,23 @@ def _build_parser() -> argparse.ArgumentParser:
+         "--ledger-path", type=Path, default=None, metavar="FILE",
+         help="where the ledger lives (default: <path>/.ghost_ledger.json)",
+     )
+-    parser.add_argument(
+-        "--no-correlate", action="store_true",
+-        help="skip the correlation pass entirely (it reads findings already "
+-             "computed, runs no new scan, and is normally free)",
+-    )
++
++
++def _build_parser() -> argparse.ArgumentParser:
++    """Every flag in one place. Argument setup grouped by feature domain."""
++    parser = argparse.ArgumentParser(prog="ghost_buster")
++    _add_core_args(parser)
++    _add_operate_args(parser)
++    _add_report_args(parser)
++    _add_annotate_args(parser)
++    _add_mutate_args(parser)
++    _add_branches_args(parser)
++    _add_trust_and_test_args(parser)
++    _add_secrets_args(parser)
++    _add_correlate_args(parser)
++    _add_project_and_kernel_args(parser)
++    _add_structure_args(parser)
++    _add_ledger_args(parser)
+     return parser
+ 
+ 
+diff --git a/ghost_buster/correlate.py b/ghost_buster/correlate.py
+index a072784..0ffe3f7 100644
+--- a/ghost_buster/correlate.py
++++ b/ghost_buster/correlate.py
+@@ -243,6 +243,43 @@ def correlate_secret_in_duplicated_file(data: CorrelationInput) -> List[Finding]
+ # ---------------------------------------------------------------------------
+ 
+ @connector("secret_in_multiple_repositories")
++def _build_secret_cross_repo_finding(secret: Finding, fingerprint: str, elsewhere: List[Tuple[str, Finding]]) -> Finding:
++    """Build a Finding for a secret appearing in multiple repositories."""
++    labels = ", ".join(label for label, _ in elsewhere)
++    return Finding(
++        detector="secret_in_multiple_repositories",
++        category=Category.COMMITTED_SECRET,
++        layer=Layer.MECHANICAL,
++        severity=Severity.CRITICAL,
++        status=Status.CONFIRMED,
++        summary=(
++            f"the '{secret.attributes.get('rule', 'unknown-rule')}' secret in "
++            f"{secret.evidence.file} is the same leak as one in: {labels}"
++        ),
++        detail=(
++            "Matched on gitleaks' own fingerprint (commit:file:rule:line), so this "
++            "is the same commit carrying the same secret in more than one "
++            "repository -- a fork, a vendored copy, or a directory copied with its "
++            "history. A single-repository scan cannot see this: each repository "
++            "reports its own leak with nothing to say they are one credential. "
++            "Rotate once; purge history in every repository listed, or the "
++            "rotation is the only thing that happened.\n"
++            f"Fingerprint: {fingerprint}\n"
++            f"Built from findings: {_ids([secret] + [f for _, f in elsewhere])}."
++        ),
++        attributes={
++            "fingerprint": fingerprint,
++            "repositories": str(len(elsewhere) + 1),
++            "also_in": labels,
++        },
++        evidence=Evidence(
++            file=secret.evidence.absolute_file or secret.evidence.file,
++            line_start=secret.evidence.line_start,
++            line_end=secret.evidence.line_end,
++        ),
++    )
++
++
+ def correlate_secret_across_repositories(data: CorrelationInput) -> List[Finding]:
+     """The same leak, by gitleaks' own fingerprint, in more than one
+     repository.
+@@ -282,48 +319,12 @@ def correlate_secret_across_repositories(data: CorrelationInput) -> List[Finding
+             for other in prior.findings:
+                 if other.detector != "committed_secret":
+                     continue
+-                # Same default on both sides. With one side defaulting to
+-                # None and the other to "", two findings that both lack a
+-                # fingerprint could never collide -- which quietly made the
+-                # empty-key guard above unreachable rather than unnecessary.
+                 if other.attributes.get("fingerprint", "") == fingerprint:
+                     elsewhere.append((prior.label, other))
+                     break
+         if not elsewhere:
+             continue
+-        labels = ", ".join(label for label, _ in elsewhere)
+-        out.append(Finding(
+-            detector="secret_in_multiple_repositories",
+-            category=Category.COMMITTED_SECRET,
+-            layer=Layer.MECHANICAL,
+-            severity=Severity.CRITICAL,
+-            status=Status.CONFIRMED,
+-            summary=(
+-                f"the '{secret.attributes.get('rule', 'unknown-rule')}' secret in "
+-                f"{secret.evidence.file} is the same leak as one in: {labels}"
+-            ),
+-            detail=(
+-                "Matched on gitleaks' own fingerprint (commit:file:rule:line), so this "
+-                "is the same commit carrying the same secret in more than one "
+-                "repository -- a fork, a vendored copy, or a directory copied with its "
+-                "history. A single-repository scan cannot see this: each repository "
+-                "reports its own leak with nothing to say they are one credential. "
+-                "Rotate once; purge history in every repository listed, or the "
+-                "rotation is the only thing that happened.\n"
+-                f"Fingerprint: {fingerprint}\n"
+-                f"Built from findings: {_ids([secret] + [f for _, f in elsewhere])}."
+-            ),
+-            attributes={
+-                "fingerprint": fingerprint,
+-                "repositories": str(len(elsewhere) + 1),
+-                "also_in": labels,
+-            },
+-            evidence=Evidence(
+-                file=secret.evidence.absolute_file or secret.evidence.file,
+-                line_start=secret.evidence.line_start,
+-                line_end=secret.evidence.line_end,
+-            ),
+-        ))
++        out.append(_build_secret_cross_repo_finding(secret, fingerprint, elsewhere))
+     return out
+ 
+ 
+@@ -406,6 +407,46 @@ def correlate_conflict_marker_breaks_tests(data: CorrelationInput) -> List[Findi
+ # ---------------------------------------------------------------------------
+ 
+ @connector("doc_count_contradicted_by_run")
++def _build_doc_count_finding(drift: Finding, documented: str, static: str, collected: int, passed: int, not_passing: int) -> Finding:
++    """Build a Finding when documented test count contradicts actual run."""
++    return Finding(
++        detector="doc_count_contradicted_by_run",
++        category=Category.DOC_DRIFT,
++        layer=Layer.MECHANICAL,
++        severity=Severity.MINOR if not_passing == 0 else Severity.MAJOR,
++        status=Status.CONFIRMED,
++        summary=(
++            f"'{drift.evidence.file}' claims {documented} test(s); the suite "
++            f"actually collects {collected} and {passed} pass"
++            + ("" if not_passing == 0 else f" ({not_passing} do not)")
++        ),
++        detail=(
++            "The static count is a lower bound and says so; this is the measured "
++            f"number from the run that just happened. Write {collected} into the "
++            "doc, not the static bound of "
++            f"{static or 'the AST scan'}."
++            + ("" if not_passing == 0 else
++               f" Note also that {not_passing} collected test(s) did not pass, so a "
++               "sentence claiming this suite is green is wrong independently of the "
++               "number.")
++            + f"\nBuilt from findings: {_ids([drift])} plus the --tests run."
++        ),
++        attributes={
++            "drift_finding": drift.id,
++            "documented_count": documented,
++            "collected": str(collected),
++            "passed": str(passed),
++            "writable": drift.attributes.get("writable", "no"),
++            "not_writable_because": drift.attributes.get("not_writable_because", ""),
++        },
++        evidence=Evidence(
++            file=drift.evidence.absolute_file or drift.evidence.file,
++            line_start=drift.evidence.line_start,
++            line_end=drift.evidence.line_end,
++        ),
++    )
++
++
+ def correlate_doc_count_against_run(data: CorrelationInput) -> List[Finding]:
+     """A documented test count, checked against the suite actually running.
+ 
+@@ -440,37 +481,47 @@ def correlate_doc_count_against_run(data: CorrelationInput) -> List[Finding]:
+     passed = int(getattr(report, "passed", 0) or 0)
+     not_passing = collected - passed
+ 
++    # WHAT NEVER RAN IS NOT IN EITHER NUMBER (v1.7.3).
++    #
++    # A module that cannot be imported contributes nothing to `collected`
++    # and nothing to `passed`, so `collected - passed` is zero and the
++    # suite reads as green. It is not green. Nobody knows what it is,
++    # because a whole file of it never executed.
++    #
++    # This tool already knows: the same run reports the blocked module as
++    # its own finding, in the same report, with the missing import named.
++    # Left out of these attributes, that knowledge never reached the
++    # remedy, which wrote "N tests, all passing" into a README over a
++    # suite with a file that could not be collected. Found by an
++    # adversarial harness; the mechanism is ordinary -- an optional
++    # dependency that is not installed in somebody's environment.
++    errored = int(getattr(report, "errored", 0) or 0)
++    blocked = int(getattr(report, "blocked", 0) or 0)
++    unexamined = max(errored, blocked)
++
+     out: List[Finding] = []
+     for drift in drifts:
+         documented = drift.attributes.get("documented_count", "")
+         static = drift.attributes.get("static_lower_bound", "")
+         if not documented:
+             continue
+-        # Re-check the claim's shape rather than trusting that the detector
+-        # filtered it. This connector does not merely repeat its input, it
+-        # tells the reader to write a specific number into a specific file,
+-        # and that instruction is wrong unless the number really is a claim
+-        # about the current suite. "gained 13 tests" is a delta, "went from
+-        # 255 to 272 tests" a recorded transition, and a quoted count
+-        # belongs to whoever was quoted -- writing today's total over any of
+-        # them replaces something true with something false.
+-        #
+-        # Measured on ghost_tools itself: before the detector learned these
+-        # shapes, all three of its drift findings were one of them, and this
+-        # connector confidently recommended overwriting all three.
+         shape = claim_shape(drift.attributes.get("claim_context", ""))
+         if shape is not None:
+             continue
++        out.append(_build_doc_count_finding(drift, documented, static, collected, passed, not_passing))
+         out.append(Finding(
+             detector="doc_count_contradicted_by_run",
+             category=Category.DOC_DRIFT,
+             layer=Layer.MECHANICAL,
+-            severity=Severity.MINOR if not_passing == 0 else Severity.MAJOR,
++            severity=(Severity.MINOR if not_passing == 0 and not unexamined
++                      else Severity.MAJOR),
+             status=Status.CONFIRMED,
+             summary=(
+                 f"'{drift.evidence.file}' claims {documented} test(s); the suite "
+                 f"actually collects {collected} and {passed} pass"
+                 + ("" if not_passing == 0 else f" ({not_passing} do not)")
++                + ("" if not unexamined
++                   else f"; {unexamined} test file(s) did not run at all")
+             ),
+             detail=(
+                 "The static count is a lower bound and says so; this is the measured "
+@@ -481,13 +532,33 @@ def correlate_doc_count_against_run(data: CorrelationInput) -> List[Finding]:
+                    f" Note also that {not_passing} collected test(s) did not pass, so a "
+                    "sentence claiming this suite is green is wrong independently of the "
+                    "number.")
++                + ("" if not unexamined else
++                   f" And {unexamined} test file(s) could not be collected, so "
++                   "neither number describes the whole suite: what never ran is "
++                   "absent from the collected count and from the passed count "
++                   "alike, which is why subtracting one from the other says "
++                   "green. Nothing may be written into a document from this "
++                   "run until the suite runs.")
+                 + f"\nBuilt from findings: {_ids([drift])} plus the --tests run."
+             ),
++            # Everything measured is excluded. `collected`, `passed` and
++            # `unexamined` all move with the suite while the claim being
++            # contradicted stays exactly as wrong as it was. See
++            # `Finding.identity_key`.
++            identity_key=f"claims {documented} test(s), contradicted by the run",
+             attributes={
+                 "drift_finding": drift.id,
+                 "documented_count": documented,
+                 "collected": str(collected),
+                 "passed": str(passed),
++                # The part of the suite that produced no result either way.
++                # A remedy that writes a measured total into somebody's
++                # document has to be able to see that the measurement is
++                # incomplete, and `collected - passed` structurally cannot
++                # show it.
++                "unexamined": str(unexamined),
++                "errored": str(errored),
++                "blocked": str(blocked),
+                 # Carried, not recomputed: the verdict needs the document's
+                 # name and the text around the claim, and this connector has
+                 # neither. The detector read both and said so.
+diff --git a/ghost_buster/ledger.py b/ghost_buster/ledger.py
+index 00bbd7f..bb75af8 100644
+--- a/ghost_buster/ledger.py
++++ b/ghost_buster/ledger.py
+@@ -288,6 +288,39 @@ class Ledger:
+ 
+     # ---------------------------------------------------------------- record
+ 
++    def _update_finding_histories(
++        self, findings_by_id: Dict[str, Finding], seen_now: set, at: str, commit: str,
++    ) -> None:
++        """Update finding history for findings seen in this run and mark absent ones."""
++        for fid, hist in self.findings.items():
++            if fid in seen_now:
++                continue
++            hist.consecutive = 0
++            hist.absent_last_run = True
++
++        for fid in sorted(seen_now):
++            f = findings_by_id[fid]
++            hist = self.findings.get(fid)
++            if hist is None:
++                hist = FindingHistory(finding_id=fid, first_seen=at, first_commit=commit)
++                self.findings[fid] = hist
++            elif hist.absent_last_run:
++                hist.returns += 1
++            hist.detector = f.detector
++            hist.file = f.evidence.file
++            hist.summary = f.summary
++            hist.severity = f.severity.value if hasattr(f.severity, "value") else str(f.severity)
++            hist.last_seen = at
++            hist.last_commit = commit
++            hist.runs_seen += 1
++            hist.consecutive += 1
++            hist.absent_last_run = False
++            if f.disposition:
++                hist.dispositions.append({
++                    "at": at, "state": str(f.disposition),
++                    "note": f.disposition_note or "",
++                })
++
+     def record(
+         self, findings: Sequence[Finding], *, checks: Dict[str, str],
+         commit: str, tool_version: str, at: Optional[str] = None,
+@@ -312,19 +345,6 @@ class Ledger:
+             records=dict(records or {}),
+         )
+ 
+-        # The ledger never remembers its own output. Without this, a
+-        # `regressed_finding` becomes a finding that can itself regress,
+-        # and history compounds on history -- the same trap correlate.py
+-        # closes by refusing to correlate correlations.
+-        # And never remembers a claim as though it were a measurement. A
+-        # FindingHistory has no status field, so a REASONED finding folded
+-        # in here would be indistinguishable from a detector's output on
+-        # every future read. See schema.authoritative.
+-        #
+-        # Both filters change what is REMEMBERED, never what the run is
+-        # reported to have found: `counts["found"]` above is the scan's own
+-        # number, and a ledger that quietly counted fewer findings than the
+-        # report printed would be its own drift.
+         findings = authoritative(f for f in findings if f.detector != DETECTOR)
+         run.counts["found_remembered"] = len(findings)
+         if scanned is not None:
+@@ -333,51 +353,12 @@ class Ledger:
+         seen_now = {f.id for f in findings}
+         by_id = {f.id: f for f in findings}
+ 
+-        for fid, hist in self.findings.items():
+-            if fid in seen_now:
+-                continue
+-            # Absent this run. Streak breaks; the absence is what makes a
+-            # later sighting a RETURN rather than a first sighting.
+-            hist.consecutive = 0
+-            hist.absent_last_run = True
+-
+-        for fid in sorted(seen_now):
+-            f = by_id[fid]
+-            hist = self.findings.get(fid)
+-            if hist is None:
+-                hist = FindingHistory(finding_id=fid, first_seen=at, first_commit=commit)
+-                self.findings[fid] = hist
+-            elif hist.absent_last_run:
+-                # It was gone and it is back. This is the fact the baseline
+-                # structurally cannot hold: to a set of ids, a return and a
+-                # first sighting are the same event.
+-                hist.returns += 1
+-            hist.detector = f.detector
+-            hist.file = f.evidence.file
+-            hist.summary = f.summary
+-            hist.severity = f.severity.value if hasattr(f.severity, "value") else str(f.severity)
+-            hist.last_seen = at
+-            hist.last_commit = commit
+-            hist.runs_seen += 1
+-            hist.consecutive += 1
+-            hist.absent_last_run = False
+-            if f.disposition:
+-                hist.dispositions.append({
+-                    "at": at, "state": str(f.disposition),
+-                    "note": f.disposition_note or "",
+-                })
++        self._update_finding_histories(by_id, seen_now, at, commit)
+ 
+-        # The link is computed LAST, over the run exactly as it will be
+-        # written: every count is set by now. Computing it at construction
+-        # meant the stored link described a run that no longer existed by
+-        # the time it was saved, and every link read back as broken.
+         run.link = attest.link(self.runs[-1].link if self.runs else "", run.to_dict())
+         self.runs.append(run)
+         self.totals["runs"] = self.run_count + 1
+         if len(self.runs) > MAX_RUNS_KEPT:
+-            # Aged-out runs survive as counters, never as nothing: the
+-            # blind-spot streak below counts over kept runs, so the cap is
+-            # also the ceiling on how far back a streak can be proven.
+             for old in self.runs[:-MAX_RUNS_KEPT]:
+                 for name, state in old.checks.items():
+                     key = f"check.{name}.{state}"
+diff --git a/ghost_buster/mechanical.py b/ghost_buster/mechanical.py
+index a682e81..fc6053c 100644
+--- a/ghost_buster/mechanical.py
++++ b/ghost_buster/mechanical.py
+@@ -646,65 +646,25 @@ def detect_unassessable_file(files: List[Path]) -> List[Finding]:
+ # referenced anywhere else in the scanned file set.
+ # ---------------------------------------------------------------------------
+ 
+-@register("dead_code")
+-def detect_dead_code(files: List[Path]) -> List[Finding]:
+-    """Flags a module-level def/class whose name never appears as an
+-    identifier anywhere else in the scanned set.
++def _is_protocol_or_abc_class(class_node: ast.ClassDef) -> bool:
++    """Check if a class declaration inherits from Protocol or ABC."""
++    for base in class_node.bases:
++        base_name = base.id if isinstance(base, ast.Name) else (
++            base.attr if isinstance(base, ast.Attribute) else None
++        )
++        if base_name in ("Protocol", "ABC"):
++            return True
++    return False
+ 
+-    DELIBERATELY CONSERVATIVE, false-negatives over false-positives:
+-    - dunder methods, test_* functions, and anything starting with
+-      leading underscore-free public names re-exported via __all__ are
+-      excluded from consideration as "never referenced" even if a
+-      naive scan would miss the reference (dynamic dispatch, string-based
+-      lookup, decorators, __all__ export).
+-    - CLASSES DECLARING Protocol OR ABC AS A BASE ARE EXCLUDED ENTIRELY
+-      (v0.1.1, added after a real false-positive run against ANVIL): an
+-      interface/Protocol class's whole purpose is often to have ZERO
+-      references within the file that defines it -- external implementers
+-      are the intended consumers, and this detector has no visibility
+-      into other repos. Flagging every Protocol/ABC as "dead" produced
+-      pure noise on real code (GovernanceModule(Protocol) in ANVIL.py,
+-      confirmed). Matched by simple base-expression name, not real type
+-      resolution -- this is an AST-only tool by design.
+-    - A STRING CONSTANT USED AS A SUBSCRIPT KEY counts as a reference too
+-      (v0.1.1, same ANVIL run): `registry["SomeName"]` is a real,
+-      extremely common dynamic-dispatch pattern (dict-based registries,
+-      plugin lookups, and -- the exact case found live -- a validation
+-      harness that loads a module via exec() into a dict and pulls names
+-      out by string key rather than a normal import). This does not
+-      attempt to trace exec()/importlib specifically; it generalizes past
+-      that one case to anything keying a lookup by a name-shaped string
+-      literal, which covers considerably more real dynamic-dispatch code
+-      than special-casing exec() alone would.
+-    - A name is "referenced" if it appears as an ast.Name/ast.Attribute,
+-      OR as a string-constant ast.Subscript key, ANYWHERE else in the
+-      corpus, including in the same file (covers self-reference,
+-      recursive helpers, internal use) -- this detector only flags things
+-      that look completely unreferenced, not merely privately-scoped.
+-    - Only module-level defs are considered (not methods) -- a method
+-      that's part of a class's public interface can be legitimately
+-      "unreferenced" in-repo (called by external consumers), and
+-      flagging every unused method would produce overwhelming noise for
+-      a v0.1. This is a real, disclosed scope limit, not an oversight.
+-    - Residual, still disclosed and not fixed by the above: getattr-by-
+-      string and decorator-based registration (this tool's own
+-      @register pattern is the concrete example -- it self-flags on
+-      ghost_buster's own codebase, see README) are still untraced.
+-    """
++
++def _extract_definitions_and_exports(
++    files: List[Path],
++) -> tuple[Dict[str, List[Path]], Set[str], Dict[Path, ast.Module]]:
++    """Parse files and extract module-level definitions plus __all__ exports."""
+     definitions: Dict[str, List[Path]] = {}
+-    referenced_names: Set[str] = set()
+     exported_names: Set[str] = set()
++    parsed: Dict[Path, ast.Module] = {}
+ 
+-    def _is_protocol_or_abc(class_node: ast.ClassDef) -> bool:
+-        for base in class_node.bases:
+-            base_name = base.id if isinstance(base, ast.Name) else (
+-                base.attr if isinstance(base, ast.Attribute) else None
+-            )
+-            if base_name in ("Protocol", "ABC"):
+-                return True
+-        return False
+-
+-    parsed = {}
+     for path in files:
+         tree = _parse(path)
+         if tree is None:
+@@ -718,7 +678,7 @@ def detect_dead_code(files: List[Path]) -> List[Finding]:
+                     continue
+                 if node.name.startswith("test_") or node.name.startswith("Test"):
+                     continue
+-                if isinstance(node, ast.ClassDef) and _is_protocol_or_abc(node):
++                if isinstance(node, ast.ClassDef) and _is_protocol_or_abc_class(node):
+                     continue
+                 definitions.setdefault(node.name, []).append(path)
+             if isinstance(node, ast.Assign):
+@@ -729,7 +689,13 @@ def detect_dead_code(files: List[Path]) -> List[Finding]:
+                                 if isinstance(elt, ast.Constant) and isinstance(elt.value, str):
+                                     exported_names.add(elt.value)
+ 
+-    for path, tree in parsed.items():
++    return definitions, exported_names, parsed
++
++
++def _collect_references(parsed: Dict[Path, ast.Module]) -> Set[str]:
++    """Walk all parsed trees and collect all referenced names."""
++    referenced_names: Set[str] = set()
++    for tree in parsed.values():
+         for node in ast.walk(tree):
+             if isinstance(node, ast.Name):
+                 referenced_names.add(node.id)
+@@ -739,7 +705,15 @@ def detect_dead_code(files: List[Path]) -> List[Finding]:
+                 key = node.slice
+                 if isinstance(key, ast.Constant) and isinstance(key.value, str):
+                     referenced_names.add(key.value)
++    return referenced_names
++
+ 
++def _build_dead_code_findings(
++    definitions: Dict[str, List[Path]],
++    exported_names: Set[str],
++    referenced_names: Set[str],
++) -> List[Finding]:
++    """Build findings for definitions that are neither exported nor referenced."""
+     findings: List[Finding] = []
+     for name, def_paths in definitions.items():
+         if name in exported_names:
+@@ -767,6 +741,56 @@ def detect_dead_code(files: List[Path]) -> List[Finding]:
+     return findings
+ 
+ 
++@register("dead_code")
++def detect_dead_code(files: List[Path]) -> List[Finding]:
++    """Flags a module-level def/class whose name never appears as an
++    identifier anywhere else in the scanned set.
++
++    DELIBERATELY CONSERVATIVE, false-negatives over false-positives:
++    - dunder methods, test_* functions, and anything starting with
++      leading underscore-free public names re-exported via __all__ are
++      excluded from consideration as "never referenced" even if a
++      naive scan would miss the reference (dynamic dispatch, string-based
++      lookup, decorators, __all__ export).
++    - CLASSES DECLARING Protocol OR ABC AS A BASE ARE EXCLUDED ENTIRELY
++      (v0.1.1, added after a real false-positive run against ANVIL): an
++      interface/Protocol class's whole purpose is often to have ZERO
++      references within the file that defines it -- external implementers
++      are the intended consumers, and this detector has no visibility
++      into other repos. Flagging every Protocol/ABC as "dead" produced
++      pure noise on real code (GovernanceModule(Protocol) in ANVIL.py,
++      confirmed). Matched by simple base-expression name, not real type
++      resolution -- this is an AST-only tool by design.
++    - A STRING CONSTANT USED AS A SUBSCRIPT KEY counts as a reference too
++      (v0.1.1, same ANVIL run): `registry["SomeName"]` is a real,
++      extremely common dynamic-dispatch pattern (dict-based registries,
++      plugin lookups, and -- the exact case found live -- a validation
++      harness that loads a module via exec() into a dict and pulls names
++      out by string key rather than a normal import). This does not
++      attempt to trace exec()/importlib specifically; it generalizes past
++      that one case to anything keying a lookup by a name-shaped string
++      literal, which covers considerably more real dynamic-dispatch code
++      than special-casing exec() alone would.
++    - A name is "referenced" if it appears as an ast.Name/ast.Attribute,
++      OR as a string-constant ast.Subscript key, ANYWHERE else in the
++      corpus, including in the same file (covers self-reference,
++      recursive helpers, internal use) -- this detector only flags things
++      that look completely unreferenced, not merely privately-scoped.
++    - Only module-level defs are considered (not methods) -- a method
++      that's part of a class's public interface can be legitimately
++      "unreferenced" in-repo (called by external consumers), and
++      flagging every unused method would produce overwhelming noise for
++      a v0.1. This is a real, disclosed scope limit, not an oversight.
++    - Residual, still disclosed and not fixed by the above: getattr-by-
++      string and decorator-based registration (this tool's own
++      @register pattern is the concrete example -- it self-flags on
++      ghost_buster's own codebase, see README) are still untraced.
++    """
++    definitions, exported_names, parsed = _extract_definitions_and_exports(files)
++    referenced_names = _collect_references(parsed)
++    return _build_dead_code_findings(definitions, exported_names, referenced_names)
++
++
+ # ---------------------------------------------------------------------------
+ # Detector: long_function -- functions whose body exceeds a line-count
+ # threshold, a cheap, real proxy for the "Long Method" smell.
+@@ -942,6 +966,56 @@ def detect_duplicate_files(files: List[Path]) -> List[Finding]:
+     return findings
+ 
+ 
++def _build_fingerprints(representatives: List[Path], min_lines: int) -> Dict[str, List[tuple]]:
++    """Build structural fingerprints for all functions in representative files."""
++    by_fingerprint: Dict[str, List[tuple]] = {}
++    for path in representatives:
++        tree = _parse(path)
++        if tree is None:
++            continue
++        for node in ast.walk(tree):
++            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
++                if node.end_lineno is None or (node.end_lineno - node.lineno) < min_lines:
++                    continue
++                fp = _structural_fingerprint(node)
++                by_fingerprint.setdefault(fp, []).append((path, node))
++    return by_fingerprint
++
++
++def _build_duplicate_finding(fp: str, occurrences: List[tuple]) -> Finding:
++    """Build a Finding for a cluster of duplicate functions."""
++    names = [f"{p.name}:{n.lineno}:{n.name}" for p, n in occurrences]
++    primary_path, primary_node = occurrences[0]
++    if all(_is_test_file(p) for p, _ in occurrences):
++        severity = Severity.INFORMATIONAL
++    elif len(occurrences) > 2:
++        severity = Severity.MAJOR
++    else:
++        severity = Severity.MINOR
++    return Finding(
++        detector="near_duplicate_function",
++        category=Category.DUPLICATION,
++        layer=Layer.MECHANICAL,
++        severity=severity,
++        status=Status.CONFIRMED,
++        summary=(
++            f"{len(occurrences)} functions share identical AST structure "
++            f"(names/literals differ, control flow and shape don't): {', '.join(names)}"
++        ),
++        detail=(
++            "Structural fingerprint match, not textual diff -- this is the "
++            "'copy-pasted then renamed' shape specifically. Confirm these are "
++            "actually solving the same problem before merging; some structural "
++            "matches are coincidental (e.g. two unrelated simple validators)."
++        ),
++        evidence=Evidence(
++            file=str(primary_path), line_start=primary_node.lineno,
++            line_end=primary_node.end_lineno,
++            related_files=[str(p) for p, _ in occurrences[1:]],
++        ),
++    )
++
++
+ @register("near_duplicate_function")
+ def detect_near_duplicate_functions(files: List[Path], min_lines: int = 10) -> List[Finding]:
+     """Groups functions by structural fingerprint; any group with 2+
+@@ -963,73 +1037,18 @@ def detect_near_duplicate_functions(files: List[Path], min_lines: int = 10) -> L
+         suite looks like, and the README had already disclosed it as the
+         detector's dominant noise. MAJOR findings went from 42 to 27.
+     """
+-    representatives: List[Path] = []
+     seen_twins = set()
+     for _digest, group in _identical_file_groups(files):
+         for path in sorted(group)[1:]:
+             seen_twins.add(path)
+     representatives = [p for p in files if p not in seen_twins]
+ 
+-    by_fingerprint: Dict[str, List[tuple]] = {}
+-    for path in representatives:
+-        tree = _parse(path)
+-        if tree is None:
+-            continue
+-        for node in ast.walk(tree):
+-            if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef)):
+-                if node.end_lineno is None:
+-                    continue
+-                if (node.end_lineno - node.lineno) < min_lines:
+-                    continue
+-                fp = _structural_fingerprint(node)
+-                by_fingerprint.setdefault(fp, []).append((path, node))
++    by_fingerprint = _build_fingerprints(representatives, min_lines)
+ 
+     findings: List[Finding] = []
+     for fp, occurrences in by_fingerprint.items():
+-        if len(occurrences) < 2:
+-            continue
+-        # One label per OCCURRENCE, not per unique (file, name) pair --
+-        # v0.1.2 bug fix, found via a real run against HERALD's own test
+-        # suite: two distinct nested functions both happened to be named
+-        # `thread_b` in the same file (a legitimate, common pattern --
+-        # multiple similarly-shaped test functions each defining their
+-        # own locally-scoped helper of the same name). The original
+-        # `{f"{p.name}:{n.name}"}` SET silently collapsed both into one
+-        # identical string, producing a finding that claimed "2 functions
+-        # share..." while naming only one -- correct occurrence count,
+-        # misleading/incomplete label. Line numbers make every label
+-        # unique by construction; a plain list (not a set) means no
+-        # future case can silently lose an occurrence this way again.
+-        names = [f"{p.name}:{n.lineno}:{n.name}" for p, n in occurrences]
+-        primary_path, primary_node = occurrences[0]
+-        if all(_is_test_file(p) for p, _ in occurrences):
+-            severity = Severity.INFORMATIONAL
+-        elif len(occurrences) > 2:
+-            severity = Severity.MAJOR
+-        else:
+-            severity = Severity.MINOR
+-        findings.append(Finding(
+-            detector="near_duplicate_function",
+-            category=Category.DUPLICATION,
+-            layer=Layer.MECHANICAL,
+-            severity=severity,
+-            status=Status.CONFIRMED,
+-            summary=(
+-                f"{len(occurrences)} functions share identical AST structure "
+-                f"(names/literals differ, control flow and shape don't): {', '.join(names)}"
+-            ),
+-            detail=(
+-                "Structural fingerprint match, not textual diff -- this is the "
+-                "'copy-pasted then renamed' shape specifically. Confirm these are "
+-                "actually solving the same problem before merging; some structural "
+-                "matches are coincidental (e.g. two unrelated simple validators)."
+-            ),
+-            evidence=Evidence(
+-                file=str(primary_path), line_start=primary_node.lineno,
+-                line_end=primary_node.end_lineno,
+-                related_files=[str(p) for p, _ in occurrences[1:]],
+-            ),
+-        ))
++        if len(occurrences) >= 2:
++            findings.append(_build_duplicate_finding(fp, occurrences))
+     return findings
+ 
+ 
+@@ -1127,6 +1146,42 @@ def _stmt_candidates(
+                 yield block_index, [stmt]
+ 
+ 
++def _build_intra_dup_finding(path: Path, func: ast.AST, fp: str, units: List[List[ast.stmt]], blocks_of: Dict[str, Set[int]]) -> Finding:
++    """Build a Finding for duplicate blocks within a function."""
++    spans = [f"{u[0].lineno}-{u[-1].lineno}" for u in units]
++    first = units[0]
++    shape_note = (
++        "single statement" if len(first) == 1
++        else f"{len(first)}-statement block"
++    )
++    return Finding(
++        detector="intra_function_duplicate_block",
++        category=Category.DUPLICATION,
++        layer=Layer.MECHANICAL,
++        severity=Severity.MAJOR if len(units) > 2 else Severity.MINOR,
++        status=Status.CONFIRMED,
++        summary=(
++            f"'{func.name}' repeats the same {shape_note} "
++            f"{len(units)} times (lines {', '.join(spans)}): "
++            "same shape, names/literals differ"
++        ),
++        detail=(
++            "Structural fingerprint match within one function, not a "
++            "whole-function match (near_duplicate_function's detection "
++            "is blind to this shape). Typical real cause: several "
++            "branches each hand-build the same kind of object or "
++            "perform the same sequence of calls -- worth a single "
++            "shared helper if the branches really are doing the same "
++            "thing, not just a coincidental resemblance."
++        ),
++        evidence=Evidence(
++            file=str(path), line_start=first[0].lineno,
++            line_end=first[-1].lineno,
++            related_files=[f"{path}:{s}" for s in spans[1:]],
++        ),
++    )
++
++
+ @register("intra_function_duplicate_block")
+ def detect_intra_function_duplicate_blocks(
+     files: List[Path], min_statements: int = 3, min_complexity: int = 20
+@@ -1193,39 +1248,8 @@ def detect_intra_function_duplicate_blocks(
+                 if len(units) < 2:
+                     continue
+                 if len(units[0]) == 1 and len(blocks_of[fp]) < 2:
+-                    continue  # one block repeating a statement is a list, not a ghost
+-                spans = [f"{u[0].lineno}-{u[-1].lineno}" for u in units]
+-                first = units[0]
+-                shape_note = (
+-                    "single statement" if len(first) == 1
+-                    else f"{len(first)}-statement block"
+-                )
+-                findings.append(Finding(
+-                    detector="intra_function_duplicate_block",
+-                    category=Category.DUPLICATION,
+-                    layer=Layer.MECHANICAL,
+-                    severity=Severity.MAJOR if len(units) > 2 else Severity.MINOR,
+-                    status=Status.CONFIRMED,
+-                    summary=(
+-                        f"'{func.name}' repeats the same {shape_note} "
+-                        f"{len(units)} times (lines {', '.join(spans)}): "
+-                        "same shape, names/literals differ"
+-                    ),
+-                    detail=(
+-                        "Structural fingerprint match within one function, not a "
+-                        "whole-function match (near_duplicate_function's detection "
+-                        "is blind to this shape). Typical real cause: several "
+-                        "branches each hand-build the same kind of object or "
+-                        "perform the same sequence of calls -- worth a single "
+-                        "shared helper if the branches really are doing the same "
+-                        "thing, not just a coincidental resemblance."
+-                    ),
+-                    evidence=Evidence(
+-                        file=str(path), line_start=first[0].lineno,
+-                        line_end=first[-1].lineno,
+-                        related_files=[f"{path}:{s}" for s in spans[1:]],
+-                    ),
+-                ))
++                    continue
++                findings.append(_build_intra_dup_finding(path, func, fp, units, blocks_of))
+     return findings
+ 
+ 
+@@ -1473,6 +1497,60 @@ def _count_test_functions(files: List[Path]) -> int:
+     return count
+ 
+ 
++def _is_test_count_stale(documented: int, actual: int, min_growth_ratio: float, min_absolute_growth: int) -> bool:
++    """Check if documented test count is stale relative to actual count."""
++    if documented == 0:
++        return False
++    if actual < documented * min_growth_ratio:
++        return False
++    if actual - documented < min_absolute_growth:
++        return False
++    return True
++
++
++def _build_drift_finding(path: Path, text: str, match, documented: int, actual: int) -> Finding:
++    """Build a Finding for stale test count documentation."""
++    before = claim_context(text, match.start())
++    line = text.count("\n", 0, match.start()) + 1
++    refusal = why_not_writable(
++        path.name,
++        text[max(0, match.start() - _WRITABILITY_LOOKBACK):match.start()],
++        text[match.end():match.end() + _WRITABILITY_LOOKBACK])
++
++    return Finding(
++        detector="doc_test_count_drift",
++        category=Category.DOC_DRIFT,
++        layer=Layer.MECHANICAL,
++        severity=Severity.MINOR,
++        status=Status.CONFIRMED,
++        summary=(
++            f"'{path.name}' claims {documented} test(s), but at least "
++            f"{actual} test_* function(s) exist in the scanned .py files "
++            "-- this claim is stale"
++        ),
++        detail=(
++            "actual is a static AST lower bound (functions named test_*, "
++            "counted directly, no pytest run) -- the true collected count "
++            "can only be higher (pytest.mark.parametrize expands one "
++            "function into several cases), never lower, so this can only "
++            "under-flag, not over-flag. Confirm by running the real suite "
++            "and update the claim, or remove the specific number if it "
++            "will keep going stale."
++        ),
++        attributes={
++            "documented_count": str(documented),
++            "static_lower_bound": str(actual),
++            "writable": "no" if refusal else "yes",
++            "not_writable_because": refusal or "",
++            "claim_context": " ".join(before.split()),
++        },
++        evidence=Evidence(
++            file=str(path), line_start=line, line_end=line,
++            snippet=" ".join((before + match.group(0)).split())[-160:],
++        ),
++    )
++
++
+ @register("doc_test_count_drift")
+ def detect_doc_test_count_drift(
+     files: List[Path], min_growth_ratio: float = 1.15, min_absolute_growth: int = 10
+@@ -1508,58 +1586,12 @@ def detect_doc_test_count_drift(
+             continue
+         for match in _TEST_COUNT_CLAIM_RE.finditer(text):
+             documented = int(match.group(1))
+-            if documented == 0:
+-                continue
+             before = claim_context(text, match.start())
+             if claim_shape(before) is not None:
+                 continue
+-            if actual < documented * min_growth_ratio:
+-                continue
+-            if actual - documented < min_absolute_growth:
++            if not _is_test_count_stale(documented, actual, min_growth_ratio, min_absolute_growth):
+                 continue
+-            line = text.count("\n", 0, match.start()) + 1
+-            refusal = why_not_writable(
+-                path.name,
+-                text[max(0, match.start() - _WRITABILITY_LOOKBACK):match.start()],
+-                text[match.end():match.end() + _WRITABILITY_LOOKBACK])
+-            findings.append(Finding(
+-                detector="doc_test_count_drift",
+-                category=Category.DOC_DRIFT,
+-                layer=Layer.MECHANICAL,
+-                severity=Severity.MINOR,
+-                status=Status.CONFIRMED,
+-                summary=(
+-                    f"'{path.name}' claims {documented} test(s), but at least "
+-                    f"{actual} test_* function(s) exist in the scanned .py files "
+-                    "-- this claim is stale"
+-                ),
+-                detail=(
+-                    "actual is a static AST lower bound (functions named test_*, "
+-                    "counted directly, no pytest run) -- the true collected count "
+-                    "can only be higher (pytest.mark.parametrize expands one "
+-                    "function into several cases), never lower, so this can only "
+-                    "under-flag, not over-flag. Confirm by running the real suite "
+-                    "and update the claim, or remove the specific number if it "
+-                    "will keep going stale."
+-                ),
+-                attributes={
+-                    "documented_count": str(documented),
+-                    "static_lower_bound": str(actual),
+-                    # Reported either way; rewritten only when this is "yes".
+-                    # See why_not_writable: a claim worth telling somebody
+-                    # about is not automatically one a machine may edit.
+-                    "writable": "no" if refusal else "yes",
+-                    "not_writable_because": refusal or "",
+-                    # The text this claim sits in, so a consumer can re-run
+-                    # claim_shape() itself instead of assuming the claim was
+-                    # already filtered. correlate.py does.
+-                    "claim_context": " ".join(before.split()),
+-                },
+-                evidence=Evidence(
+-                    file=str(path), line_start=line, line_end=line,
+-                    snippet=" ".join((before + match.group(0)).split())[-160:],
+-                ),
+-            ))
++            findings.append(_build_drift_finding(path, text, match, documented, actual))
+     return findings
+ 
+ 
+@@ -1581,6 +1613,49 @@ def _next_matching(lines: List[str], pattern: "re.Pattern[str]", start: int) ->
+     return next((j for j in range(start, len(lines)) if pattern.match(lines[j])), None)
+ 
+ 
++def _conflict_findings(path: Path) -> List[Finding]:
++    try:
++        text = path.read_text(encoding="utf-8")
++    except (OSError, UnicodeDecodeError):
++        return []
++    lines = text.splitlines()
++    findings: List[Finding] = []
++    i = 0
++    while i < len(lines):
++        if not _CONFLICT_OURS.match(lines[i]):
++            i += 1
++            continue
++        ours_line = i
++        sep_line = _next_matching(lines, _CONFLICT_SEP, ours_line + 1)
++        theirs_line = (
++            _next_matching(lines, _CONFLICT_THEIRS, sep_line + 1)
++            if sep_line is not None else None
++        )
++        if sep_line is None or theirs_line is None:
++            i = ours_line + 1
++            continue
++        findings.append(Finding(
++            detector="merge_conflict_marker",
++            category=Category.MERGE_CONFLICT_MARKER,
++            layer=Layer.MECHANICAL,
++            severity=Severity.CRITICAL,
++            status=Status.CONFIRMED,
++            summary=f"unresolved merge conflict marker in {path.name}",
++            detail=(
++                f"lines {ours_line + 1}-{theirs_line + 1}: a <<<<<<< / ======= / "
++                ">>>>>>> triplet is still in this file. Whatever is between the "
++                "markers is almost certainly not the intended content, and in a "
++                ".py file this line shape alone is very likely a syntax error."
++            ),
++            evidence=Evidence(
++                file=str(path), line_start=ours_line + 1, line_end=theirs_line + 1,
++                snippet=lines[ours_line][:200],
++            ),
++        ))
++        i = theirs_line + 1
++    return findings
++
++
+ @register("merge_conflict_marker")
+ def detect_merge_conflict_markers(files: List[Path]) -> List[Finding]:
+     """Flags an unresolved conflict-marker triplet: a `<<<<<<<` line,
+@@ -1628,44 +1703,7 @@ def detect_merge_conflict_markers(files: List[Path]) -> List[Finding]:
+     """
+     findings: List[Finding] = []
+     for path in files:
+-        try:
+-            text = path.read_text(encoding="utf-8")
+-        except (OSError, UnicodeDecodeError):
+-            continue
+-        lines = text.splitlines()
+-        i = 0
+-        while i < len(lines):
+-            if not _CONFLICT_OURS.match(lines[i]):
+-                i += 1
+-                continue
+-            ours_line = i
+-            sep_line = _next_matching(lines, _CONFLICT_SEP, ours_line + 1)
+-            theirs_line = (
+-                _next_matching(lines, _CONFLICT_THEIRS, sep_line + 1)
+-                if sep_line is not None else None
+-            )
+-            if sep_line is None or theirs_line is None:
+-                i = ours_line + 1
+-                continue
+-            findings.append(Finding(
+-                detector="merge_conflict_marker",
+-                category=Category.MERGE_CONFLICT_MARKER,
+-                layer=Layer.MECHANICAL,
+-                severity=Severity.CRITICAL,
+-                status=Status.CONFIRMED,
+-                summary=f"unresolved merge conflict marker in {path.name}",
+-                detail=(
+-                    f"lines {ours_line + 1}-{theirs_line + 1}: a <<<<<<< / ======= / "
+-                    ">>>>>>> triplet is still in this file. Whatever is between the "
+-                    "markers is almost certainly not the intended content, and in a "
+-                    ".py file this line shape alone is very likely a syntax error."
+-                ),
+-                evidence=Evidence(
+-                    file=str(path), line_start=ours_line + 1, line_end=theirs_line + 1,
+-                    snippet=lines[ours_line][:200],
+-                ),
+-            ))
+-            i = theirs_line + 1
++        findings.extend(_conflict_findings(path))
+     return findings
+ 
+ 
+diff --git a/ghost_buster/mutation.py b/ghost_buster/mutation.py
+index 1a7d494..68fae27 100644
+--- a/ghost_buster/mutation.py
++++ b/ghost_buster/mutation.py
+@@ -605,6 +605,38 @@ def _write_tree(path: Path, tree: ast.Module) -> None:
+     path.write_text(ast.unparse(tree) + "\n", encoding="utf-8")
+ 
+ 
++def _test_mutant(scratch: "_Scratch", mutant: Mutant, cand: Candidate, timeout: float) -> bool:
++    """Test a single mutant. Parse, apply mutation, run test, and set outcome.
++    Returns True if mutant survived (is a proof of vacuity), False otherwise."""
++    original = mutant.target_file if mutant.target_file else cand.test_file
++    tree = _safe_parse(original)
++    if tree is None:
++        mutant.outcome = "error"
++        mutant.output_tail = "could not parse target"
++        return False
++    applied, description = _apply(mutant, tree)
++    if not applied:
++        return False
++    mutant.description = description
++    _write_tree(scratch.path_for(original), tree)
++    try:
++        outcome, tail = _run_test(scratch, cand, timeout)
++    finally:
++        scratch.restore(original)
++    mutant.output_tail = tail
++    if cand.shape == "guarded_assertion":
++        some_case_passed = " passed" in (mutant.output_tail or "").splitlines()[-1:][0] if mutant.output_tail else False
++        if outcome == "failed" and GUARD_MARKER in (mutant.output_tail or "") and not some_case_passed:
++            mutant.outcome = "survived"
++        elif outcome in ("passed", "failed"):
++            mutant.outcome = "killed"
++        else:
++            mutant.outcome = "error"
++    else:
++        mutant.outcome = "survived" if outcome == "passed" else ("killed" if outcome == "failed" else "error")
++    return mutant.outcome == "survived"
++
++
+ def run_mutations(
+     root: Path,
+     files: Iterable[Path],
+@@ -639,7 +671,7 @@ def run_mutations(
+                 run.unjudged.append((cand, f"test does not pass unmutated ({outcome}): {tail[-120:]}"))
+                 continue
+ 
+-            mutants = _plan_mutants(cand, root, file_list, operators, max_mutants_per_candidate)  # ghost_buster: name-disagreement -- `max_mutants_per_candidate` is `cap` in the signature
++            mutants = _plan_mutants(cand, root, file_list, operators, max_mutants_per_candidate)
+             if not mutants:
+                 reason = (
+                     "no enum or literal collection in the project defines these values; nothing to extend"
+@@ -650,42 +682,11 @@ def run_mutations(
+                 continue
+ 
+             for mutant in mutants:
+-                original = mutant.target_file if mutant.target_file else cand.test_file
+-                tree = _safe_parse(original)
+-                if tree is None:
+-                    mutant.outcome = "error"
+-                    mutant.output_tail = "could not parse target"
+-                    run.mutants.append(mutant)
+-                    continue
+-                applied, description = _apply(mutant, tree)
+-                if not applied:
+-                    continue          # operator did not apply to this target; not a mutant
+-                mutant.description = description
+-                _write_tree(scratch.path_for(original), tree)
+-                try:
+-                    outcome, tail = _run_test(scratch, cand, timeout)
+-                finally:
+-                    scratch.restore(original)
+-                mutant.output_tail = tail
+-                if cand.shape == "guarded_assertion":
+-                    # The instrumented test fails with the marker only when the
+-                    # guarded assertions never ran. Any other failure is noise.
+-                    # For a parametrized test the marker fires per case; the
+-                    # guard counts as never taken only if NO case took it,
+-                    # which pytest's summary shows as no "passed" at all.
+-                    some_case_passed = " passed" in (mutant.output_tail or "").splitlines()[-1:][0] if mutant.output_tail else False
+-                    if outcome == "failed" and GUARD_MARKER in (mutant.output_tail or "") and not some_case_passed:
+-                        mutant.outcome = "survived"
+-                    elif outcome in ("passed", "failed"):
+-                        mutant.outcome = "killed"
+-                    else:
+-                        mutant.outcome = "error"
+-                else:
+-                    mutant.outcome = "survived" if outcome == "passed" else ("killed" if outcome == "failed" else "error")
++                survived = _test_mutant(scratch, mutant, cand, timeout)
+                 run.mutants.append(mutant)
+-                if mutant.outcome == "survived":
++                if survived:
+                     run.findings.append(_finding_for(root, mutant))
+-                    break             # one proof is enough; do not pile on
++                    break
+     finally:
+         scratch.close()
+     return run
+diff --git a/ghost_buster/secrets.py b/ghost_buster/secrets.py
+index 7bcb6c3..a922788 100644
+--- a/ghost_buster/secrets.py
++++ b/ghost_buster/secrets.py
+@@ -262,7 +262,8 @@ def _short_message(message: str, limit: int = 90) -> str:
+     return first_line if len(first_line) <= limit else first_line[: limit - 1] + "…"
+ 
+ 
+-def _finding(root: Path, entry: dict) -> Optional[Finding]:  # ghost_buster: name-disagreement -- `entry` is `e` at every call site
++def _extract_entry_fields(entry: dict) -> tuple:
++    """Extract and validate entry fields; returns (file, rule, line, end_line, column, commit, commit_short, fingerprint) or None if invalid."""
+     file = entry.get("File")
+     if not file:
+         return None
+@@ -275,14 +276,11 @@ def _finding(root: Path, entry: dict) -> Optional[Finding]:  # ghost_buster: nam
+     commit = (entry.get("Commit") or "").strip()
+     commit_short = commit[:12] if commit else "unknown commit"
+     fingerprint = entry.get("Fingerprint") or f"{commit}:{file}:{rule}:{line}"
++    return (file, rule, line, end_line, column, commit, commit_short, fingerprint)
+ 
+-    file_path = Path(file)
+-    rel = file_path.as_posix()
+-    location = f"{rel}:{line}" if line is not None else rel
+-    if column is not None:
+-        location += f":{column}"
+-    summary = f"a '{rule}' secret is committed in {location} (commit {commit_short})"
+ 
++def _build_secret_intro(commit_short: str, entry: dict) -> str:
++    """Build the introduction/context line for the detail."""
+     intro = f"Introduced in commit {commit_short}"
+     who = entry.get("Author")
+     if who:
+@@ -293,9 +291,11 @@ def _finding(root: Path, entry: dict) -> Optional[Finding]:  # ghost_buster: nam
+     message = _short_message(entry.get("Message", ""))
+     if message:
+         intro += f": {message!r}"
+-    intro += "."
++    return intro + "."
+ 
+-    description = (entry.get("Description") or "").strip()
++
++def _build_secret_detail_lines(rule: str, intro: str, fingerprint: str, description: str) -> list:
++    """Build all detail lines for the secret finding."""
+     detail_lines = [
+         f"gitleaks rule '{rule}'" + (f": {description}" if description else "."),
+         intro,
+@@ -326,6 +326,25 @@ def _finding(root: Path, entry: dict) -> Optional[Finding]:  # ghost_buster: nam
+         "fingerprint, which gitleaks will honor on the next scan.",
+         f"gitleaks fingerprint: {fingerprint}",
+     ]
++    return detail_lines
++
++
++def _finding(root: Path, entry: dict) -> Optional[Finding]:  # ghost_buster: name-disagreement -- `entry` is `e` at every call site
++    fields = _extract_entry_fields(entry)
++    if not fields:
++        return None
++    file, rule, line, end_line, column, commit, commit_short, fingerprint = fields
++
++    file_path = Path(file)
++    rel = file_path.as_posix()
++    location = f"{rel}:{line}" if line is not None else rel
++    if column is not None:
++        location += f":{column}"
++    summary = f"a '{rule}' secret is committed in {location} (commit {commit_short})"
++
++    intro = _build_secret_intro(commit_short, entry)
++    description = (entry.get("Description") or "").strip()
++    detail_lines = _build_secret_detail_lines(rule, intro, fingerprint, description)
+ 
+     absolute = root / file_path if not file_path.is_absolute() else file_path
+     return Finding(
+@@ -336,10 +355,6 @@ def _finding(root: Path, entry: dict) -> Optional[Finding]:  # ghost_buster: nam
+         status=Status.CONFIRMED,
+         summary=summary,
+         detail="\n".join(detail_lines),
+-        # Join keys for correlate.py. The fingerprint is gitleaks' own
+-        # identifier for one leak (commit:file:rule:line) and is what makes
+-        # "the same leak, in two repositories" a exact match rather than a
+-        # guess from prose. None of these is the secret itself.
+         attributes={
+             "fingerprint": fingerprint,
+             "rule": rule,
+@@ -351,6 +366,35 @@ def _finding(root: Path, entry: dict) -> Optional[Finding]:  # ghost_buster: nam
+     )
+ 
+ 
++def _execute_gitleaks_scan(binary: str, root: Path, timeout: float) -> Tuple[Optional[str], Optional[SecretsScanReport]]:
++    """Execute gitleaks detect command and return JSON report content.
++    Returns (json_content, error_report) where error_report is set if execution fails."""
++    with tempfile.TemporaryDirectory(prefix="ghost_secrets_") as tmp:
++        report_path = Path(tmp) / "report.json"
++        cmd = [
++            binary, "detect", "--source", str(root), "--no-banner",
++            "--report-format", "json", "--report-path", str(report_path),
++            "--redact", "--exit-code", "0",
++        ]
++        try:
++            proc = subprocess.run(
++                cmd, capture_output=True, text=True, errors="replace", timeout=timeout,
++            )
++        except subprocess.TimeoutExpired:
++            return None, SecretsScanReport(ran=False, reason=f"gitleaks did not finish within {timeout:.0f}s")
++        except (OSError, ValueError) as e:
++            return None, SecretsScanReport(ran=False, reason=f"gitleaks could not be run: {type(e).__name__}: {e}")
++
++        if proc.returncode != 0:
++            tail = (proc.stderr or proc.stdout or "no output").strip()
++            return None, SecretsScanReport(ran=False, reason=f"gitleaks exited {proc.returncode}: {tail[-500:]}")
++
++        if not report_path.exists():
++            return None, SecretsScanReport(ran=False, reason="gitleaks exited 0 but produced no report file")
++
++        return report_path.read_text(encoding="utf-8", errors="replace"), None
++
++
+ def scan(root: Path, *, gitleaks_path: Optional[str] = None,
+          timeout: float = _TIMEOUT_DEFAULT) -> Tuple[List[Finding], SecretsScanReport]:
+     """Scan `root`'s checked-out branch history for committed secrets with
+@@ -358,12 +402,6 @@ def scan(root: Path, *, gitleaks_path: Optional[str] = None,
+     reported as a clean scan -- when the directory is not a git repository,
+     gitleaks is not available, the run times out, or gitleaks itself fails.
+     """
+-    # Resolved once, up front: gitleaks is given `--source str(root)` below
+-    # with no `cwd` set (it needs none -- `--source` alone fully specifies
+-    # the target). A relative root combined with a `cwd` pointed at that
+-    # same relative root used to resolve twice (root/root); resolving here
+-    # once removes the whole class of bug rather than papering over one
+-    # call site.
+     root = Path(root).resolve()
+     report = SecretsScanReport(ran=False)
+ 
+@@ -382,44 +420,14 @@ def scan(root: Path, *, gitleaks_path: Optional[str] = None,
+         return [], report
+ 
+     report.gitleaks_version = _gitleaks_version(binary)
+-    # Two facts about the evidence, established before the scan runs so they
+-    # are on the report whether it finds anything or not: what the target
+-    # told gitleaks to ignore, and how far this scan reaches.
+     report.suppression = target_suppression(root)
+     report.scope = ("scanned the checked-out branch's own history, not every "
+                     "ref (gitleaks' default, not --log-opts=--all)")
+ 
+-    with tempfile.TemporaryDirectory(prefix="ghost_secrets_") as tmp:
+-        report_path = Path(tmp) / "report.json"
+-        cmd = [
+-            binary, "detect", "--source", str(root), "--no-banner",
+-            "--report-format", "json", "--report-path", str(report_path),
+-            "--redact", "--exit-code", "0",
+-        ]
+-        try:
+-            # No cwd: --source above is already absolute and is gitleaks'
+-            # only source of the target path, deliberately not doubled up
+-            # with cwd (see the resolve() comment above).
+-            proc = subprocess.run(
+-                cmd, capture_output=True, text=True, errors="replace", timeout=timeout,
+-            )
+-        except subprocess.TimeoutExpired:
+-            report.reason = f"gitleaks did not finish within {timeout:.0f}s"
+-            return [], report
+-        except (OSError, ValueError) as e:
+-            report.reason = f"gitleaks could not be run: {type(e).__name__}: {e}"
+-            return [], report
+-
+-        if proc.returncode != 0:
+-            tail = (proc.stderr or proc.stdout or "no output").strip()
+-            report.reason = f"gitleaks exited {proc.returncode}: {tail[-500:]}"
+-            return [], report
+-
+-        if not report_path.exists():
+-            report.reason = "gitleaks exited 0 but produced no report file"
+-            return [], report
+-
+-        raw = report_path.read_text(encoding="utf-8", errors="replace")
++    raw, error_report = _execute_gitleaks_scan(binary, root, timeout)
++    if error_report:
++        report.reason = error_report.reason
++        return [], report
+ 
+     try:
+         entries = json.loads(raw) if raw.strip() else []
+@@ -431,7 +439,7 @@ def scan(root: Path, *, gitleaks_path: Optional[str] = None,
+         report.reason = "gitleaks report was not a JSON array"
+         return [], report
+ 
+-    findings = [f for f in (_finding(root, e) for e in entries if isinstance(e, dict)) if f]  # ghost_buster: name-disagreement -- `e` is `entry` in the signature
++    findings = [f for f in (_finding(root, e) for e in entries if isinstance(e, dict)) if f]
+     report.ran = True
+     report.leaks_found = len(findings)
+     return findings, report
+diff --git a/ghost_buster/structure.py b/ghost_buster/structure.py
+index 701f2de..2b20e3d 100644
+--- a/ghost_buster/structure.py
++++ b/ghost_buster/structure.py
+@@ -224,20 +224,9 @@ def _model_kind(node: ast.ClassDef) -> bool:
+     return False
+ 
+ 
+-def analyse_module(path: Path, root: Path, package_roots: Set[str]) -> Optional[ModuleFacts]:
+-    tree = corpus.parse(path)
+-    if tree is None:
+-        return None   # unassessable_file reports this; see mechanical.py
+-
+-    rel = path.relative_to(root)
+-    dotted = ".".join(rel.with_suffix("").parts)
+-    facts = ModuleFacts(
+-        dotted=dotted, path=str(rel), is_package=(path.name == "__init__.py"),
+-    )
+-
++def _extract_top_level_bindings(tree: ast.Module, facts: ModuleFacts, dotted: str) -> None:
++    """Extract __all__, public/internal bindings, module state, and re-exports from tree.body."""
+     for node in tree.body:
+-        # __all__ is the only DECLARED public surface. Everything else is
+-        # inference from a leading underscore, which is a convention.
+         if isinstance(node, ast.Assign):
+             for t in node.targets:
+                 if isinstance(t, ast.Name) and t.id == "__all__":
+@@ -248,24 +237,11 @@ def analyse_module(path: Path, root: Path, package_roots: Set[str]) -> Optional[
+                 elif isinstance(t, ast.Name):
+                     if _is_mutable_literal(node.value):
+                         facts.module_state.append(t.id)
+-                    # A public module-level constant is an export like any
+-                    # other. Collecting only defs and classes reported
+-                    # MINIMUM_MATCH_LENGTH as missing from a package that
+-                    # exports it on line one of a real repository.
+                     if not t.id.startswith("_"):
+                         facts.bindings.append(t.id)
+         if isinstance(node, ast.AnnAssign) and isinstance(node.target, ast.Name):
+             if not node.target.id.startswith("_"):
+                 facts.bindings.append(node.target.id)
+-        # A NAME BOUND BY AN IMPORT IS IMPORTABLE FROM THIS MODULE. That is
+-        # how a package presents a public surface: `__init__.py` pulls names
+-        # up out of submodules and callers write `from pkg import Name`.
+-        #
+-        # Collecting only definitions made every re-export invisible.
+-        # Measured 2026-09-10 joining two real repositories: four names that
+-        # a package re-exports through its `__init__` -- two by an explicit
+-        # line, two through a star-import -- were reported as a CRITICAL
+-        # "does not export them" against an import that runs fine.
+         if isinstance(node, (ast.Import, ast.ImportFrom)):
+             for alias in node.names:
+                 if alias.name == "*":
+@@ -275,7 +251,6 @@ def analyse_module(path: Path, root: Path, package_roots: Set[str]) -> Optional[
+                 bound = alias.asname or alias.name.split(".", 1)[0]
+                 if not bound.startswith("_"):
+                     facts.reexports.append(bound)
+-
+         if isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+             (facts.internal if node.name.startswith("_") else facts.exported).append(node.name)
+             if isinstance(node, ast.ClassDef) and _model_kind(node):
+@@ -283,9 +258,9 @@ def analyse_module(path: Path, root: Path, package_roots: Set[str]) -> Optional[
+             if node.name == "main":
+                 facts.entry_points.append(f"{dotted}:main")
+ 
+-    # An import written with a fallback is a boundary its author declared,
+-    # not a name that might be invented. Recorded here so the slopsquat
+-    # check can tell the two apart -- see derive_findings.
++
++def _extract_guarded_imports(tree: ast.Module, facts: ModuleFacts) -> None:
++    """Extract imports that are guarded by try-except handlers."""
+     for node in ast.walk(tree):
+         if isinstance(node, ast.Try) and any(
+                 _catches_import(h) for h in node.handlers):
+@@ -295,6 +270,9 @@ def analyse_module(path: Path, root: Path, package_roots: Set[str]) -> Optional[
+                 elif isinstance(inner, ast.ImportFrom) and inner.module and not inner.level:
+                     facts.guarded.append(inner.module.split(".", 1)[0])
+ 
++
++def _extract_module_usage(tree: ast.Module, facts: ModuleFacts, dotted: str, package_roots: Set[str]) -> None:
++    """Extract imports, boundary calls, exceptions, and special patterns."""
+     for node in ast.walk(tree):
+         if isinstance(node, ast.Import):
+             for alias in node.names:
+@@ -336,6 +314,22 @@ def analyse_module(path: Path, root: Path, package_roots: Set[str]) -> Optional[
+                     and test.left.id == "__name__"):
+                 facts.entry_points.append(f"{dotted}:__main__ guard")
+ 
++
++def analyse_module(path: Path, root: Path, package_roots: Set[str]) -> Optional[ModuleFacts]:
++    tree = corpus.parse(path)
++    if tree is None:
++        return None
++
++    rel = path.relative_to(root)
++    dotted = ".".join(rel.with_suffix("").parts)
++    facts = ModuleFacts(
++        dotted=dotted, path=str(rel), is_package=(path.name == "__init__.py"),
++    )
++
++    _extract_top_level_bindings(tree, facts, dotted)
++    _extract_guarded_imports(tree, facts)
++    _extract_module_usage(tree, facts, dotted, package_roots)
++
+     facts.boundaries = sorted(set(facts.boundaries))
+     facts.bindings = sorted(set(facts.bindings))
+     facts.guarded = sorted(set(facts.guarded))
+@@ -475,25 +469,9 @@ def _finding(model: StructuralModel, kind: str, severity: Severity, file: str,
+     )
+ 
+ 
+-def derive_findings(model: StructuralModel) -> List[Finding]:
+-    """Only what the evidence establishes on its own. Nothing here is a
+-    judgement about architecture; each is a contradiction between two
+-    observed facts."""
+-    if not model.ran:
+-        return []
+-    out: List[Finding] = []
+-    if not model.modules:
+-        # Nothing was scanned, so "this symbol does not exist" and "this
+-        # symbol was not looked at" are indistinguishable. Reporting the
+-        # first would be inventing evidence.
+-        model.unresolved.append(
+-            "no modules were scanned, so entry-point targets and dependency "
+-            "usage could not be checked"
+-        )
+-        return out
+-    by_dotted = {m.dotted: m for m in model.modules}
+-
+-    # 1. A console script whose target does not exist.
++def _check_entry_points(model: StructuralModel, by_dotted: Dict) -> List[Finding]:
++    """Check that console script targets exist."""
++    findings: List[Finding] = []
+     for script, target in sorted(model.console_scripts.items()):
+         module, _, symbol = target.partition(":")
+         facts = by_dotted.get(module) or by_dotted.get(module + ".__init__")
+@@ -503,7 +481,7 @@ def derive_findings(model: StructuralModel) -> List[Finding]:
+             reason = f"module '{module}' defines no top-level '{symbol}'"
+         else:
+             continue
+-        out.append(_finding(
++        findings.append(_finding(
+             model, "entry point target missing", Severity.MAJOR,
+             str(Path(model.root) / "pyproject.toml"),
+             f"console script '{script}' points at '{target}', but {reason}",
+@@ -516,42 +494,17 @@ def derive_findings(model: StructuralModel) -> List[Finding]:
+             "would look identical. Check before deleting the declaration.",
+             {"script": script, "target": target},
+         ))
++    return findings
+ 
+-    # 2. Imported and never declared.
+-    declared = set(model.declared_dependencies)
+-    stdlib = _stdlib_names()
+-    imported: Dict[str, List[str]] = {}
+-    for facts in model.modules:
+-        if facts.dotted in model.test_modules:
+-            continue    # test-only tools live in dev extras this scan cannot see
+-        for module in facts.imports_external:
+-            top = module.split(".", 1)[0]
+-            if top in stdlib or top.startswith("_"):
+-                continue
+-            imported.setdefault(top.lower().replace("_", "-"), []).append(facts.dotted)
+-
+-    mapping = _import_to_distribution()
+ 
+-    # 3. A name that refers to nothing real -- the slopsquat surface.
+-    #
+-    # The 2026 attack, and the one this toolkit was closest to catching
+-    # without actually catching it. A model asked for working code emits an
+-    # import for a package it has invented: USENIX tested 16 models over
+-    # 576,000 samples and found 38% of hallucinated names are conflations
+-    # of two real packages, 13% typo variants, 51% pure fabrication. The
+-    # names are PREDICTABLE, so attackers register them and wait.
+-    #
+-    # `undeclared dependency` above asks whether an import is declared.
+-    # This asks something harder and more useful: whether the name refers
+-    # to anything at all. A package that is not standard library, not
+-    # installed here, not provided by this repository or any joined one,
+-    # and not declared anywhere is a name with nothing behind it. Today it
+-    # is an ImportError. The day somebody registers it, it is theirs.
+-    # Every package anyone reached for behind a fallback. Its author knew it
+-    # might be absent and wrote code for that case, which is the opposite of
+-    # a name a model invented believing it was real. boundary.py reports
+-    # these as `boundary provider absent`; repeating them here at MAJOR
+-    # would be the same fact twice, louder.
++def _check_unresolvable_dependencies(
++    model: StructuralModel,
++    imported: Dict[str, List[str]],
++    declared: set,
++    mapping: Dict[str, str],
++) -> List[Finding]:
++    """Check for imports with no resolution (invented names)."""
++    findings: List[Finding] = []
+     guarded = {g.lower().replace("_", "-") for m in model.modules for g in m.guarded}
+     local = {m.dotted.split(".", 1)[0] for m in model.modules}
+     unresolvable = sorted(
+@@ -560,7 +513,7 @@ def derive_findings(model: StructuralModel) -> List[Finding]:
+         and pkg.replace("-", "_") not in local
+     )
+     for package in unresolvable:
+-        out.append(_finding(
++        findings.append(_finding(
+             model, "unresolvable dependency", Severity.MAJOR,
+             str(Path(model.root)),
+             f"'{package}' is imported but is not standard library, not installed "
+@@ -585,38 +538,80 @@ def derive_findings(model: StructuralModel) -> List[Finding]:
+             "for you.",
+             {"package": package, "imported_by": ", ".join(sorted(imported[package])[:5])},
+         ))
++    return findings
++
++
++def _check_undeclared_dependencies(
++    model: StructuralModel,
++    imported: Dict[str, List[str]],
++    declared: set,
++    mapping: Dict[str, str],
++) -> List[Finding]:
++    """Check for imports that should be in dependency declarations."""
++    findings: List[Finding] = []
++    if not model.dependency_sources:
++        return findings
++    for package, users in sorted(imported.items()):
++        if package in declared:
++            continue
++        distribution = mapping.get(package)
++        if distribution is None:
++            model.unresolved.append(
++                f"import '{package}' could not be mapped to a distribution "
++                f"name (not installed in the scanning environment), so "
++                f"whether it is declared cannot be established here"
++            )
++            continue
++        if distribution in declared:
++            continue
++        findings.append(_finding(
++            model, "undeclared dependency", Severity.MAJOR,
++            str(Path(model.root) / (model.dependency_sources[0].split(":")[0])),
++            f"'{package}' (distribution '{distribution}') is imported by "
++            f"{len(users)} module(s) and appears in no dependency declaration",
++            "This is the works-on-my-machine failure: the package is installed "
++            "in the environment it was written in and nowhere else. A fresh "
++            "clone, a CI runner or a production image gets an ImportError at "
++            "the first import.\n\nScope limit: a package installed as a "
++            "transitive dependency of something declared will work by accident "
++            "until that intermediate drops it. That is still undeclared.",
++            {"package": package, "distribution": distribution, "imported_by": ", ".join(sorted(users)[:5])},
++        ))
++    return findings
+ 
+-    if model.dependency_sources:
+-        for package, users in sorted(imported.items()):
+-            if package in declared:
+-                continue
+-            distribution = mapping.get(package)
+-            if distribution is None:
+-                # Undecidable, not undeclared. Recorded so the gap is
+-                # visible instead of being reported as a fact.
+-                model.unresolved.append(
+-                    f"import '{package}' could not be mapped to a distribution "
+-                    f"name (not installed in the scanning environment), so "
+-                    f"whether it is declared cannot be established here"
+-                )
+-                continue
+-            if distribution in declared:
++
++def derive_findings(model: StructuralModel) -> List[Finding]:
++    """Only what the evidence establishes on its own. Nothing here is a
++    judgement about architecture; each is a contradiction between two
++    observed facts."""
++    if not model.ran:
++        return []
++    if not model.modules:
++        model.unresolved.append(
++            "no modules were scanned, so entry-point targets and dependency "
++            "usage could not be checked"
++        )
++        return []
++
++    by_dotted = {m.dotted: m for m in model.modules}
++    findings = _check_entry_points(model, by_dotted)
++
++    declared = set(model.declared_dependencies)
++    stdlib = _stdlib_names()
++    imported: Dict[str, List[str]] = {}
++    for facts in model.modules:
++        if facts.dotted in model.test_modules:
++            continue
++        for module in facts.imports_external:
++            top = module.split(".", 1)[0]
++            if top in stdlib or top.startswith("_"):
+                 continue
+-            out.append(_finding(
+-                model, "undeclared dependency", Severity.MAJOR,
+-                str(Path(model.root) / (model.dependency_sources[0].split(":")[0])),
+-                f"'{package}' (distribution '{distribution}') is imported by "
+-                f"{len(users)} module(s) and appears in no dependency declaration",
+-                "This is the works-on-my-machine failure: the package is installed "
+-                "in the environment it was written in and nowhere else. A fresh "
+-                "clone, a CI runner or a production image gets an ImportError at "
+-                "the first import.\n\nScope limit: a package installed as a "
+-                "transitive dependency of something declared will work by accident "
+-                "until that intermediate drops it. That is still undeclared.",
+-                {"package": package, "distribution": distribution, "imported_by": ", ".join(sorted(users)[:5])},
+-            ))
++            imported.setdefault(top.lower().replace("_", "-"), []).append(facts.dotted)
+ 
+-    return out
++    mapping = _import_to_distribution()
++    findings.extend(_check_unresolvable_dependencies(model, imported, declared, mapping))
++    findings.extend(_check_undeclared_dependencies(model, imported, declared, mapping))
++    return findings
+ 
+ 
+ def _stdlib_names() -> Set[str]:
