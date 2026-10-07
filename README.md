@@ -26,3 +26,4 @@ bundle (complete history). CI folders are renamed so they never run here.
 | 2026-10-06 | Triad-42 | Its own origin rules: provenance graph, fact promotion, relabel, erasure cascade | Second copy of CCC's rulebook; a reviewer must not certify facts |
 | 2026-10-06 | ccc | Turning points, threads/branches, simulations, official terms, the "42" dialogue loop | Used nowhere in ≡TACK; no article of Constitution v4.0 (candidate) requires CCC to hold them |
 | 2026-10-07 | ghost_tools | Branch `feature/zts-cns-docking` (full history bundle + patch) | Stale refactor branch whose squash-merge (#78) broke main; repaired by #82, nothing left to keep |
+| 2026-10-07 | vanguard | **Entire repo retired** (snapshot + full git history) | Code byte-identical to copies in TOUCHSTONE; README analysis kept here as the record |
