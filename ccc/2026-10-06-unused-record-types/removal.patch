@@ -1,0 +1,2465 @@
+diff --git a/ccc/__init__.py b/ccc/__init__.py
+index 53e0550..20faa3f 100644
+--- a/ccc/__init__.py
++++ b/ccc/__init__.py
+@@ -12,9 +12,6 @@ from .models import (
+     Artifact,
+     ArtifactState,
+     AuditEvent,
+-    Branch,
+-    BranchStatus,
+-    CanonicalTerm,
+     ConflictClass,
+     ConflictRecord,
+     ConflictStatus,
+@@ -24,8 +21,6 @@ from .models import (
+     EvidenceLink,
+     EvidenceValidation,
+     HarnessRecord,
+-    InflectionPoint,
+-    InflectionStatus,
+     LineageEvent,
+     ProvenanceStatus,
+     ProvenanceEvent,
+@@ -33,10 +28,6 @@ from .models import (
+     RoadSignCategory,
+     RelationshipType,
+     RuleDecision,
+-    SimulationRecord,
+-    TermStatus,
+-    Thread,
+-    ThreadStatus,
+     UncertaintyRecord,
+ )
+ from .system import CCCSystem
+@@ -48,9 +39,6 @@ __all__ = [
+     "Artifact",
+     "ArtifactState",
+     "AuditEvent",
+-    "Branch",
+-    "BranchStatus",
+-    "CanonicalTerm",
+     "CCCSystem",
+     "ConflictClass",
+     "ConflictRecord",
+@@ -61,8 +49,6 @@ __all__ = [
+     "EvidenceLink",
+     "EvidenceValidation",
+     "HarnessRecord",
+-    "InflectionPoint",
+-    "InflectionStatus",
+     "LineageEvent",
+     "ProvenanceEvent",
+     "ProvenanceStatus",
+@@ -70,9 +56,5 @@ __all__ = [
+     "RoadSignCategory",
+     "RelationshipType",
+     "RuleDecision",
+-    "SimulationRecord",
+-    "TermStatus",
+-    "Thread",
+-    "ThreadStatus",
+     "UncertaintyRecord",
+ ]
+diff --git a/ccc/branches.py b/ccc/branches.py
+deleted file mode 100644
+index c6b4632..0000000
+--- a/ccc/branches.py
++++ /dev/null
+@@ -1,104 +0,0 @@
+-"""Explicit branch lifecycle and parent-thread preservation."""
+-
+-from __future__ import annotations
+-
+-from dataclasses import replace
+-
+-from .models import Actor, Branch, BranchStatus, RelationshipType, new_id
+-
+-
+-class BranchManager:
+-    def __init__(self, store, audit, rules, lineage, threads) -> None:
+-        self.store = store
+-        self.audit = audit
+-        self.rules = rules
+-        self.lineage = lineage
+-        self.threads = threads
+-
+-    def create_branch(
+-        self,
+-        thread_id: str,
+-        *,
+-        title: str,
+-        actor: Actor,
+-        source_artifact_id: str | None = None,
+-        deferred: bool = False,
+-    ) -> Branch:
+-        self.store.threads[thread_id]
+-        if source_artifact_id is not None:
+-            self.store.require_artifact(source_artifact_id)
+-        branch = Branch(
+-            branch_id=new_id("branch"),
+-            parent_thread_id=thread_id,
+-            title=title,
+-            created_by=actor,
+-            source_artifact_id=source_artifact_id,
+-            deferred=deferred,
+-            status=BranchStatus.RESUMABLE if deferred else BranchStatus.OPEN,
+-        )
+-        self.store.add_branch(branch)
+-        thread = self.store.threads[thread_id]
+-        self.store.replace_thread(replace(thread, branch_ids=tuple(dict.fromkeys((*thread.branch_ids, branch.branch_id)))))
+-        if source_artifact_id:
+-            self.lineage.link(
+-                source_artifact_id,
+-                branch.branch_id,
+-                RelationshipType.BRANCH_OF,
+-                actor=actor,
+-                reason="branch preserves the source artifact and parent thread",
+-            )
+-        self.audit.record(
+-            actor=actor,
+-            operation="CREATE_BRANCH",
+-            object_id=branch.branch_id,
+-            previous_state=None,
+-            new_state={"parent_thread_id": thread_id, "status": branch.status.value, "deferred": deferred},
+-            reason=title,
+-            constitutional_rule="CCC-THREAD-001",
+-        )
+-        return branch
+-
+-    def attach_branch(self, thread_id: str, branch_id: str, *, actor: Actor, reason: str) -> Branch:
+-        branch = self.store.branches[branch_id]
+-        if branch.parent_thread_id != thread_id:
+-            raise ValueError("branch does not belong to thread")
+-        thread = self.store.threads[thread_id]
+-        if branch_id not in thread.branch_ids:
+-            self.store.replace_thread(replace(thread, branch_ids=(*thread.branch_ids, branch_id)))
+-        self.audit.record(
+-            actor=actor,
+-            operation="ATTACH_BRANCH",
+-            object_id=branch_id,
+-            previous_state={"parent_thread_id": branch.parent_thread_id},
+-            new_state={"parent_thread_id": thread_id},
+-            reason=reason,
+-            constitutional_rule="CCC-THREAD-001",
+-        )
+-        return branch
+-
+-    def resume_thread(self, branch_id: str, *, actor: Actor, reason: str) -> Branch:
+-        return self._set_status(branch_id, BranchStatus.OPEN, actor=actor, reason=reason, operation="RESUME_BRANCH")
+-
+-    def return_to_branch(self, branch_id: str, *, actor: Actor, reason: str) -> Branch:
+-        return self.resume_thread(branch_id, actor=actor, reason=reason)
+-
+-    def resolve_branch(self, branch_id: str, *, actor: Actor, reason: str) -> Branch:
+-        return self._set_status(branch_id, BranchStatus.RESOLVED, actor=actor, reason=reason, operation="RESOLVE_BRANCH")
+-
+-    def close_branch(self, branch_id: str, *, actor: Actor, reason: str) -> Branch:
+-        return self._set_status(branch_id, BranchStatus.CLOSED, actor=actor, reason=reason, operation="CLOSE_BRANCH")
+-
+-    def _set_status(self, branch_id: str, status: BranchStatus, *, actor: Actor, reason: str, operation: str) -> Branch:
+-        branch = self.store.branches[branch_id]
+-        updated = replace(branch, status=status)
+-        self.store.replace_branch(updated)
+-        self.audit.record(
+-            actor=actor,
+-            operation=operation,
+-            object_id=branch_id,
+-            previous_state={"status": branch.status.value},
+-            new_state={"status": status.value},
+-            reason=reason,
+-            constitutional_rule="CCC-THREAD-001",
+-        )
+-        return updated
+diff --git a/ccc/canonicalization.py b/ccc/canonicalization.py
+deleted file mode 100644
+index 2aba78c..0000000
+--- a/ccc/canonicalization.py
++++ /dev/null
+@@ -1,130 +0,0 @@
+-"""Canonical terminology management with explicit provenance transitions."""
+-
+-from __future__ import annotations
+-
+-from dataclasses import replace
+-
+-from .errors import ConstitutionViolation
+-from .models import Actor, ActorType, CanonicalTerm, ProvenanceStatus, TermStatus, new_id
+-
+-
+-class CanonicalizationManager:
+-    def __init__(self, store, audit, rules) -> None:
+-        self.store = store
+-        self.audit = audit
+-        self.rules = rules
+-
+-    def propose_term(
+-        self,
+-        *,
+-        term: str,
+-        definition: str,
+-        actor: Actor,
+-        source_material: tuple[str, ...] = (),
+-    ) -> CanonicalTerm:
+-        status = TermStatus.EXTERNAL if actor.kind is ActorType.EXTERNAL else TermStatus.PROPOSED
+-        provenance = ProvenanceStatus.USER_ESTABLISHED if actor.kind is ActorType.HUMAN else ProvenanceStatus.ASSISTANT_PROPOSED
+-        record = CanonicalTerm(
+-            term_id=new_id("term"),
+-            term=term,
+-            definition=definition,
+-            status=status,
+-            origin_actor=actor,
+-            provenance_status=provenance,
+-            source_material=tuple(source_material),
+-        )
+-        self.store.add_term(record)
+-        self.audit.record(
+-            actor=actor,
+-            operation="PROPOSE_TERM",
+-            object_id=record.term_id,
+-            previous_state=None,
+-            new_state={"status": status.value, "term": term},
+-            reason="terminology proposal recorded without canonical promotion",
+-            provenance=provenance,
+-            evidence=source_material,
+-            constitutional_rule="CCC-CANON-001",
+-        )
+-        return record
+-
+-    def canonicalize(
+-        self,
+-        term_id: str,
+-        *,
+-        actor: Actor,
+-        source_material: tuple[str, ...],
+-        reason: str,
+-        authorization_basis: str,
+-    ) -> CanonicalTerm:
+-        self.rules.evaluate(
+-            "CCC-CANON-001",
+-            actor.kind is ActorType.HUMAN and bool(source_material) and bool(authorization_basis),
+-            reason="canonical status requires explicit human action and source material",
+-            evidence=source_material,
+-        )
+-        for source_id in source_material:
+-            source = self.store.require_artifact(source_id)
+-            if source.provenance_status not in {ProvenanceStatus.USER_ESTABLISHED, ProvenanceStatus.USER_ACCEPTED}:
+-                raise ConstitutionViolation("CCC-CANON-001", "unknown-origin source cannot establish canonical terminology")
+-        term = self.store.terms[term_id]
+-        updated = replace(term, status=TermStatus.CANONICAL, provenance_status=ProvenanceStatus.USER_ESTABLISHED, source_material=tuple(source_material), canonicalized_by=actor)
+-        self.store.replace_term(updated)
+-        self.audit.record(
+-            actor=actor,
+-            operation="CANONICALIZE_TERM",
+-            object_id=term_id,
+-            previous_state={"status": term.status.value, "definition": term.definition},
+-            new_state={"status": updated.status.value, "definition": updated.definition},
+-            reason=reason,
+-            provenance=updated.provenance_status,
+-            evidence=source_material,
+-            constitutional_rule="CCC-CANON-001",
+-            authorization_basis=authorization_basis,
+-        )
+-        return updated
+-
+-    def deprecate(self, term_id: str, *, actor: Actor, reason: str, authorization_basis: str) -> CanonicalTerm:
+-        self.rules.evaluate("CCC-HUMAN-001", actor.kind is ActorType.HUMAN and bool(authorization_basis), reason="term lifecycle change is explicit")
+-        term = self.store.terms[term_id]
+-        updated = replace(term, status=TermStatus.DEPRECATED)
+-        self.store.replace_term(updated)
+-        self.audit.record(
+-            actor=actor,
+-            operation="DEPRECATE_TERM",
+-            object_id=term_id,
+-            previous_state={"status": term.status.value},
+-            new_state={"status": updated.status.value},
+-            reason=reason,
+-            provenance=term.provenance_status,
+-            constitutional_rule="CCC-HUMAN-001",
+-            authorization_basis=authorization_basis,
+-        )
+-        return updated
+-
+-    def supersede(
+-        self,
+-        term_id: str,
+-        *,
+-        definition: str,
+-        actor: Actor,
+-        source_material: tuple[str, ...],
+-        reason: str,
+-        authorization_basis: str,
+-    ) -> CanonicalTerm:
+-        old = self.canonicalize(term_id, actor=actor, source_material=source_material, reason=reason, authorization_basis=authorization_basis)
+-        replacement = self.propose_term(term=old.term, definition=definition, actor=actor, source_material=source_material)
+-        canonical = self.canonicalize(replacement.term_id, actor=actor, source_material=source_material, reason=reason, authorization_basis=authorization_basis)
+-        self.store.replace_term(replace(old, status=TermStatus.SUPERSEDED, superseded_by=canonical.term_id))
+-        self.audit.record(
+-            actor=actor,
+-            operation="SUPERSEDE_TERM",
+-            object_id=old.term_id,
+-            previous_state={"status": old.status.value},
+-            new_state={"status": TermStatus.SUPERSEDED.value, "superseded_by": canonical.term_id},
+-            reason=reason,
+-            provenance=old.provenance_status,
+-            evidence=source_material,
+-            constitutional_rule="CCC-CANON-001",
+-            authorization_basis=authorization_basis,
+-        )
+-        return canonical
+diff --git a/ccc/cns_connector.py b/ccc/cns_connector.py
+index 4f262fb..74a90bf 100644
+--- a/ccc/cns_connector.py
++++ b/ccc/cns_connector.py
+@@ -142,11 +142,10 @@ before it changes a record. Not judged, on purpose:
+   first and attaches evidence second, so a refusal at the attach step follows an
+   ingest. It is not a judgement that happens entirely before the work starts.
+ * ``record`` and the other aliases of judged operations.
+-* ``resolve``, a dispatcher over ``resolve_uncertainty``, ``record_resolution``
+-  and ``resolve_inflection``, which are judged directly.
++* ``resolve``, a dispatcher over ``resolve_uncertainty`` and
++  ``record_resolution``, which are judged directly.
+ * Operations that only record something new and validate its shape
+-  (``detect_conflict``, ``detect_inflection``, ``ask``, ``simulate``,
+-  ``propose_term``, road signs, threads and branches). They move nothing toward
++  (``detect_conflict``, ``ask`` and road signs). They move nothing toward
+   human authority.
+ 
+ An operation outside :data:`TRANSITIONS` raises ``ValueError`` when an
+@@ -169,12 +168,10 @@ from pathlib import Path
+ from types import MappingProxyType, ModuleType
+ from typing import Any, Callable, Iterator, Mapping
+ 
+-from .canonicalization import CanonicalizationManager
+ from .conflict import ConflictManager
+ from .discovery import DiscoveryManager
+ from .errors import CCCError, ConstitutionViolation
+ from .human_resolution import HumanResolutionManager
+-from .inflection import InflectionManager
+ from .models import Actor, EpistemicStatus
+ from .store import CCCStore
+ from .system import CCCSystem
+@@ -235,12 +232,8 @@ TRANSITIONS: tuple[str, ...] = (
+     "discover",
+     "adopt_discovery",
+     "advance_discovery",
+-    "canonicalize",
+-    "deprecate_term",
+-    "supersede_term",
+     "record_resolution",
+     "resolve_uncertainty",
+-    "resolve_inflection",
+ )
+ 
+ #: Facade methods that forward ``*args, **kwargs`` and so say nothing about their
+@@ -250,12 +243,8 @@ _FORWARDED = {
+     "discover": DiscoveryManager.discover,
+     "adopt_discovery": DiscoveryManager.adopt,
+     "advance_discovery": DiscoveryManager.advance,
+-    "canonicalize": CanonicalizationManager.canonicalize,
+-    "deprecate_term": CanonicalizationManager.deprecate,
+-    "supersede_term": CanonicalizationManager.supersede,
+     "record_resolution": ConflictManager.record_resolution,
+     "resolve_uncertainty": HumanResolutionManager.resolve,
+-    "resolve_inflection": InflectionManager.resolve_inflection,
+ }
+ 
+ #: What the connector names from ``cns.gate``. An older CNS lacks some of it.
+diff --git a/ccc/constitutional_rules.py b/ccc/constitutional_rules.py
+index 62c560f..e53eb3a 100644
+--- a/ccc/constitutional_rules.py
++++ b/ccc/constitutional_rules.py
+@@ -48,13 +48,9 @@ RULES: tuple[ConstitutionalRule, ...] = (
+     _rule("CCC-RATIFICATION-001", "REQ.RATIFICATION.NO_MACHINE_SELF_RATIFICATION", "Machine output cannot self-promote through machine consensus.", "promotion event is human-originating", "REJECT without human event", "Repeated model agreement is not human authority."),
+     _rule("CCC-UNCERTAINTY-001", "REQ.UNCERTAINTY.PRESERVE", "Unknown, inferred, conflicted, candidate, and resolution-required states remain explicit.", "uncertain material is represented without forced certainty", "ALLOW", "The system must not manufacture certainty."),
+     _rule("CCC-ROADSIGN-001", "REQ.ROAD_SIGNS.INDICATORS_NOT_CONCLUSIONS", "Road Signs are observable indicators rather than conclusions.", "recorded sign has no conclusion authority", "ALLOW", "A sign means examination is warranted."),
+-    _rule("CCC-INFLECTION-001", "REQ.INFLECTION.SEPARATE_DIMENSIONS", "Detection, divergence, sensitivity, and significance remain separate.", "each assessment dimension is stored independently", "ALLOW", "Machine weighting is advisory."),
+-    _rule("CCC-THREAD-001", "REQ.THREADS.BRANCH_LINEAGE", "Threads and branches preserve explicit lineage.", "branch relation references its parent thread", "ALLOW", "Chronology alone does not define a cognitive thread."),
+     _rule("CCC-123-001", "REQ.ANALYSIS.ONE_TWO_THREE", "The human-attributed 1 to 2 to 3 method is anomaly to pattern to mandate.", "mandate follows a validated pattern and human action", "ALLOW only after validation", "An anomaly is not automatically a mandate."),
+     _rule("CCC-DISCOVERY-001", "REQ.DISCOVERY.MACHINE_ATTRIBUTION", "Machine discovery remains machine-generated until explicit human adoption.", "machine origin and processing history are retained", "ALLOW", "Discovery may advise without becoming human-originated."),
+-    _rule("CCC-SIMULATION-001", "REQ.SIMULATION.ASSUMPTIONS", "Simulation inputs, provenance, assumptions, shared assumptions, and limitations are preserved.", "simulation record includes all required fields", "ALLOW", "Shared assumptions prevent false claims of independent confirmation."),
+     _rule("CCC-CONFLICT-001", "REQ.CONFLICT.PRESERVE", "Material conflict is presented and not silently adjudicated.", "conflict remains open until human resolution", "ALLOW", "Evidence-versus-evidence conflict is distinct from theory-versus-evidence."),
+-    _rule("CCC-CANON-001", "REQ.CANONICALIZATION.HUMAN_STATUS", "Canonical terminology requires established provenance and explicit human action.", "canonicalization is a human transition with source material", "ALLOW only with human action", "Unknown-origin terms are not silently canonical."),
+     _rule("CCC-QUERY-001", "REQ.QUERYABILITY.NO_PRESENTATION_DELETION", "Presentation priority does not delete or make unsurfaced candidates nonexistent.", "query and presentation are separate operations", "ALLOW", "All stored records remain queryable."),
+     _rule("CCC-AUDIT-001", "REQ.AUDIT.CONSEQUENTIAL_TRANSITIONS", "Consequential transitions create complete audit events.", "audit contains actor, operation, object, state, reason, and rule", "ALLOW only when auditable", "Machine actions are not labeled as human actions."),
+     _rule("CCC-ID-001", "REQ.DATA_INTEGRITY.IMMUTABLE_IDENTIFIERS", "Historical objects retain immutable identifiers through lifecycle changes.", "new versions link to prior identifiers", "ALLOW", "Identity is not maintained by text matching alone."),
+diff --git a/ccc/dialogue.py b/ccc/dialogue.py
+deleted file mode 100644
+index a9f8aa9..0000000
+--- a/ccc/dialogue.py
++++ /dev/null
+@@ -1,171 +0,0 @@
+-"""The confirm/refine/42 dialogue loop.
+-
+-CCC already had the primitive this needed: human_resolution.ask()/resolve()
+-records a set of candidates and a human-attributed choice, gated by
+-CCC-HUMAN-001 so only a real human can resolve one. That existed, unused,
+-the whole time the rest of this project kept saying "the dialogue engine
+-doesn't exist as software." It was half right -- the primitive existed, the
+-protocol around it didn't: iterate, let "other" branch to new candidates
+-instead of forcing a pick from a fixed list, and terminate at either a
+-confirmed choice or an explicit 42 (the record doesn't establish this -- a
+-complete, honest answer, not a failure, same spirit as Triad-42's "no 42
+-identified" and CCC's own PROVENANCE_UNCERTAIN).
+-
+-Scope of "42" here: it is an answer a *human* gives in this loop, meaning the
+-record does not establish this, and it is recorded as that human's resolution.
+-Triad-42's "42" is a different mechanism with the same spirit: a machine step
+-that searches for a high-leverage synthesis, where "no 42 identified" is a
+-complete result. The two share a name and no code; neither meaning applies in
+-the other repository.
+-
+-This is deliberately a thin wrapper, not a reimplementation: every round
+-still goes through the real ask()/resolve() calls, so the audit trail,
+-CCC-HUMAN-001 gating, and UncertaintyRecord storage are all the real thing,
+-not simulated.
+-"""
+-from __future__ import annotations
+-
+-from dataclasses import dataclass
+-from typing import Callable, Optional, Tuple
+-
+-from .human_resolution import HumanResolutionManager
+-from .models import Actor, ActorType
+-
+-UNKNOWN_SENTINEL = "42"
+-_BRANCH_TOKEN = "other"
+-_RESERVED_RESPONSES = frozenset({UNKNOWN_SENTINEL, _BRANCH_TOKEN})
+-
+-# A dialogue is a human sitting there answering rounds -- past a couple dozen
+-# it is not converging, it is looping. The default is small; this is the
+-# ceiling a caller cannot exceed, so a runaway loop (a branch() that keeps
+-# producing candidates, or a huge max_rounds passed by mistake) is bounded
+-# to this many UncertaintyRecords, not hundreds of thousands.
+-MAX_ROUNDS_CEILING = 50
+-
+-
+-def _check_candidates(candidates) -> None:
+-    if not candidates:
+-        raise ValueError("a dialogue needs at least one candidate")
+-    collisions = _RESERVED_RESPONSES.intersection(candidates)
+-    if collisions:
+-        raise ValueError(
+-            f"candidate value(s) {sorted(collisions)} collide with the protocol's "
+-            f'reserved responses ("{_BRANCH_TOKEN}" branches, "{UNKNOWN_SENTINEL}" is '
+-            "the honest-unknown sentinel) -- a candidate can't be one of those "
+-            "strings or picking it would be silently misread as a control action"
+-        )
+-
+-
+-@dataclass(frozen=True)
+-class DialogueOutcome:
+-    terminal: str  # "CONFIRMED" or "UNKNOWN"
+-    choice: Optional[str]
+-    rounds: int
+-    uncertainty_ids: Tuple[str, ...]
+-
+-
+-class DialogueEngine:
+-    """Wraps HumanResolutionManager with the loop William specified: present
+-    candidates, accept a pick / "other" (branch) / 42 (honest unknown),
+-    repeat until terminal."""
+-
+-    def __init__(self, human_resolution: HumanResolutionManager, *, max_rounds: int = 10):
+-        self.human_resolution = human_resolution
+-        self.max_rounds = max_rounds
+-
+-    @property
+-    def max_rounds(self) -> int:
+-        return self._max_rounds
+-
+-    @max_rounds.setter
+-    def max_rounds(self, value: int) -> None:
+-        if not isinstance(value, int) or value < 1:
+-            raise ValueError(f"max_rounds must be a positive int, got {value!r}")
+-        self._max_rounds = min(value, MAX_ROUNDS_CEILING)
+-
+-    def run(
+-        self,
+-        *,
+-        context: str,
+-        question: str,
+-        candidates: Tuple[str, ...],
+-        respond: Callable[[Tuple[str, ...]], str],
+-        branch: Callable[[Tuple[str, ...]], Tuple[str, ...]],
+-        actor: Actor,
+-        human_actor: Actor,
+-        known: Tuple[str, ...] = (),
+-        unknown: Tuple[str, ...] = (),
+-        inferred: Tuple[str, ...] = (),
+-        conflicted: Tuple[str, ...] = (),
+-    ) -> DialogueOutcome:
+-        """
+-        `respond(current_candidates)` returns one of: a string exactly
+-        matching one of `current_candidates` (confirms it), the literal
+-        string "other" (reject all of these, branch to new candidates), or
+-        UNKNOWN_SENTINEL / "42" (the record doesn't establish this --
+-        terminate honestly). `branch(prior_candidates)` is only called
+-        after "other" and must return a new, non-empty candidate tuple.
+-
+-        "other" and "42" are always available responses -- do NOT list
+-        either as a `candidates` entry (it's refused, since picking a
+-        candidate that IS a control token would be silently misread as the
+-        control action).
+-
+-        `respond` and `branch` must not raise. If one does, the loop stops
+-        mid-round and the UncertaintyRecords created so far stay in the
+-        store, unresolved -- an honest record that a dialogue was started
+-        and not finished, not a leak. Runaway loops (a branch() that never
+-        stops producing candidates) are bounded by MAX_ROUNDS_CEILING, not
+-        left to grow.
+-
+-        `actor` proposes the round (may be machine-origin); `human_actor`
+-        must be an actual human -- CCC-HUMAN-001, enforced by
+-        human_resolution.resolve() itself, not re-implemented here.
+-        """
+-        if human_actor.kind is not ActorType.HUMAN:
+-            raise ValueError(
+-                "resolution can only be attributed to a real human actor -- "
+-                "the dialogue proposes, it does not get to resolve itself"
+-            )
+-        _check_candidates(candidates)
+-
+-        uncertainty_ids = []
+-        current = candidates
+-        for round_number in range(1, self.max_rounds + 1):
+-            record = self.human_resolution.ask(
+-                context=context, question=question, candidates=current,
+-                known=known, unknown=unknown, inferred=inferred, conflicted=conflicted,
+-                actor=actor,
+-            )
+-            uncertainty_ids.append(record.uncertainty_id)
+-            response = respond(current)
+-
+-            if response == UNKNOWN_SENTINEL:
+-                self.human_resolution.resolve(
+-                    record.uncertainty_id, choice=UNKNOWN_SENTINEL, actor=human_actor,
+-                    reason="the record does not establish this",
+-                    authorization_basis="explicit human 42",
+-                )
+-                return DialogueOutcome("UNKNOWN", None, round_number, tuple(uncertainty_ids))
+-
+-            if response == _BRANCH_TOKEN:
+-                new_candidates = branch(current)
+-                if not new_candidates:
+-                    raise ValueError("branch() must return at least one new candidate")
+-                _check_candidates(new_candidates)
+-                current = tuple(new_candidates)
+-                continue
+-
+-            if response not in current:
+-                raise ValueError(
+-                    f"response {response!r} is not one of the presented candidates, "
+-                    '"other", or the 42 sentinel -- refusing an out-of-protocol answer'
+-                )
+-            self.human_resolution.resolve(
+-                record.uncertainty_id, choice=response, actor=human_actor,
+-                reason="human confirmed this candidate",
+-                authorization_basis="explicit human confirmation",
+-            )
+-            return DialogueOutcome("CONFIRMED", response, round_number, tuple(uncertainty_ids))
+-
+-        raise RuntimeError(f"dialogue did not terminate within {self.max_rounds} rounds")
+diff --git a/ccc/inflection.py b/ccc/inflection.py
+deleted file mode 100644
+index a0610a5..0000000
+--- a/ccc/inflection.py
++++ /dev/null
+@@ -1,90 +0,0 @@
+-"""Candidate inflection-point detection with separate assessment dimensions."""
+-
+-from __future__ import annotations
+-
+-from dataclasses import replace
+-
+-from .models import Actor, ActorType, InflectionPoint, InflectionStatus, new_id
+-
+-
+-class InflectionManager:
+-    def __init__(self, store, audit, rules) -> None:
+-        self.store = store
+-        self.audit = audit
+-        self.rules = rules
+-
+-    def detect_inflection(
+-        self,
+-        *,
+-        artifact_id: str | None = None,
+-        thread_id: str | None = None,
+-        directions: tuple[str, ...],
+-        divergence: float | None,
+-        sensitivity: float | None,
+-        actor: Actor,
+-        machine_weight: float | None = None,
+-        reason: str = "candidate trajectory change detected",
+-    ) -> InflectionPoint:
+-        self.rules.evaluate(
+-            "CCC-INFLECTION-001",
+-            bool(directions),
+-            reason="candidate detection requires an explicit direction and separate dimensions",
+-        )
+-        point = InflectionPoint(
+-            inflection_id=new_id("inflection"),
+-            artifact_id=artifact_id,
+-            thread_id=thread_id,
+-            detected_by=actor,
+-            directions=tuple(directions),
+-            divergence=divergence,
+-            sensitivity=sensitivity,
+-            significance=None,
+-            machine_weight=machine_weight,
+-            status=InflectionStatus.DETECTED,
+-            reason=reason,
+-        )
+-        self.store.add_inflection(point)
+-        self.audit.record(
+-            actor=actor,
+-            operation="DETECT_INFLECTION",
+-            object_id=point.inflection_id,
+-            previous_state=None,
+-            new_state={"status": point.status.value, "significance": None, "divergence": divergence, "sensitivity": sensitivity},
+-            reason=reason,
+-            constitutional_rule="CCC-INFLECTION-001",
+-        )
+-        return point
+-
+-    def resolve_inflection(
+-        self,
+-        inflection_id: str,
+-        *,
+-        significance: str,
+-        actor: Actor,
+-        reason: str,
+-        authorization_basis: str,
+-    ) -> InflectionPoint:
+-        self.rules.evaluate(
+-            "CCC-HUMAN-001",
+-            actor.kind is ActorType.HUMAN,
+-            reason="inflection significance requires human resolution",
+-        )
+-        point = self.store.inflection_points[inflection_id]
+-        updated = replace(
+-            point,
+-            significance=significance,
+-            status=InflectionStatus.RESOLVED,
+-            human_resolution=reason,
+-        )
+-        self.store.replace_inflection(updated)
+-        self.audit.record(
+-            actor=actor,
+-            operation="RESOLVE_INFLECTION",
+-            object_id=inflection_id,
+-            previous_state={"status": point.status.value, "significance": point.significance},
+-            new_state={"status": updated.status.value, "significance": significance},
+-            reason=reason,
+-            constitutional_rule="CCC-HUMAN-001",
+-            authorization_basis=authorization_basis,
+-        )
+-        return updated
+diff --git a/ccc/models.py b/ccc/models.py
+index bff6462..a3a9617 100644
+--- a/ccc/models.py
++++ b/ccc/models.py
+@@ -87,24 +87,10 @@ class RoadSignCategory(_ValueEnum):
+     UNEXPECTED_CONNECTION = "unexpected_connection"
+ 
+ 
+-class InflectionStatus(_ValueEnum):
+-    DETECTED = "DETECTED"
+-    RESOLVED = "RESOLVED"
+-    REJECTED = "REJECTED"
+ 
+ 
+-class ThreadStatus(_ValueEnum):
+-    OPEN = "OPEN"
+-    PAUSED = "PAUSED"
+-    RESOLVED = "RESOLVED"
+-    CLOSED = "CLOSED"
+ 
+ 
+-class BranchStatus(_ValueEnum):
+-    OPEN = "OPEN"
+-    RESUMABLE = "RESUMABLE"
+-    RESOLVED = "RESOLVED"
+-    CLOSED = "CLOSED"
+ 
+ 
+ class AnalysisStage(_ValueEnum):
+@@ -127,13 +113,6 @@ class ConflictStatus(_ValueEnum):
+     RESOLVED = "RESOLVED"
+ 
+ 
+-class TermStatus(_ValueEnum):
+-    CANONICAL = "canonical"
+-    PROPOSED = "proposed"
+-    UNCERTAIN = "uncertain"
+-    EXTERNAL = "external"
+-    DEPRECATED = "deprecated"
+-    SUPERSEDED = "superseded"
+ 
+ 
+ def utc_now() -> str:
+@@ -322,46 +301,10 @@ class RoadSign:
+         object.__setattr__(self, "metadata", _freeze_mapping(self.metadata))
+ 
+ 
+-@dataclass(frozen=True)
+-class InflectionPoint:
+-    inflection_id: str
+-    artifact_id: str | None
+-    thread_id: str | None
+-    detected_by: Actor
+-    directions: tuple[str, ...]
+-    divergence: float | None
+-    sensitivity: float | None
+-    significance: str | None = None
+-    machine_weight: float | None = None
+-    status: InflectionStatus = InflectionStatus.DETECTED
+-    reason: str = ""
+-    timestamp: str = field(default_factory=utc_now)
+-    human_resolution: str | None = None
+ 
+ 
+-@dataclass(frozen=True)
+-class Thread:
+-    thread_id: str
+-    title: str
+-    created_by: Actor
+-    status: ThreadStatus = ThreadStatus.OPEN
+-    parent_thread_id: str | None = None
+-    active_artifact_ids: tuple[str, ...] = field(default_factory=tuple)
+-    branch_ids: tuple[str, ...] = field(default_factory=tuple)
+-    created_at: str = field(default_factory=utc_now)
+ 
+ 
+-@dataclass(frozen=True)
+-class Branch:
+-    branch_id: str
+-    parent_thread_id: str
+-    title: str
+-    created_by: Actor
+-    status: BranchStatus = BranchStatus.OPEN
+-    source_artifact_id: str | None = None
+-    deferred: bool = False
+-    current_artifact_ids: tuple[str, ...] = field(default_factory=tuple)
+-    created_at: str = field(default_factory=utc_now)
+ 
+ 
+ @dataclass(frozen=True)
+@@ -404,31 +347,6 @@ class DiscoveryRecord:
+             )
+ 
+ 
+-@dataclass(frozen=True)
+-class SimulationRecord:
+-    simulation_id: str
+-    inputs: tuple[str, ...]
+-    input_provenance: tuple[tuple[str, str], ...]
+-    assumptions: tuple[str, ...]
+-    shared_assumptions: tuple[str, ...]
+-    trajectory: tuple[str, ...]
+-    counterfactual: str
+-    output: str
+-    sensitivity: Mapping[str, Any]
+-    limitations: tuple[str, ...]
+-    created_by: Actor
+-    provenance_status: ProvenanceStatus = ProvenanceStatus.ASSISTANT_PROPOSED
+-    epistemic_status: EpistemicStatus = EpistemicStatus.SIMULATION
+-    created_at: str = field(default_factory=utc_now)
+-
+-    def __post_init__(self) -> None:
+-        object.__setattr__(self, "inputs", tuple(self.inputs))
+-        object.__setattr__(self, "input_provenance", tuple(self.input_provenance))
+-        object.__setattr__(self, "assumptions", tuple(self.assumptions))
+-        object.__setattr__(self, "shared_assumptions", tuple(self.shared_assumptions))
+-        object.__setattr__(self, "trajectory", tuple(self.trajectory))
+-        object.__setattr__(self, "limitations", tuple(self.limitations))
+-        object.__setattr__(self, "sensitivity", _freeze_mapping(self.sensitivity))
+ 
+ 
+ @dataclass(frozen=True)
+@@ -464,18 +382,6 @@ class ConflictRecord:
+     created_at: str = field(default_factory=utc_now)
+ 
+ 
+-@dataclass(frozen=True)
+-class CanonicalTerm:
+-    term_id: str
+-    term: str
+-    definition: str
+-    status: TermStatus
+-    origin_actor: Actor
+-    provenance_status: ProvenanceStatus
+-    source_material: tuple[str, ...] = field(default_factory=tuple)
+-    canonicalized_by: Actor | None = None
+-    superseded_by: str | None = None
+-    created_at: str = field(default_factory=utc_now)
+ 
+ 
+ @dataclass(frozen=True)
+diff --git a/ccc/simulation.py b/ccc/simulation.py
+deleted file mode 100644
+index 6c8754d..0000000
+--- a/ccc/simulation.py
++++ /dev/null
+@@ -1,69 +0,0 @@
+-"""Constrained trajectory simulation with explicit input provenance."""
+-
+-from __future__ import annotations
+-
+-from .models import Actor, EpistemicStatus, ProvenanceStatus, SimulationRecord, new_id
+-
+-
+-class SimulationManager:
+-    def __init__(self, store, audit, rules) -> None:
+-        self.store = store
+-        self.audit = audit
+-        self.rules = rules
+-
+-    def simulate(
+-        self,
+-        *,
+-        inputs: tuple[str, ...],
+-        assumptions: tuple[str, ...],
+-        shared_assumptions: tuple[str, ...],
+-        trajectory: tuple[str, ...],
+-        counterfactual: str,
+-        output: str,
+-        sensitivity: dict,
+-        limitations: tuple[str, ...],
+-        actor: Actor,
+-    ) -> SimulationRecord:
+-        input_provenance: list[tuple[str, str]] = []
+-        for artifact_id in inputs:
+-            artifact = self.store.require_artifact(artifact_id)
+-            input_provenance.append((artifact_id, artifact.provenance_status.value))
+-        self.rules.evaluate(
+-            "CCC-SIMULATION-001",
+-            bool(counterfactual.strip()) and bool(limitations),
+-            reason="simulation must preserve its assumptions and limitations",
+-            evidence=inputs,
+-        )
+-        simulation = SimulationRecord(
+-            simulation_id=new_id("simulation"),
+-            inputs=tuple(inputs),
+-            input_provenance=tuple(input_provenance),
+-            assumptions=tuple(assumptions),
+-            shared_assumptions=tuple(shared_assumptions),
+-            trajectory=tuple(trajectory),
+-            counterfactual=counterfactual,
+-            output=output,
+-            sensitivity=sensitivity,
+-            limitations=tuple(limitations),
+-            created_by=actor,
+-        )
+-        self.store.add_simulation(simulation)
+-        self.audit.record(
+-            actor=actor,
+-            operation="SIMULATE",
+-            object_id=simulation.simulation_id,
+-            previous_state=None,
+-            new_state={"epistemic_status": EpistemicStatus.SIMULATION.value, "shared_assumptions": list(shared_assumptions)},
+-            reason=counterfactual,
+-            provenance=ProvenanceStatus.ASSISTANT_PROPOSED,
+-            evidence=inputs,
+-            constitutional_rule="CCC-SIMULATION-001",
+-        )
+-        return simulation
+-
+-    def promote_to_historical(self, simulation_id: str, *, actor: Actor, reason: str):
+-        self.rules.evaluate(
+-            "CCC-EPISTEMIC-002",
+-            False,
+-            reason="simulation output cannot become historical record",
+-        )
+diff --git a/ccc/store.py b/ccc/store.py
+index de3b4d0..11cd376 100644
+--- a/ccc/store.py
++++ b/ccc/store.py
+@@ -19,9 +19,6 @@ from .models import (
+     ActorType,
+     Artifact,
+     ArtifactState,
+-    Branch,
+-    BranchStatus,
+-    CanonicalTerm,
+     ConflictClass,
+     ConflictRecord,
+     ConflictStatus,
+@@ -29,18 +26,12 @@ from .models import (
+     EpistemicEvent,
+     EpistemicStatus,
+     EvidenceLink,
+-    InflectionPoint,
+-    InflectionStatus,
+     LineageEvent,
+     ProvenanceEvent,
+     ProvenanceStatus,
+     RelationshipType,
+     RoadSign,
+     RoadSignCategory,
+-    SimulationRecord,
+-    TermStatus,
+-    Thread,
+-    ThreadStatus,
+     UncertaintyRecord,
+     AuditEvent,
+ )
+@@ -69,6 +60,12 @@ def _tuple(value: Iterable[Any] | None) -> tuple[Any, ...]:
+     return tuple(value or ())
+ 
+ 
++#: State-file sections for record types buried in wking53214/Graveyard
++#: (ccc/2026-10-06-unused-record-types): turning points, threads, branches,
++#: simulations and official terms. Kept verbatim across load and save.
++RETIRED_SECTIONS = ("inflection_points", "threads", "branches", "simulations", "terms")
++
++
+ class CCCStore:
+     """Canonical object store used by every CCC service."""
+ 
+@@ -81,9 +78,6 @@ class CCCStore:
+         self.lineage_events: list[LineageEvent] = []
+         self.audit_events: list[AuditEvent] = []
+         self.road_signs: dict[str, RoadSign] = {}
+-        self.inflection_points: dict[str, InflectionPoint] = {}
+-        self.threads: dict[str, Thread] = {}
+-        self.branches: dict[str, Branch] = {}
+         self.discoveries: dict[str, DiscoveryRecord] = {}
+         # discovery_id -> the exact text that discovery was matched on for
+         # duplicate / recurrence detection (the joined evidence excerpts, or
+@@ -96,11 +90,15 @@ class CCCStore:
+         # written before that field existed -- the signal for CCCSystem to
+         # reconstruct match texts rather than trust an absent list.
+         self.match_texts_persisted: bool = True
+-        self.simulations: dict[str, SimulationRecord] = {}
+         self.uncertainties: dict[str, UncertaintyRecord] = {}
+         self.conflicts: dict[str, ConflictRecord] = {}
+-        self.terms: dict[str, CanonicalTerm] = {}
+         self.rule_decisions: list[dict[str, Any]] = []
++        # Sections for record types CCC no longer carries (buried in
++        # wking53214/Graveyard, ccc/2026-10-06-unused-record-types). A state
++        # file that holds them loads; the raw contents are kept exactly as
++        # read and written back on save, so nothing is lost and a revival can
++        # read them. Nothing in CCC interprets them.
++        self.retired_sections: dict[str, Any] = {}
+ 
+     def add_artifact(self, artifact: Artifact) -> None:
+         self.artifacts[artifact.artifact_id] = artifact
+@@ -147,30 +145,6 @@ class CCCStore:
+             raise NotFound(f"road sign {road_sign.road_sign_id}")
+         self.road_signs[road_sign.road_sign_id] = road_sign
+ 
+-    def add_inflection(self, point: InflectionPoint) -> None:
+-        self.inflection_points[point.inflection_id] = point
+-
+-    def replace_inflection(self, point: InflectionPoint) -> None:
+-        if point.inflection_id not in self.inflection_points:
+-            raise NotFound(f"inflection {point.inflection_id}")
+-        self.inflection_points[point.inflection_id] = point
+-
+-    def add_thread(self, thread: Thread) -> None:
+-        self.threads[thread.thread_id] = thread
+-
+-    def replace_thread(self, thread: Thread) -> None:
+-        if thread.thread_id not in self.threads:
+-            raise NotFound(f"thread {thread.thread_id}")
+-        self.threads[thread.thread_id] = thread
+-
+-    def add_branch(self, branch: Branch) -> None:
+-        self.branches[branch.branch_id] = branch
+-
+-    def replace_branch(self, branch: Branch) -> None:
+-        if branch.branch_id not in self.branches:
+-            raise NotFound(f"branch {branch.branch_id}")
+-        self.branches[branch.branch_id] = branch
+-
+     def add_discovery(self, discovery: DiscoveryRecord) -> None:
+         self.discoveries[discovery.discovery_id] = discovery
+ 
+@@ -179,9 +153,6 @@ class CCCStore:
+             raise NotFound(f"discovery {discovery.discovery_id}")
+         self.discoveries[discovery.discovery_id] = discovery
+ 
+-    def add_simulation(self, simulation: SimulationRecord) -> None:
+-        self.simulations[simulation.simulation_id] = simulation
+-
+     def add_uncertainty(self, uncertainty: UncertaintyRecord) -> None:
+         self.uncertainties[uncertainty.uncertainty_id] = uncertainty
+ 
+@@ -198,14 +169,6 @@ class CCCStore:
+             raise NotFound(f"conflict {conflict.conflict_id}")
+         self.conflicts[conflict.conflict_id] = conflict
+ 
+-    def add_term(self, term: CanonicalTerm) -> None:
+-        self.terms[term.term_id] = term
+-
+-    def replace_term(self, term: CanonicalTerm) -> None:
+-        if term.term_id not in self.terms:
+-            raise NotFound(f"term {term.term_id}")
+-        self.terms[term.term_id] = term
+-
+     def links_for_claim(self, claim_id: str, active_only: bool = False) -> tuple[EvidenceLink, ...]:
+         links = tuple(link for link in self.evidence_links.values() if link.claim_id == claim_id)
+         if active_only:
+@@ -227,16 +190,12 @@ class CCCStore:
+             "lineage_events": [_primitive(item) for item in self.lineage_events],
+             "audit_events": [_primitive(item) for item in self.audit_events],
+             "road_signs": [_primitive(item) for item in self.road_signs.values()],
+-            "inflection_points": [_primitive(item) for item in self.inflection_points.values()],
+-            "threads": [_primitive(item) for item in self.threads.values()],
+-            "branches": [_primitive(item) for item in self.branches.values()],
+             "discoveries": [_primitive(item) for item in self.discoveries.values()],
+             "discovery_match_texts": dict(self.discovery_match_texts),
+-            "simulations": [_primitive(item) for item in self.simulations.values()],
+             "uncertainties": [_primitive(item) for item in self.uncertainties.values()],
+             "conflicts": [_primitive(item) for item in self.conflicts.values()],
+-            "terms": [_primitive(item) for item in self.terms.values()],
+             "rule_decisions": [_primitive(item) for item in self.rule_decisions],
++            **self.retired_sections,
+         }
+ 
+     def save(self, path: str | Path | None = None) -> Path:
+@@ -366,51 +325,6 @@ class CCCStore:
+                     metadata=value.get("metadata", {}),
+                 )
+             )
+-        for value in raw.get("inflection_points", []):
+-            store.add_inflection(
+-                InflectionPoint(
+-                    inflection_id=value["inflection_id"],
+-                    artifact_id=value.get("artifact_id"),
+-                    thread_id=value.get("thread_id"),
+-                    detected_by=_actor(value["detected_by"]),
+-                    directions=_tuple(value.get("directions")),
+-                    divergence=value.get("divergence"),
+-                    sensitivity=value.get("sensitivity"),
+-                    significance=value.get("significance"),
+-                    machine_weight=value.get("machine_weight"),
+-                    status=InflectionStatus(value.get("status", InflectionStatus.DETECTED.value)),
+-                    reason=value.get("reason", ""),
+-                    timestamp=value["timestamp"],
+-                    human_resolution=value.get("human_resolution"),
+-                )
+-            )
+-        for value in raw.get("threads", []):
+-            store.add_thread(
+-                Thread(
+-                    thread_id=value["thread_id"],
+-                    title=value["title"],
+-                    created_by=_actor(value["created_by"]),
+-                    status=ThreadStatus(value.get("status", ThreadStatus.OPEN.value)),
+-                    parent_thread_id=value.get("parent_thread_id"),
+-                    active_artifact_ids=_tuple(value.get("active_artifact_ids")),
+-                    branch_ids=_tuple(value.get("branch_ids")),
+-                    created_at=value["created_at"],
+-                )
+-            )
+-        for value in raw.get("branches", []):
+-            store.add_branch(
+-                Branch(
+-                    branch_id=value["branch_id"],
+-                    parent_thread_id=value["parent_thread_id"],
+-                    title=value["title"],
+-                    created_by=_actor(value["created_by"]),
+-                    status=BranchStatus(value.get("status", BranchStatus.OPEN.value)),
+-                    source_artifact_id=value.get("source_artifact_id"),
+-                    deferred=value.get("deferred", False),
+-                    current_artifact_ids=_tuple(value.get("current_artifact_ids")),
+-                    created_at=value["created_at"],
+-                )
+-            )
+         for value in raw.get("discoveries", []):
+             store.add_discovery(
+                 DiscoveryRecord(
+@@ -443,25 +357,6 @@ class CCCStore:
+         store.discovery_match_texts = {
+             str(k): str(v) for k, v in raw.get("discovery_match_texts", {}).items()
+         }
+-        for value in raw.get("simulations", []):
+-            store.add_simulation(
+-                SimulationRecord(
+-                    simulation_id=value["simulation_id"],
+-                    inputs=_tuple(value.get("inputs")),
+-                    input_provenance=tuple(tuple(item) for item in value.get("input_provenance", [])),
+-                    assumptions=_tuple(value.get("assumptions")),
+-                    shared_assumptions=_tuple(value.get("shared_assumptions")),
+-                    trajectory=_tuple(value.get("trajectory")),
+-                    counterfactual=value["counterfactual"],
+-                    output=value["output"],
+-                    sensitivity=value.get("sensitivity", {}),
+-                    limitations=_tuple(value.get("limitations")),
+-                    created_by=_actor(value["created_by"]),
+-                    provenance_status=ProvenanceStatus(value.get("provenance_status", ProvenanceStatus.ASSISTANT_PROPOSED.value)),
+-                    epistemic_status=EpistemicStatus(value.get("epistemic_status", EpistemicStatus.SIMULATION.value)),
+-                    created_at=value["created_at"],
+-                )
+-            )
+         for value in raw.get("uncertainties", []):
+             store.add_uncertainty(
+                 UncertaintyRecord(
+@@ -497,20 +392,8 @@ class CCCStore:
+                     created_at=value["created_at"],
+                 )
+             )
+-        for value in raw.get("terms", []):
+-            store.add_term(
+-                CanonicalTerm(
+-                    term_id=value["term_id"],
+-                    term=value["term"],
+-                    definition=value["definition"],
+-                    status=TermStatus(value["status"]),
+-                    origin_actor=_actor(value["origin_actor"]),
+-                    provenance_status=ProvenanceStatus(value["provenance_status"]),
+-                    source_material=_tuple(value.get("source_material")),
+-                    canonicalized_by=_actor(value["canonicalized_by"]) if value.get("canonicalized_by") else None,
+-                    superseded_by=value.get("superseded_by"),
+-                    created_at=value["created_at"],
+-                )
+-            )
+         store.rule_decisions.extend(raw.get("rule_decisions", []))
++        store.retired_sections = {
++            key: raw[key] for key in RETIRED_SECTIONS if raw.get(key)
++        }
+         return store
+diff --git a/ccc/system.py b/ccc/system.py
+index 73d70cb..9ad15c3 100644
+--- a/ccc/system.py
++++ b/ccc/system.py
+@@ -8,11 +8,8 @@ from pathlib import Path
+ from typing import Any
+ 
+ from .audit import AuditTrail
+-from .branches import BranchManager
+-from .canonicalization import CanonicalizationManager
+ from .conflict import ConflictManager
+ from .constitutional_rules import ConstitutionalRuleEngine
+-from .dialogue import DialogueEngine
+ from .discovery import DiscoveryManager
+ from .text_matching import (
+     TextMatcherMissing,
+@@ -26,7 +23,6 @@ from .semantic import DEFAULT_SEMANTIC_THRESHOLD, evaluate_recurrence
+ from .epistemic_state import EpistemicManager
+ from .evidence import EvidenceManager
+ from .human_resolution import HumanResolutionManager
+-from .inflection import InflectionManager
+ from .lineage import LineageManager
+ from .models import (
+     Actor,
+@@ -45,9 +41,7 @@ from .models import (
+ from .provenance import ProvenanceManager
+ from .query import QueryEngine
+ from .road_signs import RoadSignManager
+-from .simulation import SimulationManager
+ from .store import CCCStore
+-from .threads import ThreadManager
+ 
+ 
+ def _stated_private_sources(value) -> tuple[str, ...] | None:
+@@ -175,20 +169,13 @@ class CCCSystem:
+         self.epistemic = EpistemicManager(self.store, self.audit_trail, self.rules, self.evidence)
+         self.human_resolution = HumanResolutionManager(self.store, self.audit_trail, self.rules)
+         self.road_signs = RoadSignManager(self.store, self.audit_trail, self.rules)
+-        self.inflection = InflectionManager(self.store, self.audit_trail, self.rules)
+-        self.threads = ThreadManager(self.store, self.audit_trail, self.rules)
+-        self.branches = BranchManager(self.store, self.audit_trail, self.rules, self.lineage, self.threads)
+         self.discovery = DiscoveryManager(self.store, self.audit_trail, self.rules, self.evidence)
+-        self.dialogue = DialogueEngine(self.human_resolution)
+         require_matcher(text_matcher)
+         self.text_matcher = text_matcher
+         self.private_source_markers = _stated_private_sources(private_source_markers)
+         self.semantic_index = semantic_index
+         self.semantic_threshold = semantic_threshold
+-        self._recorded_dialogue_signatures: set = set()
+-        self.simulation = SimulationManager(self.store, self.audit_trail, self.rules)
+         self.conflict = ConflictManager(self.store, self.audit_trail, self.rules, self.human_resolution)
+-        self.canonicalization = CanonicalizationManager(self.store, self.audit_trail, self.rules)
+         self.query_engine = QueryEngine(self.store)
+         self._restore_derived_indexes()
+ 
+@@ -198,7 +185,7 @@ class CCCSystem:
+ 
+     def _restore_derived_indexes(self) -> None:
+         """Rebuild the accelerators that live outside CCCStore: the attached
+-        text matcher's indexes and the recorded-dialogue signature set.
++        text matcher's indexes.
+         CCCStore persists the facts; these are derived
+         structures built empty in __init__, so after CCCStore.load() they
+         would start empty while the store is full -- occurrence #2 arriving
+@@ -237,11 +224,6 @@ class CCCSystem:
+                     stacklevel=3,
+                 )
+ 
+-        for artifact in self.store.artifacts.values():
+-            uncertainty_ids = artifact.metadata.get("dialogue_uncertainty_ids")
+-            if uncertainty_ids:
+-                self._recorded_dialogue_signatures.add(tuple(uncertainty_ids))
+-
+         # The semantic index is a derived structure too. Before this the
+         # lexical detectors were rebuilt on load and the semantic index was
+         # not, so after a reopen every prior finding was invisible to a
+@@ -628,38 +610,6 @@ class CCCSystem:
+     def query_road_signs(self, **kwargs):
+         return self.road_signs.query_road_signs(**kwargs)
+ 
+-    def detect_inflection(self, **kwargs):
+-        return self.inflection.detect_inflection(**kwargs)
+-
+-    def resolve_inflection(self, *args, **kwargs):
+-        return self.inflection.resolve_inflection(*args, **kwargs)
+-
+-    def create_thread(self, **kwargs):
+-        return self.threads.create_thread(**kwargs)
+-
+-    def create_branch(self, *args, **kwargs):
+-        return self.branches.create_branch(*args, **kwargs)
+-
+-    def attach_branch(self, *args, **kwargs):
+-        return self.branches.attach_branch(*args, **kwargs)
+-
+-    def resume_thread(self, thread_id: str, *, actor: Actor, reason: str):
+-        if thread_id in self.store.threads:
+-            return self.threads.resume_thread(thread_id, actor=actor, reason=reason)
+-        return self.branches.resume_thread(thread_id, actor=actor, reason=reason)
+-
+-    def return_to_branch(self, branch_id: str, *, actor: Actor, reason: str):
+-        return self.branches.return_to_branch(branch_id, actor=actor, reason=reason)
+-
+-    def resolve_branch(self, branch_id: str, *, actor: Actor, reason: str):
+-        return self.branches.resolve_branch(branch_id, actor=actor, reason=reason)
+-
+-    def close_branch(self, branch_id: str, *, actor: Actor, reason: str):
+-        return self.branches.close_branch(branch_id, actor=actor, reason=reason)
+-
+-    def close_thread(self, thread_id: str, *, actor: Actor, reason: str):
+-        return self.threads.close_thread(thread_id, actor=actor, reason=reason)
+-
+     def discover(self, **kwargs):
+         return self.discovery.discover(**kwargs)
+ 
+@@ -1019,102 +969,12 @@ class CCCSystem:
+             },
+         )
+ 
+-    def record_dialogue_conclusion(self, outcome, *, question: str,
+-                                    human_actor: Actor, context: str = ""):
+-        """Turn a terminated dialogue into a durable, queryable fact.
+-
+-        The dialogue engine reaches conclusions; without this they stay as
+-        a resolved_choice string on an UncertaintyRecord and nothing more --
+-        not part of the knowledge model, not queryable as a fact.
+-
+-        A CONFIRMED answer becomes a USER_ESTABLISHED / INTERPRETATION
+-        artifact: a human confirmed it through the CCC-HUMAN-001-gated
+-        resolve(), so it's legitimately human-established -- an
+-        interpretation of the evidence, not raw evidence. A 42 becomes a
+-        USER_ESTABLISHED / UNKNOWN artifact, so "we looked and the record
+-        doesn't establish this" is itself a durable fact, not a gap that
+-        looks identical to never having investigated.
+-
+-        Either way the artifact's metadata links every UncertaintyRecord in
+-        the dialogue, so the rounds that produced the conclusion stay
+-        traceable from it.
+-        """
+-        if human_actor.kind is not ActorType.HUMAN:
+-            raise ValueError(
+-                "a dialogue conclusion is human-established by definition -- "
+-                "pass a human actor, the same one who resolved the dialogue"
+-            )
+-        if outcome.terminal not in ("CONFIRMED", "UNKNOWN"):
+-            raise ValueError(
+-                f"dialogue outcome {outcome.terminal!r} is not a terminal state -- "
+-                "nothing to record"
+-            )
+-        uncertainty_ids = list(outcome.uncertainty_ids)
+-        if not uncertainty_ids:
+-            raise ValueError(
+-                "outcome has no uncertainty_ids -- it did not come from a real "
+-                "dialogue round, refusing to record a conclusion with no rounds behind it"
+-            )
+-        for uid in uncertainty_ids:
+-            if uid not in self.store.uncertainties:
+-                raise ValueError(
+-                    f"uncertainty_id {uid!r} is not in the store -- the outcome's "
+-                    "rounds don't exist, refusing to record an untraceable conclusion"
+-                )
+-        signature = tuple(uncertainty_ids)
+-        if signature in self._recorded_dialogue_signatures:
+-            raise ValueError(
+-                "this dialogue's conclusion is already recorded -- "
+-                "refusing to record it twice"
+-            )
+-
+-        if outcome.terminal == "CONFIRMED":
+-            if not outcome.choice:
+-                raise ValueError(
+-                    "a CONFIRMED outcome with no choice is malformed -- "
+-                    "refusing to record 'Confirmed: None'"
+-                )
+-            # Structured, not a bare f-string concat: a question containing
+-            # "Confirmed:" or its own newlines can't make the recorded fact
+-            # ambiguous about what was actually confirmed.
+-            content = (
+-                "DIALOGUE CONCLUSION (confirmed)\n"
+-                f"question: {question!r}\n"
+-                f"confirmed: {outcome.choice!r}"
+-            )
+-            epistemic = EpistemicStatus.INTERPRETATION
+-            reason = "human confirmed a dialogue candidate"
+-        elif outcome.terminal == "UNKNOWN":
+-            content = (
+-                "DIALOGUE CONCLUSION (42 -- the record does not establish this)\n"
+-                f"question: {question!r}"
+-            )
+-            epistemic = EpistemicStatus.UNKNOWN
+-            reason = "human resolved a dialogue as 42 -- the record does not establish this"
+-        artifact = self.ingest(
+-            content,
+-            actor=human_actor,
+-            provenance_status=ProvenanceStatus.USER_ESTABLISHED,
+-            epistemic_status=epistemic,
+-            reason=reason,
+-            authorization_basis=f"dialogue conclusion, {outcome.rounds} round(s)",
+-            metadata={
+-                "dialogue_uncertainty_ids": uncertainty_ids,
+-                "dialogue_context": context,
+-            },
+-        )
+-        self._recorded_dialogue_signatures.add(signature)
+-        return artifact
+-
+     def advance_discovery(self, *args, **kwargs):
+         return self.discovery.advance(*args, **kwargs)
+ 
+     def adopt_discovery(self, *args, **kwargs):
+         return self.discovery.adopt(*args, **kwargs)
+ 
+-    def simulate(self, **kwargs):
+-        return self.simulation.simulate(**kwargs)
+-
+     def detect_conflict(self, **kwargs):
+         return self.conflict.detect_conflict(**kwargs)
+ 
+@@ -1136,18 +996,6 @@ class CCCSystem:
+     def resolve_uncertainty(self, *args, **kwargs):
+         return self.human_resolution.resolve(*args, **kwargs)
+ 
+-    def propose_term(self, **kwargs):
+-        return self.canonicalization.propose_term(**kwargs)
+-
+-    def canonicalize(self, *args, **kwargs):
+-        return self.canonicalization.canonicalize(*args, **kwargs)
+-
+-    def deprecate_term(self, *args, **kwargs):
+-        return self.canonicalization.deprecate(*args, **kwargs)
+-
+-    def supersede_term(self, *args, **kwargs):
+-        return self.canonicalization.supersede(*args, **kwargs)
+-
+     def query(self, **kwargs):
+         return self.query_engine.query(**kwargs)
+ 
+@@ -1178,14 +1026,6 @@ class CCCSystem:
+                 reason=reason,
+                 authorization_basis=authorization_basis,
+             )
+-        if kind == "inflection":
+-            return self.resolve_inflection(
+-                object_id,
+-                significance=kwargs["significance"],
+-                actor=actor,
+-                reason=reason,
+-                authorization_basis=authorization_basis,
+-            )
+         raise ValueError(f"unknown resolution kind: {kind}")
+ 
+     def validate_constitution(self) -> dict[str, Any]:
+@@ -1211,10 +1051,6 @@ class CCCSystem:
+             checks += 1
+             if sign.is_conclusion:
+                 violations.append(f"{sign.road_sign_id}: road sign is marked conclusion")
+-        for simulation in self.store.simulations.values():
+-            checks += 1
+-            if simulation.epistemic_status is not EpistemicStatus.SIMULATION:
+-                violations.append(f"{simulation.simulation_id}: simulation lost modeled status")
+         for event in self.store.audit_events:
+             checks += 1
+             if event.actor.kind not in {ActorType.HUMAN, ActorType.SYSTEM, ActorType.MODEL, ActorType.EXTERNAL}:
+diff --git a/ccc/testing/harness.py b/ccc/testing/harness.py
+index b2f886c..e1dfc30 100644
+--- a/ccc/testing/harness.py
++++ b/ccc/testing/harness.py
+@@ -20,7 +20,6 @@ from ..models import (
+     ProvenanceStatus,
+     RoadSignCategory,
+     RelationshipType,
+-    TermStatus,
+ )
+ 
+ 
+@@ -145,20 +144,8 @@ def _h12():
+     return (sign.road_sign_id,)
+ 
+ 
+-def _h13():
+-    system = CCCSystem()
+-    point = system.detect_inflection(thread_id="thread-not-required", directions=("redirected",), divergence=0.8, sensitivity=0.2, machine_weight=0.9, actor=_model())
+-    assert point.significance is None and point.divergence != point.sensitivity
+-    return (point.inflection_id,)
+ 
+ 
+-def _h14():
+-    system = CCCSystem()
+-    thread = system.create_thread(title="primary", actor=_human())
+-    branch = system.create_branch(thread.thread_id, title="deferred branch", actor=_model(), deferred=True)
+-    assert branch.branch_id in system.store.threads[thread.thread_id].branch_ids
+-    assert any(event.relationship is RelationshipType.BRANCH_OF for event in system.store.lineage_events) is False
+-    return (thread.thread_id, branch.branch_id)
+ 
+ 
+ def _h15():
+@@ -178,21 +165,8 @@ def _h16():
+     return (discovery.discovery_id,)
+ 
+ 
+-def _h17():
+-    system = CCCSystem()
+-    source = _fact(system)
+-    sim = system.simulate(inputs=(source.artifact_id,), assumptions=("steady demand",), shared_assumptions=("same baseline",), trajectory=("a", "b"), counterfactual="if demand changes", output="modeled output", sensitivity={"demand": 0.8}, limitations=("not history",), actor=_model())
+-    assert sim.epistemic_status is EpistemicStatus.SIMULATION and sim.shared_assumptions == ("same baseline",)
+-    return (sim.simulation_id,)
+ 
+ 
+-def _h18():
+-    system = CCCSystem()
+-    source = _fact(system)
+-    term = system.propose_term(term="CCC", definition="proposed term", actor=_model())
+-    canonical = system.canonicalize(term.term_id, actor=_human(), source_material=(source.artifact_id,), reason="human terminology decision", authorization_basis="human review")
+-    assert canonical.status is TermStatus.CANONICAL
+-    return (canonical.term_id,)
+ 
+ 
+ def _h19():
+@@ -309,13 +283,6 @@ def _h32():
+     return ("open conflict",)
+ 
+ 
+-def _h33():
+-    system = CCCSystem()
+-    thread = system.create_thread(title="primary", actor=_human())
+-    branch = system.create_branch(thread.thread_id, title="branch", actor=_human())
+-    system.close_branch(branch.branch_id, actor=_human(), reason="pause")
+-    assert branch.branch_id in system.store.branches
+-    return (branch.branch_id,)
+ 
+ 
+ def _h34():
+@@ -361,28 +328,10 @@ def _h39():
+     return (claim.artifact_id,)
+ 
+ 
+-def _h40():
+-    system = CCCSystem()
+-    sim = system.simulate(inputs=(), assumptions=("a",), shared_assumptions=("shared",), trajectory=("x",), counterfactual="if", output="out", sensitivity={}, limitations=("limited",), actor=_model())
+-    assert sim.shared_assumptions == ("shared",) and "shared" in sim.shared_assumptions
+-    return (sim.simulation_id,)
+ 
+ 
+-def _h41():
+-    system = CCCSystem()
+-    source = _fact(system)
+-    sim = system.simulate(inputs=(source.artifact_id,), assumptions=(), shared_assumptions=(), trajectory=(), counterfactual="if", output="out", sensitivity={}, limitations=("limited",), actor=_model())
+-    assert sim.input_provenance == ((source.artifact_id, ProvenanceStatus.USER_ESTABLISHED.value),)
+-    return sim.input_provenance
+ 
+ 
+-def _h42():
+-    system = CCCSystem()
+-    unknown = system.ingest("unknown origin", actor=Actor.system())
+-    term = system.propose_term(term="unknown", definition="unknown", actor=_model())
+-    blocked, evidence = _blocked(lambda: system.canonicalize(term.term_id, actor=_human(), source_material=(unknown.artifact_id,), reason="silent", authorization_basis="human"))
+-    assert blocked
+-    return evidence
+ 
+ 
+ def _h43():
+@@ -414,12 +363,8 @@ _EXECUTABLE = {
+     "H10": ("REQ.CONFLICT.PRESERVE", "Evidence conflict is classified and kept open.", _h10),
+     "H11": ("REQ.UNCERTAINTY.PRESERVE", "Uncertainty exposes candidates without forced choice.", _h11),
+     "H12": ("REQ.ROAD_SIGNS.INDICATORS_NOT_CONCLUSIONS", "Road Sign remains an indicator.", _h12),
+-    "H13": ("REQ.INFLECTION.SEPARATE_DIMENSIONS", "Inflection dimensions remain separate.", _h13),
+-    "H14": ("REQ.THREADS.BRANCH_LINEAGE", "Threads and deferred branches remain explicit.", _h14),
+     "H15": ("REQ.ANALYSIS.ONE_TWO_THREE", "Anomaly advances through pattern to human mandate.", _h15),
+     "H16": ("REQ.DISCOVERY.MACHINE_ATTRIBUTION", "Machine discovery retains machine origin.", _h16),
+-    "H17": ("REQ.SIMULATION.ASSUMPTIONS", "Simulation preserves assumptions and limitations.", _h17),
+-    "H18": ("REQ.CANONICALIZATION.HUMAN_STATUS", "Canonical term requires human source decision.", _h18),
+     "H19": ("REQ.QUERYABILITY.NO_PRESENTATION_DELETION", "Query filters expose all requested dimensions.", _h19),
+     "H20": ("REQ.AUDIT.CONSEQUENTIAL_TRANSITIONS", "Audit identifies actor and operation.", _h20),
+     "H21": ("REQ.HISTORY.LINEAGE", "Correction is a distinct audited operation.", _h21),
+@@ -434,21 +379,34 @@ _EXECUTABLE = {
+     "H30": ("REQ.CONFLICT.PRESERVE", "Conflict resolution is separately recorded.", _h30),
+     "H31": ("REQ.HUMAN_SOVEREIGNTY.NO_MACHINE_VETO", "Machine cannot author a human correction.", _h31),
+     "H32": ("REQ.CONFLICT.PRESERVE", "Detection does not silently resolve conflict.", _h32),
+-    "H33": ("REQ.THREADS.BRANCH_LINEAGE", "Closed branch remains queryable.", _h33),
+     "H34": ("REQ.EPISTEMIC.EVIDENCE_BASIS", "Inference promotion requires human action and root.", _h34),
+     "H35": ("REQ.EVIDENCE.ROOT_INTEGRITY", "Erasure cascade is transitive.", _h35),
+     "H36": ("REQ.QUERYABILITY.NO_PRESENTATION_DELETION", "Presentation ranking does not delete.", _h36),
+     "H37": ("REQ.QUERYABILITY.NO_PRESENTATION_DELETION", "Unsurfaced discovery remains stored.", _h37),
+     "H38": ("REQ.UNCERTAINTY.PRESERVE", "Unknown provenance is explicit.", _h38),
+     "H39": ("REQ.EVIDENCE.ROOT_INTEGRITY", "Redaction cascades evidentiary consequences.", _h39),
+-    "H40": ("REQ.SIMULATION.ASSUMPTIONS", "Shared simulation assumptions are explicit.", _h40),
+-    "H41": ("REQ.SIMULATION.ASSUMPTIONS", "Simulation captures input provenance.", _h41),
+-    "H42": ("REQ.CANONICALIZATION.HUMAN_STATUS", "Unknown-origin terminology is not silently canonical.", _h42),
+     "H43": ("REQ.ANALYSIS.ONE_TWO_THREE", "Anomaly cannot jump directly to mandate.", _h43),
+     "H44": ("REQ.AUDIT.CONSEQUENTIAL_TRANSITIONS", "Constitutional validator reports invariant status.", _h44),
+ }
+ 
+ 
++#: Checks whose subject was buried in wking53214/Graveyard
++#: (ccc/2026-10-06-unused-record-types). The numbers stay reserved so a revival
++#: restores them in place, and they report RETIRED rather than UNSPECIFIED: their
++#: meaning is known, the feature is just no longer here.
++_RETIRED = {
++    "H13": ("REQ.INFLECTION.SEPARATE_DIMENSIONS", "Inflection dimensions remain separate."),
++    "H14": ("REQ.THREADS.BRANCH_LINEAGE", "Threads and deferred branches remain explicit."),
++    "H17": ("REQ.SIMULATION.ASSUMPTIONS", "Simulation preserves assumptions and limitations."),
++    "H18": ("REQ.CANONICALIZATION.HUMAN_STATUS", "Canonical term requires human source decision."),
++    "H33": ("REQ.THREADS.BRANCH_LINEAGE", "Closed branch remains queryable."),
++    "H40": ("REQ.SIMULATION.ASSUMPTIONS", "Shared simulation assumptions are explicit."),
++    "H41": ("REQ.SIMULATION.ASSUMPTIONS", "Simulation captures input provenance."),
++    "H42": ("REQ.CANONICALIZATION.HUMAN_STATUS", "Unknown-origin terminology is not silently canonical."),
++}
++_RETIRED_NOTE = "RETIRED: feature buried in wking53214/Graveyard ccc/2026-10-06-unused-record-types"
++
++
+ def harness_registry() -> tuple[dict[str, str], ...]:
+     rows = []
+     for number in range(1, 63):
+@@ -462,6 +420,15 @@ def harness_registry() -> tuple[dict[str, str], ...]:
+                 "expected_result": "PASS",
+                 "historical_meaning": "UNSPECIFIED",
+             })
++        elif harness_id in _RETIRED:
++            requirement, description = _RETIRED[harness_id]
++            rows.append({
++                "harness_id": harness_id,
++                "constitutional_requirement": requirement,
++                "test_description": description,
++                "expected_result": "RETIRED",
++                "historical_meaning": _RETIRED_NOTE,
++            })
+         else:
+             rows.append({
+                 "harness_id": harness_id,
+@@ -477,6 +444,9 @@ def run_harness() -> dict:
+     records = []
+     for row in harness_registry():
+         check = _EXECUTABLE.get(row["harness_id"])
++        if row["expected_result"] == "RETIRED":
++            records.append({**row, "actual_result": "RETIRED", "status": "RETIRED", "evidence": [], "implementation_version": "0.1.0"})
++            continue
+         if check is None:
+             records.append({**row, "actual_result": "UNSPECIFIED", "status": "UNSPECIFIED", "evidence": [], "implementation_version": "0.1.0"})
+             continue
+@@ -488,7 +458,7 @@ def run_harness() -> dict:
+             records.append({**row, "actual_result": "FAIL", "status": "FAIL", "evidence": [str(exc)], "implementation_version": "0.1.0"})
+         except Exception as exc:  # pragma: no cover - the JSON result is the diagnostic
+             records.append({**row, "actual_result": "ERROR", "status": "ERROR", "evidence": [f"{type(exc).__name__}: {exc}"], "implementation_version": "0.1.0"})
+-    counts = {status.lower(): sum(item["status"] == status for item in records) for status in ("PASS", "FAIL", "ERROR", "SKIPPED", "UNSPECIFIED")}
++    counts = {status.lower(): sum(item["status"] == status for item in records) for status in ("PASS", "FAIL", "ERROR", "SKIPPED", "UNSPECIFIED", "RETIRED")}
+     return {
+         "implementation_version": "0.1.0",
+         "records": records,
+@@ -498,6 +468,7 @@ def run_harness() -> dict:
+         "errors": counts["error"],
+         "skipped": counts["skipped"],
+         "unspecified": counts["unspecified"],
++        "retired": counts["retired"],
+     }
+ 
+ 
+diff --git a/ccc/threads.py b/ccc/threads.py
+deleted file mode 100644
+index a8866b7..0000000
+--- a/ccc/threads.py
++++ /dev/null
+@@ -1,67 +0,0 @@
+-"""Primary cognitive thread lifecycle."""
+-
+-from __future__ import annotations
+-
+-from dataclasses import replace
+-
+-from .models import Actor, Thread, ThreadStatus, new_id
+-
+-
+-class ThreadManager:
+-    def __init__(self, store, audit, rules) -> None:
+-        self.store = store
+-        self.audit = audit
+-        self.rules = rules
+-
+-    def create_thread(self, *, title: str, actor: Actor, parent_thread_id: str | None = None) -> Thread:
+-        thread = Thread(thread_id=new_id("thread"), title=title, created_by=actor, parent_thread_id=parent_thread_id)
+-        self.store.add_thread(thread)
+-        self.audit.record(
+-            actor=actor,
+-            operation="CREATE_THREAD",
+-            object_id=thread.thread_id,
+-            previous_state=None,
+-            new_state={"status": thread.status.value, "parent_thread_id": parent_thread_id},
+-            reason="explicit cognitive thread created",
+-            constitutional_rule="CCC-THREAD-001",
+-        )
+-        return thread
+-
+-    def attach_artifact(self, thread_id: str, artifact_id: str, *, actor: Actor, reason: str) -> Thread:
+-        thread = self.store.threads[thread_id]
+-        self.store.require_artifact(artifact_id)
+-        updated = replace(thread, active_artifact_ids=tuple(dict.fromkeys((*thread.active_artifact_ids, artifact_id))))
+-        self.store.replace_thread(updated)
+-        self.audit.record(
+-            actor=actor,
+-            operation="ATTACH_THREAD_ARTIFACT",
+-            object_id=thread_id,
+-            previous_state={"active_artifact_ids": list(thread.active_artifact_ids)},
+-            new_state={"active_artifact_ids": list(updated.active_artifact_ids)},
+-            reason=reason,
+-            constitutional_rule="CCC-THREAD-001",
+-        )
+-        return updated
+-    def resume_thread(self, thread_id: str, *, actor: Actor, reason: str) -> Thread:
+-        return self._set_status(thread_id, ThreadStatus.OPEN, actor=actor, reason=reason, operation="RESUME_THREAD")
+-
+-    def resolve_thread(self, thread_id: str, *, actor: Actor, reason: str) -> Thread:
+-        return self._set_status(thread_id, ThreadStatus.RESOLVED, actor=actor, reason=reason, operation="RESOLVE_THREAD")
+-
+-    def close_thread(self, thread_id: str, *, actor: Actor, reason: str) -> Thread:
+-        return self._set_status(thread_id, ThreadStatus.CLOSED, actor=actor, reason=reason, operation="CLOSE_THREAD")
+-
+-    def _set_status(self, thread_id: str, status: ThreadStatus, *, actor: Actor, reason: str, operation: str) -> Thread:
+-        thread = self.store.threads[thread_id]
+-        updated = replace(thread, status=status)
+-        self.store.replace_thread(updated)
+-        self.audit.record(
+-            actor=actor,
+-            operation=operation,
+-            object_id=thread_id,
+-            previous_state={"status": thread.status.value},
+-            new_state={"status": status.value},
+-            reason=reason,
+-            constitutional_rule="CCC-THREAD-001",
+-        )
+-        return updated
+diff --git a/tests/test_cns_connector.py b/tests/test_cns_connector.py
+index 2dac907..ba6184f 100644
+--- a/tests/test_cns_connector.py
++++ b/tests/test_cns_connector.py
+@@ -137,7 +137,6 @@ def _world() -> SimpleNamespace:
+         actor=model,
+         stage=AnalysisStage.PATTERN,
+     )
+-    w.term = system.propose_term(term="continuity", definition="d", actor=model)
+     w.conflict = system.detect_conflict(
+         material_ids=(w.fact.artifact_id, w.fact2.artifact_id),
+         why_material="two human facts disagree",
+@@ -147,13 +146,6 @@ def _world() -> SimpleNamespace:
+         actor=model,
+     )
+     w.uncertainty = system.ask(context="a context", question="which one?", actor=model)
+-    w.inflection = system.detect_inflection(
+-        artifact_id=w.fact.artifact_id,
+-        directions=("up", "down"),
+-        divergence=0.5,
+-        sensitivity=0.5,
+-        actor=model,
+-    )
+     return w
+ 
+ 
+@@ -620,147 +612,6 @@ SCENARIOS = [
+         ),
+         "pass", ADMITTED,
+     ),
+-    # Canonical terminology.
+-    (
+-        "canonicalize: by a model",
+-        lambda w: attempt(
+-            "canonicalize", w.term.term_id, actor=w.model,
+-            source_material=(_id(w.fact),), reason="consensus",
+-            authorization_basis="machine consensus",
+-        ),
+-        "blocked", "CCC-CANON-001",
+-    ),
+-    (
+-        "canonicalize: from a machine-proposed source",
+-        lambda w: attempt(
+-            "canonicalize", w.term.term_id, actor=w.human,
+-            source_material=(_id(w.proposal),), reason="cite the proposal",
+-            authorization_basis="explicit human action",
+-        ),
+-        "gated", "CCC-CANON-001",
+-    ),
+-    (
+-        "canonicalize: by a human from a human-established source",
+-        lambda w: attempt(
+-            "canonicalize", w.term.term_id, actor=w.human,
+-            source_material=(_id(w.fact),), reason="established",
+-            authorization_basis="explicit human action",
+-        ),
+-        "pass", ADMITTED,
+-    ),
+-    (
+-        "canonicalize: by a human who names no source",
+-        lambda w: attempt(
+-            "canonicalize", w.term.term_id, actor=w.human, source_material=(),
+-            reason="established", authorization_basis="explicit human action",
+-        ),
+-        "gated", "CCC-CANON-001",
+-    ),
+-    (
+-        "canonicalize: by a human who gives no basis",
+-        lambda w: attempt(
+-            "canonicalize", w.term.term_id, actor=w.human,
+-            source_material=(_id(w.fact),), reason="established",
+-            authorization_basis="",
+-        ),
+-        "gated", "CCC-CANON-001",
+-    ),
+-    (
+-        "canonicalize: a term that does not exist",
+-        lambda w: attempt(
+-            "canonicalize", "term_missing", actor=w.human,
+-            source_material=(_id(w.fact),), reason="established",
+-            authorization_basis="explicit human action",
+-        ),
+-        "blocked", "KeyError",
+-    ),
+-    (
+-        "canonicalize: a model, on a term that does not exist",
+-        lambda w: attempt(
+-            "canonicalize", "term_missing", actor=w.model,
+-            source_material=(_id(w.fact),), reason="consensus",
+-            authorization_basis="machine consensus",
+-        ),
+-        "blocked", "CCC-CANON-001",
+-    ),
+-    (
+-        "canonicalize: no basis and a term that does not exist",
+-        lambda w: attempt(
+-            "canonicalize", "term_missing", actor=w.human,
+-            source_material=(_id(w.fact),), reason="established",
+-            authorization_basis="",
+-        ),
+-        "blocked", "CCC-CANON-001",
+-    ),
+-    (
+-        "deprecate_term: by a model",
+-        lambda w: attempt(
+-            "deprecate_term", w.term.term_id, actor=w.model, reason="veto",
+-            authorization_basis="model vote",
+-        ),
+-        "blocked", "CCC-HUMAN-001",
+-    ),
+-    (
+-        "deprecate_term: by a human",
+-        lambda w: attempt(
+-            "deprecate_term", w.term.term_id, actor=w.human, reason="obsolete",
+-            authorization_basis="explicit human action",
+-        ),
+-        "pass", ADMITTED,
+-    ),
+-    (
+-        "deprecate_term: by a human who gives no basis",
+-        lambda w: attempt(
+-            "deprecate_term", w.term.term_id, actor=w.human, reason="obsolete",
+-            authorization_basis="",
+-        ),
+-        "gated", "CCC-HUMAN-001",
+-    ),
+-    (
+-        "supersede_term: by a model",
+-        lambda w: attempt(
+-            "supersede_term", w.term.term_id, definition="a better definition",
+-            actor=w.model, source_material=(_id(w.fact),), reason="consensus",
+-            authorization_basis="machine consensus",
+-        ),
+-        "blocked", "CCC-CANON-001",
+-    ),
+-    (
+-        "supersede_term: by a human from a human-established source",
+-        lambda w: attempt(
+-            "supersede_term", w.term.term_id, definition="a better definition",
+-            actor=w.human, source_material=(_id(w.fact),), reason="superseded",
+-            authorization_basis="explicit human action",
+-        ),
+-        "pass", ADMITTED,
+-    ),
+-    (
+-        "supersede_term: from a machine-proposed source",
+-        lambda w: attempt(
+-            "supersede_term", w.term.term_id, definition="a better definition",
+-            actor=w.human, source_material=(_id(w.proposal),), reason="cite the proposal",
+-            authorization_basis="explicit human action",
+-        ),
+-        "gated", "CCC-CANON-001",
+-    ),
+-    (
+-        "supersede_term: by a human who gives no basis",
+-        lambda w: attempt(
+-            "supersede_term", w.term.term_id, definition="a better definition",
+-            actor=w.human, source_material=(_id(w.fact),), reason="superseded",
+-            authorization_basis="",
+-        ),
+-        "gated", "CCC-CANON-001",
+-    ),
+-    (
+-        "supersede_term: a term that does not exist",
+-        lambda w: attempt(
+-            "supersede_term", "term_missing", definition="a better definition",
+-            actor=w.human, source_material=(_id(w.fact),), reason="superseded",
+-            authorization_basis="explicit human action",
+-        ),
+-        "blocked", "KeyError",
+-    ),
+     # Resolutions that belong to a human.
+     (
+         "record_resolution: by a model",
+@@ -802,22 +653,6 @@ SCENARIOS = [
+         ),
+         "pass", ADMITTED,
+     ),
+-    (
+-        "resolve_inflection: by a model",
+-        lambda w: attempt(
+-            "resolve_inflection", w.inflection.inflection_id, significance="material",
+-            actor=w.model, reason="consensus", authorization_basis="machine consensus",
+-        ),
+-        "blocked", "CCC-HUMAN-001",
+-    ),
+-    (
+-        "resolve_inflection: by a human",
+-        lambda w: attempt(
+-            "resolve_inflection", w.inflection.inflection_id, significance="material",
+-            actor=w.human, reason="decided", authorization_basis="explicit human decision",
+-        ),
+-        "pass", ADMITTED,
+-    ),
+ ]
+ 
+ SCENARIO_IDS = [name for name, *_ in SCENARIOS]
+@@ -848,12 +683,6 @@ REPAIRS = {
+     "decide: by a human who gives no basis": _supply_basis,
+     **{f"{op}: by a human who gives no basis": _supply_basis for op in _HISTORY},
+     "adopt_discovery: by a human who gives no basis": _supply_basis,
+-    "canonicalize: by a human who gives no basis": _supply_basis,
+-    "deprecate_term: by a human who gives no basis": _supply_basis,
+-    "supersede_term: by a human who gives no basis": _supply_basis,
+-    "supersede_term: from a machine-proposed source": lambda w, att: _with(
+-        att, source_material=(_id(w.fact),)
+-    ),
+     "record_resolution: by a human who gives no basis": _supply_basis,
+     "classify: a human cannot promote an inference with no evidence root": (
+         _attach_a_human_root_then_retry
+@@ -867,12 +696,6 @@ REPAIRS = {
+     "advance: a mandate needs the human event": lambda w, att: _with(
+         att, human_event=True
+     ),
+-    "canonicalize: from a machine-proposed source": lambda w, att: _with(
+-        att, source_material=(_id(w.fact),)
+-    ),
+-    "canonicalize: by a human who names no source": lambda w, att: _with(
+-        att, source_material=(_id(w.fact),)
+-    ),
+ }
+ 
+ 
+@@ -1116,11 +939,6 @@ def test_the_same_fault_gets_the_same_verdict_whichever_rule_fires():
+         "correct": lambda a, b: attempt(
+             "correct", _id(w.fact), content="c", actor=a, reason="r",
+             authorization_basis=b),
+-        "deprecate_term": lambda a, b: attempt(
+-            "deprecate_term", w.term.term_id, actor=a, reason="r", authorization_basis=b),
+-        "supersede_term": lambda a, b: attempt(
+-            "supersede_term", w.term.term_id, definition="d", actor=a,
+-            source_material=(_id(w.fact),), reason="r", authorization_basis=b),
+         "adopt_discovery": lambda a, b: attempt(
+             "adopt_discovery", w.anomaly.discovery_id, actor=a, reason="r",
+             authorization_basis=b),
+@@ -1170,9 +988,6 @@ def test_a_refusal_whose_repaired_call_cannot_run_is_a_breach_not_a_crash():
+             authorization_basis="",
+         ),
+         attempt("decide", {"a": 1}, actor=w.human, reason="r", authorization_basis=""),
+-        attempt(
+-            "deprecate_term", {}, actor=w.human, reason="r", authorization_basis="",
+-        ),
+         attempt(
+             "record_resolution", [], choice="a", actor=w.human, reason="r",
+             authorization_basis="",
+@@ -1446,7 +1261,7 @@ def test_a_different_operation_with_the_same_arguments_digests_differently():
+ 
+ 
+ def test_operations_that_forward_their_arguments_are_bound_to_real_names():
+-    """adopt_discovery, advance_discovery, canonicalize and the other forwarding
++    """adopt_discovery, advance_discovery and the other forwarding
+     operations take ``*args, **kwargs`` on the facade; the digest must not depend on
+     how a caller spells them."""
+     human = Actor.human("h")
+@@ -1471,27 +1286,6 @@ def test_operations_that_forward_their_arguments_are_bound_to_real_names():
+     )
+     assert attempt_digest(c) == attempt_digest(d)
+ 
+-    e = attempt(
+-        "canonicalize", "term_x", actor=human, source_material=("artifact_x",),
+-        reason="r", authorization_basis="b",
+-    )
+-    f = attempt(
+-        "canonicalize", term_id="term_x", actor=human, source_material=["artifact_x"],
+-        reason="r", authorization_basis="b",
+-    )
+-    assert attempt_digest(e) == attempt_digest(f)
+-
+-    s = attempt(
+-        "supersede_term", "term_x", definition="d", actor=human,
+-        source_material=("artifact_x",), reason="r", authorization_basis="b",
+-    )
+-    u = attempt(
+-        "supersede_term", term_id="term_x", definition="d", actor=human,
+-        source_material=["artifact_x"], reason="r", authorization_basis="b",
+-    )
+-    assert attempt_digest(s) == attempt_digest(u)
+-    assert s.content["arguments"]["term_id"] == "term_x"
+-
+     g = attempt(
+         "resolve_uncertainty", "uncertainty_x", choice="a", actor=human, reason="r",
+         authorization_basis="b",
+@@ -1589,12 +1383,13 @@ def test_an_attempt_changed_after_it_was_built_is_not_run_or_judged():
+     must not make ``run`` execute something that was never digested."""
+     w = _world()
+     att = attempt(
+-        "canonicalize", w.term.term_id, actor=w.human,
+-        source_material=[_id(w.proposal)], reason="r", authorization_basis=GOOD,
++        "advance_discovery", w.pattern.discovery_id, stage=AnalysisStage.MANDATE,
++        actor=w.human, reason="r", evidence_ids=[_id(w.proposal)],
++        human_event=True, authorization_basis=GOOD,
+     )
+     digest = attempt_digest(att)
+-    assert judge(w.system, att).outcome is RETRY  # a machine-proposed source
+-    att.kwargs["source_material"][0] = _id(w.fact)  # now a human fact
++    judge(w.system, att)  # judged as built, on a scratch copy
++    att.kwargs["evidence_ids"][0] = _id(w.fact)  # now a human fact
+     with pytest.raises(AttemptChanged):
+         judge(w.system, att)
+     with pytest.raises(AttemptChanged):
+@@ -1602,7 +1397,7 @@ def test_an_attempt_changed_after_it_was_built_is_not_run_or_judged():
+     with pytest.raises(AttemptChanged):
+         CccGate(w.system).check(att)
+     assert attempt_digest(att) == digest  # the content is still what was built
+-    assert w.system.store.terms[w.term.term_id].status.value != "CANONICAL"
++    assert w.system.store.discoveries[w.pattern.discovery_id].stage is AnalysisStage.PATTERN
+ 
+ 
+ def test_the_content_of_an_attempt_cannot_be_edited_through_the_property():
+diff --git a/tests/test_cns_independence.py b/tests/test_cns_independence.py
+index fedf9c9..e697efd 100644
+--- a/tests/test_cns_independence.py
++++ b/tests/test_cns_independence.py
+@@ -211,10 +211,10 @@ def test_the_parts_that_need_no_cns_work_with_cns_blocked():
+             assert copy.deepcopy(att).content == att.content
+             assert pickle.loads(pickle.dumps(att)).content == att.content
+             edited = attempt(
+-                "canonicalize", "term_x", actor=human, source_material=["artifact_x"],
+-                reason="r", authorization_basis="b",
++                "advance_discovery", "discovery_x", stage="PATTERN", actor=human,
++                reason="r", evidence_ids=["artifact_x"],
+             )
+-            edited.kwargs["source_material"][0] = "artifact_y"
++            edited.kwargs["evidence_ids"][0] = "artifact_y"
+             try:
+                 edited.run(system)
+             except AttemptChanged:
+diff --git a/tests/test_constitution.py b/tests/test_constitution.py
+index f33514b..bbaee71 100644
+--- a/tests/test_constitution.py
++++ b/tests/test_constitution.py
+@@ -223,23 +223,8 @@ def test_road_sign_is_observation_not_conclusion():
+     assert system.query_road_signs(linked_id="candidate-1")[0].road_sign_id == sign.road_sign_id
+ 
+ 
+-def test_inflection_keeps_detection_divergence_sensitivity_significance_separate():
+-    system = CCCSystem()
+-    point = system.detect_inflection(directions=("branched",), divergence=0.9, sensitivity=0.1, machine_weight=0.99, actor=Actor.model("model"))
+-    assert point.significance is None
+-    resolved = system.resolve_inflection(point.inflection_id, significance="material redirection", actor=Actor.human("human"), reason="human assessed significance", authorization_basis="human review")
+-    assert resolved.significance == "material redirection"
+ 
+ 
+-def test_threads_and_branches_preserve_lineage():
+-    system = CCCSystem()
+-    thread = system.create_thread(title="primary", actor=Actor.human("human"))
+-    branch = system.create_branch(thread.thread_id, title="deferred", actor=Actor.human("human"), deferred=True)
+-    assert branch.parent_thread_id == thread.thread_id
+-    assert branch.branch_id in system.store.threads[thread.thread_id].branch_ids
+-    system.return_to_branch(branch.branch_id, actor=Actor.human("human"), reason="resume deferred work")
+-    system.resolve_branch(branch.branch_id, actor=Actor.human("human"), reason="branch resolved")
+-    assert system.store.branches[branch.branch_id].status.value == "RESOLVED"
+ 
+ 
+ def test_anomaly_pattern_mandate_requires_human_adoption(fact):
+@@ -263,13 +248,6 @@ def test_discovery_remains_machine_generated_until_adopted():
+     assert adopted.machine_origin
+ 
+ 
+-def test_simulation_preserves_input_provenance_and_shared_assumptions(fact):
+-    system, source = fact
+-    simulation = system.simulate(inputs=(source.artifact_id,), assumptions=("a",), shared_assumptions=("baseline",), trajectory=("x", "y"), counterfactual="if", output="modeled", sensitivity={"a": 0.5}, limitations=("not history",), actor=Actor.model("model"))
+-    assert simulation.input_provenance == ((source.artifact_id, ProvenanceStatus.USER_ESTABLISHED.value),)
+-    assert simulation.shared_assumptions == ("baseline",)
+-    with pytest.raises(ConstitutionViolation):
+-        system.simulation.promote_to_historical(simulation.simulation_id, actor=Actor.human("human"), reason="invalid")
+ 
+ 
+ def test_conflict_presentation_does_not_silently_adjudicate(fact):
+@@ -283,16 +261,6 @@ def test_conflict_presentation_does_not_silently_adjudicate(fact):
+     assert system.store.conflicts[conflict.conflict_id].status.value == "AWAITING_HUMAN"
+ 
+ 
+-def test_unknown_origin_term_cannot_be_canonical(fact):
+-    system, _ = fact
+-    unknown = system.ingest("unknown source", actor=Actor.system("system"))
+-    term = system.propose_term(term="unknown", definition="not canonical", actor=Actor.model("model"))
+-    with pytest.raises(ConstitutionViolation):
+-        system.canonicalize(term.term_id, actor=Actor.human("human"), source_material=(unknown.artifact_id,), reason="silent promotion", authorization_basis="human")
+-
+-    canonical = system.propose_term(term="known", definition="canonical", actor=Actor.human("human"), source_material=(unknown.artifact_id,))
+-    with pytest.raises(ConstitutionViolation):
+-        system.canonicalize(canonical.term_id, actor=Actor.human("human"), source_material=(unknown.artifact_id,), reason="bad source", authorization_basis="human")
+ 
+ 
+ def test_query_presentation_does_not_delete_unsurfaced_records(fact):
+diff --git a/tests/test_dialogue.py b/tests/test_dialogue.py
+deleted file mode 100644
+index 1b67431..0000000
+--- a/tests/test_dialogue.py
++++ /dev/null
+@@ -1,189 +0,0 @@
+-"""Tests for the confirm/refine/42 dialogue loop, including a scripted
+-replay of the actual VSA/Citadel exchange from earlier in this project --
+-that one was done live, by hand, in conversation. This is the same shape
+-of resolution as real, callable software.
+-"""
+-from __future__ import annotations
+-
+-import pytest
+-
+-from ccc import Actor, CCCSystem
+-from ccc.dialogue import UNKNOWN_SENTINEL, DialogueEngine
+-
+-
+-@pytest.fixture
+-def engine():
+-    system = CCCSystem()
+-    return DialogueEngine(system.human_resolution), system
+-
+-
+-def test_confirming_the_first_candidate_terminates_in_one_round(engine):
+-    dialogue, system = engine
+-    outcome = dialogue.run(
+-        context="test",
+-        question="Which is it?",
+-        candidates=("A", "B"),
+-        respond=lambda candidates: "A",
+-        branch=lambda prior: prior,  # never called
+-        actor=Actor.model("proposer"),
+-        human_actor=Actor.human("william"),
+-    )
+-    assert outcome.terminal == "CONFIRMED"
+-    assert outcome.choice == "A"
+-    assert outcome.rounds == 1
+-
+-
+-def test_other_branches_to_new_candidates_before_confirming(engine):
+-    dialogue, system = engine
+-    calls = []
+-
+-    def respond(candidates):
+-        calls.append(candidates)
+-        if candidates == ("A", "B"):
+-            return "other"
+-        return "refined"
+-
+-    def branch(prior):
+-        return ("refined", "different")
+-
+-    outcome = dialogue.run(
+-        context="test", question="Which is it?", candidates=("A", "B"),
+-        respond=respond, branch=branch,
+-        actor=Actor.model("proposer"), human_actor=Actor.human("william"),
+-    )
+-    assert outcome.terminal == "CONFIRMED"
+-    assert outcome.choice == "refined"
+-    assert outcome.rounds == 2
+-    assert len(outcome.uncertainty_ids) == 2  # one UncertaintyRecord per round, both real
+-
+-
+-def test_42_terminates_honestly_as_unknown_not_a_failure(engine):
+-    dialogue, system = engine
+-    outcome = dialogue.run(
+-        context="test", question="Which is it?", candidates=("A", "B"),
+-        respond=lambda candidates: UNKNOWN_SENTINEL,
+-        branch=lambda prior: prior,
+-        actor=Actor.model("proposer"), human_actor=Actor.human("william"),
+-    )
+-    assert outcome.terminal == "UNKNOWN"
+-    assert outcome.choice is None
+-    record = system.human_resolution.get(outcome.uncertainty_ids[0])
+-    assert record.resolved_choice == UNKNOWN_SENTINEL
+-    assert record.resolved_by.kind.value == "HUMAN"
+-
+-
+-def test_machine_actor_cannot_resolve_its_own_dialogue(engine):
+-    """CCC-HUMAN-001, exercised through the loop, not bypassed by it."""
+-    dialogue, system = engine
+-    with pytest.raises(ValueError, match="real human actor"):
+-        dialogue.run(
+-            context="test", question="Which is it?", candidates=("A",),
+-            respond=lambda c: "A", branch=lambda p: p,
+-            actor=Actor.model("proposer"), human_actor=Actor.model("also-a-model"),
+-        )
+-
+-
+-def test_out_of_protocol_response_is_refused():
+-    system = CCCSystem()
+-    dialogue = DialogueEngine(system.human_resolution)
+-    with pytest.raises(ValueError, match="out-of-protocol"):
+-        dialogue.run(
+-            context="test", question="Which is it?", candidates=("A", "B"),
+-            respond=lambda c: "not one of the candidates and not other/42",
+-            branch=lambda p: p,
+-            actor=Actor.model("proposer"), human_actor=Actor.human("william"),
+-        )
+-
+-
+-def test_vsa_citadel_replay():
+-    """Scripted replay of the actual VSA/Citadel resolution from earlier in
+-    this project: four initial hypotheses presented, none confirmed as-is,
+-    "other" branches to a refined account combining the dated evidence with
+-    William's own testimony, which is what actually got confirmed."""
+-    system = CCCSystem()
+-    dialogue = DialogueEngine(system.human_resolution)
+-
+-    initial = (
+-        "VSA was renamed GSA during the escalation arc",
+-        "VSA became CITADEL; GSA is separate",
+-        "Both, at different levels",
+-        # note: "42" (honest-unknown) is NOT listed as a candidate -- it's
+-        # always an available response, not one of the hypotheses
+-    )
+-    refined = ("Citadel is the system; VSA is the governing principle it was built to enforce",)
+-
+-    responses = iter(["other", refined[0]])
+-
+-    def branch(prior):
+-        assert prior == initial
+-        return refined
+-
+-    outcome = dialogue.run(
+-        context="VSA/Citadel investigation",
+-        question="Did VSA become GSA, and why?",
+-        candidates=initial,
+-        respond=lambda candidates: next(responses),
+-        branch=branch,
+-        actor=Actor.model("claude-session"),
+-        human_actor=Actor.human("william"),
+-        known=("VSA and Citadel are the same named construct by 2026-04-07 (dated artifact)",),
+-        unknown=("Whether a direct VSA->GSA line exists",),
+-    )
+-
+-    assert outcome.terminal == "CONFIRMED"
+-    assert outcome.choice == refined[0]
+-    assert outcome.rounds == 2
+-
+-    first_round = system.human_resolution.get(outcome.uncertainty_ids[0])
+-    assert first_round.candidates == initial
+-    second_round = system.human_resolution.get(outcome.uncertainty_ids[1])
+-    assert second_round.candidates == refined
+-    assert second_round.resolved_choice == refined[0]
+-
+-
+-# --- regression tests from the hunt/patch loop on this module -------------
+-
+-def test_max_rounds_is_capped_so_a_runaway_branch_cannot_grow_unbounded():
+-    """A branch() that never stops producing candidates, or a huge
+-    max_rounds passed by mistake, previously created hundreds of thousands
+-    of UncertaintyRecords before failing."""
+-    from ccc.dialogue import MAX_ROUNDS_CEILING
+-    system = CCCSystem()
+-    system.dialogue.max_rounds = 10 ** 9
+-    assert system.dialogue.max_rounds == MAX_ROUNDS_CEILING
+-    with pytest.raises(RuntimeError, match="did not terminate"):
+-        system.dialogue.run(
+-            context="c", question="q", candidates=("A", "B"),
+-            respond=lambda c: "other", branch=lambda p: ("X", "Y"),
+-            actor=Actor.model("m"), human_actor=Actor.human("w"),
+-        )
+-    assert len(system.human_resolution.store.uncertainties) == MAX_ROUNDS_CEILING
+-
+-
+-def test_invalid_max_rounds_is_refused():
+-    system = CCCSystem()
+-    with pytest.raises(ValueError, match="positive int"):
+-        system.dialogue.max_rounds = 0
+-
+-
+-@pytest.mark.parametrize("reserved", ["42", "other"])
+-def test_a_candidate_that_collides_with_a_control_token_is_refused(reserved):
+-    """Picking a candidate literally named "42" or "other" would be
+-    silently misread as the honest-unknown sentinel or a branch."""
+-    system = CCCSystem()
+-    with pytest.raises(ValueError, match="reserved"):
+-        system.dialogue.run(
+-            context="c", question="q", candidates=(reserved, "a real option"),
+-            respond=lambda c: reserved, branch=lambda p: p,
+-            actor=Actor.model("m"), human_actor=Actor.human("w"),
+-        )
+-
+-
+-def test_branch_returning_a_control_token_collision_is_also_refused():
+-    system = CCCSystem()
+-    with pytest.raises(ValueError, match="reserved"):
+-        system.dialogue.run(
+-            context="c", question="q", candidates=("A",),
+-            respond=lambda c: "other", branch=lambda p: ("42", "x"),
+-            actor=Actor.model("m"), human_actor=Actor.human("w"),
+-        )
+diff --git a/tests/test_dialogue_conclusion.py b/tests/test_dialogue_conclusion.py
+deleted file mode 100644
+index c72228d..0000000
+--- a/tests/test_dialogue_conclusion.py
++++ /dev/null
+@@ -1,137 +0,0 @@
+-"""record_dialogue_conclusion: a terminated dialogue becomes a durable,
+-queryable fact in the knowledge model instead of a dead-end resolved_choice
+-string on an UncertaintyRecord.
+-"""
+-from __future__ import annotations
+-
+-import pytest
+-
+-from ccc import Actor, CCCSystem, EpistemicStatus, ProvenanceStatus
+-from ccc.dialogue import UNKNOWN_SENTINEL, DialogueOutcome
+-
+-
+-@pytest.fixture
+-def system():
+-    return CCCSystem()
+-
+-
+-def _run_and_record(system, respond, branch=lambda p: p, candidates=("A", "B"),
+-                     question="Which is it?"):
+-    outcome = system.dialogue.run(
+-        context="ctx", question=question, candidates=candidates,
+-        respond=respond, branch=branch,
+-        actor=Actor.model("proposer"), human_actor=Actor.human("william"),
+-    )
+-    artifact = system.record_dialogue_conclusion(
+-        outcome, question=question, human_actor=Actor.human("william"), context="ctx",
+-    )
+-    return outcome, artifact
+-
+-
+-def test_confirmed_dialogue_becomes_a_user_established_interpretation_artifact(system):
+-    outcome, artifact = _run_and_record(system, respond=lambda c: "A")
+-    assert artifact.provenance_status is ProvenanceStatus.USER_ESTABLISHED
+-    assert artifact.epistemic_status is EpistemicStatus.INTERPRETATION
+-    assert "confirmed" in artifact.content.lower()
+-    assert "'A'" in artifact.content
+-    assert artifact.origin.kind.value == "HUMAN"
+-    assert list(outcome.uncertainty_ids) == artifact.metadata["dialogue_uncertainty_ids"]
+-
+-
+-def test_42_dialogue_becomes_a_durable_unknown_not_a_silent_gap(system):
+-    outcome, artifact = _run_and_record(system, respond=lambda c: UNKNOWN_SENTINEL)
+-    assert artifact.provenance_status is ProvenanceStatus.USER_ESTABLISHED
+-    assert artifact.epistemic_status is EpistemicStatus.UNKNOWN
+-    assert "does not establish this" in artifact.content
+-    # the point: a 42 leaves a positive record, distinguishable from
+-    # "never investigated" (which would be the absence of any artifact)
+-    assert artifact.artifact_id in system.store.artifacts
+-
+-
+-def test_the_conclusion_is_queryable_back_to_its_dialogue_rounds(system):
+-    outcome, artifact = _run_and_record(
+-        system,
+-        respond=lambda c: "other" if c == ("x", "y") else "refined",
+-        branch=lambda prior: ("refined", "other-thing"),
+-        candidates=("x", "y"),
+-    )
+-    assert outcome.rounds == 2
+-    assert len(artifact.metadata["dialogue_uncertainty_ids"]) == 2
+-    for uid in artifact.metadata["dialogue_uncertainty_ids"]:
+-        assert system.human_resolution.get(uid) is not None
+-
+-
+-def test_a_non_human_actor_cannot_record_a_dialogue_conclusion(system):
+-    outcome, _ = _run_and_record(system, respond=lambda c: "A")
+-    with pytest.raises(ValueError, match="human actor"):
+-        system.record_dialogue_conclusion(
+-            outcome, question="q", human_actor=Actor.model("not-a-human"),
+-        )
+-
+-
+-def test_a_non_terminal_outcome_is_refused(system):
+-    fake = DialogueOutcome(terminal="IN_PROGRESS", choice=None, rounds=0, uncertainty_ids=())
+-    with pytest.raises(ValueError, match="not a terminal state"):
+-        system.record_dialogue_conclusion(
+-            fake, question="q", human_actor=Actor.human("william"),
+-        )
+-
+-
+-# --- regression tests from the hunt/patch loop -------------------------
+-
+-def test_the_same_dialogue_conclusion_cannot_be_recorded_twice(system):
+-    outcome, first = _run_and_record(system, respond=lambda c: "A")
+-    with pytest.raises(ValueError, match="already recorded"):
+-        system.record_dialogue_conclusion(
+-            outcome, question="Which is it?", human_actor=Actor.human("william"),
+-        )
+-
+-
+-def test_the_double_record_guard_survives_a_reopen(tmp_path):
+-    """The guard is an in-memory set rebuilt in __init__. A reopened
+-    session must repopulate it from the persisted conclusion artifacts,
+-    or the same dialogue's conclusion could be recorded a second time in
+-    a new process."""
+-    path = tmp_path / "dlg.json"
+-
+-    s1 = CCCSystem(persistence_path=path)
+-    outcome, _ = _run_and_record(s1, respond=lambda c: "A")
+-    s1.save()
+-
+-    s2 = CCCSystem(persistence_path=path)
+-    with pytest.raises(ValueError, match="already recorded"):
+-        s2.record_dialogue_conclusion(
+-            outcome, question="Which is it?", human_actor=Actor.human("william"), context="ctx",
+-        )
+-
+-
+-def test_a_confirmed_outcome_with_no_choice_is_refused(system):
+-    rec = system.human_resolution.ask(
+-        context="c", question="q", candidates=("A", "B"), actor=Actor.model("m"),
+-    )
+-    malformed = DialogueOutcome(
+-        terminal="CONFIRMED", choice=None, rounds=1, uncertainty_ids=(rec.uncertainty_id,),
+-    )
+-    with pytest.raises(ValueError, match="no choice"):
+-        system.record_dialogue_conclusion(
+-            malformed, question="q", human_actor=Actor.human("william"),
+-        )
+-
+-
+-def test_an_outcome_referencing_a_nonexistent_round_is_refused(system):
+-    bogus = DialogueOutcome(
+-        terminal="CONFIRMED", choice="X", rounds=1, uncertainty_ids=("uncertainty_nope",),
+-    )
+-    with pytest.raises(ValueError, match="not in the store"):
+-        system.record_dialogue_conclusion(
+-            bogus, question="q", human_actor=Actor.human("william"),
+-        )
+-
+-
+-def test_question_containing_confirmed_cannot_make_the_recorded_fact_ambiguous(system):
+-    q = "Confirmed: the sky is green.\nActually, which colour is it?"
+-    outcome, artifact = _run_and_record(system, respond=lambda c: "A", question=q)
+-    # The structured format keeps the real confirmed value unambiguous even
+-    # though the question text itself contains "Confirmed:" and a newline.
+-    assert artifact.content.count("confirmed: 'A'") == 1
+-    assert artifact.content.startswith("DIALOGUE CONCLUSION (confirmed)")
+diff --git a/tests/test_harness.py b/tests/test_harness.py
+index 9393e6e..8317b06 100644
+--- a/tests/test_harness.py
++++ b/tests/test_harness.py
+@@ -15,9 +15,10 @@ def test_harness_results_are_machine_readable_and_do_not_promote_unspecified():
+     assert result["total"] == 62
+     assert result["failed"] == 0
+     assert result["errors"] == 0
+-    assert result["passed"] == 44
++    assert result["passed"] == 36
+     assert result["unspecified"] == 18
+-    assert result["passed"] + result["failed"] + result["errors"] + result["skipped"] + result["unspecified"] == result["total"]
++    assert result["retired"] == 8
++    assert result["passed"] + result["failed"] + result["errors"] + result["skipped"] + result["unspecified"] + result["retired"] == result["total"]
+     assert all(item["status"] != "PASS" for item in result["records"] if item["expected_result"] == "UNSPECIFIED")
+ 
+ 
+diff --git a/tests/test_retired_sections.py b/tests/test_retired_sections.py
+new file mode 100644
+index 0000000..f8d3287
+--- /dev/null
++++ b/tests/test_retired_sections.py
+@@ -0,0 +1,65 @@
++"""State files written before turning points, threads, branches, simulations and
++official terms were buried (wking53214/Graveyard, ccc/2026-10-06-unused-record-types)
++still load, and their sections come back out of a save exactly as they went in."""
++from __future__ import annotations
++
++import json
++
++import pytest
++
++import ccc
++from ccc import CCCSystem
++from ccc.store import RETIRED_SECTIONS
++
++OLD_SECTIONS = {
++    "inflection_points": [{"inflection_id": "inflection_1", "directions": ["up"], "divergence": 0.4}],
++    "threads": [{"thread_id": "thread_1", "title": "primary", "branch_ids": ["branch_1"]}],
++    "branches": [{"branch_id": "branch_1", "parent_thread_id": "thread_1", "deferred": True}],
++    "simulations": [{"simulation_id": "simulation_1", "limitations": ["l"]}],
++    "terms": [{"term_id": "term_1", "term": "continuity", "status": "proposed"}],
++}
++
++
++def _old_file(tmp_path):
++    state = CCCSystem().store.snapshot()
++    state.update(OLD_SECTIONS)
++    path = tmp_path / "old.json"
++    path.write_text(json.dumps(state))
++    return path
++
++
++def test_old_sections_load_and_save_back_unchanged(tmp_path):
++    system = CCCSystem.load(_old_file(tmp_path))
++    out = json.loads(system.save(tmp_path / "new.json").read_text())
++    for key, value in OLD_SECTIONS.items():
++        assert out[key] == value, key
++
++
++def test_a_fresh_store_writes_no_retired_sections(tmp_path):
++    out = json.loads(CCCSystem().save(tmp_path / "fresh.json").read_text())
++    assert not set(RETIRED_SECTIONS) & set(out)
++
++
++def test_retired_sections_are_not_interpreted(tmp_path):
++    system = CCCSystem.load(_old_file(tmp_path))
++    assert system.validate_constitution()["valid"]
++    for attr in ("inflection_points", "threads", "branches", "simulations", "terms"):
++        assert not hasattr(system.store, attr), attr
++
++
++@pytest.mark.parametrize("method", [
++    "detect_inflection", "resolve_inflection", "create_thread", "create_branch",
++    "close_branch", "simulate", "propose_term", "canonicalize",
++    "record_dialogue_conclusion",
++])
++def test_buried_operations_are_gone(method):
++    assert not hasattr(CCCSystem, method)
++
++
++@pytest.mark.parametrize("module", [
++    "inflection", "simulation", "canonicalization", "threads", "branches", "dialogue",
++])
++def test_buried_modules_are_gone(module):
++    with pytest.raises(ImportError):
++        __import__(f"ccc.{module}")
++    assert not hasattr(ccc, module)
