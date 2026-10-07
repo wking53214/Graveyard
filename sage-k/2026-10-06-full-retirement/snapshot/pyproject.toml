@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sage-k"
+version = "0.1.0"
+description = "Reconstructed S.A.G.E.-K. simulation kernel, GSA hash-chain adapter, and AST graph extractor"
+requires-python = ">=3.10"
+dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["sage_k*"]

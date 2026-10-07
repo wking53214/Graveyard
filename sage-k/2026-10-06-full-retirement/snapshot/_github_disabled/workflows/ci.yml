@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package and test dependency
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e .
+          python -m pip install pytest
+
+      - name: Run test suite
+        run: python -m pytest tests/ -q
+
+      - name: Verify reproducibility fingerprint
+        # The kernel stress test is seeded, so its output is a fixed
+        # fingerprint. This exact result is what the original repository
+        # produced and is how the reconstruction was verified behaviourally.
+        # If this drifts, the kernel's dynamics have changed.
+        run: |
+          python examples/run_kernel_stress_test.py | tee /tmp/stress.txt
+          grep -q '^GREEN : 20$'  /tmp/stress.txt
+          grep -q '^YELLOW: 0$'   /tmp/stress.txt
+          grep -q '^RED   : 0$'   /tmp/stress.txt
+
+      - name: Run remaining examples
+        run: |
+          python examples/run_wrapped_kernel_demo.py
+          python examples/run_graph_extractor_demo.py
+
+      - name: Run the interpretation demo end to end
+        run: python -m sage_k.demo
