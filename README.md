@@ -23,3 +23,4 @@ bundle (complete history). CI folders are renamed so they never run here.
 |---|---|---|---|
 | 2026-10-06 | sage-k | GSA checkpoint/re-entry, fork/join merging, temporal doorway gate | Written but never used anywhere in the repo |
 | 2026-10-06 | sage-k | **Entire repo retired** (snapshot + full git history) | Every part already done better elsewhere in ≡TACK |
+| 2026-10-06 | Triad-42 | Its own origin rules: provenance graph, fact promotion, relabel, erasure cascade | Second copy of CCC's rulebook; a reviewer must not certify facts |
