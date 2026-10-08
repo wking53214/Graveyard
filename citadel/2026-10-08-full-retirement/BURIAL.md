@@ -14,7 +14,7 @@ CITADEL is a regex-based enforcement script for LLM output (first-person pronoun
 | Part | Where it lives now |
 |---|---|
 | Outcome words with no stated cause | ZTS `src/zts/causality.py` (flag only), PR #10 |
-| Passive voice | ZTS `src/zts/passive.py` (flag only, ops/exec/legal), PR #11 |
+| Passive voice | ZTS `src/zts/passive.py` (flag only, ops/exec/legal), PR #12 (PR #11 closed when its base branch was deleted) |
 | First-person pronouns | ZTS gate PPA (same pattern) |
 | Hedging words | ZTS gate SBF (superset of CITADEL's list) |
 | Em dash to en dash | ZTS punctuation rule (same behavior) |
