@@ -1,0 +1,39 @@
+FACTS — RECOVERED REPOSITORY TREE
+
+origin   : https://github.com/wking53214/FACTS.git  [original deleted; name recreated 2026-09-17T11:44:33Z, empty]
+branch   : main
+commits  : 4 (2 hashes recovered)
+entries  : 17 (.git + 16 files)
+
+COMMIT HISTORY (2 of 4 recovered)
+  e40f60d  Archive of pre-existing artifact. Preserved verbatim, unmodified.
+  edcb397  Rename FACTS artifacts to reflect GRAPH system functions   2026-08-17T22:0x
+  UNKNOWN  (2 further commits — content moved out to GRAPH, 2026-08-19)
+
+FACTS/  (state at e40f60d, the archived state)
+├── PROVENANCE.md      NOT RECOVERED — existed in the listing; no session ever viewed it
+├── TRANSCRIPT.md      DIRECTLY RECOVERED as verbatim source (~/Downloads/FACTS.txt)
+├── artifact_1.py  -> graph-v2.1-flattened-base.py            DIRECTLY RECOVERED
+├── artifact_2.py  -> graph-v2.1-indexed-audited.py           DIRECTLY RECOVERED
+├── artifact_3.py  -> graph-v2.3-dual-extract-combined.py     DIRECTLY RECOVERED
+├── artifact_4.py  -> graph-v2.3-indexed-driver.py            DIRECTLY RECOVERED
+├── artifact_5.py  -> graph-v2.3-driver-enabled.py            DIRECTLY RECOVERED
+├── artifact_6.py  -> graph-v2.1-user-ai-modules.py           DIRECTLY RECOVERED
+├── artifact_7.py  -> graph-v2.3-extraction-logic.py          DIRECTLY RECOVERED
+├── artifact_8.py  -> graph-v2.3-synthesis-payload.py         DIRECTLY RECOVERED
+├── artifact_9.py  -> graph-adapter-hooks.py                  DIRECTLY RECOVERED
+├── artifact_10.py -> graph-cryptographic-engine.py           DIRECTLY RECOVERED
+├── artifact_11.py -> graph-context-envelope.py               DIRECTLY RECOVERED
+├── artifact_12.py -> graph-module-registry.py                DIRECTLY RECOVERED
+├── artifact_13.py -> graph-state-integrity.py                DIRECTLY RECOVERED (carved)
+└── artifact_14.py -> graph-universal-wrapper-final.py        DIRECTLY RECOVERED (carved)
+
+16 of 17 entries recovered (PROVENANCE.md is the exception).
+No directories. Flat root.
+
+WHERE THE CONTENT WENT
+  edcb397   artifact_1..14.py renamed in place to graph-*.py
+  2026-08-19 e1bd68e (GRAPH)  12 of the 14 consolidated into GRAPH/from-facts/
+  2026-08-19 1b53232 (GRAPH)  9 of those then deleted from GRAPH
+  graph-state-integrity.py and graph-universal-wrapper-final.py never reached
+  GRAPH and exist in NO local git history — recovered only from the transcript.

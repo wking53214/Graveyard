@@ -1,0 +1,16 @@
+Output too large to read at once (49.7 KB). Saved to: /tmp/1787004473782-copilot-tool-output-6203-755585ef-e1de-4321-9ccd-fd5d223da2c1.txt
+Consider using tools like grep (for searching), head/tail (for viewing start/end), view with view_range (for specific sections), or jq (for JSON) to examine portions of the output.
+
+Preview (first 500 chars):
+=== Files by system name ===
+6
+12
+2
+8
+3
+1
+---
+Systems referenced:
+Program Name: Executive Dashboard Distribution Processor (EDDP) Core Engine
+""" Program Name: GovernanceSystemsArchitectureMasterKernel Description: Integrated multi-tenant zero-trust validation architecture and                deterministic policy runtime middleware pipeline designed to govern,                sanitize, and track generative inference operations. """ from __future__ import annotations import asyncio import functool
+<shellId: 49 completed with exit code 0>

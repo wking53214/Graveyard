@@ -1,0 +1,193 @@
+{
+  "recovered": [
+    {
+      "path": "recovered_repo/graph-adapter-hooks.py",
+      "historical_name": "artifact_9.py",
+      "bytes": 711,
+      "crlf_lines": 22,
+      "parses": true,
+      "sha256": "94c7e81d43afd33a846309312e68bc93c3da2960167221f1ea11c43d25f26e9e",
+      "source": "GRAPH git blob (e1bd68e)",
+      "source_type": "RECOVERED FROM GIT",
+      "contained_in_transcript": true,
+      "status": "DIRECTLY RECOVERED",
+      "confidence": "HIGH \u2014 git blob + exact byte substring of the source transcript"
+    },
+    {
+      "path": "recovered_repo/graph-context-envelope.py",
+      "historical_name": "artifact_11.py",
+      "bytes": 6948,
+      "crlf_lines": 0,
+      "parses": true,
+      "sha256": "8d985039e7db030191c6be83de035c13b8db4683de5de51fae12bff028362c33",
+      "source": "GRAPH git blob (e1bd68e)",
+      "source_type": "RECOVERED FROM GIT",
+      "contained_in_transcript": true,
+      "status": "DIRECTLY RECOVERED",
+      "confidence": "HIGH \u2014 git blob + exact byte substring of the source transcript"
+    },
+    {
+      "path": "recovered_repo/graph-cryptographic-engine.py",
+      "historical_name": "artifact_10.py",
+      "bytes": 7089,
+      "crlf_lines": 137,
+      "parses": false,
+      "sha256": "a845ee1f9d3048dc9e9a7202c252a9af50e7b0b8b2bfd7ed2e1dd8e9e5d0ce40",
+      "source": "GRAPH git blob (e1bd68e)",
+      "source_type": "RECOVERED FROM GIT",
+      "contained_in_transcript": true,
+      "status": "DIRECTLY RECOVERED",
+      "confidence": "HIGH \u2014 git blob + exact byte substring of the source transcript"
+    },
+    {
+      "path": "recovered_repo/graph-module-registry.py",
+      "historical_name": "artifact_12.py",
+      "bytes": 7276,
+      "crlf_lines": 145,
+      "parses": false,
+      "sha256": "3bf5720abbf18d0342c4d7b48b5f65172272a85a87d3bdeb0f3f57f028a2a92a",
+      "source": "GRAPH git blob (e1bd68e)",
+      "source_type": "RECOVERED FROM GIT",
+      "contained_in_transcript": true,
+      "status": "DIRECTLY RECOVERED",
+      "confidence": "HIGH \u2014 git blob + exact byte substring of the source transcript"
+    },
+    {
+      "path": "recovered_repo/graph-state-integrity.py",
+      "historical_name": "artifact_13.py",
+      "bytes": 5376,
+      "crlf_lines": 0,
+      "parses": false,
+      "sha256": "a7026823c9a985cb7ff3d90a24a832fbc51cfb3ff2c922d61c52296808dbaa04",
+      "source": "carved from FACTS.txt",
+      "source_type": "RECOVERED FROM COPY",
+      "contained_in_transcript": true,
+      "status": "DIRECTLY RECOVERED",
+      "confidence": "HIGH \u2014 exact byte slice of the source transcript; no git copy exists"
+    },
+    {
+      "path": "recovered_repo/graph-universal-wrapper-final.py",
+      "historical_name": "artifact_14.py",
+      "bytes": 9930,
+      "crlf_lines": 215,
+      "parses": false,
+      "sha256": "40a889c469fd81da9ac529c7caf71136f7a8cdd8d264d924784018c43bd89a7e",
+      "source": "carved from FACTS.txt",
+      "source_type": "RECOVERED FROM COPY",
+      "contained_in_transcript": true,
+      "status": "DIRECTLY RECOVERED",
+      "confidence": "HIGH \u2014 exact byte slice of the source transcript; no git copy exists"
+    },
+    {
+      "path": "recovered_repo/graph-v2.1-flattened-base.py",
+      "historical_name": "artifact_1.py",
+      "bytes": 3273,
+      "crlf_lines": 0,
+      "parses": true,
+      "sha256": "3d76930031692c426b1b90e56b7ad9d10e00c3991b840bb691922e5bf549a463",
+      "source": "GRAPH git blob (e1bd68e)",
+      "source_type": "RECOVERED FROM GIT",
+      "contained_in_transcript": true,
+      "status": "DIRECTLY RECOVERED",
+      "confidence": "HIGH \u2014 git blob + exact byte substring of the source transcript"
+    },
+    {
+      "path": "recovered_repo/graph-v2.1-indexed-audited.py",
+      "historical_name": "artifact_2.py",
+      "bytes": 5878,
+      "crlf_lines": 123,
+      "parses": false,
+      "sha256": "de1999af95422edcdd8f29462a33cb9b93109a26c461eb3b920253114957bbaf",
+      "source": "GRAPH git blob (e1bd68e)",
+      "source_type": "RECOVERED FROM GIT",
+      "contained_in_transcript": true,
+      "status": "DIRECTLY RECOVERED",
+      "confidence": "HIGH \u2014 git blob + exact byte substring of the source transcript"
+    },
+    {
+      "path": "recovered_repo/graph-v2.1-user-ai-modules.py",
+      "historical_name": "artifact_6.py",
+      "bytes": 4974,
+      "crlf_lines": 113,
+      "parses": true,
+      "sha256": "f0215e7242635bb65e923b1c21ab43f1066ae579e95499054d6c052401cfcf17",
+      "source": "GRAPH git blob (e1bd68e)",
+      "source_type": "RECOVERED FROM GIT",
+      "contained_in_transcript": true,
+      "status": "DIRECTLY RECOVERED",
+      "confidence": "HIGH \u2014 git blob + exact byte substring of the source transcript"
+    },
+    {
+      "path": "recovered_repo/graph-v2.3-driver-enabled.py",
+      "historical_name": "artifact_5.py",
+      "bytes": 3284,
+      "crlf_lines": 0,
+      "parses": false,
+      "sha256": "d90976f52c439e9371223fb23377be77c6312d4717483248f7506832442f2950",
+      "source": "GRAPH git blob (e1bd68e)",
+      "source_type": "RECOVERED FROM GIT",
+      "contained_in_transcript": true,
+      "status": "DIRECTLY RECOVERED",
+      "confidence": "HIGH \u2014 git blob + exact byte substring of the source transcript"
+    },
+    {
+      "path": "recovered_repo/graph-v2.3-dual-extract-combined.py",
+      "historical_name": "artifact_3.py",
+      "bytes": 5569,
+      "crlf_lines": 0,
+      "parses": true,
+      "sha256": "3cf746f14a87e1b158b6370c3beb93007d4a2d063bbd9e75a78f6cdf15a89609",
+      "source": "GRAPH git blob (e1bd68e)",
+      "source_type": "RECOVERED FROM GIT",
+      "contained_in_transcript": true,
+      "status": "DIRECTLY RECOVERED",
+      "confidence": "HIGH \u2014 git blob + exact byte substring of the source transcript"
+    },
+    {
+      "path": "recovered_repo/graph-v2.3-extraction-logic.py",
+      "historical_name": "artifact_7.py",
+      "bytes": 4837,
+      "crlf_lines": 95,
+      "parses": false,
+      "sha256": "94ad7ce0f3a5f85795c0840a7b5235a4f5b3ee91243ecaf5730b68e64c90d232",
+      "source": "GRAPH git blob (e1bd68e)",
+      "source_type": "RECOVERED FROM GIT",
+      "contained_in_transcript": true,
+      "status": "DIRECTLY RECOVERED",
+      "confidence": "HIGH \u2014 git blob + exact byte substring of the source transcript"
+    },
+    {
+      "path": "recovered_repo/graph-v2.3-indexed-driver.py",
+      "historical_name": "artifact_4.py",
+      "bytes": 7972,
+      "crlf_lines": 159,
+      "parses": false,
+      "sha256": "525c6277ea6a27d3b77eff2db2b3f092ab020ec98c1634b796535c2dcfb16e96",
+      "source": "GRAPH git blob (e1bd68e)",
+      "source_type": "RECOVERED FROM GIT",
+      "contained_in_transcript": true,
+      "status": "DIRECTLY RECOVERED",
+      "confidence": "HIGH \u2014 git blob + exact byte substring of the source transcript"
+    },
+    {
+      "path": "recovered_repo/graph-v2.3-synthesis-payload.py",
+      "historical_name": "artifact_8.py",
+      "bytes": 5377,
+      "crlf_lines": 0,
+      "parses": false,
+      "sha256": "24f5b86260859f46099b973de17ae4fc4bc00f9da373289cfc38edd0159784f4",
+      "source": "GRAPH git blob (e1bd68e)",
+      "source_type": "RECOVERED FROM GIT",
+      "contained_in_transcript": true,
+      "status": "DIRECTLY RECOVERED",
+      "confidence": "HIGH \u2014 git blob + exact byte substring of the source transcript"
+    }
+  ],
+  "not_recovered": [
+    {
+      "path": "FACTS/PROVENANCE.md",
+      "status": "NOT RECOVERED",
+      "note": "existed in the 2026-08-17 /tmp/FACTS listing; no session ever viewed it"
+    }
+  ]
+}
