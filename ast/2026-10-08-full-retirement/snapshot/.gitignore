@@ -1,0 +1,10 @@
+# Byte-compiled Python
+__pycache__/
+*.py[cod]
+
+# Environments
+.venv/
+venv/
+
+# Default output directory
+graph_out/
