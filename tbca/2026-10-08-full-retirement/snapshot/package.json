@@ -1,0 +1,13 @@
+{
+  "name": "tbca-whitepaper",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Generates the TBCA (Transparent Binary Constraint Architecture) whitepaper .docx from the archived transcript's script, decomposed into modules.",
+  "main": "generate.js",
+  "scripts": {
+    "generate": "node generate.js"
+  },
+  "dependencies": {
+    "docx": "^9.0.0"
+  }
+}

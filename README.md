@@ -31,3 +31,4 @@ bundle (complete history). CI folders are renamed so they never run here.
 | 2026-10-07 | UTEP | **Entire repo retired** (snapshot + full git history) | Text instructions reconstructed from one conversation; not code, nothing in the stack depends on it |
 | 2026-10-07 | ARLF | **Entire repo retired** (snapshot + full git history) | Reference governance package, never run, never imported; two ideas ported to DGK and ZTS, the rest duplicates existing stack mechanisms |
 | 2026-10-07 | Augur | **Entire repo retired** (snapshot + full git history) | Veto-only simulation screen; kernel duplicates sage-k; predictive controller is a mock-based prototype with no tests; observe-perceive pins two commits, which remain reachable |
+| 2026-10-08 | TBCA | **Entire repo retired** (snapshot + full git history) | Single archived AI turn: a script that generates a theoretical whitepaper; no empirical claims; nothing imports it; the concept lives in stack gate code and docs |
