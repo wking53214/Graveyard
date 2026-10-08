@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ARLF evidence record",
+  "type": "object",
+  "required": ["evidence_id", "claim", "evidence_grade", "record_index", "source_location"],
+  "properties": {
+    "evidence_id": { "type": "string", "pattern": "^ARLF-[0-9]{5}$" },
+    "claim": { "type": "string" },
+    "evidence_grade": { "enum": ["A", "B", "C", "U"] },
+    "provenance_status": { "enum": ["HISTORICAL_STATEMENT", "RECONSTRUCTION", "INFERENCE"] },
+    "record_index": { "type": "integer" },
+    "timestamp": { "type": "string" },
+    "phase": { "type": "string" },
+    "arlf_mentions": { "type": "integer" },
+    "record_chars": { "type": "integer" },
+    "source_location": { "type": "string" },
+    "normalized_location": { "type": "string" }
+  }
+}
