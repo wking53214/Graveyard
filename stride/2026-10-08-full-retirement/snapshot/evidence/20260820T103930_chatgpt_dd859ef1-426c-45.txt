@@ -1,0 +1,81 @@
+Yep. **HERALD is live and public under `wking53214/HERALD`**, and it is substantially more than an empty placeholder. fileciteturn70file0L1-L13
+
+The repo currently contains:
+
+- `herald/source.py`
+- `herald/extract.py`
+- `herald/claim.py`
+- `herald/ambiguity.py`
+- `herald/calibration.py`
+- `herald/binding.py`
+- `herald/boundary.py`
+- `herald/gate.py`
+- `herald/handoff.py`
+- `herald/golden_set.py`
+- `herald/demo.py`
+- `Tests/`
+- `CONSTITUTION.md`
+- `README.md` fileciteturn71file0L1-L3
+
+**That changes the Hulk audit materially.**
+
+HERALD appears to be exactly the NL layer we were missing when we were attacking the GSA Gateway. In particular, the combination of:
+
+`extract → claim → ambiguity → calibration → binding → boundary → gate → handoff`
+
+is extremely interesting in the context of our current attack surface. fileciteturn71file0L1-L3
+
+So I would **not** treat HERALD as “another repo to add to the list.”
+
+I would insert it directly into the experiment we were designing:
+
+```text
+SOURCE
+   ↓
+TIE
+   ↓
+EVIDENCE
+   ↓
+GEMS
+   ↓
+HERALD
+   │
+   ├─ extraction
+   ├─ claims
+   ├─ ambiguity
+   ├─ calibration
+   ├─ binding
+   ├─ boundary
+   ├─ gate
+   └─ handoff
+   ↓
+CITADEL / STRIDE
+   ↓
+GSA-GATEWAY
+   ↓
+CONSERVATION
+   ↓
+CONSEQUENTIAL STATE
+```
+
+And **this is the first thing I want Hulk to attack**:
+
+> Can HERALD transform natural language while preserving the exact epistemic/provenance/authority distinctions that TIE and the Conservation layer require?
+
+Because if HERALD is doing what its module structure strongly suggests, it may close—or expose—one of the biggest gaps we just found.
+
+The next audit should therefore be **HERALD-first**, including its README, Constitution, every production module, tests, and actual handoff contract, followed by hostile NL transformations specifically designed to cause:
+
+- ambiguity collapse
+- claim strengthening
+- uncertainty deletion
+- attribution loss
+- source/claim separation
+- authority laundering
+- negation inversion
+- temporal drift
+- scope expansion
+- paraphrase-induced epistemic escalation
+- natural-language-to-structured-data promotion
+
+**This repo absolutely belongs in tonight's Claude handoff.**

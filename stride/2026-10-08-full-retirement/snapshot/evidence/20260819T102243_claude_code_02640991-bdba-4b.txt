@@ -1,0 +1,32 @@
+[tool_result] EDDP	10262	
+DGK	86	
+synapsis	14920	
+GSA-GATEWAY	0	
+URE	12	
+CODE	44	
+GRAPH	0	
+OBSERVE	6678	
+SAGE-K	99	
+sentinel_os	6244	
+DIT	52	
+OTLP	30	archived
+DEMO_OUTPUT	5	archived
+STRIDE	61	
+CITADEL	7	
+ATS	1522	
+ChatGPT_History	13808	
+Conservation_Kernel	49	
+Data_files	11298	archived
+GSA-815	235	
+innovation_os	548	
+CoPilot_History	6309	
+Gemini_History	17174	
+GEMS	0	
+Triad-42	83	
+CCC	51	
+GLCM	35	
+ARCHIVE	165	
+Resume_OS	356	
+ANVIL	27	
+Ecology	1229	
+TBCA	19

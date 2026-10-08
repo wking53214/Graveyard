@@ -1,0 +1,168 @@
+# PASS 9 — CHATGPT_HISTORY PROVENANCE UNWIND
+
+Audit date: August 22, 2026
+Method: independent primary-source software archaeology
+Standard: skeptical historian / provenance forensic analysis
+
+IMPORTANT:
+
+TIE, GEMS, and HERALD are brand-new August 2026 systems.
+
+Do NOT search for their historical origins.
+
+They are current-only systems.
+
+Instead, reconstruct the historical development of the older ecosystem.
+
+Primary targets:
+
+Sentinel
+GSA-815
+GSA-GATEWAY
+FORTRESS
+STRIDE
+SAGE-K
+DGK
+DIT
+RADAR
+GSA
+gsa-governance-core
+SECURE
+UZTC
+WRAPPER
+EDDP
+URE
+ARCHIVE
+and every older system discovered.
+
+==================================================
+OBJECTIVE
+==================================================
+
+Use CHATGPT_HISTORY to determine:
+
+1. earliest appearance of each system;
+2. earliest appearance of distinctive artifacts;
+3. predecessor names;
+4. source repositories;
+5. migrations;
+6. splits;
+7. consolidations;
+8. deleted/abandoned systems;
+9. human-directed architectural changes;
+10. evidence predating surviving Git repositories.
+
+Do not merely search system names.
+
+Search artifact names, filenames, distinctive class names, architectural phrases, commit language, and provenance terminology.
+
+==================================================
+FOLLOW THE ARTIFACT
+==================================================
+
+Start with known proven migrations:
+
+STRIDE → Sentinel
+Sentinel → GSA-815
+DGK → GSA-815
+DIT → GSA-815
+GSA → GSA-815
+RADAR → GSA-815
+gsa-governance-core → GSA-815
+ARCHIVE → FORTRESS
+Sentinel/sage_k → FORTRESS
+
+Then recursively follow each source backward.
+
+For each artifact:
+
+ORIGIN
+FIRST APPEARANCE
+INTERMEDIATE LOCATIONS
+DESTINATION
+DATES
+EVIDENCE
+STATUS
+
+==================================================
+SEARCH FOR SYSTEM GRAVEYARD
+==================================================
+
+Find projects that were:
+
+deleted
+abandoned
+deprecated
+renamed
+merged
+replaced
+archived
+moved
+superseded
+consolidated
+
+For each:
+
+system
+earliest evidence
+last evidence
+surviving artifacts
+destination of artifacts
+
+==================================================
+TEMPORAL FORENSICS
+==================================================
+
+Establish:
+
+conversation date
+message date
+artifact date
+repository date
+commit date
+
+Identify whether conversations precede repositories.
+
+This is especially important for determining whether an apparently "new" repository is actually a later container for older work.
+
+==================================================
+PROVENANCE CLASSIFICATION
+==================================================
+
+A — surviving original source
+B — copied/migrated source
+C — reconstruction
+D — specification/concept only
+N — not found
+U — unresolved
+
+Do not promote concepts into code lineage.
+
+==================================================
+OUTPUT
+==================================================
+
+Produce:
+
+1. Executive verdict
+2. Corpus examined
+3. Earliest evidence
+4. System provenance
+5. Artifact provenance
+6. Alternate/predecessor names
+7. Graveyard systems
+8. Crossovers
+9. Temporal chronology
+10. Migration graph
+11. Evidence ledger
+12. Unknown register
+13. Revised Pass 7 findings
+14. Earliest defensible historical boundary
+15. Strongest newly recovered lineage
+16. What remains unknowable
+
+FINAL QUESTION:
+
+If every current August repository disappeared, what independent historical evidence would CHATGPT_HISTORY preserve?
+
+The goal is a provenance graph, not a repository inventory.

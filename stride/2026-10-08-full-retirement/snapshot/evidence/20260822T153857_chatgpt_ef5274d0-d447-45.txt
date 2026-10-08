@@ -1,0 +1,884 @@
+:::writing{variant="document" id="58321" title="PASS 5 — Raw History, Git Object, and Deployment Recovery Audit"}
+# PASS 5 — RAW HISTORY, GIT OBJECT, AND DEPLOYMENT RECOVERY AUDIT
+
+**Audit date:** August 22, 2026  
+**Method:** independent primary-source recovery  
+**Mode:** NO MEMORY / no reliance on prior conversational context  
+**Standard:** skeptical independent historian
+
+## Scope and methodological result
+
+Pass 5 materially strengthens several parts of the Pass 4 evidence map, but it does **not** overturn the central historical judgment.
+
+The strongest new findings are:
+
+1. The account contains substantially more repositories than the named starting corpus, including `GRAPH`, `ANVIL`, `KAGGLE`, `VANGUARD`, `EDDP`, `CITADEL`, `ATS`, `TBCA`, `innovation_os`, `Ecology`, `CODE`, `ghost_tools`, and `synapsis`.
+2. The raw-history repositories are genuine structured exports rather than merely narrative summaries. `Claude_History`, for example, explicitly contains raw export data, per-conversation JSON, flattened message data, indexes, transcripts, and AI-generated summaries. fileciteturn44file0
+3. Direct GitHub code-search over those large history repositories did **not** return recoverable matches for `TIE_PACKAGE`, `EvidenceRecord`, `GEMS-FER`, or `HERALD`. This is useful negative evidence, but **not exhaustive corpus-negative evidence**, because the connector did not expose full-text searching of the large raw blobs.
+4. The surviving TIE and GEMS repositories themselves explicitly identify their implementations as reconstructions, and their commit histories independently confirm that status. fileciteturn26file0 fileciteturn27file0
+5. HERALD's repository was actually created **August 20, 2026 at 10:26am UTC**, directly confirming that the current repository cannot itself be evidence of a pre-August-20 HERALD implementation. fileciteturn54file0
+6. CCC and Triad+42 have executable commits dated **August 13, 2026**, but no independent earlier implementation was recovered.
+7. Conservation Kernel has its first located implementation commit on **August 17, 2026**, with a subsequent freeze after hostile testing on August 18. citeturn0search0
+8. STRIDE/CLIP history is stronger than a simple "lost project" characterization: CITADEL records that its enforcement logic was consumed by STRIDE's gateway, **formerly named CLIP**, while Sentinel records that `governance_loop_guard.py` was salvaged from STRIDE before deletion. The surviving evidence therefore establishes a deleted STRIDE/CLIP component and partial salvage, but not the recoverable whole.
+9. Sentinel has unusually strong evidence of real operational engineering: production-shaped entrypoints, Docker and Kubernetes configurations, PostgreSQL/Redis infrastructure, real external API paths, live-path tests, and commits explicitly describing actual production entrypoints. However, repository evidence still does **not** establish sustained external production deployment. The deployment documentation itself says the Kubernetes manifests had not been deploy-tested and that the live Claude round-trip had not been verified outside mocking/unit-level contexts. fileciteturn31file0
+10. Human decision provenance is stronger than merely inferred authorship. Several commits explicitly distinguish William/Wm's decisions from implementation work.
+
+---
+
+# Evidence Ledger — E21 onward
+
+| ID | Date | Source | Location | Actor | Claim | Evidence Type | Status | Confidence | Limitation |
+|---|---|---|---|---|---|---|---|---|---|
+| **E21** | Jul 3 | OBSERVE | commit `cff373e1` | implementer | "Initial Sentinel OS upload" | Git commit | PROVEN | High | Commit title does not establish original Iceberg birth |
+| **E22** | Jul 3 | OBSERVE | commit `b3154498` | implementer | Iceburg architecture migrated into Sentinel OS | Git commit | PROVEN | High | "Iceburg" spelling preserved |
+| **E23** | Aug 5 | GSA-815 | commit `ee4bac7b` | implementer | IVR-side material extracted from `sentinel_os` | Git commit | PROVEN | High | Exact historical branch ancestry not required because commit explicitly states source |
+| **E24** | Aug 19 | GSA-GATEWAY | commit `4d08698b` | implementer / William-directed | SECURE, UZTC, WRAPPER, DGK and EDDP material consolidated | Git commit | PROVEN | High | Source repositories' final deletion not established |
+| **E25** | Aug 19 | VANGUARD | commit `7dbfeb16` | implementer / William-directed | VANGUARD content moved from DGK | Git commit | PROVEN | High | Does not prove earlier VANGUARD runtime |
+| **E26** | Aug 19 | CITADEL | commit `f1591ab7` | implementer | STRIDE gateway formerly named CLIP; CITADEL logic consumed by it | Git commit | PROVEN | High | Surviving commit, not full deleted repository |
+| **E27** | Aug 21 | Sentinel | commit `91755bef` | implementer | `governance_loop_guard.py` salvaged from STRIDE before deletion | Git commit | PROVEN | High | Only loop-detection half recovered; queue/backpressure half explicitly absent |
+| **E28** | Aug 19 | TIE | commit `685d539f` | implementer | Current TIE is reconstructed from five forensic summaries; original source not recovered | Git commit | PROVEN | Very High | The summaries themselves are not independently recovered here |
+| **E29** | Aug 19 | GEMS | commit `af91766d` | implementer | Current GEMS is a reconstruction from GEMS-FER-1.0 | Git commit | PROVEN | Very High | Canonical historical repository still absent |
+| **E30** | Aug 20 | TIE | repository metadata | GitHub | Current TIE repository created Aug 19, 2026 | Repository metadata | PROVEN | Very High | Repository creation is not project birth |
+| **E31** | Aug 17 | GEMS | repository metadata | GitHub | GEMS repository created Aug 17; reconstruction committed Aug 19 | Repository metadata | PROVEN | Very High | No historical executable GEMS recovered |
+| **E32** | Aug 20 | HERALD | repository metadata | GitHub | Current HERALD repository created Aug 20, 2026 at 10:26am UTC | Repository metadata | PROVEN | Very High | Earlier implementation could still theoretically have another name |
+| **E33** | Aug 20–21 | HERALD | README / Constitution | implementer | Current HERALD is executable and has explicit boundary enforcement; no consuming project is wired in yet | Current source | PROVEN | Very High | Current implementation only |
+| **E34** | Aug 13 | CCC | commit `7daad9e` | implementer | Cognitive Continuity Constitution enforcement implemented | Git commit | PROVEN | High | Earlier independent CCC not recovered |
+| **E35** | Aug 13 | Triad-42 | commit `c155ee1b` | implementer | Initial executable Triad-42 advisory harness | Git commit | PROVEN | High | Commit is the initial recovered implementation |
+| **E36** | Aug 17 | Conservation Kernel | commit `d6c67dc1` | implementer | Conservation Kernel hostile baseline implemented | Git commit | PROVEN | Very High | No pre-Aug 17 implementation recovered |
+| **E37** | Aug 18 | Conservation Kernel | commit `22603209` | implementer | Kernel frozen after hostile attack #7 | Git commit | PROVEN | Very High | Does not establish deployment |
+| **E38** | Aug 19 | Claude_History | commit `16ffe055` | implementer | Claude export structured into raw JSON, transcripts, summaries and indexes | Git commit | PROVEN | Very High | Direct term-level raw-blob search unavailable |
+| **E39** | Aug 17–19 | ChatGPT_History | repository / tree | archive | Export contains datasets, raw data, indexes and transcripts | Primary repository artifact | PROVEN | High | Full raw corpus not term-searched exhaustively |
+| **E40** | Aug 19 | History repositories | GitHub search | audit | `TIE_PACKAGE`, `EvidenceRecord`, `GEMS-FER`, and `HERALD` produced no code-search matches | Search result | NOT FOUND IN SEARCHED CORPUS | Medium | Large raw blobs were not fully searchable through available connector |
+| **E41** | Jul 22–Aug 21 | Sentinel | deployment documentation / commits | implementer | Sentinel has production-shaped infrastructure and a designated production entrypoint | Primary source | PROVEN | Very High | Infrastructure ≠ actual deployment |
+| **E42** | Jul 22 | Sentinel | commit `3f0c5882` | implementer | Runtime ledger path verified against real PostgreSQL 16 | Runtime test evidence | PROVEN | High | Test/runtime environment, not external production |
+| **E43** | Jul 31 | Sentinel | commits `70971c98`, `1ef1f608` | Wm-directed implementation | Real Claude API path, PostgreSQL ledger and worker lease were wired into live code | Git commit + test evidence | PROVEN | High | "Live path" means application path, not necessarily publicly deployed service |
+| **E44** | Jul 31 | Sentinel | commit `178c5c10` | Wm-directed implementation | Recommendation impact work deliberately remained shadow-run; only `safety_check` was live | Git commit | PROVEN | Very High | Explicitly limits production-use interpretation |
+| **E45** | Aug 7 | Sentinel | commit `6357f284` | Wm-directed implementation | CFPB screening wired into the actual production entrypoint | Git commit | PROVEN | High | No external production environment established |
+| **E46** | Aug 19 | GSA-GATEWAY | commit `4d08698b` | William-directed | Move-only consolidation performed per William's v3 instructions | Human decision provenance | PROVEN | Very High | Exact original directive document not recovered |
+| **E47** | Aug 19 | VANGUARD | commit `7dbfeb16` | William-directed | William created destination repository and authorized DGK material move | Human decision provenance | PROVEN | Very High | Does not establish deployment |
+| **E48** | Jul 31 | Sentinel | commit `dc3c2227` | Wm-directed | Wm explicitly decided cohort-equity escalation should trigger human review and never alter automated score | Human decision provenance | PROVEN | Very High | Commit is contemporaneous implementation record |
+| **E49** | Jul 31 | Sentinel | commit `70971c98` | Wm-directed | Wm explicitly decided to record token counts and dollar cost in audit trail | Human decision provenance | PROVEN | Very High | Decision provenance comes from commit message |
+| **E50** | Jul 31 | Sentinel | commit `178c5c10` | Wm-directed | Wm scoped recommendation testing to predictive accuracy, not A/B impact | Human decision provenance | PROVEN | Very High | Does not identify the original conversation |
+
+---
+
+# Raw conversation recovery
+
+The four requested history repositories are real archival structures, but their evidentiary accessibility differs.
+
+## ChatGPT
+
+`ChatGPT_History` contains a structured export corpus with `Data_sets`, `data`, `index`, `notebooks`, `scripts`, `summaries`, and `transcripts`. The repository metadata identifies it as a public archive created August 17, 2026. fileciteturn17file0 fileciteturn18file0
+
+The transcript directory contains individual conversation artifacts rather than merely a summary database. fileciteturn19file0
+
+## Claude
+
+The Claude archive is particularly important. Its README states that the original Claude export contained **265 conversations and 10,721 messages**, with the original 225MB conversation file split into per-conversation JSON, plus flattened message data, transcripts, indexes, and AI-generated summaries. fileciteturn44file0
+
+This establishes that the archive contains primary-ish contemporaneous conversation material capable in principle of answering the TIE/GEMS/HERALD questions.
+
+However, the available GitHub connector did not provide a general full-text search facility over these large raw blobs. Direct repository search for the targeted strings returned no matches, but that result cannot be elevated to "the strings do not occur anywhere in the raw exports."
+
+## Gemini
+
+`Gemini_History` contains `Takeout`, `data`, `index`, `notebooks`, `scripts`, `summaries`, and `transcripts`, confirming that it too is an actual structured conversation archive rather than a retrospective prose document. fileciteturn45file0
+
+## CoPilot
+
+The repository was confirmed in the account corpus. No targeted raw-history term match was recoverable through the available repository search interface.
+
+### Raw-history conclusion
+
+**The archives are real and structurally suitable for historical recovery. The available toolchain did not permit an exhaustive byte-level/full-text search of their largest raw files.**
+
+Therefore the proper Pass 5 result is:
+
+> **No historical TIE/GEMS/HERALD artifact was recovered from the searchable portion of the conversation corpus.**
+
+It is **not** permissible to say that no such artifact exists in the complete exports.
+
+---
+
+# TIE recovery
+
+## Historical TIE concept
+
+**PROVEN / PARTIALLY PROVEN**
+
+The surviving forensic summaries underlying the current TIE reconstruction establish a historical conceptual architecture including source preservation, coverage, evidence, artifacts, identity references, relationships, reconstruction, validation, typed handoff and routing.
+
+The current repository explicitly preserves an earlier "individual chat → TIE → digestible chunks → Gem Chain" design as superseded historical lineage. fileciteturn26file0
+
+## Historical TIE source
+
+**UNKNOWN / NOT RECOVERED**
+
+The strongest primary source available — the current TIE repository's own forensic build record — explicitly says:
+
+- original complete TIE repository: not recovered;
+- exact historical `TIE_PACKAGE`: not recovered;
+- exact historical `EvidenceRecord`: not recovered;
+- original tests/results: not recovered. fileciteturn26file0
+
+The repository itself was created only on August 19, 2026. fileciteturn55file0
+
+## Current TIE
+
+**RECONSTRUCTED**
+
+This is no longer merely an inference. The commit itself states that the implementation is a reconstruction from five supplied forensic summaries and that its tests are newly executed tests, not historical TIE test results. fileciteturn26file0
+
+### TIE verdict
+
+The clean distinction is:
+
+**Historical TIE concept:** PROVEN/PARTIALLY PROVEN  
+**Historical TIE implementation:** NOT RECOVERED  
+**Current TIE implementation:** RECONSTRUCTED  
+**Identity between them:** UNKNOWN, with explicit evidence against treating them as identical
+
+---
+
+# GEMS recovery
+
+The current GEMS repository was created August 17, 2026, while its reconstruction baseline was committed August 19. fileciteturn56file0
+
+Its reconstruction-status document is unusually explicit: the canonical repository, production code, exact APIs, transport, schemas, prompts, and deployment details were not recovered. The in-memory registry, router, workflow coordinator, handoff envelope, adapter and other implementation choices are explicitly labeled proposed. fileciteturn27file0
+
+The reconstruction commit further states that it integrates with current TIE and Triad+42, but this is **current reconstructed integration**, not proof of a historical TIE→GEMS runtime.
+
+### GEMS verdict
+
+**Historical conceptual GEMS material:** PARTIALLY PROVEN  
+**Historical executable GEMS:** UNKNOWN / NOT RECOVERED  
+**Current GEMS:** RECONSTRUCTED  
+**Historical production deployment:** UNKNOWN  
+**TIE→GEMS runtime:** UNKNOWN
+
+The current code's integration with TIE therefore cannot be used to back-propagate historical identity.
+
+---
+
+# HERALD recovery
+
+HERALD is the clearest case.
+
+GitHub repository metadata records creation on **August 20, 2026 at 10:26am UTC**. fileciteturn54file0
+
+The current implementation is substantial and executable. Its README describes source binding, candidate claims, refusal handling, human sign-off, code-hash pinning and a downstream handoff. But it also explicitly states:
+
+> "No consuming project is wired in yet."
+
+That means current HERALD is:
+
+**IMPLEMENTED:** PROVEN  
+**TESTED:** PROVEN  
+**DEPLOYED:** NOT ESTABLISHED  
+**ACTUALLY USED:** NOT ESTABLISHED  
+**Historical pre-August-20 implementation:** NOT RECOVERED
+
+The repository's constitution is a current design artifact, not evidence of an earlier runtime. fileciteturn29file0
+
+### HERALD verdict
+
+**CURRENT-ONLY**, subject to the limited negative-search qualification.
+
+No independent pre-August-20 HERALD implementation was recovered.
+
+---
+
+# CCC / Triad recovery
+
+A significant Pass 5 refinement is that CCC and Triad are not merely vague present-day concepts.
+
+CCC has an executable implementation commit dated **August 13, 2026**:
+
+`Implement Cognitive Continuity Constitution enforcement`. 
+
+Triad-42 has an initial executable harness commit dated **August 13, 2026**, explicitly identifying itself as version 2 and reporting 73 passing tests. The commit also explicitly says the reasoning-lens interfaces remain deliberately unimplemented.
+
+Therefore:
+
+### CCC
+
+**Earliest recovered executable occurrence:** August 13  
+**Earlier independent implementation:** not found in searched corpus  
+**Historical deployment:** unknown  
+**Historical Sentinel integration:** not established  
+**Historical TIE/GEMS relationship:** not established
+
+### Triad-42
+
+**Earliest recovered executable occurrence:** August 13  
+**Executable status:** PROVEN  
+**Historical earlier implementation:** not recovered  
+**Production deployment:** not established  
+**Historical TIE/GEMS runtime relationship:** not established
+
+This weakens any overly broad statement that these were merely "ideas," but it does **not** establish them as components of an older master runtime.
+
+---
+
+# Conservation Kernel
+
+The first located implementation commit is:
+
+`d6c67dc1` — **August 17, 2026, 08:43am EDT**
+
+followed by a freeze after hostile attack #7 on August 18. citeturn0search0
+
+Searches across the relevant surviving repositories for "conservation kernel" did not locate an earlier Git commit.
+
+Therefore:
+
+**Pre-August-17 implementation:** NOT FOUND IN SEARCHED CORPUS  
+**Current independently testable implementation:** PROVEN  
+**Earlier deployed kernel:** UNKNOWN  
+**Earlier Sentinel component:** NOT ESTABLISHED
+
+Pass 5 therefore **strengthens** Pass 4's treatment of Conservation Kernel as a current experimental mechanism whose independently testable implementation begins on August 17 in the surviving corpus.
+
+---
+
+# STRIDE / CLIP
+
+Pass 5 produces a useful historical refinement.
+
+CITADEL's August 19 commit explicitly says:
+
+- CITADEL's enforcement logic is consumed as a subcomponent by STRIDE's gateway;
+- that gateway was formerly named **CLIP**;
+- it was renamed to match its internal `SYSTEM_NAME` branding.
+
+This is direct historical evidence of:
+
+**CLIP → STRIDE naming continuity**
+
+The Sentinel August 21 commit separately says `governance_loop_guard.py` was salvaged from the STRIDE repository **before its deletion from GitHub** and that only the loop-detection/bounded-retry portion was recovered; the queue-depth/backpressure half was not recovered.
+
+The direct `wking53214/STRIDE` repository lookup now returns 404.
+
+Therefore:
+
+**STRIDE existed:** PROVEN  
+**CLIP was an earlier STRIDE gateway name:** PROVEN  
+**STRIDE was deleted:** PROVEN by surviving contemporaneous reference  
+**governance_loop_guard recovered from STRIDE:** PROVEN  
+**entire STRIDE repository recovered:** NO  
+**queue/backpressure subsystem recovered:** NO  
+**full deployment recovered:** NO
+
+This is a stronger and more precise result than simply calling STRIDE "lost."
+
+---
+
+# Git object / deleted-history recovery
+
+The available GitHub connector can retrieve referenced commits, trees and blobs when their objects remain accessible.
+
+It does **not** expose an arbitrary Git object database / unreachable-object enumeration facility.
+
+That distinction matters.
+
+A surviving SHA is evidence that a commit or object was referenced. It is **not** proof that every historical object reachable from some lost ref remains retrievable.
+
+For STRIDE, the current evidence supports:
+
+- deleted repository;
+- surviving references;
+- surviving CITADEL linkage;
+- partial file salvage.
+
+It does **not** support a claim that the complete deleted repository can be reconstructed.
+
+The same caution applies to an alleged original TIE repository or canonical GEMS repository: no hidden object was actually recovered merely because another artifact discusses it.
+
+---
+
+# Deployment / runtime recovery
+
+## Sentinel / Iceberg
+
+Sentinel has by far the strongest deployment-shaped evidence.
+
+The repository contains:
+
+- Dockerfile;
+- `docker-compose.yml`;
+- `docker-compose-prod.yml`;
+- Kubernetes manifests;
+- production configuration;
+- TLS handling;
+- production entrypoint;
+- PostgreSQL;
+- Redis;
+- API server;
+- worker;
+- deployment runbook;
+- CI.
+
+The deployment documentation confirms a Kubernetes deployment path and production-shaped configuration. fileciteturn30file0 fileciteturn30file1 fileciteturn30file22 fileciteturn31file0
+
+There is also strong evidence that real PostgreSQL infrastructure was exercised. The July 22 commit reports live verification against PostgreSQL 16, and later commits repeatedly describe real Postgres, Redis and external API paths.
+
+However, the same deployment document explicitly states:
+
+- the Kubernetes manifest sets had **not been deploy-tested** from the repository;
+- the old `Deploy/k8s` path was likely dead;
+- live Claude API round-trip was not verified end-to-end outside unit-level mocking. fileciteturn31file0
+
+Therefore the appropriate classification is:
+
+| Level | Sentinel |
+|---|---|
+| IMPLEMENTED | **PROVEN** |
+| TESTED | **PROVEN** |
+| OPERATIONAL IN TEST ENVIRONMENT | **PROVEN** |
+| DEPLOYED | **UNKNOWN** |
+| ACTUALLY USED | **UNKNOWN** |
+| SUSTAINED PRODUCTION OPERATION | **UNKNOWN** |
+
+The term "production entrypoint" is evidence about intended/runtime architecture, not independent evidence of an external production installation.
+
+## GSA-815
+
+**IMPLEMENTED:** PROVEN  
+**TESTED:** PROVEN  
+**Operational test environment:** PROVEN/PARTIALLY PROVEN  
+**Deployed:** UNKNOWN  
+**Actually used:** UNKNOWN
+
+Its extraction from Sentinel is proven, but extraction is not deployment.
+
+## GSA-GATEWAY
+
+**Consolidation:** PROVEN  
+**Implementation:** PROVEN at repository level  
+**Deployment:** UNKNOWN  
+**Actual use:** UNKNOWN
+
+## VANGUARD
+
+**Migration from DGK:** PROVEN  
+**Deployment:** UNKNOWN  
+**Actual use:** UNKNOWN
+
+## TIE / GEMS / HERALD / CCC / Triad / Conservation Kernel
+
+No primary deployment evidence was recovered that moves these beyond:
+
+**implemented/tested**
+
+into:
+
+**deployed/actually used/sustained production operation**.
+
+---
+
+# Human decision provenance
+
+Pass 5 materially strengthens this category.
+
+The Git corpus contains contemporaneous implementation records that explicitly distinguish human decisions from implementation.
+
+Examples:
+
+- GSA-GATEWAY consolidation was performed "per William's v3 consolidation instructions." citeturn0search0
+- VANGUARD's move from DGK was performed after William created the destination repository. citeturn0search0
+- Wm's July 31 decision explicitly required cohort-equity escalation to go to human review and never alter the automated score.
+- Wm's July 31 decision explicitly required AI token counts **and dollar cost** to be disclosed to the audit trail.
+- Wm's July 31 scope decision limited recommendation-impact testing to predictive accuracy rather than actual A/B impact.
+
+These are not merely stylistic references to "the user." They are contemporaneous commit-level records tying implementation choices to named human directives.
+
+### What this proves
+
+**Human instruction / decision:** PROVEN in these instances.
+
+### What it does not prove
+
+It does not prove that every architectural decision in the corpus originated with William, nor that the human personally wrote or tested the implementation.
+
+The safest actor distinction remains:
+
+**human decision → AI-assisted implementation → repository-level test evidence**
+
+rather than:
+
+**human wrote code → human deployed code**
+
+unless a separate artifact establishes those latter actions.
+
+---
+
+# Reconstructed lineage graphs
+
+## LINEAGE A — SENTINEL
+
+**Iceburg/Iceberg material → Sentinel OS → GSA-815**
+
+**Status: PROVEN**
+
+The July 3 OBSERVE history explicitly records both the initial Sentinel OS upload and migration of Iceburg architecture into the Sentinel OS repository. citeturn0search0
+
+The August 5 GSA-815 commit explicitly describes extraction from Sentinel. citeturn0search0
+
+This remains the strongest historical lineage in the corpus.
+
+## LINEAGE B — GSA-GATEWAY
+
+**SECURE + UZTC + WRAPPER + DGK governance-stack + EDDP material → GSA-GATEWAY**
+
+**Status: PROVEN**
+
+The August 19 move-only consolidation commit is explicit. citeturn0search0
+
+## LINEAGE C — VANGUARD
+
+**DGK → VANGUARD**
+
+**Status: PROVEN**
+
+The migration commit is explicit. citeturn0search0
+
+## LINEAGE D — FORTRESS
+
+**Sentinel / ARCHIVE / Claude history → surviving FORTRESS material**
+
+**Status: PARTIALLY PROVEN**
+
+Multiple historical variants remain evidenced, but a single canonical continuous FORTRESS history remains unproven.
+
+## LINEAGE E — STRIDE
+
+**CLIP → STRIDE → deletion → partial salvage → Sentinel/CITADEL**
+
+**Status: PROVEN at the surviving-component level**
+
+The full STRIDE repository remains unrecovered.
+
+## LINEAGE F — RECONSTRUCTED FAMILY
+
+**forensic summaries → TIE reconstruction → GEMS reconstruction → current HERALD**
+
+**Status: RECONSTRUCTED, NOT HISTORICAL RUNTIME**
+
+The current repositories establish reconstruction relationships, not a historical runtime chain.
+
+## LINEAGE G — CURRENT GOVERNANCE / EXPERIMENTAL FAMILY
+
+**CCC + Triad-42 + Conservation Kernel + current HERALD**
+
+**Status: CURRENT/RECENT IMPLEMENTATION FAMILY**
+
+No evidence establishes that these four systems historically operated as one deployed chain.
+
+---
+
+# HISTORY → TIE → GEMS → HERALD → GOVERNANCE → EXECUTION
+
+| Arrow | Classification | Evidence | Missing evidence |
+|---|---|---|---|
+| HISTORY → TIE | **PARTIALLY PROVEN** | TIE forensic summaries and superseded architecture survive | Original source/package not recovered |
+| TIE → GEMS | **RECONSTRUCTED** | Current GEMS integrates with current TIE | Historical transport/runtime absent |
+| GEMS → HERALD | **UNKNOWN** | Conceptual/current architectural compatibility | Historical consumer/deployment absent |
+| HERALD → GOVERNANCE | **CURRENT-ONLY** | Current HERALD explicitly hands claims to consuming governance | No historical consumer wired; README says none |
+| GOVERNANCE → EXECUTION | **PROVEN only inside Sentinel's existing live-path architecture; otherwise UNKNOWN** | Sentinel has explicit production entrypoints and live-path wiring | External deployment/use evidence |
+
+The clean five-stage chain therefore **cannot be established as a historical runtime chain**.
+
+---
+
+# Pass 3 / Pass 4 / Pass 5 comparison
+
+| Claim | Pass 3 | Pass 4 | Pass 5 | Final status |
+|---|---|---|---|---|
+| Sentinel/Iceberg lineage | strong | strong | strengthened | **PROVEN** |
+| Sentinel → GSA-815 | extraction | proven | confirmed | **PROVEN** |
+| GSA-GATEWAY consolidation | emerging | proven | confirmed | **PROVEN** |
+| DGK → VANGUARD | emerging | proven | confirmed | **PROVEN** |
+| FORTRESS canonical continuity | uncertain | multiple variants | unchanged | **UNKNOWN / PARTIAL** |
+| STRIDE | uncertain | deleted/partial salvage | CLIP→STRIDE + deletion + salvage confirmed | **PARTIALLY PROVEN / LOST** |
+| Original TIE | presumed historical | reconstruction only | current repo explicitly confirms reconstruction | **HISTORICAL SOURCE UNKNOWN** |
+| Historical GEMS | presumed | reconstruction only | reconstruction status explicitly confirmed | **HISTORICAL EXECUTABLE UNKNOWN** |
+| HERALD before current repo | uncertain | not recovered | repository creation date strengthens negative finding | **NOT FOUND IN SEARCHED CORPUS** |
+| CCC historical implementation | conceptual | uncertain | executable implementation proven Aug 13 | **RECENT EXECUTABLE; EARLIER UNKNOWN** |
+| Triad historical implementation | conceptual | uncertain | executable implementation proven Aug 13 | **RECENT EXECUTABLE; EARLIER UNKNOWN** |
+| Conservation Kernel origin | uncertain | current-first hypothesis | Aug 17 first located implementation confirmed | **CURRENT/RECENT; EARLIER UNKNOWN** |
+| Actual production deployment | overstated risk | cautious | deployment artifacts strong, actual deployment unproven | **UNKNOWN outside test/operational environments** |
+| Human decisions | inferred | partial | explicit contemporaneous Wm/William directives recovered | **PROVEN FOR IDENTIFIED DECISIONS** |
+
+---
+
+# UNKNOWN Register
+
+## 1. Original TIE
+
+**Question:** Where is the original TIE implementation?
+
+**Searched:** TIE repository, relevant current repositories, searchable history repositories, `TIE_PACKAGE`, `EvidenceRecord`, related terminology.
+
+**Recovered:** historical conceptual specifications and forensic summaries.
+
+**Missing:** original source tree, exact schema, exact tests.
+
+**Why unresolved:** raw-history full-text search was not available over the largest archive blobs.
+
+**Resolving evidence:** original repository, commit object, attachment, or conversation containing the complete source.
+
+## 2. Historical GEMS
+
+**Question:** Did a production GEMS implementation exist?
+
+**Recovered:** GEMS-FER reconstruction basis and current reconstructed implementation.
+
+**Missing:** canonical repository, production transport, exact prompts/API/schema/deployment.
+
+**Status:** UNKNOWN.
+
+## 3. Historical HERALD
+
+**Question:** Did HERALD exist before August 20?
+
+**Recovered:** current repository created August 20; no earlier searchable match.
+
+**Status:** NOT FOUND IN SEARCHED CORPUS.
+
+**Resolving evidence:** older source, conversation-generated code, renamed repository, commit reference.
+
+## 4. Historical CCC
+
+No independent pre-current implementation recovered.
+
+## 5. Historical Triad
+
+No independent pre-current implementation recovered.
+
+## 6. Conservation Kernel origin
+
+No pre-August-17 implementation recovered.
+
+## 7. STRIDE
+
+Deleted repository is established; complete Git object recovery is not.
+
+## 8. Deployment
+
+Infrastructure and operational test evidence are abundant for Sentinel; independent external deployment evidence is absent.
+
+## 9. TIE → GEMS runtime
+
+Not established.
+
+## 10. GEMS → HERALD runtime
+
+Not established.
+
+## 11. HERALD → governance runtime
+
+Current design only; no consuming project is wired in.
+
+## 12. Ecosystem-wide deployment
+
+Not established.
+
+---
+
+# Revised historical timeline
+
+### PROVEN EVENT — July 3, 2026
+
+Initial Sentinel OS upload recorded in OBSERVE.
+
+### PROVEN EVENT — July 3, 2026
+
+OBSERVE records migration of Iceburg architecture into Sentinel OS.
+
+### PROVEN EVENT — July 18–August 7
+
+Sentinel undergoes extensive operational development involving PostgreSQL, Redis, workers, APIs, governance, live-path wiring and repeated verification.
+
+### PROVEN EVENT — August 5, 2026
+
+IVR-specific material is explicitly extracted from Sentinel into GSA-815.
+
+### PROVEN EVENT — August 13, 2026
+
+CCC enforcement implementation appears.
+
+### PROVEN EVENT — August 13, 2026
+
+Initial Triad-42 executable advisory harness appears.
+
+### PROVEN EVENT — August 17, 2026
+
+Conservation Kernel hostile baseline implementation appears.
+
+### PROVEN EVENT — August 17–19, 2026
+
+GEMS repository and later reconstruction baseline appear.
+
+### PROVEN EVENT — August 19, 2026
+
+TIE reconstruction baseline appears.
+
+### PROVEN EVENT — August 19, 2026
+
+GSA-GATEWAY consolidates SECURE, UZTC, WRAPPER and governance-stack material.
+
+### PROVEN EVENT — August 19, 2026
+
+VANGUARD receives material explicitly moved from DGK.
+
+### PROVEN EVENT — August 19, 2026
+
+CITADEL documents CLIP as the former name of STRIDE's gateway.
+
+### PROVEN EVENT — August 20, 2026
+
+HERALD repository is created.
+
+### PROVEN EVENT — August 21, 2026
+
+Sentinel records salvage of `governance_loop_guard.py` from deleted STRIDE.
+
+No reconstructed event has been inserted into this historical timeline merely because the present repositories make the architecture look coherent.
+
+---
+
+# Final architectural classification
+
+## Historically proven
+
+- Iceberg/Iceburg → Sentinel lineage.
+- Sentinel → GSA-815 extraction.
+- SECURE/UZTC/WRAPPER/DGK/EDDP → GSA-GATEWAY consolidation.
+- DGK → VANGUARD migration.
+- CLIP → STRIDE naming continuity.
+- STRIDE deletion and partial salvage.
+- CCC executable implementation by August 13.
+- Triad-42 executable implementation by August 13.
+- Conservation Kernel executable implementation by August 17.
+- Human directives explicitly recorded in selected contemporaneous commits.
+- Extensive Sentinel operational/test infrastructure.
+
+## Historically inferred
+
+- Some earlier conceptual relationships surrounding TIE/GEMS.
+- Broader conceptual governance relationships that are supported by multiple artifacts but lack a single contemporaneous runtime record.
+- Some FORTRESS cross-source lineage.
+
+## Reconstructed
+
+- Current TIE.
+- Current GEMS.
+- Parts of the current TIE/GEMS conceptual integration.
+- Any current component explicitly derived from incomplete forensic material.
+
+## Current-only
+
+- Current HERALD implementation.
+- Current HERALD→consumer architecture.
+- Current Conservation Kernel as an independently testable implementation, insofar as no earlier implementation was recovered.
+- Current CCC/Triad integrations not independently tied to earlier runtime.
+
+## Lost / deleted / unrecovered
+
+**Explicitly deleted**
+- STRIDE repository.
+
+**Partially salvaged**
+- STRIDE loop-detection component.
+
+**Explicitly unrecovered**
+- Original TIE repository.
+- Exact historical TIE_PACKAGE schema.
+- Exact historical EvidenceRecord schema.
+- Canonical historical GEMS repository.
+- Historical GEMS transport/API/deployment details.
+
+**Not found in searched corpus**
+- Pre-August-20 HERALD implementation.
+- Pre-August-17 Conservation Kernel implementation.
+- Earlier independent CCC/Triad implementations.
+
+**Inaccessible through available search tooling**
+- Exhaustive term-level searching of the largest raw conversation blobs.
+
+---
+
+# PASS 5 VERDICT
+
+## Historically proven
+
+The strongest proven historical story is still an **early operational Sentinel/Iceberg lineage followed by explicit extraction, migration, consolidation, salvage and later independent/reconstructed work**.
+
+Sentinel is not merely a README-described architecture. Its Git history contains extensive operational engineering and real test/infrastructure evidence. The Iceberg→Sentinel relationship and Sentinel→GSA-815 extraction are explicit.
+
+The later GSA-GATEWAY and VANGUARD migrations are also explicit.
+
+STRIDE/CLIP is now better understood: a real gateway lineage existed, CLIP was an earlier name, STRIDE was subsequently deleted, and selected components were salvaged.
+
+## Historically inferred
+
+There was clearly a body of earlier TIE/GEMS conceptual material, and some of the present structures preserve recognizable historical ideas.
+
+What cannot be established is that the conceptual relationships formed one continuously operating architecture.
+
+## Reconstructed
+
+TIE and GEMS are explicitly reconstructed implementations.
+
+The present repositories should therefore not be used as historical snapshots of their lost predecessors.
+
+## Current-only
+
+HERALD is the strongest current-only case. Its repository was created August 20, and the repository itself says no consuming project is wired in.
+
+The current implementations of CCC, Triad-42 and Conservation Kernel are also not shown to have independent earlier deployments merely because they have executable code.
+
+## Deleted / lost / unrecovered
+
+STRIDE is the clearest explicitly deleted system.
+
+The original TIE and canonical GEMS implementations remain unrecovered.
+
+The raw conversation archives materially increase the possibility of future recovery, but the available connector did not permit an exhaustive search through their largest blobs.
+
+## Deployment status
+
+**Sentinel:** implemented, heavily tested, operationally exercised; actual external deployment and sustained production use remain UNKNOWN.
+
+**GSA-815:** extracted and implemented; deployment UNKNOWN.
+
+**GSA-GATEWAY:** consolidated; deployment UNKNOWN.
+
+**VANGUARD:** migrated; deployment UNKNOWN.
+
+**TIE:** reconstructed/tested; deployment UNKNOWN.
+
+**GEMS:** reconstructed/tested; deployment UNKNOWN.
+
+**HERALD:** implemented/tested; no consumer wired; deployment UNKNOWN.
+
+**CCC:** implemented/tested; deployment UNKNOWN.
+
+**Triad-42:** implemented/tested; deployment UNKNOWN.
+
+**Conservation Kernel:** implemented/tested; deployment UNKNOWN.
+
+**STRIDE:** deleted; historical deployment not recovered.
+
+## Human decision provenance
+
+Human decision provenance is **stronger than Pass 4 could safely state**.
+
+Contemporaneous commits explicitly attribute material decisions to William/Wm, including consolidation instructions, repository creation/migration decisions, human-review escalation policy, audit-cost recording, and recommendation-testing scope.
+
+This establishes **human instruction/decision** for those identified transitions.
+
+It does not establish that the human personally authored, tested or deployed every resulting implementation.
+
+## Historical runtime chains
+
+The following are established:
+
+**Iceberg → Sentinel → GSA-815:** PROVEN
+
+**DGK → VANGUARD:** PROVEN
+
+**SECURE + UZTC + WRAPPER + DGK + EDDP → GSA-GATEWAY:** PROVEN
+
+**CLIP → STRIDE → deletion → partial salvage:** PROVEN
+
+The following are **not** established as historical runtime chains:
+
+**TIE → GEMS**
+
+**GEMS → HERALD**
+
+**HERALD → governance**
+
+**TIE → GEMS → HERALD → governance → execution**
+
+The current code creates some of those relationships, but current integration is not historical runtime evidence.
+
+## Critical contradictions
+
+1. **Current architectural coherence exceeds historical continuity.**
+2. **Production-shaped code does not establish production deployment.**
+3. **Current TIE/GEMS code does not establish identity with lost historical implementations.**
+4. **HERALD's current sophistication does not establish pre-August-20 existence.**
+5. **Executable CCC/Triad code does not establish an older governance runtime.**
+6. **A surviving Git SHA does not mean an entire deleted repository is recoverable.**
+7. **Conversation archives exist, but inability to search every raw blob means "not found" remains weaker than actual absence.**
+
+## Remaining UNKNOWNs
+
+The principal unknowables remain:
+
+- exact original TIE source;
+- exact historical TIE schema;
+- canonical GEMS implementation;
+- historical GEMS deployment;
+- pre-August-20 HERALD;
+- complete STRIDE repository;
+- complete FORTRESS canonical ancestry;
+- external production deployment;
+- actual external users;
+- historical TIE→GEMS runtime;
+- historical GEMS→HERALD runtime;
+- historical HERALD→governance runtime;
+- ecosystem-wide production operation.
+
+## What Pass 5 changed
+
+Pass 5 **strengthened** Pass 4 rather than overturning it.
+
+It added four important qualifications:
+
+1. **Sentinel's operational lineage is even stronger** than a simple repository-provenance story.
+2. **STRIDE/CLIP has a recoverable historical identity and explicit deletion/salvage record.**
+3. **Human decision provenance is directly evidenced in contemporaneous commit records.**
+4. **The raw history repositories are genuine primary-source archives, but their largest blobs remain incompletely searchable with the available tooling.**
+
+Pass 5 therefore makes the negative conclusions more carefully scoped, not more absolute.
+
+## Final historical judgment
+
+### WHAT ACTUALLY HAPPENED
+
+The surviving primary evidence supports a history in which an early Iceberg/Iceburg-derived Sentinel system became a substantial operational codebase. Material was subsequently extracted from Sentinel into GSA-815, while other projects underwent explicit migration and consolidation into GSA-GATEWAY and VANGUARD. STRIDE/CLIP existed as a separate historical gateway lineage and was later deleted, with only portions salvaged.
+
+During the later period, TIE and GEMS were reconstructed from incomplete forensic material rather than recovered as their original repositories. CCC and Triad-42 acquired executable implementations on August 13, and Conservation Kernel acquired an independently testable implementation on August 17. HERALD's present repository was created August 20 and is a current executable implementation whose README explicitly says no consuming project is wired in.
+
+There is strong evidence of human-directed decisions in several of the migrations and governance changes.
+
+### WHAT THE SURVIVING EVIDENCE MERELY PERMITS US TO BELIEVE
+
+The evidence permits, but does not establish, that the conceptual TIE → GEMS → HERALD → governance architecture represents a deeper historical lineage.
+
+It permits the possibility that missing implementations existed in earlier conversation exports or deleted repositories.
+
+It permits the possibility that some current reconstructed components preserve substantial portions of lost originals.
+
+It does **not** permit treating those possibilities as recovered historical fact.
+
+### Concise final historical model
+
+**The defensible model remains:**
+
+**early operational Iceberg/Sentinel lineage**  
+→ **real extraction and migration**  
+→ **parallel repositories and consolidation**  
+→ **salvage/deletion of some systems**  
+→ **later forensic reconstruction and new implementation**  
+→ **current experimental/governance components**
+
+rather than:
+
+**one continuously designed master architecture → TIE → GEMS → HERALD → governance → execution.**
+
+The surviving corpus therefore supports **continuity in selected lineages**, but not **ecosystem-wide architectural continuity**.
+:::

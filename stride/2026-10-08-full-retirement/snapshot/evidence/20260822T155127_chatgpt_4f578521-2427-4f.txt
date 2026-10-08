@@ -1,0 +1,37 @@
+I have the full Pass 6 text. I can use it as the authoritative Pass 6 record for the next step.
+
+The key result, in one sentence:
+
+> **Pass 6 establishes a much harder evidentiary boundary: TIE and GEMS are demonstrably reconstruction-era implementations, their historical source implementations were not recovered, current TIE→GEMS integration is real but does not prove historical runtime, HERALD is current-only, while STRIDE→Sentinel and the multi-source FORTRESS lineage have substantially stronger direct historical provenance.**
+
+And the most important forensic distinction is:
+
+**“Current code exists and connects” ≠ “the historical systems existed and executed together.”**
+
+So the historical runtime chain currently stands as:
+
+**HISTORY / FORENSIC RECORD → TIE concept → GEMS concept → [historical runtime NOT PROVEN]**
+
+while the **current reconstruction** is:
+
+**current TIE reconstruction → current GEMS reconstruction**
+
+with no Tier-1 evidence yet establishing:
+
+**TIE → GEMS → HERALD → governance → execution**
+
+as a historical runtime chain.
+
+I also note the especially important Pass 6 recoveries:
+
+- **TIE:** reconstruction explicitly proven by its own Git history.
+- **GEMS:** canonical historical implementation explicitly not recovered.
+- **TIE_PACKAGE / EvidenceRecord:** exact historical schemas not recovered.
+- **HERALD:** substantial current implementation, but no historical predecessor established.
+- **STRIDE:** actual source fragment explicitly documented as salvaged before repository deletion.
+- **FORTRESS:** demonstrably assembled from multiple surviving source lineages.
+- **Sentinel:** historical implementation/testing strongly established, but external deployment and sustained production remain unproven.
+- **Raw archives:** real and substantial, but archive-wide exhaustive content search remains incomplete.
+- **First unsupported historical runtime arrow:** **TIE → GEMS**.
+
+This is a materially stronger and more defensible forensic position than simply saying the overall architecture is “unproven.” It identifies **exactly where the historical evidence terminates** and distinguishes recovered source, reconstruction, specification, current integration, and inference.

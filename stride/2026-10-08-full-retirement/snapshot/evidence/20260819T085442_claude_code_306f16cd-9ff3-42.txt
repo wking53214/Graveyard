@@ -1,0 +1,222 @@
+# Repo Cleanup Instructions for Claude Code
+
+Context: William has 40+ GitHub repos (github.com/wking53214) that accumulated
+from dumping downloaded AI conversation exports and pasted code into
+individual repos. A prior audit pass in chat identified specific real cleanup
+actions across several of them. This file is the action list.
+
+Tell Claude Code: "Follow this file section by section. Section 1 is safe to
+execute directly. Section 2 needs verification before acting. Section 3 is
+informational only — do not move or delete anything in it yet."
+
+Clone repos as needed with:
+```
+git clone git@github.com:wking53214/<repo-name>.git
+```
+(or the chromebook-iceberg SSH alias, if that's how this machine's git is set up)
+
+---
+
+## SECTION 1 — Ready to execute now
+
+### 1a. ATS repo — rename misnamed file and its internals
+
+`ATS/synapsis_gsa_source.txt` contains real ATS/hiring-governor logic
+(the `SynapsisGSA` class and its components: `JDRequirementExtractor`,
+`SkillOntology`, `ResumeSubstanceValidator`, `DomainTranspiler`,
+`MasterGovernanceControl`, `RealityAnchorGate`, etc.) but is misnamed with
+"synapsis," which collides with the real `synapsis` repo (a genuinely
+separate AST/code-intelligence engine).
+
+- Rename the file to `ats_gsa_core.py` (or `.txt`, matching its current
+  extension).
+- Rename the `SynapsisGSA` class itself, and any internal references to
+  "Synapsis"/"synapsis_gsa," to something under plain ATS naming — e.g.
+  `ATSGovernanceCore`. Keep all other class names as-is.
+- Update anything in `ats_governance_kernel_bridge_reference.md` or other
+  ATS docs that references the old name.
+
+### 1b. ATS repo — move AST files to the real synapsis repo
+
+These three files in `ATS/` are not ATS content — they're all the same
+AST/code-graph-extraction tool (`GraphExtractor`, `extract_graph`,
+`graph_to_dict`), duplicated across three passes:
+
+- `ATS/ast-graph-extractor-source.py`
+- `ATS/ast-graph-extractor-core-wrapped.py`
+- `ATS/stride-ast-extractor-wrapped.py`
+
+Move all three into the `synapsis` repo (the real AST/code-intelligence
+engine — confirmed by its own README: "modular, multi-phase code
+intelligence engine... AST analysis, symbol extraction..."). A reasonable
+landing spot is `synapsis/archive/imported-variants/` since they're
+near-duplicates of what's already in `synapsis/src/synapsis/` — don't
+overwrite existing synapsis source, just archive these as historical
+variants.
+
+**Before moving `stride-ast-extractor-wrapped.py`:** strip or correct its
+docstring header. It claims `SYSTEM_NAME: STRIDE`, which is wrong — this is
+plain AST-extractor code, not STRIDE (STRIDE is a real, separate gateway
+system — see 1c). The STRIDE label got attached by context-bleed in the
+original Gemini conversation, not by design. Either delete the misleading
+header or replace it with a note explaining the mislabel for the historical
+record.
+
+### 1c. CLIP repo — rename to STRIDE
+
+The repo is named `CLIP`, but every code artifact inside it that declares
+its own system name calls itself `STRIDE` (`SYSTEM_NAME: STRIDE`,
+`STRIDE_CORE_GATEWAY` branding in the working demo output). CLIP was just
+the AI's first of four suggested names; STRIDE is what actually got built
+and is what the code itself uses.
+
+- Rename the repo from `CLIP` to `STRIDE`.
+- STRIDE's original pasted source explicitly includes "Zero-Trust Citadel
+  Linguistic Interceptors" as a component — so cross-link this repo with
+  `CITADEL` (still its own repo, confirmed real and working — a
+  "Deterministic LLM Output Enforcement Engine"). Add a short note in each
+  repo's README pointing at the other, since STRIDE's gateway appears to
+  consume CITADEL's enforcement logic as a sub-component.
+
+### 1d. ATS repo — delete redundant duplicate
+
+`ATS/ats_governance_kernel_bridge_source_copy.txt` is byte-for-byte
+identical to `ATS/ats_governance_kernel_bridge.py` (confirmed by a prior
+audit inside the repo, `ats_seam_inventory.md`, component C5). Safe to
+delete the `_source_copy.txt` version — nothing references it by filename.
+
+### 1e. DEMO_OUTPUT repo — relocate to sentinel_os
+
+`DEMO_OUTPUT/DEMO_OUTPUT_v1.txt` is demo/sample output from sentinel_os's
+regulatory drift-monitoring work (the Aug 6 interpretation-framework
+reframe — "Monthly Drift Check," "Annual Realignment," "Legal approved 6
+and locked the expected answers" all match). Move this file into the
+sentinel_os repo, wherever demo/sample outputs live there. The standalone
+`DEMO_OUTPUT` repo can be archived or deleted once the file is moved (there
+was already a byte-identical duplicate that got deduplicated during
+archival, so there's nothing else in that repo to preserve).
+
+### 1f. EDDP repo — populate from Data_files
+
+The `EDDP` repo is completely empty, but real EDDP-named content exists,
+misplaced inside `Data_files`:
+
+- `Data_files/eddp-pipeline-core-simple.py`
+- `Data_files/eddp-comprehensive-synthesized.py`
+- `Data_files/eddp-wrapped-final.py`
+- `Data_files/eddp-core-engine-v2-refined.py`
+
+Move all four from `Data_files` into the (currently empty) `EDDP` repo.
+
+---
+
+## SECTION 2 — Needs verification before acting
+
+### 2a. Data_files — likely fix for ATS's missing dependency
+
+ATS's own seam-inventory audit (`ats_seam_inventory.md`, component C17)
+flagged that `ats_governance_kernel_bridge.py` imports `EventStore`,
+`PolicyVM`, `WAL`, `GovernanceAuditor`, and related names from a
+`gov4_kernel` module that "was not present in ATS."
+
+`Data_files/quorum_state_governance_source.py` defines `WriteAheadLog`,
+`PolicyVirtualMachine`, and `ExecutionPolicy` — a strong name match.
+
+**Verification step:** diff the exact import list at the top of
+`ats_governance_kernel_bridge.py` against the actual class/function names
+defined in `quorum_state_governance_source.py`. If the names line up
+(`EventStore`, `PolicyVM` vs. `PolicyVirtualMachine`, `WAL` vs.
+`WriteAheadLog`, etc. — check for exact match or simple rename), this is
+very likely the missing kernel. If confirmed, move or copy it into ATS
+(or wherever the canonical `gov4_kernel` should live) and update ATS's
+import statement to point at it correctly. If the names don't actually
+line up on closer inspection, leave both files where they are and flag
+the mismatch back to William.
+
+### 2b. Data_files — misplaced PERCEIVE file
+
+`Data_files/perceive_policy_enforcement_source.py` and
+`Data_files/perceive_policy_enforcement_adapter.py` are almost certainly
+misplaced — the name points at OBSERVE/PERCEIVE, which is a known
+main-category system with its own repo/codebase already. Locate the real
+OBSERVE/PERCEIVE repo, compare this file's content against what's already
+there (don't just overwrite — check whether this is a duplicate, an older
+version, or genuinely new material), and move or merge accordingly.
+
+---
+
+## SECTION 3 — Informational only, do not act yet
+
+These repos/files contain real, confirmed content but don't have a
+settled destination. William needs to make a call on each before anything
+gets moved. Listed here so nothing gets silently lost, not as a to-do list.
+
+- **ARCHIVE repo**: 8 real AI-generated architecture/risk-analysis reports
+  about actual project code (confirmed real via a literal
+  `wking53214@penguin:~/synapsis$ tree -a` terminal command embedded in
+  one of the JSON payloads). Genuine development-history material. Needs
+  a decision on whether this feeds into innovation_os's decision ledger,
+  gets folded into the dev_history.db index, or something else.
+
+- **DGK repo**: 14 artifacts exploring a "governance stack" merge —
+  `GovernanceSystemsArchitectureMasterKernel`, `VANGUARD`, `SRE`,
+  `SovereignGovernanceStack`, and `DeterministicIntegrityTower` (DIT).
+  DIT is a real recurring concept (also appears independently in the May
+  Gemini archive). Confirmed content overlap with the still-unaudited
+  `SAGE-K` repo (word-for-word matching VANGUARD description). Needs a
+  destination decision once SAGE-K is also reviewed, since they may need
+  to be reconciled together rather than separately.
+
+- **FACTS repo**: despite the name, almost all content here is actually
+  **GRAPH** (Governance, Routing, and Anchor Processing Hierarchy) — a
+  known concept that currently has no dedicated repo of its own. There's
+  also a one-off `MAGNA_Orchestrator`/`ComputeNode`/`ChatAggregator`
+  side-thread, unrelated to GRAPH. Needs a decision: does GRAPH get its
+  own new repo, or fold into the GSA/governance lineage somewhere?
+
+- **Data_files — five more named governance sub-systems**, not yet
+  individually audited: `solvar_stability_governance_*`,
+  `ws3_telemetry_guardrail_*`, `governance_os_security_*`,
+  `gaps_multilayer_governance_source.py`,
+  `metric_assessment_telemetry_dispatch_*`. Each may warrant the same
+  depth of review ATS got. Do not move or delete any of these yet.
+
+- **Data_files — prototype conversations.db**: `data/conversations.db`
+  and its duplicate under `generated/data/` are an early, small-scale
+  prototype (6 conversations, 8,546 messages) of what `dev_history.db`
+  now does at full scale (1,451 conversations, ~6.9M words, built
+  separately and already in William's hands). Safe to treat as
+  superseded, but confirm with William before deleting — no harm in
+  leaving it alone either.
+
+- **CODE repo**: contains a mix of real content (`BaseIVR`,
+  `HomeSecurityIVR`, `ConstitutionalGovernorLayer`, `GSASycophancyFilter`)
+  and what's very likely pure AI-generated flourish, not real design intent
+  (`Omega15Substrate`, `Omega36PneumaticSubstrate`, `OmegaEmergencyStasis`,
+  `EvolutionaryRecursionEngine`). Don't migrate the Omega-prefixed classes
+  anywhere without William's explicit confirmation they're meant to be
+  real. Separately, turns 2 through 6 of that transcript contain real
+  business/monetization strategy discussion (not code) that's worth
+  extracting on its own later — it's currently just sitting in
+  `CODE/TRANSCRIPT.md`.
+
+---
+
+## Repos already confirmed as fully out of scope (no action needed)
+
+- **AC-HCCSE**: one-off broken toy exploration (collision-avoidance +
+  customer-service routing mashup), nothing runs, no real destination.
+- **GLCM**: a real but unrelated personal Kaggle ML competition project
+  (image texture classification). Not part of the governance/master
+  system at all.
+- **GEMS**: empty repo, matches the known "GEM Collection" concept by
+  name but currently has no content to move into it.
+
+---
+
+## Audit still in progress
+
+8 repos in William's original 20-item audit queue haven't been reviewed
+yet: OTLP, SAGE-K, SECURE, TBCA, URE, UZTC, VSA, WRAPPER. This file only
+covers the 12 already reviewed. Don't assume the remaining 8 are empty or
+out of scope — they haven't been looked at.

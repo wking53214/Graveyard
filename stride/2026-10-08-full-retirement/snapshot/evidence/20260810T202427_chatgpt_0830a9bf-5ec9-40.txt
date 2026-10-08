@@ -1,0 +1,270 @@
+Yes. **This is useful output.** And now that we can see the actual artifact, we can make a much more informed judgment.
+
+The first Gem is doing its fundamental job: it took a huge, messy development transcript and turned it into a **portable project-memory package**. I would **not throw this away or redesign it**.
+
+But I see several things we should fix **before freezing it**, because they're visible in the output itself.
+
+### What it got right
+
+The biggest success is that it recovered the project's **structural spine**:
+
+- FACTS
+- STRIDE
+- Citadel
+- GRAPH / UAMC
+- ASTGE
+- `GsaUniversalAdapter`
+- `ContextEnvelope`
+- payload modules
+- cryptographic state chaining
+- AST extraction
+- implementation problems
+- evolution from independent modules → governed adapter
+
+That's exactly what Gem #1 needs to accomplish.
+
+It also captured useful technical vocabulary and artifacts instead of producing a generic prose summary.
+
+Most importantly, a downstream Gem could now understand **what the conversation was about without having the original conversation**.
+
+That's the threshold we were looking for.
+
+---
+
+## But there are 5 problems I would fix
+
+### 1. It is sometimes too confident
+
+For example:
+
+> **Status: IMPLEMENTED / PROTOTYPE**
+
+and:
+
+> **Status: CURRENT / REFINED**
+
+Those are potentially dangerous because the transcript may contain code that was written, but that doesn't necessarily mean the corresponding architecture was actually implemented, tested, or accepted as current.
+
+The Gem's own instructions said:
+
+> "Do not infer IMPLEMENTED merely because something was discussed in detail."
+
+Yet the output occasionally does exactly that.
+
+**Fix:** make status evidence stricter.
+
+I would change the extraction vocabulary so that:
+
+- `DISCUSSION`
+- `PROPOSED`
+- `CODE_PRESENT`
+- `EXECUTED`
+- `TESTED`
+- `VERIFIED`
+- `CURRENT`
+- `SUPERSEDED`
+- `REJECTED`
+- `ABANDONED`
+- `UNKNOWN`
+
+are distinct.
+
+That is a **very important improvement**.
+
+---
+
+### 2. It is losing actual evidence
+
+This is probably the biggest weakness.
+
+For example:
+
+> Evidence: Explicit code definition.
+
+That's not enough.
+
+A downstream Gem would benefit enormously from:
+
+> `GsaUniversalAdapter` appears in the transcript in [source locator], with the following relevant implementation characteristics: ...
+
+The current extraction says *that evidence exists*, rather than actually preserving enough of the evidence.
+
+For a system whose entire purpose is to prevent having to go back to the original transcript, **source evidence needs to be stronger**.
+
+I would change the rule to:
+
+> For every high-value extracted item, preserve either a short exact excerpt or a faithful source-specific summary plus its location.
+
+Not every item needs a giant quotation. But the important ones need recoverable evidence.
+
+---
+
+### 3. The output is flattening chronology too aggressively
+
+This:
+
+> Phase 1 → Phase 2 → Phase 3
+
+is useful, but it compresses a potentially very complicated development history.
+
+The important thing isn't merely:
+
+> "The universal adapter superseded isolated scripts."
+
+It's also:
+
+> **What changed, why it changed, what was discarded, and what survived?**
+
+That's project knowledge.
+
+Gem #1 should preserve that.
+
+---
+
+### 4. It needs a stronger distinction between "project fact" and "conversation artifact"
+
+This is subtle but important.
+
+For example:
+
+> `MAGNA_Orchestrator`
+
+appears in the artifact inventory.
+
+That doesn't tell us whether MAGNA was:
+
+- actually implemented,
+- merely proposed,
+- mentioned as an existing component,
+- renamed,
+- abandoned,
+- or copied into a code block as an experiment.
+
+The extractor needs to preserve the **relationship between an artifact and its evidentiary status**.
+
+---
+
+### 5. There are signs of extraction corruption
+
+This:
+
+> `Imforced across all adapter implementations.`
+
+is presumably a transcription/extraction artifact for "Enforced."
+
+That's not catastrophic, but it tells us something important:
+
+**Gem #1 should perform a final integrity/readability pass on its own output.**
+
+Not a substantive rewrite.
+
+Just:
+
+- malformed words
+- broken fields
+- accidental duplication
+- inconsistent identifiers
+- obvious formatting corruption
+
+should be caught.
+
+---
+
+# The really important thing
+
+I **would not add more categories** right now.
+
+This is where we got into trouble before.
+
+We don't need:
+
+> Events  
+> Entities  
+> State  
+> Relationships  
+> Decisions  
+> Requirements  
+> etc.
+
+as some grand canonical ontology.
+
+The current output already demonstrates that a relatively simple extraction model works.
+
+What we need next is **better fidelity inside the existing model**, not more architecture.
+
+---
+
+# I would make Gem #1 v1.1
+
+Only make these changes:
+
+### A. Strengthen evidence
+
+Every important record gets:
+
+```text
+Evidence:
+Source locator:
+Supporting excerpt / source-specific summary:
+```
+
+### B. Separate implementation status
+
+Instead of:
+
+```text
+Status: IMPLEMENTED
+```
+
+allow:
+
+```text
+Status: CODE_PRESENT
+Execution evidence: YES
+Testing evidence: YES
+Verification evidence: UNKNOWN
+```
+
+That prevents the Gem from turning code discussion into project fact.
+
+### C. Preserve evolution
+
+Add:
+
+```text
+Supersedes:
+Superseded by:
+Reason for change:
+```
+
+where supported.
+
+### D. Add extraction confidence to *claims*, not just sections
+
+The current confidence mechanism is good. Keep it.
+
+### E. Add a final factual-integrity sweep
+
+Catch obvious extraction errors before returning the package.
+
+---
+
+## And then stop.
+
+Seriously.
+
+**Don't architect Gem #2 yet.**
+
+Run this revised extractor against maybe **3 radically different transcripts**:
+
+1. a technical/code-heavy transcript like this one
+2. a strategy/architecture transcript
+3. a messy conversational/project-development transcript
+
+Then compare the packages.
+
+At that point we'll know what the **actual recurring information model** is.
+
+That is the evidence we were missing when we were trying to design TIE from the top down.
+
+And this output proves something important: **the basic concept works.** We don't need to start over. We need to tighten the extraction boundary and then build the next Gem against real output.

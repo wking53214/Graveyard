@@ -1,0 +1,289 @@
+Yes — this Pass 3 output is sufficient to proceed. You **do not need Pass 1 to remain available** for us to continue, because Pass 3 has preserved the key findings and, importantly, explicitly records where Pass 2 could not be recovered.
+
+The critical implication is that **Pass 4 should not be another synthesis pass**. It should be a targeted primary-source recovery pass designed to resolve the UNKNOWNs and test the reconstructed claims against the underlying historical records.
+
+### Pass 4 objective
+
+Use the repositories containing the historical/conversation material to recover:
+
+- original conversations and timestamps;
+- who proposed each architectural decision;
+- explicit acceptance/rejection decisions;
+- evidence of deployment and actual consumption;
+- original schemas/contracts;
+- historical references to TIE, GEMS, HERALD, CCC, Triad+42, Conservation Kernel, FORTRESS, etc.;
+- evidence for or against a unified architecture;
+- deleted/lost repository references;
+- migration, extraction, rename, supersession, and replacement decisions.
+
+**Do not infer architecture from current repository structure during Pass 4.** Current repositories may be used only to identify search terms, artifact names, hashes, commit references, or leads back to primary evidence.
+
+### Pass 4 repositories
+
+Use the **full repository URLs**, not shorthand names:
+
+1. `https://github.com/William-Alexander-Harrison/sentinel_os`
+2. `https://github.com/William-Alexander-Harrison/OBSERVE`
+3. `https://github.com/William-Alexander-Harrison/SYNAPSIS`
+4. `https://github.com/William-Alexander-Harrison/GSA-815`
+5. `https://github.com/William-Alexander-Harrison/GSA-GATEWAY`
+6. `https://github.com/William-Alexander-Harrison/ARCHIVE`
+7. `https://github.com/William-Alexander-Harrison/EDDP`
+8. `https://github.com/William-Alexander-Harrison/CODE`
+9. `https://github.com/William-Alexander-Harrison/FACTS`
+10. `https://github.com/William-Alexander-Harrison/GRAPH`
+11. `https://github.com/William-Alexander-Harrison/DGK`
+12. `https://github.com/William-Alexander-Harrison/VANGUARD`
+13. `https://github.com/William-Alexander-Harrison/TIE`
+14. `https://github.com/William-Alexander-Harrison/GEMS`
+15. `https://github.com/William-Alexander-Harrison/HERALD`
+16. `https://github.com/William-Alexander-Harrison/CCC`
+17. `https://github.com/William-Alexander-Harrison/Triad-42`
+18. `https://github.com/William-Alexander-Harrison/Conservation_Kernel`
+19. `https://github.com/William-Alexander-Harrison/FORTRESS`
+20. `https://github.com/William-Alexander-Harrison/ATS`
+21. `https://github.com/William-Alexander-Harrison/ANVIL`
+22. `https://github.com/William-Alexander-Harrison/CITADEL`
+23. `https://github.com/William-Alexander-Harrison/KAGGLE`
+24. `https://github.com/William-Alexander-Harrison/ghost_tools`
+
+And, where accessible, **search GitHub for deleted/non-current repositories rather than assuming their absence from the current account means they never existed.**
+
+### Exact Pass 4 query
+
+Use this as the research prompt:
+
+> **PASS 4 — PRIMARY-SOURCE HISTORICAL RECOVERY / ANTI-CONTAMINATION AUDIT**
+>
+> Treat the supplied PASS 3 report as a hypothesis and lead sheet, **not as established fact**.
+>
+> Your task is to recover primary historical evidence capable of confirming, weakening, or falsifying the PASS 3 conclusions.
+>
+> Search these repositories directly and use their full repository URLs:
+>
+> [paste the 24 URLs above]
+>
+> **Primary objective**
+>
+> Recover the earliest available evidence for the actual historical development of the ecosystem, with particular emphasis on:
+>
+> 1. TIE
+> 2. GEMS
+> 3. HERALD
+> 4. CCC
+> 5. Triad+42
+> 6. Conservation_Kernel
+> 7. Sentinel
+> 8. OBSERVE
+> 9. GSA-815
+> 10. GSA-GATEWAY
+> 11. FORTRESS
+> 12. STRIDE
+> 13. ARCHIVE
+> 14. EDDP
+> 15. GRAPH
+> 16. VANGUARD
+> 17. ANVIL
+> 18. ATS
+> 19. CITADEL
+> 20. DIT
+> 21. URE
+>
+> **Search terms**
+>
+> Search exact and variant forms of:
+>
+> `Sentinel`
+> `TIE`
+> `GEMS`
+> `HERALD`
+> `CCC`
+> `Triad`
+> `Triad+42`
+> `42`
+> `Conservation`
+> `Conservation_Kernel`
+> `FORTRESS`
+> `VANGUARD`
+> `ANVIL`
+> `ATS`
+> `CITADEL`
+> `STRIDE`
+> `CLIP`
+> `DIT`
+> `URE`
+> `GSA`
+> `GSA-815`
+> `GSA-GATEWAY`
+> `EDDP`
+> `GRAPH`
+> `FACTS`
+> `ARCHIVE`
+> `canonical`
+> `universal`
+> `replacement`
+> `successor`
+> `supersede`
+> `superseded`
+> `migration`
+> `migrate`
+> `extract`
+> `extracted`
+> `consolidate`
+> `consolidation`
+> `rename`
+> `renamed`
+> `merge`
+> `keep separate`
+> `do not merge`
+> `independent`
+> `reconstruct`
+> `reconstructed`
+> `historical`
+> `original`
+> `production`
+> `deployed`
+> `deployment`
+> `live`
+> `consumer`
+> `consuming`
+> `integration`
+> `integrated`
+> `handoff`
+> `schema`
+> `contract`
+> `package`
+> `EvidenceRecord`
+> `TIE_PACKAGE`
+>
+> **For every potentially relevant historical artifact, capture:**
+>
+> - repository URL;
+> - file/path;
+> - commit SHA if available;
+> - commit date;
+> - document/artifact date;
+> - conversation ID if present;
+> - turn number if present;
+> - author/speaker;
+> - exact provenance of the artifact;
+> - whether it is human-authored, AI-generated, copied, reconstructed, or unknown;
+> - whether it describes a proposal, decision, implementation, test, deployment, or retrospective interpretation;
+> - the smallest relevant quotation or exact statement;
+> - what claim the evidence supports;
+> - what claim it contradicts;
+> - confidence.
+>
+> **Critical distinction**
+>
+> Never treat:
+>
+> `AI proposal = human decision`
+>
+> `code exists = deployed`
+>
+> `README description = historical fact`
+>
+> `current repository = original repository`
+>
+> `current architecture = historical architecture`
+>
+> `conceptual relationship = runtime dependency`
+>
+> `repository rename = software evolution`
+>
+> `similar implementation = common ancestry`
+>
+> `reconstruction = recovered original`
+>
+> If evidence for any transition is missing, record **UNKNOWN**.
+>
+> **Who-Decided Test**
+>
+> For every major architectural claim, attempt to establish:
+>
+> `AI proposed → human accepted/rejected → implementation authorized → code written → tested → deployed → actually used`
+>
+> Record each missing transition separately.
+>
+> **Historical contamination test**
+>
+> Determine whether a claim appears only in documentation created after the repository reconstruction/consolidation. If so, label it:
+>
+> `CURRENT RETROSPECTIVE`
+>
+> rather than historical evidence.
+>
+> **Deleted-repository recovery**
+>
+> Search for references to deleted repositories, old URLs, commit SHAs, GitHub repository IDs, archived links, imports, dependency declarations, and salvage commits.
+>
+> In particular investigate:
+>
+> - STRIDE / CLIP;
+> - historical TIE;
+> - historical GEMS;
+> - historical CCC;
+> - historical FORTRESS variants;
+> - DIT;
+> - URE.
+>
+> Do not conclude that a repository never existed merely because its current URL is unavailable.
+>
+> **Highest-priority questions**
+>
+> A. Did TIE exist before August 19, 2026?
+>
+> B. Did GEMS exist before August 17, 2026?
+>
+> C. Did TIE → GEMS ever operate as a real runtime chain?
+>
+> D. Did HERALD ever consume TIE or GEMS historically?
+>
+> E. Did a universal GEMS schema exist?
+>
+> F. Did CCC and Triad+42 historically operate as one integrated system?
+>
+> G. Was Conservation_Kernel intended to replace Sentinel, complement it, or remain independent?
+>
+> H. Were ANVIL, ATS, FORTRESS and Sentinel successive generations or independent/convergent systems?
+>
+> I. Did the DIT + OBSERVE + FORTRESS + URE + EDDP + GSA architecture ever actually execute?
+>
+> J. Was there ever a genuine ecosystem-wide master architecture document?
+>
+> K. What architectural decisions were explicitly made by William versus proposed by AI?
+>
+> L. Which current repositories are reconstructions, extractions, migrations, archives, renamed repositories, or genuinely original implementations?
+>
+> **Output format**
+>
+> Produce:
+>
+> 1. Primary-source evidence table
+> 2. Claim-by-claim Pass 3 audit
+> 3. Newly discovered historical chronology
+> 4. Human-decision/provenance table
+> 5. Deployment/consumption evidence table
+> 6. Deleted-repository recovery findings
+> 7. Schema/contract recovery findings
+> 8. Contradiction register
+> 9. Absence register
+> 10. UNKNOWN register
+> 11. Revised architecture, explicitly separated into:
+>    - HISTORICALLY PROVEN
+>    - HISTORICALLY INFERRED
+>    - RECONSTRUCTED
+>    - CURRENT-ONLY
+> 12. Explicit list of every PASS 3 conclusion that should be:
+>    - CONFIRMED
+>    - STRENGTHENED
+>    - WEAKENED
+>    - CONTRADICTED
+>    - LEFT UNKNOWN
+>
+> **Do not produce another polished system narrative until the evidence tables are complete.**
+>
+> The purpose of PASS 4 is **primary-source recovery**, not architectural storytelling.
+
+That is the pass I would run next. The most important change from Pass 3 is that **the burden of proof now moves from “does this architecture make sense?” to “where is the dated primary evidence that this actually happened?”**

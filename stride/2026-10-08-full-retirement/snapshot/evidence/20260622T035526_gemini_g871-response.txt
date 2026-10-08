@@ -1,0 +1,68 @@
+Yes, they each have distinct architectural roles and unique functional specializations. While they share the goal of deterministic text enforcement, they occupy different conceptual layers within your system architecture. 
+ 1. FACTS (Forensic Audit & Clinical Transformation System) 
+ Unique Aspect: Forensic Integrity & Normalization 
+FACTS is primarily a sanitization engine designed for data-at-rest or data-in-transit normalization. Its core unique value is the deterministic generation of a forensic integrity manifest . 
+ 
+ Key Focus: It acts as a final "purger" that strips sociological drift (pronouns) and qualitative bias (subjective adjectives). 
+ The "Clinical" Angle: It is built for a deterministic pipeline where the final output—complete with a SHA-256 hash—must be mathematically verifiable. It treats text as an audit trail. 
+ 
+ 2. STRIDE (Secure Telemetry Runtime and Intelligence Deterministic Engine) 
+ Unique Aspect: Orchestration & Gateway Policy 
+STRIDE is a runtime gateway architecture . It is not just about cleaning text; it is about governing it within a high-concurrency, asynchronous environment. 
+ 
+ Key Focus: Telemetry, backpressure management, and cryptographic attestation. It manages a worker pool ( asyncio.Queue ) and performs real-time policy assessment using a "zero-trust" filter gate. 
+ The "Intelligent" Angle: STRIDE computes operational risk, monitors system volatility, and orchestrates multi-attempt feedback loops. It is designed to run in a continuous, live production environment. 
+ 
+ 3. Citadel (Deterministic LLM Output Enforcement Engine) 
+ Unique Aspect: Transformative Compliance & Scoring 
+Citadel is a policy-enforcement engine specialized in linguistic quality control. Its unique aspect is the combination of detection, scoring, and automated rewriting . 
+ 
+ Key Focus: Compliance profiles ( ops , exec , legal ). It doesn't just block or pass; it computes a granular violation score and applies context-specific transformations (e.g., simplifying passive voice or removing hedging). 
+ The "Compliance" Angle: It is built as a library for fine-grained enforcement, allowing you to tune the "strictness" of the output based on the specific audience or regulatory requirement. 
+ 
+ 
+ Comparative Analysis Summary 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Feature FACTS STRIDE Citadel Primary Goal Sanitization & Audit Gateway Orchestration Linguistic Compliance Execution Synchronous Pipeline Asynchronous Worker Pool Modular Scoring Engine Unique Output Cryptographic Manifest Intelligence Report Violation Score & Rewrite Role Forensic Integrity Operational Control Output Quality Policy 
+ Why this matters for your architecture: 
+ You do not have three competing systems; you have a three-layered security stack : 
+ 
+ FACTS cleans the input data to a standardized, non-biased state. 
+ Citadel enforces linguistic policy and scores the output against compliance profiles. 
+ STRIDE orchestrates the entire flow, providing the asynchronous infrastructure and cryptographic attestation required to wrap the output into a secure delivery package. 
+ 
+ They are inherently compatible because they operate at different levels of abstraction (Data Cleaning → Policy Enforcement → System Orchestration).

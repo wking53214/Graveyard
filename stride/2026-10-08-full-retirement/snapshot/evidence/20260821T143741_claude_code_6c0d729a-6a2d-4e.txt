@@ -1,0 +1,1 @@
+`~/STRIDE` still exists locally, despite the docstring saying "before its deletion" — worth checking too. Searching all 50 repos for anything matching this logic, not just the four named in the docstring.

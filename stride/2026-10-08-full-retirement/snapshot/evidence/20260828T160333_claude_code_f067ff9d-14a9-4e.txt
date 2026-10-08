@@ -1,0 +1,28 @@
+**CITADEL scrubbed** — merged to `main` as `81f0b81` via **PR #1** (squash-merged).
+
+## What I found
+
+An **archived single-turn transcript** (`PROVENANCE.md` + `TRANSCRIPT.md` present). User pasted `CITADEL v1.1` (a regex LLM-output enforcement engine) twice concatenated; the AI returned a prose audit. `artifact_1.py` is the flattened both-drafts blob (`SyntaxError`, documented). A prior session (2026-08-21) added readable splits + a `citadel_v1.2.py`.
+
+Concurrent commit `d1bbb1c` (2026-08-24) ballooned the README **21 → 700 lines** — a "Detection, Evaluation, and Transformation Engine" architecture essay for a 4-file archive.
+
+Two other issues surfaced:
+- `PROVENANCE.md` said "Total files: 3" — stale since the 2026-08-21 additions.
+- The README hyperlinked to `github.com/wking53214/STRIDE`, which **no longer exists** (deleted).
+- `citadel_v1.1_copy2.py`'s `__main__` demo raises `TypeError` — a defect faithfully carried from the flattened original, undocumented.
+
+## What changed (docs only — archived-transcript playbook)
+
+| Change | Detail |
+|---|---|
+| **README** | Restored to concise form + a per-file run-status table. Dead STRIDE hyperlink → plain text noting the repo was deleted. |
+| **PROVENANCE.md** | Added "Later additions" section — the 3 files added post-archival and their execution status. |
+| **LICENSE** (new) | Apache-2.0. |
+| **.gitignore** (new) | `__pycache__`. |
+| **GitHub description** | Was *"Deterministic enforcement engine for constraining and validating LLM-generated outputs..."* (reads as a live product) → describes it as the archived transcript it is. |
+
+No code changes — all four `.py` files preserved as-is.
+
+## Tracker
+
+CITADEL → done. **13 done / 23 not-yet / 36 total.**

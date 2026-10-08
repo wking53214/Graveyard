@@ -1,0 +1,16 @@
+[Upstream Model Latency / Structural Failure]
+                    │
+                    ▼
+       [Sequential Retry Loop Blocks]
+                    │
+                    ▼
+     [Memory Leak / Set Size Explosion] ──► (Unbounded growth of self.seen_outputs)
+                    │
+                    ▼
+     [Cross-Request Loop Contamination] ──► (User A's output matches and rejects User B's string)
+                    │
+                    ▼
+  [Cascading SystemError Crash (DIT Collapse)]
+                    │
+                    ▼
+      [Upstream Thread Pool Exhaustion]

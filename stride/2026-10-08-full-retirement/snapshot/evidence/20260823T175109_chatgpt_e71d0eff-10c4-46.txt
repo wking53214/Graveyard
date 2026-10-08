@@ -1,0 +1,110 @@
+Yes. Based on the architecture we've been walking through, **this is the repository universe currently in play**. I'm separating the active architectural chain from supporting/adjacent repos so we don't accidentally treat every repo as a direct runtime dependency.
+
+### Core architecture we're actively tracing
+
+1. **HERALD** — natural-language intake / interpretation boundary
+2. **OBSERVE / PERCEIVE** — perception architecture; we're currently determining whether PERCEIVE is the generalized trunk derived from OBSERVE
+3. **ATS** — unresolved placement; specifically the repo we need to investigate before finalizing HERALD's physical connection
+4. **TIE** — Transcript Intelligence Engine; evidence extraction, lineage, reconstruction
+5. **GEMS** — reasoning / specialized intelligence layer
+6. **CCC** — Cognitive Continuity Constitution
+7. **Triad-42** — adversarial / alternative / generative reasoning framework
+8. **Conservation_Kernel** — epistemic conservation and transformation integrity
+9. **GSA-GATEWAY** — governance / authorization enforcement
+10. **Sentinel OS** — orchestration / execution control
+
+### Governance / architecture family
+
+11. **GSA-815**
+12. **CITADEL**
+13. **DIT**
+14. **VANGUARD**
+15. **FORTRESS**
+16. **ANVIL**
+17. **STRIDE**
+
+These are important because we're trying to determine which represent predecessors, extracted components, security/enforcement layers, or historical architectural branches rather than blindly putting everything in one linear pipeline.
+
+### Intelligence / knowledge / analysis systems
+
+18. **Synapsis**
+19. **GRAPH**
+20. **GLCM**
+21. **CODE**
+22. **EDDP**
+23. **GAPS** — including the material that was subsequently associated with/migrated into GRAPH
+24. **Ecology**
+25. **innovation_os**
+
+### Evidence / continuity / archival systems
+
+26. **Resume_OS**
+27. **ARCHIVE**
+
+And the historical-source repositories:
+
+28. **ChatGPT_History**
+29. **Claude_History**
+30. **Gemini_History**
+31. **CoPilot_History**
+
+Those four are particularly relevant to the historical-forensics work because they provide evidence for reconstructing how the architecture actually evolved rather than relying solely on present-day repository names.
+
+---
+
+## The graph we're currently trying to resolve
+
+The **active question** isn't really "how do all 31 repos connect?"
+
+It's this:
+
+```text
+                         INPUT
+                           │
+            ┌──────────────┼──────────────┐
+            ▼              ▼              ▼
+         HERALD         OBSERVE         OTHER
+            │              │
+            │              ▼
+            │          PERCEIVE
+            │              │
+            └───────?──────┘
+                   │
+                 ATS ?
+                   │
+                   ▼
+             SEMANTIC STATE
+                   │
+                   ▼
+                  TIE
+                   │
+                   ▼
+                 GEMS
+                   │
+             ┌─────┴─────┐
+             ▼           ▼
+            CCC       TRIAD-42
+             └─────┬─────┘
+                   ▼
+          CONSERVATION KERNEL
+                   │
+                   ▼
+             GSA-GATEWAY
+                   │
+                   ▼
+              SENTINEL OS
+                   │
+                   ▼
+                 ACTION
+                   │
+                   ▼
+               OBSERVE
+                   │
+                   └──────────► PERCEIVE
+```
+
+**That `?` around HERALD / PERCEIVE / ATS is the piece we're actively solving right now.**
+
+Everything else in the larger repo universe needs to be mapped around this trunk—not forced into it.
+
+And I would specifically **not declare `HERALD → PERCEIVE` final yet**. ATS is now one of the repositories that has to be resolved before we freeze that edge. memcite

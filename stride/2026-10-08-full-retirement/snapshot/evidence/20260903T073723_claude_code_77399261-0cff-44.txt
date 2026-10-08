@@ -1,0 +1,43 @@
+[tool_result] TOTAL: 401 findings (committed baseline pre-cleanup was 426)
+by detector: {'dead_code': 28, 'long_function': 43, 'near_duplicate_function': 51, 'intra_function_duplicate_block': 266, 'doc_test_count_drift': 13}
+by severity: {'minor': 354, 'major': 47}
+non-test: 259
+
+=== dead_code (non-test) ===
+  _body_size_guard                 sentinel_os/api_server_v2.py
+  submit_call                      sentinel_os/api_server_v2.py
+  submit_mortgage_decision         sentinel_os/api_server_v2.py
+  job_status                       sentinel_os/api_server_v2.py
+  health                           sentinel_os/api_server_v2.py
+  queue_stats                      sentinel_os/api_server_v2.py
+  _ensure_default_ledger_runtime_role sentinel_os/conftest.py
+  _default_ledger_runtime_user     sentinel_os/conftest.py
+  init_artifact_store              sentinel_os/conservation/artifact_store.py
+  submit_for_conservation          sentinel_os/conservation/gateway.py
+  compute_friction                 sentinel_os/governance/friction_core.py
+  SentinelPerceiveIntegration      sentinel_os/governance/perceive_integration.py
+  PipelineStateEngine              sentinel_os/governance_loop_guard.py
+  retry_with_backoff               sentinel_os/operational_resilience.py
+  HealthChecker                    sentinel_os/operational_resilience.py
+  GracefulDegradation              sentinel_os/operational_resilience.py
+  export_alert_rules               sentinel_os/operational_resilience.py
+
+=== doc_test_count_drift ===
+  CONTRIBUTING.md :: 'CONTRIBUTING.md' claims 110 test(s), but at least 893 test_* function(s) exist in the scanned .py files -- th
+  README.md :: 'README.md' claims 270 test(s), but at least 893 test_* function(s) exist in the scanned .py files -- this cla
+  docs/CHANGELOG.md :: 'CHANGELOG.md' claims 22 test(s), but at least 893 test_* function(s) exist in the scanned .py files -- this c
+  docs/pass3/SENTINEL_OS_05_INVESTOR_SYSTEM_BRIEF_v3.md :: 'SENTINEL_OS_05_INVESTOR_SYSTEM_BRIEF_v3.md' claims 670 test(s), but at least 893 test_* function(s) exist in 
+  docs/pass3/SENTINEL_OS_07_INVESTOR_PITCH_DECK_STRUCTURE_v3.md :: 'SENTINEL_OS_07_INVESTOR_PITCH_DECK_STRUCTURE_v3.md' claims 670 test(s), but at least 893 test_* function(s) e
+  docs/pass3/SENTINEL_OS_07_INVESTOR_PITCH_DECK_STRUCTURE_v3.md :: 'SENTINEL_OS_07_INVESTOR_PITCH_DECK_STRUCTURE_v3.md' claims 19 test(s), but at least 893 test_* function(s) ex
+  docs/pass3/SENTINEL_OS_09_DOCUMENTATION_INTEGRITY_REVIEW_v3.md :: 'SENTINEL_OS_09_DOCUMENTATION_INTEGRITY_REVIEW_v3.md' claims 670 test(s), but at least 893 test_* function(s) 
+  docs/sentinel-os-status-v1.md :: 'sentinel-os-status-v1.md' claims 270 test(s), but at least 893 test_* function(s) exist in the scanned .py fi
+  sentinel_os/COMPLIANCE.md :: 'COMPLIANCE.md' claims 161 test(s), but at least 893 test_* function(s) exist in the scanned .py files -- this
+  sentinel_os/roadster_breakers_verification_report_v1.md :: 'roadster_breakers_verification_report_v1.md' claims 7 test(s), but at least 893 test_* function(s) exist in t
+  sentinel_os/roadster_breakers_verification_report_v1.md :: 'roadster_breakers_verification_report_v1.md' claims 16 test(s), but at least 893 test_* function(s) exist in 
+  sentinel_os/roadster_breakers_verification_report_v1.md :: 'roadster_breakers_verification_report_v1.md' claims 6 test(s), but at least 893 test_* function(s) exist in t
+  sentinel_os/roadster_breakers_verification_report_v1.md :: 'roadster_breakers_verification_report_v1.md' claims 4 test(s), but at least 893 test_* function(s) exist in t
+
+=== near_dup MAJOR (non-test, 3+) ===
+  5 functions share identical AST structure (names/literals differ, control flow and shape don't): cassette_schema.py:91:__init__, episode.py:118:__init
+  3 functions share identical AST structure (names/literals differ, control flow and shape don't): banking_cassette.py:86:get_config, ivr_cassette.py:12
+  3 functions share identical AST structure (names/literals differ, control flow 

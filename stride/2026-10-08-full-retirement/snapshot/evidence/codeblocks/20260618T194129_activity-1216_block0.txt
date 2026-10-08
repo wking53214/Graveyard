@@ -1,0 +1,187 @@
+import re
+import asyncio
+import time
+import hmac
+import hashlib
+from typing import Dict, Any, Set, Callable, Awaitable
+
+# =====================================================================
+# HARDWARE-BOUND LAYER 0 & LAYER 1: CENTRALIZED PRE-COMPILED REGEX CACHE
+# =====================================================================
+GSA_REGEX: Dict[str, re.Pattern] = {
+    "pronominal_purge": re.compile(
+        r"\b(i|me|my|mine|myself|we|us|our|ourselves)\b",
+        re.IGNORECASE
+    ),
+    "syntactic_breach": re.compile(
+        r"\b(may|might|could|seems|generally|potentially|likely|perhaps|maybe)\b",
+        re.IGNORECASE
+    ),
+    "prohibited_abstract_verbs": re.compile(
+        r"\b(improve|optimize|enhance|enable|support|strengthen|utilize|leverage)\b",
+        re.IGNORECASE
+    ),
+    "causal_link": re.compile(
+        r"\b(because|due to|driven by|resulting from|caused by)\b",
+        re.IGNORECASE
+    ),
+    "metric_verification": re.compile(
+        r"\b\d+(\.\d+)?%|\b\d+\b"
+    )
+}
+
+# =====================================================================
+# ZERO-TRUST VALIDATION GATES
+# =====================================================================
+class IdentityGate:
+    """G6: First-person identifier elimination gate."""
+    def validate(self, text: str) -> bool:
+        return not bool(GSA_REGEX["pronominal_purge"].search(text))
+
+
+class HedgingGate:
+    """G3: Subjective hedging and ambiguous syntax elimination gate."""
+    def validate(self, text: str) -> bool:
+        return not bool(GSA_REGEX["syntactic_breach"].search(text))
+
+
+class CausalityGate:
+    """Objective validation gate. Verifies quantitative metrics or explicit causal links."""
+    def validate(self, text: str) -> bool:
+        has_causal = bool(GSA_REGEX["causal_link"].search(text))
+        has_metric = bool(GSA_REGEX["metric_verification"].search(text))
+        return has_causal or has_metric
+
+
+class StructureNormalizer:
+    """Corporate filler dampening engine. Replaces vague abstract verbs."""
+    def normalize(self, text: str) -> str:
+        return GSA_REGEX["prohibited_abstract_verbs"].sub("use", text)
+
+
+# =====================================================================
+# KINETIC GOVERNOR (TEMPORAL CONTROL LAYER)
+# =====================================================================
+class KineticGovernor:
+    """
+    Imposes deterministic artificial latency relative to payload density 
+    to prevent timing attacks and enforce standardized compliance pacing.
+    """
+    def __init__(self, target_latency_ms: float = 15.0):
+        self.target_latency = target_latency_ms / 1000.0
+        self.constant_coefficient = 0.815
+
+    async def calculate_temporal_budget(self, token_payload: str) -> float:
+        density = len(token_payload.split())
+        delay = (density * 0.002) * self.constant_coefficient
+        return max(self.target_latency, min(delay, 0.200))
+
+    async def apply_liturgical_pause(self, delay: float) -> None:
+        await asyncio.sleep(delay)
+
+
+# =====================================================================
+# CITADEL PROCESSOR CORE ENGINE
+# =====================================================================
+class CitadelProcessor:
+    """
+    Orchestration core managing compliance gates, closed-loop 
+    instruction mutations, state isolation tracking, and audit trail signing.
+    """
+    def __init__(self, generator_fn: Callable[[str], Awaitable[str]], max_retries: int = 5):
+        self.generator = generator_fn
+        self.max_retries = max_retries
+
+        self.identity_gate = IdentityGate()
+        self.hedging_gate = HedgingGate()
+        self.causality_gate = CausalityGate()
+        self.normalizer = StructureNormalizer()
+        self.governor = KineticGovernor()
+
+        self.seen_outputs: Set[str] = set()
+        self._secret_key = b"GSA_ADAMANTIUM_CORE_STASIS_SIGNATURE_815"
+
+    def _generate_checksum(self, data: str) -> str:
+        """Generates out-of-band audit trail HMAC signatures."""
+        return hmac.new(self._secret_key, data.encode("utf-8"), hashlib.sha384).hexdigest()
+
+    async def run(self, prompt: str) -> Dict[str, Any]:
+        working_prompt = prompt
+        start_time = time.time()
+
+        for attempt in range(1, self.max_retries + 1):
+            raw_output = await self.generator(working_prompt)
+            clean_output = self.normalizer.normalize(raw_output)
+
+            id_pass = self.identity_gate.validate(clean_output)
+            hedge_pass = self.hedging_gate.validate(clean_output)
+            causal_pass = self.causality_gate.validate(clean_output)
+
+            output_hash = hashlib.md5(clean_output.encode("utf-8")).hexdigest()
+            is_looping = output_hash in self.seen_outputs
+
+            if id_pass and hedge_pass and causal_pass and not is_looping:
+                self.seen_outputs.add(output_hash)
+
+                delay = await self.governor.calculate_temporal_budget(clean_output)
+                await self.governor.apply_liturgical_pause(delay)
+
+                latency_ms = (time.time() - start_time) * 1000.0
+                checksum = self._generate_checksum(clean_output)
+
+                return {
+                    "status": "PASS",
+                    "parity": 1.0000,
+                    "attempts": attempt,
+                    "latency_ms": round(latency_ms, 2),
+                    "checksum": checksum,
+                    "payload": clean_output
+                }
+
+            self.seen_outputs.add(output_hash)
+
+            failure_reasons = []
+            if not id_pass:
+                failure_reasons.append("Identity violation")
+            if not hedge_pass:
+                failure_reasons.append("Hedging violation")
+            if not causal_pass:
+                failure_reasons.append("Causal insufficiency")
+            if is_looping:
+                failure_reasons.append("Loop detected")
+
+            working_prompt = (
+                f"{prompt}\n[INSTRUCTIONAL_DELTA]: Prior response failed "
+                f"compliance constraints due to: {', '.join(failure_reasons)} "
+                f"Re-render output with absolute density."
+            )
+
+        raise SystemError("GSA_CRITICAL_ERROR: Deterministic Integrity Tower collapsed. 1.0000 Parity unachievable.")
+
+
+# =====================================================================
+# SIMULATION SANDBOX RUNTIME
+# =====================================================================
+async def mock_inference_gateway(prompt: str) -> str:
+    if "compliant" in prompt.lower():
+        return "System performance remains stable because token consumption decreased by 22%."
+    return "I think pipeline optimization may improve results."
+
+
+async def main():
+    engine = CitadelProcessor(mock_inference_gateway)
+
+    print("--- Attempting Unaligned Target Run ---")
+    try:
+        r1 = await engine.run("Process standard network matrix.")
+        print(r1)
+    except SystemError as e:
+        print(f"Operational Exception Captured: {e}")
+
+    print("\n--- Attempting Compliant Controlled Run ---")
+    r2 = await engine.run("Generate compliant status report metrics profile.")
+    print(r2)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

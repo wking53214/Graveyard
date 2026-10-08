@@ -1,0 +1,1 @@
+[tool_use Bash] {"command": "cd /home/wking53214\nfor d in ATS synapsis CITADEL STRIDE DEMO_OUTPUT sentinel_os EDDP OTLP SAGE-K UZTC WRAPPER SECURE AC-HCCSE FACTS DGK; do\n  echo \"=== $d ===\"\n  git -C \"$d\" status --short --branch 2>&1 | grep -v \"^warning:\"\ndone"}

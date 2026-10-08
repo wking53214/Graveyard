@@ -1,0 +1,36 @@
+[tool_result] commit 4a8732effd2dcb7e1e706cc8812107b7ad4267c2
+Author: wking53214 <wking53214@gmail.com>
+Date:   Mon Aug 17 19:20:34 2026 -0400
+
+    Add AST (Abstract Syntax Tree) extraction files to ATS repository
+    
+    Consolidated AST/code analysis components:
+    - ast-graph-extractor-source.py: Original deterministic AST-based graph extractor
+    - ast-graph-extractor-deterministic-flattened.py: Deterministic AST-based graph extractor (flattened)
+    - ast-graph-extractor-core-wrapped.py: Deterministic AST Graph Extractor Core (wrapped)
+    - stride-ast-extractor-wrapped.py: Wrapped AST extractor with STRIDE headers
+    
+    All AST analysis and extraction files now centralized in ATS master repository.
+    
+    Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+
+ ast-graph-extractor-core-wrapped.py            | 218 +++++++++++++++++++++++++
+ ast-graph-extractor-deterministic-flattened.py |   1 +
+ ast-graph-extractor-source.py                  |   1 +
+ stride-ast-extractor-wrapped.py                | 188 +++++++++++++++++++++
+ 4 files changed, 408 insertions(+)
+====
+commit 18878e7d706ee09b21cf5ef39a50dc261691a182
+Author: wking53214 <wking53214@gmail.com>
+Date:   Mon Aug 17 19:22:48 2026 -0400
+
+    Move deterministic files to DIT central repository
+    
+    - ast-graph-extractor-deterministic-flattened.py → DIT
+    
+    ATS repo cleaned of duplicate deterministic files.
+    
+    Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+
+ ast-graph-extractor-deterministic-flattened.py | 1 -
+ 1 file changed, 1 deletion(-)

@@ -1,0 +1,1 @@
+[tool_use Bash] {"command": "gh repo view wking53214/STRIDE --json name,url 2>&1\ncd /home/wking53214\nmv CLIP STRIDE\ncd STRIDE\ngit remote set-url origin https://github.com/wking53214/STRIDE.git\ngit remote -v"}

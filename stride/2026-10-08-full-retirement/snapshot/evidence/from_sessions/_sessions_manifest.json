@@ -1,0 +1,42 @@
+[
+ {
+  "file": "20260819T085724_Read_5cc9da2a_000_stride-ast-extractor-wrapped.py.txt",
+  "gutter_stripped": "20260819T085724_Read_5cc9da2a_000_stride-ast-extractor-wrapped.py.GUTTER_STRIPPED.txt",
+  "kind": "Read",
+  "original_path": "/home/wking53214/ATS/stride-ast-extractor-wrapped.py",
+  "session": "5cc9da2a-0812-496d-86f8-560930c0ff94",
+  "timestamp": "2026-08-19T08:57:24.483Z",
+  "bytes": 1332,
+  "sha256": "762f9e8717f9451c3a55578b586e5550c2c763ccaed8352c8c3dc21018cd3ced"
+ },
+ {
+  "file": "20260819T085731_Edit_5cc9da2a_001_stride-ast-extractor-wrapped.py.txt",
+  "gutter_stripped": null,
+  "kind": "Edit",
+  "original_path": "/home/wking53214/ATS/stride-ast-extractor-wrapped.py",
+  "session": "5cc9da2a-0812-496d-86f8-560930c0ff94",
+  "timestamp": "2026-08-19T08:57:31.773Z",
+  "bytes": 1066,
+  "sha256": "2bd1c87f9a4cd17167d4a94e20b7e74cbabbb21ea994996dadc157ac996dc42a"
+ },
+ {
+  "file": "20260821T144829_Write_a4bdee5f_002_governance_loop_guard.py.txt",
+  "gutter_stripped": null,
+  "kind": "Write",
+  "original_path": "/home/wking53214/sentinel_os/sentinel_os/governance_loop_guard.py",
+  "session": "a4bdee5f-f7ee-43d1-8681-1526fb568266",
+  "timestamp": "2026-08-21T14:48:29.418Z",
+  "bytes": 3708,
+  "sha256": "2fd50fe2a8c5c73b953a0a8478ecf4c1facb6405d904a999609a49768c4572ed"
+ },
+ {
+  "file": "20260917T095714_Write_39ccf355_003_extract_session_files.py.txt",
+  "gutter_stripped": null,
+  "kind": "Write",
+  "original_path": "/tmp/claude-1000/-home-wking53214/39ccf355-d7bf-4398-8099-7ade2f9228f6/scratchpad/extract_session_files.py",
+  "session": "39ccf355-d7bf-4398-8099-7ade2f9228f6",
+  "timestamp": "2026-09-17T09:57:14.953Z",
+  "bytes": 3872,
+  "sha256": "1e4b42d57a80910bea647a46451b4e17a27dc1c048978a14b3a6ad4163a6472e"
+ }
+]

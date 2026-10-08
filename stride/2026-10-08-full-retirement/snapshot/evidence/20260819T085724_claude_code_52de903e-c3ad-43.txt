@@ -1,0 +1,1 @@
+Confirms it's the same `GraphExtractor`/`extract_graph`/`graph_to_dict` tool as described. Now let me check the STRIDE-labeled one's header.

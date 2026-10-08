@@ -1,0 +1,16 @@
+## v2 sweep — done, except one blocker
+
+- **1g**: OTLP's two real files moved into `sentinel_os/sentinel_os/otlp/`; OTLP archived.
+- **1h**: Extracted the genuinely tested part of SAGE-K's package (`Fortress` kernel, `GsaUniversalAdapter`, AST extractor — 4/4 tests passing, verified again after the move) into `sentinel_os/sentinel_os/sage_k/`. Left the `drift/generator/harness/realignment/report/scenarios` files behind in SAGE-K — those turned out to be an unused, superseded snapshot of `sentinel_os.interpretation`, which already has its own actively-maintained history and is the real implementation, not a gap SAGE-K was filling. Fixed SAGE-K's stray README.
+- **1i**: UZTC tagged as GSA lineage, cross-linked with CITADEL/STRIDE/SECURE/WRAPPER.
+- **1j**: Confirmed WRAPPER's `artifact_3.py` and SECURE's `artifact_1.py` are exact duplicates (13,539 chars, whitespace-stripped match). Both tagged as GSA lineage.
+- **2c**: SECURE's `ANATHEMA_STATE: PROVENANCE_FAILED` isn't a bug — its own demo sentence contains the word "paradox," which its validator is designed to reject outright. Verified the pipeline runs cleanly (`PIPELINE_ITERATION_EXECUTED`) once that word is removed. Documented in SECURE's new README.
+- **1b-followup**: Found AST-extractor copies in AC-HCCSE (3), FACTS (2), SECURE (1), WRAPPER (1) beyond what 1b covered. 4 were byte-identical to the canonical copy and were just deleted; 3 were genuinely distinct wrapped variants (one with color/coating/animation extras, one branded `SYSTEM_NAME: GRAPH`) and got archived into `synapsis/archive/imported-variants/` before their originals were removed. DGK's copies had already been cleaned up by the other concurrent process.
+
+**1k is blocked**: `gh repo delete` failed — the stored GitHub CLI token doesn't have the `delete_repo` scope, and granting it requires an interactive step I can't do for you. To finish this one, run:
+
+```
+gh auth refresh -h github.com -s delete_repo
+```
+
+then let me know and I'll run the deletion, or you can delete `wking53214/VSA` yourself from GitHub's repo settings. Everything else from both instruction files is complete and pushed.

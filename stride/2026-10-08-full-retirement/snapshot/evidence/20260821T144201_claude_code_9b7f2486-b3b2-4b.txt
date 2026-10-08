@@ -1,0 +1,41 @@
+The file salvages two independent, self-contained pieces from STRIDE — nothing else. Here's exactly what each does.
+
+## Piece 1: `PipelineStateEngine` — loop detection + bounded retry lifecycle
+
+Tracks the history of an LLM's outputs and decides, for each new output, whether to accept it, retry, block it, or fail closed.
+
+- **`EngineState`** — a small state dataclass: the last 1,000 outputs seen (as a bounded deque, so memory doesn't grow unbounded), a hash of the last output, a timestamp, and a retry counter.
+- **`check_loop_condition(output)`** — is this *exact* output already in the seen-history? If yes, the model is repeating itself.
+- **`evaluate_integrity(output)`** — the bare minimum sanity check: is this output non-empty?
+- **`process_lifecycle(output)`** is the actual decision logic, checked in this order:
+  1. **Seen before → `BLOCKED_LOOP`.** Rejected immediately — this doesn't even consume retry budget, because a loop isn't "try again," it's "stop."
+  2. **Empty/invalid → `RETRY`** if budget remains (increments the counter), or **`SYSTEM_ERROR`** once `max_retries` is exhausted — i.e. it fails *closed*, not silently forever.
+  3. **Novel and non-empty → `ACCEPTED`.** Records it into history and resets the retry counter back to 0.
+
+So it's specifically guarding against two distinct failure modes: an LLM stuck echoing the same output forever, and an LLM producing garbage/empty output forever — with different responses to each (instant block vs. bounded retry).
+
+## Piece 2: `determine_backpressure_delay` — queue-depth-based throttling signal
+
+A pure function, no state. Given how full a queue currently is (`current_queue_depth` / `max_queue_size`) and a "high watermark" threshold (defaults to 85%):
+
+- Below the watermark → returns `0.0` (no delay needed at all).
+- Above it → returns a value that scales linearly from `0.0` (right at the watermark) up to `1.0` (queue completely full) — a *graduated* signal, not a binary on/off switch.
+- It doesn't sleep, reject, or log anything itself — it just returns the number and leaves what to do with it (throttle, reject, alert) up to the caller.
+
+The salvage docstring is explicit about why this one specifically was kept: STRIDE had a second, decorative "backpressure" mechanism elsewhere (`TrafficGovernor`/`KineticGovernor`) that just slept proportional to word count — measuring nothing real about system load. This one was kept because it measures actual queue occupancy.
+
+## The demo at the bottom shows both in action
+
+```
+"hello" → ACCEPTED
+"hello" again → BLOCKED_LOOP        (exact repeat, instant block)
+"" → RETRY                          (empty, 1st retry)
+"" → RETRY                          (empty, 2nd retry — budget was max_retries=2)
+"" → SYSTEM_ERROR                   (budget exhausted, fails closed)
+
+queue at 80/100 → 0.0               (under the 85% watermark)
+queue at 95/100 → partial delay     (past watermark, scaling up)
+queue at 100/100 → 1.0              (at capacity, max delay signal)
+```
+
+Both pieces are independent of each other and of everything else in STRIDE — that's exactly why they survived the audit while the rest (linguistic gates, the DOIS scoring stack, the hash wrapper that claims HMAC tamper-evidence but never imports `hmac`) didn't.

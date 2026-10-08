@@ -1,0 +1,675 @@
+CITADEL is much narrower than several of the preceding repositories, and that is actually a strength for the README.
+
+Its actual role is a **deterministic output-enforcement layer**. It detects specified linguistic characteristics, scores them, and can rewrite the output. The current v1.2 adds the prohibited-verb constraint recovered from STRIDE. fileciteturn119file0L1-L6 fileciteturn121file0L1-L6
+
+The important architectural relationship is also confirmed: **STRIDE was designed to consume CITADEL's enforcement logic as a gateway component.** fileciteturn119file0L1-L2
+
+I would describe it as a **linguistic enforcement/interception component**, not as a general AI governance engine.
+
+```text
+# CITADEL
+
+## Deterministic LLM Output Enforcement Engine
+
+CITADEL is a deterministic linguistic enforcement engine designed to inspect and transform AI-generated text according to explicit output constraints.
+
+The system operates as a bounded enforcement layer:
+
+    LLM OUTPUT
+        │
+        ▼
+    DETECTION
+        │
+        ▼
+    CONSTRAINT EVALUATION
+        │
+        ▼
+    SCORING
+        │
+        ▼
+    TRANSFORMATION
+        │
+        ▼
+    ENFORCED OUTPUT
+
+CITADEL does not attempt to determine whether an entire AI system is safe, truthful, or properly governed.
+
+Its role is narrower:
+
+> Detect defined linguistic characteristics in generated output, apply explicit enforcement rules, and return a transformed result together with the detected violations and enforcement score.
+
+---
+
+## Core Purpose
+
+CITADEL provides deterministic controls over selected characteristics of generated language.
+
+The current implementation can detect and enforce rules relating to:
+
+- first-person identity language;
+- hedging language;
+- passive voice;
+- causal-support requirements;
+- punctuation;
+- and prohibited or vague corporate-speak verbs.
+
+The engine operates through explicit profiles that determine which constraints are active.
+
+This makes the enforcement policy configurable without changing the underlying detection and transformation engines.
+
+---
+
+## Architecture
+
+The current implementation is organized around three primary processing components:
+
+    CitadelDetector
+          │
+          ▼
+    CitadelScorer
+          │
+          ▼
+    CitadelTransformer
+
+These components are coordinated by:
+
+    Citadel
+
+The `Citadel` engine receives text and an enforcement profile, detects violations, calculates a score, transforms the text, and returns the complete enforcement result.
+
+---
+
+# Detection
+
+`CitadelDetector` evaluates the supplied text against the active profile.
+
+The implementation uses deterministic regular-expression rules.
+
+This is important to the system's character.
+
+CITADEL is not relying on another language model to determine whether the output violates its constraints.
+
+Instead:
+
+    TEXT
+      │
+      ▼
+    DETERMINISTIC RULES
+      │
+      ▼
+    VIOLATIONS
+
+This makes the enforcement behavior inspectable and reproducible.
+
+---
+
+## Identity Detection
+
+The identity constraint detects first-person pronouns and related forms including:
+
+    I
+    me
+    my
+    mine
+    myself
+    we
+    us
+    our
+    ours
+    ourselves
+
+The purpose is to identify language that presents the generated system as speaking from a first-person identity.
+
+---
+
+## Hedging Detection
+
+The hedging constraint detects terms such as:
+
+    may
+    might
+    could
+    seems
+    generally
+    potentially
+    likely
+    perhaps
+    probably
+    I think
+
+When enabled, these terms are treated as violations.
+
+---
+
+## Passive-Voice Detection
+
+The passive constraint uses a deterministic regular-expression pattern to identify a subset of passive constructions.
+
+This is intentionally limited.
+
+It should therefore be described as:
+
+> regex-based passive-voice detection
+
+rather than as comprehensive grammatical parsing.
+
+---
+
+## Causality Detection
+
+The causality constraint provides a limited mechanism for identifying statements that appear to make impact-oriented claims without explicit causal support.
+
+The detector checks for trigger terms including:
+
+    increase
+    decrease
+    improve
+    impact
+    result
+
+When a trigger is present, the system looks for either:
+
+- a causal expression; or
+- a numerical metric.
+
+If neither is present, the text can receive a causality violation.
+
+The implementation therefore establishes a lightweight deterministic causal-support rule rather than a general causal-inference engine.
+
+---
+
+## Punctuation Detection
+
+CITADEL explicitly detects em-dashes:
+
+    —
+
+When the punctuation constraint is active, an em-dash constitutes a violation.
+
+The transformer subsequently converts the em-dash to an en-dash:
+
+    —
+    ↓
+    –
+
+This is an example of a simple deterministic normalization rule.
+
+---
+
+## Prohibited-Verb Detection
+
+Version 1.2 adds a prohibited-verb constraint recovered from the STRIDE code lineage.
+
+The current rule identifies terms including:
+
+    improve
+    optimize
+    enhance
+    enable
+    support
+    strengthen
+    utilize
+    leverage
+
+The constraint is enabled for the `ops` and `exec` profiles.
+
+The implementation normalizes detected prohibited verbs to:
+
+    use
+
+This mechanism is intentionally lexical.
+
+It does not determine whether the underlying concept is actually vague in context.
+
+---
+
+# Enforcement Profiles
+
+CITADEL uses named profiles to control which constraints are active.
+
+The current profiles are:
+
+    default
+    ops
+    exec
+    legal
+
+Each profile defines its own combination of:
+
+- identity enforcement;
+- hedging enforcement;
+- passive-voice enforcement;
+- causality enforcement;
+- punctuation enforcement;
+- and prohibited-verb enforcement.
+
+This allows the same deterministic engine to be applied under different output policies.
+
+---
+
+## Default
+
+The default profile enables:
+
+- identity;
+- hedging;
+- punctuation.
+
+Passive voice, causality, and prohibited verbs are disabled.
+
+---
+
+## Ops
+
+The `ops` profile enables the complete current enforcement set:
+
+- identity;
+- hedging;
+- passive voice;
+- causality;
+- punctuation;
+- prohibited verbs.
+
+This is the most restrictive profile currently defined.
+
+---
+
+## Exec
+
+The `exec` profile enables:
+
+- identity;
+- hedging;
+- passive voice;
+- punctuation;
+- prohibited verbs.
+
+Causality enforcement is disabled.
+
+---
+
+## Legal
+
+The `legal` profile enables:
+
+- identity;
+- hedging;
+- passive voice;
+- causality;
+- punctuation.
+
+Prohibited-verb enforcement is disabled.
+
+These profiles are implementation configurations, not claims that the corresponding organizational domains have universally agreed upon these linguistic rules.
+
+---
+
+# Transformation
+
+After detection, `CitadelTransformer` applies deterministic transformations corresponding to the detected violations.
+
+Examples include:
+
+### Hedging
+
+Selected hedging terms are removed.
+
+### Identity
+
+Selected first-person terms are removed.
+
+### Passive Voice
+
+A limited mapping converts specific known constructions.
+
+For example:
+
+    was improved
+        ↓
+    improved
+
+and:
+
+    is generated
+        ↓
+    generates
+
+### Causality
+
+A causality violation appends a standardized causal-support phrase.
+
+### Punctuation
+
+Em-dashes are converted to en-dashes.
+
+### Prohibited Verbs
+
+Selected vague verbs are normalized to:
+
+    use
+
+The transformer is therefore a rule-based rewrite engine, not a semantic rewriting model.
+
+---
+
+# Scoring
+
+CITADEL assigns an enforcement score beginning at:
+
+    100
+
+Each detected violation applies a configured penalty.
+
+Current penalties include:
+
+    identity          -10
+    hedging            -5
+    passive            -5
+    causality         -10
+    punctuation        -3
+    prohibited verbs   -5
+
+The score is bounded at zero.
+
+Conceptually:
+
+    SCORE = 100 - VIOLATION PENALTIES
+
+The score represents the CITADEL enforcement result.
+
+It should not be interpreted as a general measure of:
+
+- truthfulness;
+- intelligence;
+- safety;
+- factual accuracy;
+- or overall model quality.
+
+---
+
+# Enforcement Result
+
+The primary `enforce()` method returns a structured result containing:
+
+- original text;
+- final transformed text;
+- whether the text changed;
+- enforcement score;
+- detected violations;
+- profile used;
+- and processing latency.
+
+This makes the enforcement decision inspectable.
+
+A downstream system can therefore determine not only what CITADEL returned, but why the text was modified.
+
+---
+
+# Determinism
+
+CITADEL is deliberately deterministic.
+
+For a given:
+
+- input;
+- profile;
+- and implementation version,
+
+the same rules are applied in the same manner.
+
+This makes the component suitable for environments where output-policy behavior needs to be:
+
+- repeatable;
+- inspectable;
+- testable;
+- and independently reproducible.
+
+---
+
+# Relationship to STRIDE
+
+CITADEL has an explicit architectural relationship with STRIDE.
+
+The STRIDE gateway source identified:
+
+> Zero-Trust Citadel Linguistic Interceptors
+
+as a gateway component.
+
+The current CITADEL repository therefore represents the enforcement mechanism as a reusable component that can sit beneath or within a larger gateway architecture.
+
+Conceptually:
+
+    AI / APPLICATION OUTPUT
+             │
+             ▼
+          STRIDE
+             │
+             ▼
+          CITADEL
+             │
+             ▼
+    ENFORCED LINGUISTIC OUTPUT
+
+CITADEL should therefore not be confused with STRIDE itself.
+
+STRIDE is the broader gateway context.
+
+CITADEL is the specialized linguistic interception and enforcement mechanism.
+
+---
+
+# Architectural Role
+
+The cleanest description of CITADEL's role is:
+
+    DETECT
+       ↓
+    SCORE
+       ↓
+    TRANSFORM
+
+It is a **policy enforcement component at the output boundary**.
+
+It does not need to understand the entire application or governance architecture in order to perform its function.
+
+This gives it a useful degree of modularity.
+
+A system can place CITADEL between an LLM and whatever consumes the LLM's output.
+
+---
+
+# Boundary Enforcement
+
+The architectural importance of CITADEL is the location of the control point.
+
+Without an output enforcement layer:
+
+    LLM
+      │
+      ▼
+    CONSUMER
+
+With CITADEL:
+
+    LLM
+      │
+      ▼
+    CITADEL
+      │
+      ├── detect
+      ├── score
+      └── transform
+      │
+      ▼
+    CONSUMER
+
+The output therefore passes through an explicit policy boundary before being delivered downstream.
+
+---
+
+# What CITADEL Does Not Claim
+
+CITADEL is not:
+
+- a general-purpose LLM safety system;
+- a factuality verifier;
+- a hallucination detector;
+- a semantic truth engine;
+- a complete grammar engine;
+- a general causal reasoning system;
+- an authorization system;
+- or a complete AI governance framework.
+
+Its function is narrower and more concrete:
+
+> deterministic detection and transformation of specified linguistic characteristics in AI-generated output.
+
+---
+
+# Version History
+
+## CITADEL v1.1
+
+The original recovered implementation provides:
+
+- identity detection;
+- hedging detection;
+- passive-voice detection;
+- causal-support detection;
+- punctuation enforcement;
+- scoring;
+- and deterministic rewriting.
+
+It is organized around:
+
+    CitadelDetector
+    CitadelTransformer
+    CitadelScorer
+    Citadel
+
+---
+
+## CITADEL v1.2
+
+Version 1.2 adds:
+
+    prohibited_verbs
+
+The additional constraint was salvaged from the STRIDE repository before its deletion.
+
+The new constraint is integrated consistently into:
+
+- `Constraint`;
+- `PROFILES`;
+- penalty configuration;
+- detection;
+- and rewriting.
+
+The remaining v1.1 architecture is preserved.
+
+---
+
+# Source and Provenance
+
+The repository includes provenance documentation describing the source history and reconstruction process.
+
+This is particularly important because CITADEL's current implementation is part of a larger architectural lineage.
+
+The v1.2 prohibited-verb constraint was recovered from STRIDE and incorporated into CITADEL without representing it as part of the original v1.1 implementation.
+
+That distinction is preserved intentionally.
+
+---
+
+# Design Principles
+
+### Deterministic Enforcement
+
+Rules should be explicit enough to reproduce.
+
+### Explicit Policy
+
+Constraints should be represented as named policies rather than hidden behavior.
+
+### Inspectable Decisions
+
+The system should report which constraints were violated.
+
+### Bounded Transformation
+
+Rewriting should follow defined transformations rather than unconstrained model generation.
+
+### Separation of Detection and Transformation
+
+Identifying a violation and correcting it are separate operations.
+
+### Modular Interception
+
+Linguistic enforcement should be usable as a component within a larger gateway.
+
+### Provenance Preservation
+
+Changes introduced during later versions should remain distinguishable from the original implementation.
+
+---
+
+# Architectural Model
+
+CITADEL can be summarized as:
+
+    ┌─────────────────────────────┐
+    │          LLM OUTPUT        │
+    └──────────────┬──────────────┘
+                   │
+                   ▼
+    ┌─────────────────────────────┐
+    │       CITADEL DETECTOR      │
+    │                             │
+    │ identity                    │
+    │ hedging                     │
+    │ passive voice               │
+    │ causality                   │
+    │ punctuation                 │
+    │ prohibited verbs            │
+    └──────────────┬──────────────┘
+                   │
+                   ▼
+    ┌─────────────────────────────┐
+    │        CITADEL SCORER       │
+    │                             │
+    │ violation penalties         │
+    │ bounded enforcement score   │
+    └──────────────┬──────────────┘
+                   │
+                   ▼
+    ┌─────────────────────────────┐
+    │      CITADEL TRANSFORMER    │
+    │                             │
+    │ deterministic rewriting     │
+    └──────────────┬──────────────┘
+                   │
+                   ▼
+    ┌─────────────────────────────┐
+    │       ENFORCED OUTPUT       │
+    │                             │
+    │ original / final / score    │
+    │ violations / profile        │
+    └─────────────────────────────┘
+
+---
+
+# Status
+
+CITADEL is a deterministic linguistic output-enforcement engine.
+
+Its current implementation provides explicit detection, scoring, and transformation of defined classes of LLM output.
+
+Version 1.2 extends the original implementation with a prohibited-verb constraint recovered from the STRIDE lineage.
+
+Its architectural role is that of a reusable output-boundary enforcement component that can operate within a larger gateway or governance architecture.
+
+The central proposition is:
+
+> AI output can be subjected to explicit, deterministic policy enforcement at the boundary between generation and downstream consumption.
+```

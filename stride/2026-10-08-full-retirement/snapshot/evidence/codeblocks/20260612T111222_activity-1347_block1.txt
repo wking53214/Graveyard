@@ -1,0 +1,75 @@
+    # Instantiate Zero Trust Stack components
+    self.identity_gate = IdentityGate()
+    self.hedging_gate = HedgingGate()
+    self.causality_gate = CausalityGate()
+    self.normalizer = StructureNormalizer()
+    self.governor = KineticGovernor()
+    
+    # Oscillation Protection: Tracks recursive looping to terminate drift
+    self.seen_outputs: Set[str] = set()
+    
+    # HMAC Stasis Verification Security Configuration
+    self._secret_key: bytes = b"GSA_ADAMANTIUM_CORE_STASIS_SIGNATURE_815"
+
+def _generate_checksum(self, data: str) -> str:
+    """Enforces a rigid out-of-band token signature tracking data state."""
+    return hmac.new(self._secret_key, data.encode('utf-8'), hashlib.sha384).hexdigest()
+
+async def run(self, prompt: str) -> Dict[str, Any]:
+    working_prompt = prompt
+    execution_start_time = time.time()
+    
+    for attempt in range(1, self.max_retries + 1):
+        # Concurrent Task Deployment: Trigger the LLM generation block
+        raw_output = await self.generator(working_prompt)
+        
+        # --- THREAD ALPHA: FAST-TRACK PERIMETER FILTRATION ---
+        # Step 1: Structural Normalization (Fail-Fast optimization execution)
+        clean_output = self.normalizer.normalize(raw_output)
+        
+        # Step 2: Zero-Trust Stack Gate Checking
+        id_passed = self.identity_gate.validate(clean_output)
+        hedge_passed = self.hedging_gate.validate(clean_output)
+        causal_passed = self.causality_gate.validate(clean_output)
+        
+        # Step 3: Oscillation Protection (Loop detection validation)
+        output_hash = hashlib.md5(clean_output.encode('utf-8')).hexdigest()
+        is_looping = output_hash in self.seen_outputs
+        
+        if id_passed and hedge_passed and causal_passed and not is_looping:
+            # Add valid transaction signature to cache pool
+            self.seen_outputs.add(output_hash)
+            
+            # --- THREAD BETA: KINETIC GOVERNOR TEMPORAL BUDGETING ---
+            delay = await self.governor.calculate_temporal_budget(clean_output)
+            await self.governor.apply_liturgical_pause(delay)
+            
+            total_latency = (time.time() - execution_start_time) * 1000.0
+            stasis_checksum = self._generate_checksum(clean_output)
+            
+            return {
+                "status": "PASS",
+                "parity": 1.0000,
+                "attempts": attempt,
+                "latency_ms": round(total_latency, 2),
+                "checksum": stasis_checksum,
+                "payload": clean_output
+            }
+        
+        # --- MITIGATION LOOP: FAIL-FAST RECALIBRATION ---
+        # If an out-of-bounds linguistic state or looping is found, append an instructional delta
+        self.seen_outputs.add(output_hash)
+        failure_reasons = []
+        if not id_passed: failure_reasons.append("First-person identifier usage detected.")
+        if not hedge_passed: failure_reasons.append("Subjective hedging / unverified statements detected.")
+        if not causal_passed: failure_reasons.append("Output missing objective metrics or explicit causal links.")
+        if is_looping: failure_reasons.append("Generative loop iteration pattern triggered.")
+        
+        # Inject structural guidance string dynamically back to prime the retry frame
+        working_prompt = (
+            f"{prompt}\n[INSTRUCTIONAL_DELTA]: Prior response failed compliance constraints due to: "
+            f"{', '.join(failure_reasons)} Re-render output with absolute density."
+        )
+        
+    # Hard Termination Gate triggered upon absolute depletion of retry tokens
+    raise SystemError("GSA_CRITICAL_ERROR: Deterministic Integrity Tower collapsed. 1.0000 Parity unachievable.")

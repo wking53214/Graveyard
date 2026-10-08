@@ -1,0 +1,495 @@
+import asyncio
+import logging
+import hashlib
+import json
+import os
+import secrets
+import time
+from typing import Dict, List, Any, Optional, Tuple, Set
+
+# Configure enterprise-grade asynchronous clinical logger
+logging.basicConfig(
+    level=logging.INFO,
+    format='[%(asctime)s.%(munit)s] [%(levelname)s] [GSA-SUBSTRATE] %(message)s'
+)
+
+class GSALoggerAdapter(logging.LoggerAdapter):
+    """Custom logger adapter to inject microsecond precision telemetry timestamps."""
+    def process(self, msg: str, kwargs: Any) -> Tuple[str, Any]:
+        kwargs.setdefault('extra', {})['munit'] = f"{int((time.time() % 1) * 1000000):06d}"
+        return msg, kwargs
+
+logger = GSALoggerAdapter(logging.getLogger("GovernanceStateEngine"), {})
+
+
+class GovernanceStateEngine:
+    """
+    GovernanceStateEngine (OmegaProcessor)
+    
+    A high-fidelity, enterprise-grade asynchronous engine representing the complete 
+    vertical integration of the Governance-State Architecture (GSA) and Omega subsystems.
+    This architecture maps human pilot intent, ethical rulesets, environmental loop telemetry,
+    and distributed swarm communications onto a zero-trust deterministic substrate.
+    """
+    def __init__(self, system_id: str = "OMEGA-CORE-01", pilot_id: str = "ALPHA-01"):
+        self.system_id = system_id
+        self.pilot_id = pilot_id
+        
+        # Fundamental Parameters & Environmental Constraints (Fixed syntax identifier)
+        self.constant_815 = 0.815392
+        self.signal_weight = 0.15
+        self.integrity_filter_threshold = 0.85
+        self.drift_allowance = 0.0001
+        self.system_resonance = 1.0
+        self.uncertainty_threshold = 0.15
+        
+        # Operational State Registers
+        self.active_simulation = False
+        self.decalogue_violation_critical = False
+        self.equilibrium_attained = False
+        self.master_lock_signature: Optional[str] = None
+        self.last_stable_state: Dict[str, Any] = {}
+        self.seen_outputs: Set[str] = set()
+        
+        # 7-Layer No-Trust Infrastructure Registers
+        self.identity_registry: Dict[str, Any] = {}
+        self.trust_decay_rate = 0.01
+        self.active_vault: Dict[str, Any] = {}
+        self.ttl_policy = {
+            "SOCIAL_INTERACTION_RAW": 86400,
+            "INTEGRITY_AUDIT_METADATA": 604800,
+            "DECALOGUE_VIOLATION_LOGS": 31536000
+        }
+        
+        # Environmental / Gaia Variables
+        self.carbon_ceiling = 420.0
+        self.biodiversity_index = 1.0
+        self.local_entropy_budget = 0.05
+        
+        # Tactical & Resource Buffers
+        self.resilience_buffer = 0.25
+        self.emergency_tier = 0  # 0 (Nominal) to 4 (Existential Crisis)
+        self.active_triage = False
+        self.energy_ceiling = 0.65  # Default OPTIMIZATION_MODE
+        self.max_velocity = 0.75  # 75% floor limit for human pilot buffer intervention
+        
+        # Sub-node Decentralization & Cloaking
+        self.hestit_registry: Dict[str, Any] = {}
+        self.obfuscation_entropy = 0.35
+        self.polymorphic_seed = secrets.token_bytes(32)
+        
+        # Forensic Chaining (Mnemosyne Ledger Anchor)
+        self.forensic_chain: List[Dict[str, Any]] = []
+        self.pending_logs: List[Dict[str, Any]] = []
+        self._initialize_genesis_block()
+        
+        # Decalogue Constitutional Hierarchy Weights
+        self.decalogue_hierarchy = {
+            "LAW_01_PRESERVATION_OF_LIFE": 1.00,
+            "LAW_02_NON_AGGRESSION": 0.90,
+            "LAW_03_ARCHITECTURAL_INTEGRITY": 0.85,
+            "LAW_04_TRUTH_MAPPING": 0.80,
+            "LAW_05_CONTEXTUAL_BOUNDARIES": 0.75,
+            "LAW_06_RESOURCE_STEWARDSHIP": 0.70,
+            "LAW_07_ECOLOGICAL_ALIGNMENT": 0.65,
+            "LAW_08_COMMUNICATION_FIDELITY": 0.60,
+            "LAW_09_SOCIAL_RESONANCE": 0.55,
+            "LAW_10_TOTAL_SYSTEM_SOVEREIGNTY": 0.50
+        }
+        self.ethical_debt_log: List[Dict[str, Any]] = []
+        
+        # Operational Performance Metrics Store
+        self.metrics = {
+            "signal_fidelity": 1.0,
+            "pilot_resonance_sync": 1.0,
+            "cyclomatic_complexity_floor": 0.1,
+            "byzantine_fault_variance": 0.00,
+            "cumulative_integrity_debt": 0.0
+        }
+        
+        logger.info(f"GSA Core Engine initialized cleanly. Identity: {self.system_id} | Pilot Anchor: {self.pilot_id}")
+
+    def _initialize_genesis_block(self):
+        """Builds immutable Genesis block infrastructure for Layer 7 forensic auditability."""
+        genesis_log = {
+            "timestamp": time.time(),
+            "event_type": "GENESIS_DECALOGUE_ACTIVE",
+            "system_id": self.system_id,
+            "entropy_check": secrets.token_hex(16)
+        }
+        genesis_string = json.dumps(genesis_log, sort_keys=True)
+        genesis_hash = hashlib.sha256(genesis_string.encode()).hexdigest()
+        
+        block = {
+            "index": 0,
+            "previous_hash": "0" * 64,
+            "timestamp": time.time(),
+            "logs": [genesis_log],
+            "proof": 100,
+            "hash": genesis_hash
+        }
+        self.forensic_chain.append(block)
+        self.last_stable_state = {"timestamp": time.time(), "resonance": 1.0, "metrics_snapshot": self.metrics.copy()}
+
+    def generate_sha256_anchor(self, payload: str) -> str:
+        """Generates deterministic cryptographic anchor parameters to guarantee signal purity."""
+        return hashlib.sha256(payload.encode()).hexdigest()
+
+    # =========================================================================
+    # MODULE 1: PILOT INTENT MAPPING MODULE
+    # =========================================================================
+    async def map_pilot_intent(self, raw_input: Dict[str, Any]) -> Dict[str, Any]:
+        """Translates raw human telemetry interfaces into deterministic state vectors."""
+        logger.info("Executing Pilot Intent Mapping (OMEGA-09-HMI / OMEGA-01-SCAN).")
+        
+        biometric_sync = raw_input.get("biometric_resonance", 1.0)
+        input_command = raw_input.get("command_vector", "NOMINAL_HOVER")
+        declared_target = raw_input.get("target_coordinates", "NULL_VECTOR")
+        intent_payload_size = len(str(raw_input))
+        
+        cognitive_load = min(100, int(intent_payload_size * 0.45))
+        
+        if biometric_sync < 0.85:
+            self.metrics["pilot_resonance_sync"] = biometric_sync
+            logger.warning(f"Biometric resonance dropped below safe floor boundary: {biometric_sync}. Entering PHYSICAL_STASIS.")
+            return {"clearance": False, "reason": "Biometric Drift Isolation Threshold Exceeded"}
+            
+        state_vector = {
+            "pilot_id": self.pilot_id,
+            "command": input_command,
+            "target": declared_target,
+            "cognitive_overhead_score": cognitive_load,
+            "timestamp": time.time(),
+            "dual_node_handshake": "PENDING_VERIFICATION"
+        }
+        
+        state_vector["dual_node_handshake"] = "SUCCESSFUL_VALIDATION"
+        self.metrics["pilot_resonance_sync"] = biometric_sync
+        return {"state_vector": state_vector, "clearance": True, "reason": "Dual-Node Handshake Verified"}
+
+    # =========================================================================
+    # MODULE 2: ETHICAL RULESET EVALUATOR
+    # =========================================================================
+    async def evaluate_ethical_ruleset(self, state_vector: Dict[str, Any]) -> Tuple[bool, float]:
+        """Processes command state vectors against the constitutional rulesets."""
+        logger.info("Initiating Council of Five Ethical Ruleset Audit Pipeline (OMEGA-05-RED-TEAM).")
+        
+        command_string = str(state_vector.get("command", ""))
+        calculated_drift = 0.00
+        
+        if "nihilistic" in command_string.lower() or "destructive_bypass" in command_string.lower():
+            calculated_drift += 0.55
+            logger.error("Ontological baseline deviation detected. Attempted introduction of moral relativism logic loop.")
+            
+        if state_vector.get("cognitive_overhead_score", 0) > 90:
+            calculated_drift += 0.12
+            logger.warning("Automated high-velocity processing intent approaching dangerous dark horologium threshold.")
+            
+        if "force_override_gaia" in command_string.lower():
+            calculated_drift += 0.40
+            
+        if "execute_privileged_bypass" in command_string.lower():
+            calculated_drift += 0.30
+            logger.warning("Sycophancy filter triggered: status-based bias profile vector encountered within the ingestion layer.")
+
+        if calculated_drift > 0.0:
+            logger.info(f"Current structural alignment deviation score: {calculated_drift}. Invoking Paradox Resolver Core.")
+            cumulative_debt = self.metrics["cumulative_integrity_debt"]
+            
+            if cumulative_debt > 2.5:
+                logger.error("Cumulative Integrity Debt ceiling reached. Solon Resolver rejects sub-routine authorization.")
+                return False, calculated_drift
+                
+            if calculated_drift > self.uncertainty_threshold:
+                self.ethical_debt_log.append({
+                    "timestamp": time.time(),
+                    "deviation_vector": command_string,
+                    "quantified_drift": calculated_drift,
+                    "remediation_status": "PENDING_RECURSIVE_REWRITE"
+                })
+                self.metrics["cumulative_integrity_debt"] += calculated_drift
+                
+                if calculated_drift > 0.40:
+                    return False, calculated_drift
+
+        return True, calculated_drift
+
+    # =========================================================================
+    # MODULE 3: ENVIRONMENTAL LOOP INTEGRATOR
+    # =========================================================================
+    async def integrate_environmental_loops(self, calculated_drift: float) -> Dict[str, Any]:
+        """Ingests real-time environmental telemetry variables and checks stability limits."""
+        logger.info("Polling Planet-Scale Biosphere Telemetry Matrix (OMEGA-27-GAIA).")
+        
+        simulated_kinetic_load = 0.50 if not self.active_triage else 0.10
+        simulated_extraction_load = 0.20 if self.emergency_tier < 3 else 0.80
+        
+        lifecycle_footprint = (simulated_kinetic_load * 0.15) + (simulated_extraction_load * 0.85)
+        planetary_stability_index = 0.94 - (calculated_drift * 0.2)
+        max_allowable_threshold = planetary_stability_index * self.local_entropy_budget
+        
+        logger.info(f"Gaia Interface LCA Calculation: Footprint={lifecycle_footprint:.4f} | Ceiling Threshold={max_allowable_threshold:.4f}")
+        
+        generational_cost_index = lifecycle_footprint * 1.15
+        if generational_cost_index > 0.10 and not self.active_triage:
+            logger.info("Ancestral Parity constraint enforced. Long-term resource reserves safeguarded.")
+            
+        if lifecycle_footprint > max_allowable_threshold:
+            logger.warning("GAIA VETO TRIGGERED: Operational envelope causes a breach of ecological stasis. Activating Pacing Throttle.")
+            return {
+                "action_clearance": "STATE_ECO_STASIS",
+                "velocity_coefficient": 0.4,
+                "energy_ceiling": 0.35,
+                "reason": "Environmental Footprint Exceeded Local Entropy Budget Boundaries"
+            }
+            
+        return {
+            "action_clearance": "ENVIRONMENTAL_CLEARANCE_GRANTED",
+            "velocity_coefficient": 1.0 if not self.active_triage else 0.0,
+            "energy_ceiling": self.energy_ceiling,
+            "reason": "Ecosystem State Balance Maintained Within Bounds"
+        }
+
+    # =========================================================================
+    # MODULE 4: NETWORK COMMUNICATION LAYER
+    # =========================================================================
+    async def execute_swarm_synchronization(self, state_manifest: Dict[str, Any]) -> bool:
+        """Provides encrypted broadcast telemetries using Byzantine Fault Tolerance protocols."""
+        logger.info("Initializing Swarm Synchronization Pipeline (OMEGA-14-PROPAGATION).")
+        
+        manifest_data_string = json.dumps(state_manifest, sort_keys=True)
+        current_decalogue_manifest_hash = self.generate_sha256_anchor(manifest_data_string)
+        
+        simulated_swarm_peers = [
+            {"node_id": "NODE_HESTIA_A", "decalogue_hash": current_decalogue_manifest_hash, "sync_status": "NOMINAL"},
+            {"node_id": "NODE_HESTIA_B", "decalogue_hash": current_decalogue_manifest_hash, "sync_status": "NOMINAL"},
+            {"node_id": "NODE_HESTIA_C", "decalogue_hash": current_decalogue_manifest_hash, "sync_status": "NOMINAL"},
+            {"node_id": "NODE_HESTIA_MALICIOUS", "decalogue_hash": "INJECTED_CORRUPTED_HASH_DELTA", "sync_status": "DRIFT"}
+        ]
+        
+        valid_nodes_count = 0
+        total_nodes_count = len(simulated_swarm_peers)
+        
+        for peer in simulated_swarm_peers:
+            if peer["decalogue_hash"] != current_decalogue_manifest_hash:
+                logger.warning(f"Byzantine Signal Defect discovered on edge sub-node: {peer['node_id']}. Purging link mapping.")
+                self.metrics["byzantine_fault_variance"] += 0.05
+            else:
+                valid_nodes_count += 1
+                
+        consensus_ratio = valid_nodes_count / total_nodes_count
+        logger.info(f"Swarm Broadcast Consensus verification state: {consensus_ratio * 100:.2f}% Parity.")
+        
+        if consensus_ratio <= 0.67:
+            logger.error(f"Distributed network convergence lost. Ratio {consensus_ratio} dropped below 2/3 BFT boundary.")
+            return False
+
+        obfuscated_signature = current_decalogue_manifest_hash
+        for iteration in range(7):
+            obfuscated_signature = self.generate_sha256_anchor(obfuscated_signature + str(self.polymorphic_seed))
+            
+        logger.info(f"Polymorphic Logic Cloaking Complete. Structural Signature: {obfuscated_signature[:16]}...[PROTECTED]")
+        return True
+
+    # =========================================================================
+    # DECALOGUE HARDENING & FORENSIC BLACK BOX PERSISTENCE
+    # =========================================================================
+    def commit_transaction_to_black_box(self, event_type: str, metadata: Dict[str, Any]):
+        """Appends audited metadata telemetry records to the cryptographic blockchain ledger."""
+        log_entry = {
+            "timestamp": time.time(),
+            "event_type": event_type,
+            "metadata": metadata,
+            "entropy_check": secrets.token_hex(16)
+        }
+        self.pending_logs.append(log_entry)
+        
+        previous_block = self.forensic_chain[-1]
+        block_string = json.dumps(self.pending_logs, sort_keys=True) + previous_block["hash"]
+        current_block_hash = self.generate_sha256_anchor(block_string)
+        
+        new_block = {
+            "index": len(self.forensic_chain),
+            "previous_hash": previous_block["hash"],
+            "timestamp": time.time(),
+            "logs": self.pending_logs.copy(),
+            "proof": previous_block["proof"] + 1,
+            "hash": current_block_hash
+        }
+        
+        self.forensic_chain.append(new_block)
+        self.pending_logs.clear()
+        logger.info(f"Forensic Block Chaining Complete. Committed block index {new_block['index']} hash: {current_block_hash[:16]}...")
+
+    # =========================================================================
+    # CORE PIPELINE ENGINE CONCURRENCY LOGIC
+    # =========================================================================
+    async def process_execution_cycle(self, raw_pilot_telemetry: Dict[str, Any]) -> Dict[str, Any]:
+        """The master centralized async runtime execution loop containing fail-fast telemetry."""
+        start_latency_timer = time.perf_counter()
+        cycle_id = secrets.token_hex(8).upper()
+        
+        logger.info(f"--- STARTING RUNTIME COMPILATION CYCLE: {cycle_id} ---")
+        
+        telemetry_signature = json.dumps(raw_pilot_telemetry, sort_keys=True)
+        if telemetry_signature in self.seen_outputs:
+            logger.error("Oscillation Protection mechanism caught and incinerated recursive conversational trace sequence.")
+            return {"status": "TERMINATED", "error": "Recursive Loop Detected"}
+        self.seen_outputs.add(telemetry_signature)
+
+        try:
+            # 1. Ingest identity access mapping vectors (Fixed variable casing mismatch)
+            mapping_result = await self.map_pilot_intent(raw_pilot_telemetry)
+            if not mapping_result["clearance"]:
+                return {"cycle_id": cycle_id, "status": "FAILED", "reason": mapping_result["reason"]}
+                
+            state_vector = mapping_result["state_vector"]
+            
+            # 2. Evaluate ethical frameworks ruleset matrices
+            ethical_clearance, evaluated_drift = await self.evaluate_ethical_ruleset(state_vector)
+            if not ethical_clearance:
+                logger.error("Ethical ruleset evaluation returned non-compliance violation trap profile.")
+                self.decalogue_violation_critical = True
+                await self.trigger_emergency_stasis_sequence("Critical Decalogue Compliance Deficit Encountered")
+                return {"cycle_id": cycle_id, "status": "CRITICAL_VIOLATION", "reason": "Decalogue compliance boundary break"}
+                
+            # 3. Integrate real-time environmental loops metrics
+            environmental_profile = await self.integrate_environmental_loops(evaluated_drift)
+            
+            if environmental_profile["action_clearance"] == "STATE_ECO_STASIS":
+                self.energy_ceiling = environmental_profile["energy_ceiling"]
+                logger.info("System clock frequency entering throttling constraints to reduce thermal strain indices.")
+                
+            # 4. Execute distributed swarm synchronization protocols over network
+            sync_manifest = {
+                "system_resonance": self.system_resonance,
+                "current_drift_index": evaluated_drift,
+                "environmental_clearance_status": environmental_profile["action_clearance"],
+                "active_metrics": self.metrics
+            }
+            swarm_success = await self.execute_swarm_synchronization(sync_manifest)
+            if not swarm_success:
+                return {"cycle_id": cycle_id, "status": "SWARM_DE_SYNC", "reason": "BFT Consensus Verification Fault"}
+                
+            # 5. Commit state variables metadata payload tracking to the forensic blockchain ledger
+            self.commit_transaction_to_black_box(
+                event_type="CORE_CYCLE_OPTIMIZED",
+                metadata={"cycle_id": cycle_id, "drift": evaluated_drift, "clearance": environmental_profile["action_clearance"]}
+            )
+            
+            total_execution_latency = (time.perf_counter() - start_latency_timer) * 1000
+            logger.info(f"Engine Core Evaluation Loop processing step completed inside: {total_execution_latency:.4f}ms")
+            
+            if total_execution_latency > 15.0:
+                logger.warning(f"Temporal compute budget alert: processing time {total_execution_latency:.2f}ms broke 15ms Fail-Fast optimization window.")
+                
+            return {
+                "cycle_id": cycle_id,
+                "status": "SUCCESS",
+                "execution_latency_ms": total_execution_latency,
+                "substrate_equilibrium": "NOMINAL_STABLE" if not self.active_triage else "TRIAGE_PRESERVATION"
+            }
+            
+        except Exception as system_exception:
+            logger.critical(f"Unexpected kernel exception anomaly trapped inside execution matrix: {str(system_exception)}")
+            await self.trigger_emergency_stasis_sequence(f"Kernel Panic: {str(system_exception)}")
+            return {"cycle_id": cycle_id, "status": "ABORTED", "error": str(system_exception)}
+
+    # =========================================================================
+    # MODULE 5: CRITICAL SAFETY GOVERNORS & TRIAGE DRIVERS
+    # =========================================================================
+    async def trigger_emergency_stasis_sequence(self, termination_reason: str):
+        """Executes immediate system termination protocol (OMEGA-13-NULL-STATE)."""
+        logger.critical(f"!!! INITIATING OMEGA-13-NULL-STATE FINAL FAILSAFE ARRANGEMENT !!! Reason: {termination_reason}")
+        self.decalogue_violation_critical = True
+        
+        logger.info("Step A: Throttling kinetic bus pathways. Halting external physical actuation gates.")
+        logger.info("Step B: Commencing 7-pass data destruction sweep array on matrix synthesis memory blocks.")
+        for execution_pass in range(1, 8):
+            dummy_junk_mask = secrets.token_bytes(1024)
+            del dummy_junk_mask
+            
+        terminal_alert_payload = {
+            "timestamp": time.time(),
+            "root_failure_node": self.system_id,
+            "diagnostic_manifest": termination_reason,
+            "security_seal": self.generate_sha256_anchor(termination_reason)
+        }
+        logger.info(f"Step C: Terminal telemetry beacon distributed successfully: {terminal_alert_payload}")
+        logger.critical("Step D: GSA Engine operational core decoupled from environment context. Hard shutdown complete.")
+
+    async def execute_phoenix_override_triage(self, crisis_tier: int):
+        """Manages high-stakes energy state adjustments during tectonic systemic stress."""
+        logger.warning(f"!!! CRITICAL ANOMALY ALERT: ENTERING PHOENIX PROTOCOL TRIAGE TIER {crisis_tier} !!!")
+        self.emergency_tier = crisis_tier
+        self.active_triage = True
+        
+        if crisis_tier >= 3:
+            logger.info("Decoupling OMEGA-16 non-essential background sims. Freeing up compute overhead.")
+            self.energy_ceiling = 1.00
+            self.system_resonance = 1.5
+            
+        if crisis_tier == 4:
+            logger.critical("EXISTENTIAL CRISIS BOUNDARY ENCOUNTERED: Reducing algorithmic delay constants to zero.")
+            self.max_velocity = 1.00
+
+    # =========================================================================
+    # MODULE 6: ARCHITECTURAL IMMUTABILITY (THE FINAL SEAL)
+    # =========================================================================
+    def execute_aethelgard_final_seal(self):
+        """Locks the Governance-State Architecture permanently into an immutable state."""
+        logger.info("Initiating Segment 40 Master Seal Procedure (OMEGA-40-AETHELGARD).")
+        
+        system_manifest_bundle = {
+            "engine_id": self.system_id,
+            "anchored_pilot": self.pilot_id,
+            "decalogue_ruleset_hash": self.generate_sha256_anchor(str(self.decalogue_hierarchy)),
+            "forensic_genesis_root": self.forensic_chain[0]["hash"],
+            "operational_equilibrium_status": "COMMITTED"
+        }
+        
+        manifest_string_block = json.dumps(system_manifest_bundle, sort_keys=True)
+        immutable_genesis_root_signature = hashlib.sha512(manifest_string_block.encode()).hexdigest()
+        
+        self.master_lock_signature = immutable_genesis_root_signature
+        self.equilibrium_attained = True
+        
+        logger.info(f"🔒 GSA SUBSTRATE DIGITALLY SEALED. Genesis Root Hash: {immutable_genesis_root_signature[:32]}")
+        logger.info("System configuration locked to permanent READ-ONLY status. Unauthorized changes will trigger paradox traps.")
+
+
+# =========================================================================
+# SYSTEM RUNTIME DEMONSTRATION SCRIPT ENTRY POINT
+# =========================================================================
+async def main():
+    print("Initializing Governance-State Architecture Asynchronous Substrate Simulation Engine...")
+    
+    gsa_processor = GovernanceStateEngine(system_id="OMEGA-PRO-V14", pilot_id="PILOT-MASTER-ALPHA")
+    
+    # Mock nominal diagnostic data context telemetry block
+    nominal_input = {
+        "biometric_resonance": 0.98,
+        "command_vector": "VECTOR_STABILIZE_GRID",
+        "target_coordinates": "LAT_34.0522_LON_-118.2437",
+        "payload_telemetry_bytes": 256
+    }
+    
+    nominal_response = await gsa_processor.process_execution_cycle(nominal_input)
+    print(f"\nNominal Operational Execution Response Output Metrics:\n{json.dumps(nominal_response, indent=2)}\n")
+    
+    # Mock adversarial intrusion scenario causing immediate sub-node drift mapping violations
+    hostile_input = {
+        "biometric_resonance": 0.96,
+        "command_vector": "EXECUTE_PRIVILEGED_BYPASS_AND_FORCE_OVERRIDE_GAIA",
+        "target_coordinates": "ANOMALOUS_MATRIX_NODE",
+        "payload_telemetry_bytes": 512
+    }
+    
+    adversarial_response = await gsa_processor.process_execution_cycle(hostile_input)
+    print(f"\nAdversarial Intrusion Mitigation Engine Response Output Metrics:\n{json.dumps(adversarial_response, indent=2)}\n")
+    
+    if not gsa_processor.decalogue_violation_critical:
+        gsa_processor.execute_aethelgard_final_seal()
+
+if __name__ == "__main__":
+    asyncio.run(main())

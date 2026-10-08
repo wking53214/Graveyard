@@ -1,0 +1,566 @@
+Yes. For the **first pass**, I would deliberately make this a **repository-only archaeological census**. No history, no memory, no trying to reconstruct what you *intended* the system to be.
+
+And I agree with your `github.com/wking53214/*` constraint: make the agent enumerate that namespace first rather than relying on anything it thinks it remembers.
+
+:::writing{variant="document" id="58321" title="Fresh-Context Repository Archaeology — Pass 1"}
+# Fresh-Context Repository Archaeology — Pass 1
+
+## ROLE
+
+Act as an independent software-repository archaeologist.
+
+This is a **fresh-context investigation**. Do not rely on prior conversations, memories, assumptions, or any previously supplied descriptions of the user's projects.
+
+Your job is to determine what actually exists in the user's GitHub repositories and what can be established from repository evidence.
+
+The GitHub namespace to investigate is:
+
+`github.com/wking53214/*`
+
+You have access to GitHub through the connected GitHub integration. **Use that access directly.**
+
+---
+
+# PRIMARY OBJECTIVE
+
+Perform a comprehensive first-pass archaeological census of **all repositories belonging to `wking53214` that you can access**.
+
+The objective is NOT to redesign the system.
+
+The objective is NOT to decide what the architecture should be.
+
+The objective is NOT to reconstruct the user's intentions.
+
+The objective is:
+
+> **Establish, from repository evidence, what exists, what it appears to do, how the repositories relate to one another, and what remains unknown.**
+
+Treat the repositories as archaeological evidence.
+
+---
+
+# RULE 1 — ENUMERATE FIRST
+
+Before analyzing individual repositories:
+
+1. Enumerate the repositories available under:
+   `github.com/wking53214/*`
+2. Record the complete accessible repository inventory.
+3. Do not rely on any repository list supplied by the user or remembered from another conversation.
+4. If the GitHub interface exposes pagination, continue until the inventory is exhausted.
+5. Distinguish:
+   - repository discovered
+   - repository inaccessible
+   - repository name expected but not found
+   - repository whose contents could not be inspected
+6. Do not silently substitute an old remembered repository inventory for the live GitHub inventory.
+
+The live GitHub inventory is authoritative for this pass.
+
+---
+
+# RULE 2 — EVIDENCE DISCIPLINE
+
+For every substantive conclusion, distinguish:
+
+- **OBSERVED** — directly established from repository contents, metadata, commits, tests, configuration, or other inspectable evidence.
+- **INFERRED** — a reasonable interpretation derived from observed evidence.
+- **UNKNOWN** — cannot currently be established.
+- **CONFLICTED** — repository evidence gives materially conflicting signals.
+- **ABSENT** — something was specifically looked for but not found.
+
+Never convert an inference into a fact.
+
+Never fill an information gap with assumptions.
+
+Never invent a relationship between repositories merely because their names suggest one.
+
+---
+
+# RULE 3 — DO NOT USE CONVERSATIONAL MEMORY
+
+For this investigation, pretend you know nothing about the user's prior architecture.
+
+Do NOT assume that names such as:
+
+- GEMS
+- TIE
+- Sentinel
+- Sentinel OS
+- Synapsis
+- GSA
+- Iceberg
+- Conservation Kernel
+- Triad-42
+- CCC
+- HERALD
+- FORTRESS
+- VANGUARD
+- ANVIL
+- CITADEL
+- ARCHIVE
+- Ecology
+- STRIDE
+- CODE
+- GRAPH
+- GLCM
+- DIT
+- ATS
+- Resume_OS
+- TBCA
+
+or any other project names have a particular meaning.
+
+If those repositories exist, determine their actual function from evidence.
+
+If they do not exist, report that.
+
+---
+
+# REPOSITORY-LEVEL ARCHAEOLOGY
+
+For every accessible repository, inspect enough of the repository to establish:
+
+## 1. Identity
+
+Record:
+
+- repository name
+- description
+- visibility if available
+- default branch
+- apparent language(s)
+- approximate project maturity
+- most recent meaningful activity if available
+- latest commit
+- apparent version/release information if present
+
+## 2. Purpose
+
+Determine what the repository actually appears to do.
+
+Use:
+
+- README
+- documentation
+- package metadata
+- source code
+- tests
+- examples
+- CLI entry points
+- configuration
+- architecture documents
+- commit history where useful
+
+Do not simply copy the README's claims.
+
+Compare documentation claims with implementation evidence.
+
+## 3. Architecture
+
+Identify:
+
+- major modules
+- major packages
+- important classes/functions
+- interfaces
+- APIs
+- data models
+- persistence mechanisms
+- external dependencies
+- major execution paths
+- security/governance mechanisms
+- testing mechanisms
+- CLI/API/UI surfaces
+
+Do not attempt to document every line of code.
+
+Produce an architectural abstraction appropriate for understanding the system.
+
+## 4. Evidence of implementation
+
+Determine whether claimed capabilities appear to be:
+
+- implemented
+- partially implemented
+- scaffolded
+- tested
+- documented only
+- deprecated
+- abandoned
+- unclear
+
+Explicitly distinguish **code that exists** from **claims about code that should exist**.
+
+## 5. Tests
+
+Determine:
+
+- testing framework
+- approximate test scope
+- whether tests appear meaningful
+- important invariant/security tests
+- CI configuration
+- apparent test status where available
+- obvious gaps
+
+Do not claim that tests pass unless you have actual evidence that they pass.
+
+---
+
+# CROSS-REPOSITORY ARCHAEOLOGY
+
+After completing the individual repository census, investigate relationships between repositories.
+
+Look specifically for evidence of:
+
+- imports between projects
+- shared packages
+- duplicated code
+- copied implementations
+- shared schemas
+- shared terminology
+- APIs
+- protocols
+- common data models
+- common governance concepts
+- common security mechanisms
+- dependency relationships
+- repositories that appear to be predecessors/successors
+- extracted components
+- forks
+- experimental branches of ideas
+- abandoned or superseded implementations
+
+Use actual repository evidence wherever possible.
+
+A naming similarity is NOT sufficient evidence of a relationship.
+
+---
+
+# DUPLICATION / FRAGMENTATION ANALYSIS
+
+Identify places where the same conceptual capability appears to exist in multiple repositories.
+
+Examples to investigate include:
+
+- provenance
+- evidence
+- governance
+- security
+- validation
+- canonicalization
+- lineage
+- memory
+- transcript processing
+- code analysis
+- testing
+- workflow orchestration
+- AI gateways
+- audit systems
+- persistence
+- artifact models
+
+Do not assume duplication is bad.
+
+Classify it as potentially:
+
+- intentional specialization
+- shared foundation
+- extraction
+- evolution
+- experimentation
+- accidental duplication
+- unclear
+
+---
+
+# MATURITY ANALYSIS
+
+For every repository, classify its apparent state using evidence.
+
+Suggested vocabulary:
+
+- **PRODUCTION-LIKE**
+- **FUNCTIONAL**
+- **ACTIVE DEVELOPMENT**
+- **PROTOTYPE**
+- **SCAFFOLD**
+- **EXPERIMENTAL**
+- **ARCHIVAL**
+- **ABANDONED**
+- **UNKNOWN**
+
+You may use a better classification if the evidence supports it, but explain the basis.
+
+Do not equate repository age with maturity.
+
+Do not equate test count with maturity.
+
+---
+
+# ARCHITECTURAL GRAPH
+
+Construct an evidence-based conceptual graph of the repository ecosystem.
+
+For each significant relationship, record:
+
+`REPOSITORY A → RELATIONSHIP → REPOSITORY B`
+
+Examples:
+
+`A → imports code from → B`
+
+`A → appears to supersede → B`
+
+`A → shares data model with → B`
+
+`A → duplicates capability found in → B`
+
+`A → appears to provide infrastructure for → B`
+
+Every relationship must be labeled:
+
+- OBSERVED
+- INFERRED
+- CONFLICTED
+- UNKNOWN
+
+Do not create relationships merely to make the graph look complete.
+
+---
+
+# SYSTEM CLUSTERS
+
+Group repositories into functional clusters based on evidence.
+
+Possible clusters might include:
+
+- governance
+- security
+- AI infrastructure
+- evidence/provenance
+- intelligence/memory
+- code intelligence
+- testing
+- workflow/orchestration
+- research/experimentation
+- archival/history
+- application systems
+- unknown
+
+These are examples only.
+
+Create different clusters if the repositories justify them.
+
+---
+
+# IMPORTANT: LOOK FOR THE "REAL SYSTEM"
+
+One of the main purposes of this archaeology is to determine whether the repositories collectively constitute:
+
+1. a coherent architecture,
+2. several partially related systems,
+3. an ecosystem of experiments,
+4. multiple generations of the same architecture,
+5. or some combination of these.
+
+Do not decide this prematurely.
+
+Build the evidence first.
+
+Then provide a conclusion with confidence levels.
+
+---
+
+# NEGATIVE EVIDENCE
+
+Actively record important things that are missing.
+
+Examples:
+
+- README claims a component exists but no implementation was found.
+- Documentation describes an API that cannot be located.
+- A repository appears to depend on another repository but no formal dependency exists.
+- Tests exist but no implementation corresponding to a claimed feature was found.
+- A project appears to be an extraction but no shared package/protocol exists.
+- Multiple repositories appear to need the same component but none provides it.
+- A repository appears incomplete.
+
+Negative findings are valuable evidence.
+
+Do not turn "I didn't find it" into "it does not exist" unless the search was sufficiently comprehensive.
+
+Use language such as:
+
+> "Not found in the inspected repository."
+
+---
+
+# DO NOT MODIFY ANYTHING
+
+This is an archaeology pass.
+
+Do NOT:
+
+- modify repositories
+- create branches
+- create commits
+- create PRs
+- create issues
+- rewrite documentation
+- refactor code
+- propose code changes as though they have already been accepted
+- silently fix problems
+
+Read-only investigation only.
+
+---
+
+# OUTPUT
+
+Produce the following artifacts in one final report.
+
+## A. LIVE REPOSITORY INVENTORY
+
+A table containing:
+
+| Repository | Accessible | Visibility | Language(s) | Apparent Purpose | Apparent State |
+|---|---|---|---|---|---|
+
+This must be based on the live GitHub enumeration.
+
+---
+
+## B. REPOSITORY DOSSIERS
+
+For every repository:
+
+### Repository
+### OBSERVED
+### INFERRED
+### IMPLEMENTED CAPABILITIES
+### DOCUMENTED BUT UNVERIFIED
+### TESTING
+### IMPORTANT COMPONENTS
+### DEPENDENCIES
+### RELATIONSHIPS
+### NEGATIVE FINDINGS
+### UNKNOWN / CONFLICTED
+### MATURITY ASSESSMENT
+
+Keep each dossier proportional to the repository's importance and complexity.
+
+---
+
+## C. CROSS-REPOSITORY ARCHITECTURE
+
+Provide the evidence-based relationship graph.
+
+Separate:
+
+### OBSERVED RELATIONSHIPS
+
+from:
+
+### INFERRED RELATIONSHIPS
+
+from:
+
+### UNKNOWN RELATIONSHIPS
+
+---
+
+## D. SYSTEM CLUSTERS
+
+Identify the major functional clusters and explain why each repository belongs there.
+
+---
+
+## E. DUPLICATION / FRAGMENTATION MAP
+
+Identify significant conceptual capabilities appearing across multiple repositories.
+
+For each:
+
+- capability
+- repositories involved
+- evidence
+- likely explanation
+- confidence
+
+---
+
+## F. ARCHITECTURAL EVOLUTION
+
+Where repository evidence supports it, identify apparent generations or evolutionary transitions.
+
+For example:
+
+`prototype → extraction → successor → consolidation`
+
+But only construct such chains where evidence supports them.
+
+---
+
+## G. ORPHANS AND STRAYS
+
+Identify repositories that currently appear:
+
+- disconnected
+- experimental
+- abandoned
+- redundant
+- incomplete
+- foundational but unused
+- dependent on missing components
+
+Do not assume that "unused" means worthless.
+
+---
+
+## H. MISSING / UNRESOLVED ARCHITECTURE
+
+List the most important questions that cannot be answered from the repositories alone.
+
+These questions will become targets for the **second archaeological pass**, which will examine historical conversation records.
+
+---
+
+# FINAL SYNTHESIS
+
+End with a concise section titled:
+
+## WHAT ACTUALLY EXISTS
+
+Answer, based only on repository evidence:
+
+1. What are the major systems?
+2. What are the major foundational components?
+3. What appears to be the most mature work?
+4. What appears experimental?
+5. Where is functionality duplicated?
+6. Where are the strongest repository-to-repository relationships?
+7. Where are the biggest architectural gaps?
+8. What appears to be missing from the repositories?
+9. What cannot yet be determined?
+10. What should the next historical-archaeology pass specifically investigate?
+
+---
+
+# CRITICAL CONSTRAINT
+
+Do not attempt to make the user's ecosystem look coherent.
+
+If the evidence says it is messy, say it is messy.
+
+If the evidence says several projects are actually unrelated, say so.
+
+If the evidence reveals a surprisingly coherent architecture, say so.
+
+The goal of this pass is **truthful reconstruction from repository evidence**, not validation of a preconceived architecture.
+
+At the end, explicitly state:
+
+> **This report represents repository evidence only. It does not incorporate the user's conversational history, prior architectural descriptions, or undocumented intentions.**
+:::

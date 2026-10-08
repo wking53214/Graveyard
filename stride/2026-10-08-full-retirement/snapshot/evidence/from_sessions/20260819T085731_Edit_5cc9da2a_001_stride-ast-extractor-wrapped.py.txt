@@ -1,0 +1,19 @@
+"""
+MISLABEL NOTE (historical record): this file's header originally claimed
+SYSTEM_NAME: STRIDE. That is incorrect — STRIDE is a real, separate gateway
+system (see the STRIDE repo, formerly CLIP). The STRIDE label was attached
+to this file by context-bleed in the original Gemini conversation that
+produced it, not by design. This is plain AST-extractor code, a variant of
+the same GraphExtractor/extract_graph/graph_to_dict tool that lives in
+synapsis/src/synapsis/, archived here for the historical record.
+
+SUB_MODULE: AST-Based Deterministic Graph Extractor & Structural Analyzer
+VERSION-CONTROL-ID: STRIDE-AST-GRAPH-V7.0.0-SHA256-F8E9D2 (kept as historical
+artifact identifier only; not indicative of STRIDE system origin)
+
+SYSTEM_DESCRIPTION:
+This script converts Python source code into an intermediate graph representation (IR)
+consisting of nodes (modules, classes, async/sync functions, and imports) and directed edges
+(representing direct function or method calls). It utilizes the native `ast` module
+without performing speculative type inference.
+"""

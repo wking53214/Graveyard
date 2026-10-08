@@ -1,0 +1,85 @@
+I pulled the current GitHub account inventory and inspected the recent upgrade history of the major system repositories.
+
+### Current repo inventory — 29 repos
+
+`sentinel_os`, `Conservation_Kernel`, `GSA-GATEWAY`, `GSA-815`, `Triad-42`, `CCC`, `innovation_os`, `synapsis`, `EDDP`, `Ecology`, `STRIDE`, `CODE`, `GLCM`, `GRAPH`, `DIT`, `ATS`, `CITADEL`, `OBSERVE`, `GEMS`, `VANGUARD`, `FORTRESS`, `ANVIL`, `ARCHIVE`, `Resume_OS`, `TBCA`, `ChatGPT_History`, `Claude_History`, `Gemini_History`, `CoPilot_History`.
+
+### The biggest changes I found
+
+**Conservation_Kernel**
+- Frozen hostile baseline: `d6c67dc`.
+- Attack 7: cross-subject authorization replay.
+- Attack 8: recursive self-verification.
+- Attack 9: provenance forgery.
+- This is now clearly the active hostile-falsification research line, separate from the mature Sentinel implementation.
+
+**GSA-GATEWAY**
+- Major consolidation underway.
+- SECURE, UZTC, WRAPPER, DGK governance-stack material, EDDP governance material, CODE-derived GSA wrappers, and URE/SRE resilience components have been brought together.
+- Important: some of this is **archival or scaffold material**, not proof of operational integration.
+
+**GSA-815**
+- Becoming the central GSA repository.
+- GSA, GSA-2, `gsa-governance-core`, and numerous GSA-named components have been consolidated there.
+- The Sentinel/GSA governor split is now reflected in the architecture.
+- SimpleRLTrainer exploration was upgraded to actually sample from the softmax rather than always taking argmax.
+
+**Triad-42**
+- Now v2.2.0 with **100 tests passing**.
+- v2.1 hardened human-root authority, sealed Red/Green stages, read-only Gray, write-once verdicts, timestamps, and analogy normalization.
+- v2.2 introduced **two-phase Gray analysis** and cross-cutting structural observations.
+- This is substantially more than the earlier conceptual Triad+42 description.
+
+**CCC**
+- Cognitive Continuity Constitution enforcement is now implemented in code, rather than remaining purely constitutional/documentary.
+
+**innovation_os**
+- Major provenance upgrade:
+  - Article II.A provenance events.
+  - Article II.B lineage edges.
+  - Article XV.A context envelope mechanism.
+  - Provenance/context wired into artifact registration.
+  - Shared registries prevent independent pipelines from generating duplicate artifact IDs.
+  - Decision ledger now contains real disposition history.
+- Current suite reached **285/285 passing** at the latest major upgrade.
+- Critically, the code itself preserves the distinction between **mechanism** and **ratification**.
+
+**synapsis**
+- Has become an important consolidation/archive point for code-intelligence material.
+- Recent work specifically identified and archived duplicate AST graph-extractor implementations rather than incorrectly treating copies as separate architecture.
+
+**sentinel_os**
+- Still the mature production/governance implementation.
+- Its recent evolution includes the domain-blind kernel/capability split, regulatory cassette architecture, DAP/twin witness, outcome obligations, AI-cost accounting, recommendation shadow testing, lease heartbeat, mortgage governance path, CFPB/Reg-B screening, cohort-equity mechanisms, human-selection capture, deployment wiring, and the regulatory-drift interpretation package.
+- The newest commit on August 19 adds the remaining `sage_k` modules while explicitly preserving `sentinel_os.interpretation` as the canonical active implementation.
+
+### One important architectural conclusion
+
+The system is **no longer accurately described as one repository with supporting repos**.
+
+The current structure is closer to:
+
+**Conservation_Kernel**  
+→ epistemic-conservation kernel / hostile falsification
+
+**Triad-42 + CCC**  
+→ cognitive review + constitutional/human-authority layer
+
+**innovation_os**  
+→ provenance, lineage, context, artifacts, decisions
+
+**sentinel_os**  
+→ mature production governance, ledger, witness, regulatory and deployment implementation
+
+**GSA-815 + GSA-GATEWAY**  
+→ GSA/governance-control-plane consolidation lineage
+
+**synapsis + GRAPH + CODE + GLCM + DIT + EDDP + related repos**  
+→ code intelligence, graph, governance, extraction, and source/consolidation lineage
+
+**ChatGPT_History + Claude_History + Gemini_History + CoPilot_History**  
+→ historical cognitive/source material
+
+And I am treating **consolidated, archived, scaffolded, implemented, tested, and operational as different states** rather than assuming a file being moved into a repo means the component is actually integrated.
+
+One limitation: the memory-write operation was unavailable after the GitHub connector was used, so **I could not persist this update to long-term memory in this conversation**. If you still want this repository state saved to memory, start a new conversation and ask me to save this updated repo/system state.

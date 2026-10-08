@@ -1,0 +1,1 @@
+[tool_use Bash] {"command": "gh repo rename STRIDE --repo wking53214/CLIP --yes 2>&1"}

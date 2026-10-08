@@ -1,0 +1,195 @@
+import asyncio
+import re
+import time
+import hashlib
+from typing import Dict, Any, List, Set, Tuple
+
+# Centralized compiled regular expression cache for ultra-fast matching
+REGEX_CACHE = {
+    "malformed_syntax": re.compile(r"[\x00-\x08\x0B\x0C\x0E-\x1F]"),
+    "sql_injection": re.compile(r"(--|UNION\s+SELECT|SELECT\s+.*\s+FROM)", re.IGNORECASE),
+    "path_traversal": re.compile(r"(\.\./\.\.|/etc/passwd|\\windows\\)"),
+    "high_entropy_anomaly": re.compile(r"([A-Za-z0-9+/]{40,}=*)")
+}
+
+class SystemicFailureException(Exception):
+    """Custom exception thrown when Fail-Fast validation triggers are breached."""
+    pass
+
+class OperationalConstraint:
+    DENSITY_THRESHOLD = 0.85  # Absolute threshold for repeating patterns
+    MAX_SEEN_CAPACITY = 10000
+
+class CitadelDiamond:
+    def __init__(self, time_budget_ms: float = 15.0):
+        self.time_budget_s = time_budget_ms / 1000.0
+        self.seen_outputs_hashes: Set[str] = set()
+        self.token_velocity_quota = 1000  # Operations/Tokens allowed per window
+        self.current_token_count = 0
+        self.last_window_reset = time.perf_counter()
+        self.is_running = False
+
+    # =========================================================================
+    # MODULE 1 & 2: DETERMINISTIC BIOS / SIFT & ZERO TRUST FILTRATION (FAIL-FAST)
+    # =========================================================================
+    def execute_syntactic_sieve(self, payload: str) -> bool:
+        """Module 1: Direct structural and character-level verification."""
+        if not payload or not isinstance(payload, str):
+            return False
+        if REGEX_CACHE["malformed_syntax"].search(payload):
+            return False
+        return True
+
+    def execute_zero_trust_filtration(self, payload: str) -> bool:
+        """Module 2: Multi-layer input sanitation targeting malicious data profiles."""
+        if REGEX_CACHE["sql_injection"].search(payload):
+            return False
+        if REGEX_CACHE["path_traversal"].search(payload):
+            return False
+        if REGEX_CACHE["high_entropy_anomaly"].search(payload):
+            return False
+        return True
+
+    def enforce_pre_inference_gates(self, payload: str, start_time: float):
+        """Enforces a strict 15ms Fail-Fast check using Module 1 and Module 2 sequentially."""
+        # Step 1: Syntactic validation
+        if not self.execute_syntactic_sieve(payload):
+            raise SystemicFailureException("[CRITICAL] Module 1 Gate Failure: Malformed Syntax.")
+
+        # Step 2: Input vulnerability scanning
+        if not self.execute_zero_trust_filtration(payload):
+            raise SystemicFailureException("[CRITICAL] Module 2 Gate Failure: Zero Trust Security Breach.")
+
+        # Step 3: Enforce maximum allowable telemetry latency bound
+        elapsed = time.perf_counter() - start_time
+        if elapsed > self.time_budget_s:
+            raise SystemicFailureException(f"[TIMEOUT] Fail-Fast latency bounds breached at {elapsed * 1000:.2f}ms.")
+
+    # =========================================================================
+    # MODULE 4: OSCILLATION PROTECTION & LOOP COHESION
+    # =========================================================================
+    def check_density_metrics(self, output: str) -> float:
+        """Calculates compression ratio/uniqueness density to flag repeating loops."""
+        if not output:
+            return 0.0
+        total_len = len(output)
+        unique_chars = len(set(output))
+        return 1.0 - (unique_chars / total_len) if total_len > 0 else 0.0
+
+    def enforce_oscillation_protection(self, output: str):
+        """Module 4: Identifies, flags, and blocks repeating or circular text structures."""
+        # Convert output to unique digest anchor
+        output_hash = hashlib.sha256(output.encode('utf-8')).hexdigest()
+
+        # Check for absolute duplication
+        if output_hash in self.seen_outputs_hashes:
+            raise SystemicFailureException("[CRITICAL] Oscillation Detected: Exact duplicated state blocked.")
+
+        # Check pattern compaction density metrics
+        density = self.check_density_metrics(output)
+        if density > OperationalConstraint.DENSITY_THRESHOLD:
+            raise SystemicFailureException(f"[CRITICAL] Loop Cohesion Failure: Output density metric ({density:.4f}) breaches safety ceiling.")
+
+        # Persist inside ledger hash cache
+        if len(self.seen_outputs_hashes) >= OperationalConstraint.MAX_SEEN_CAPACITY:
+            self.seen_outputs_hashes.pop() # Enforce memory bounded pruning
+        self.seen_outputs_hashes.add(output_hash)
+
+    # =========================================================================
+    # MODULE 3: KINETIC GOVERNOR & DECOUPLED ASYNC EXECUTION CHANNELS
+    # =========================================================================
+    async def thread_alpha_fast_track(self, payload: str) -> str:
+        """High-priority, low-latency execution pathway for immediate execution loops."""
+        # Simulating deep inference/processing block
+        await asyncio.sleep(0.002)
+        processed_result = f"[PROCESSED_ALPHA]: Verification true for payload: {payload[:20]}"
+        return processed_result
+
+    async def thread_beta_pacing(self):
+        """Asynchronous background loop managing telemetry pacing windows and system limits."""
+        while self.is_running:
+            now = time.perf_counter()
+            # Clear or refresh the token bucket limits dynamically every 1 second
+            if now - self.last_window_reset >= 1.0:
+                self.current_token_count = 0
+                self.last_window_reset = now
+            await asyncio.sleep(0.1)
+
+    # =========================================================================
+    # PRIMARY ENGINE INTEGRATION HUB
+    # =========================================================================
+    async def process_transaction(self, payload: str) -> Dict[str, Any]:
+        """
+        Coordinates full vertical pipeline execution from ingress to egress.
+        Ensures execution bounds fall safely within target performance boundaries.
+        """
+        start_time = time.perf_counter()
+        
+        try:
+            # Rate limiting / Token check
+            if self.current_token_count >= self.token_velocity_quota:
+                return {"status": "REJECTED", "reason": "Token velocity quota exceeded"}
+            self.current_token_count += 1
+
+            # 1. Sequential execution of Module 1 and Module 2 under strict timing parameters
+            self.enforce_pre_inference_gates(payload, start_time)
+
+            # 2. Process data payload through primary decoupled async fast track loop
+            execution_output = await self.thread_alpha_fast_track(payload)
+
+            # 3. Apply post-action structural validation to ensure absolute stability
+            self.enforce_oscillation_protection(execution_output)
+
+            total_latency_ms = (time.perf_counter() - start_time) * 1000.0
+            return {
+                "status": "SUCCESS",
+                "telemetry": execution_output,
+                "metrics": {
+                    "latency_ms": round(total_latency_ms, 4),
+                    "character_density": round(self.check_density_metrics(execution_output), 4)
+                }
+            }
+
+        except SystemicFailureException as sfe:
+            return {
+                "status": "HALT_SYSTEM",
+                "reason": str(sfe),
+                "metrics": {"total_elapsed_ms": round((time.perf_counter() - start_time) * 1000.0, 4)}
+            }
+
+    async def start_engine(self):
+        """Starts background system tasks."""
+        self.is_running = True
+        asyncio.create_task(self.thread_beta_pacing())
+
+    async def shutdown_engine(self):
+        """Stops background system tasks cleanly."""
+        self.is_running = False
+
+
+# =========================================================================
+# TECHNICAL EXECUTION VERIFICATION ROUTINE
+# =========================================================================
+async def main():
+    # Instantiating production environment container
+    processor = CitadelDiamond(time_budget_ms=15.0)
+    await processor.start_engine()
+
+    print("--- SCENARIO 1: Valid Ingress Payload ---")
+    valid_payload = "ACTION_REQUEST: ENGAGE_HYDRAULIC_ACTUATOR_02; PROTOCOL=NOMINAL;"
+    res1 = await processor.process_transaction(valid_payload)
+    print(res1)
+
+    print("\n--- SCENARIO 2: Malformed Input Ingress (Module 1 Break) ---")
+    malformed_payload = "ACTION_REQUEST: ENGAGE\x00_ACTUATOR;"
+    res2 = await processor.process_transaction(malformed_payload)
+    print(res2)
+
+    print("\n--- SCENARIO 3: Zero Trust Security Breach Profile (Module 2 Break) ---")
+    injection_payload = "SELECT * FROM system_configuration_ledger; --"
+    res3 = await processor.process_transaction(injection_payload)
+    print(res3)
+
+    print("\n--- SCENARIO 4: Oscillation Loop Trigger ---")
+    # Forcing a repeat execution to demonstrate oscillation containment
+    await processor.process_transaction("Force

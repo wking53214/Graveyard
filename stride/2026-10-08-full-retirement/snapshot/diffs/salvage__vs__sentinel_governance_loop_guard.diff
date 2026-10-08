@@ -1,0 +1,121 @@
+--- Downloads/stride_salvage_loop_and_backpressure.py
++++ sentinel_os/sentinel_os/governance_loop_guard.py
+@@ -1,23 +1,34 @@
++"""governance_loop_guard.py -- detects a governance decision repeating
++itself, a failure mode distinct from an outright API/transport failure.
++
++PROVENANCE: salvaged from the STRIDE repo (stride-formatted-audited.py)
++before its deletion from GitHub, 2026-08-20. STRIDE contained two
++self-contained, working pieces judged worth keeping when the rest of the
++repo was audited and found either inferior to CITADEL's own recovered
++source or actively misrepresenting what it did. Only the first of those
++two pieces -- output-loop detection / bounded retry lifecycle -- is
++brought in here, since it's the one with a concrete, currently-
++unprotected call site in this repo (production_harness.py's Claude
++governor call, see the integration there). The second piece
++(queue-depth backpressure) has no identified use site yet and was left
++out rather than added speculatively; it remains available if a real
++need for it turns up.
++
++Class/method names are kept as in the original salvage -- they're
++already generic and descriptive, not STRIDE-specific branding.
++
++WHY THIS IS A DIFFERENT CHECK FROM circuit_breaker.py's CLAUDE BREAKER
++------------------------------------------------------------------------
++claude_breaker (production_harness.py) only sees what safety_check()
++raises or explicitly flags via its is_failure predicate (a
++"transport_error:"-prefixed reasoning string) -- a real API/network
++failure. It has no way to notice a syntactically successful, correctly-
++parsed response that happens to repeat a prior call's exact reasoning
++text: not an error, but a plausible signal of a stuck or degenerate
++governor response. That is what this module catches instead.
+ """
+-Salvaged from the STRIDE repo (stride-formatted-audited.py) before its
+-deletion, 2026-08-20. This is NOT CITADEL-related logic - it doesn't belong
+-merged into citadel.py. Kept separate because it doesn't yet have a
+-confirmed home in any existing repo (checked: not present in ANVIL,
+-Conservation_Kernel, GSA-GATEWAY, or sentinel_os's own resilience code as
+-of this sweep). Flagging that gap rather than guessing a destination.
+ 
+-Everything else in STRIDE (the linguistic gates, the DOIS/anomaly scoring
+-stack, the GsaUniversalAdapter hash wrapper) was judged not salvageable:
+-either strictly inferior to CITADEL's own recovered source, uncalibrated
+-duplicate territory sentinel_os/GSA-815 already cover with real tests, or
+-in GsaUniversalAdapter's case, actively misrepresenting what it does
+-(claims cryptographic tamper-evidence via HMAC while never using the hmac
+-import it declares).
+-
+-Two pieces held up under scrutiny and are reproduced here verbatim from
+-the original (renamed only where the original names were STRIDE-specific
+-branding with no functional meaning):
+-"""
++from __future__ import annotations
+ 
+ import hashlib
+ import time
+@@ -25,12 +36,6 @@
+ from dataclasses import dataclass, field
+ from typing import Deque, Optional
+ 
+-
+-# =====================================================================
+-# 1. OUTPUT LOOP DETECTION / RETRY LIFECYCLE
+-# Real, self-contained, working. Detects an LLM repeating itself and
+-# manages a bounded retry budget before failing closed.
+-# =====================================================================
+ 
+ @dataclass
+ class EngineState:
+@@ -42,8 +47,7 @@
+ 
+ class PipelineStateEngine:
+     """Monitors output history to detect generation loops and manage
+-    a bounded retry lifecycle. Original name kept - it's descriptive,
+-    not branding."""
++    a bounded retry lifecycle."""
+ 
+     def __init__(self, max_retries: int = 5, max_history: int = 1000):
+         self.state = EngineState(seen_outputs=deque(maxlen=max_history))
+@@ -87,42 +91,3 @@
+         self.clear_retry_state()
+         return "ACCEPTED"
+ 
+-
+-# =====================================================================
+-# 2. QUEUE-DEPTH BACKPRESSURE
+-# Real backpressure (checks actual queue occupancy), unlike the
+-# decorative "sleep proportional to word count" TrafficGovernor/
+-# KineticGovernor duplicate found elsewhere in STRIDE, which was NOT
+-# salvaged - it doesn't measure anything about real system load.
+-# =====================================================================
+-
+-def determine_backpressure_delay(
+-    current_queue_depth: int,
+-    max_queue_size: int,
+-    high_watermark: float = 0.85,
+-) -> float:
+-    """Returns a delay signal (0.0 = no delay needed) once queue
+-    occupancy crosses the high-watermark fraction of capacity.
+-    Caller decides what to do with the signal (sleep, reject, log)."""
+-    if max_queue_size <= 0:
+-        raise ValueError("max_queue_size must be positive")
+-    occupancy = current_queue_depth / max_queue_size
+-    if occupancy <= high_watermark:
+-        return 0.0
+-    # scales 0.0 -> 1.0 as occupancy goes from the watermark to full
+-    overage = (occupancy - high_watermark) / (1.0 - high_watermark)
+-    return round(max(0.0, min(overage, 1.0)), 4)
+-
+-
+-if __name__ == "__main__":
+-    engine = PipelineStateEngine(max_retries=2)
+-    print(engine.process_lifecycle("hello"))      # ACCEPTED
+-    print(engine.process_lifecycle("hello"))       # BLOCKED_LOOP
+-    print(engine.process_lifecycle(""))            # RETRY
+-    print(engine.process_lifecycle(""))             # RETRY
+-    print(engine.process_lifecycle(""))             # SYSTEM_ERROR (budget spent)
+-
+-    print(determine_backpressure_delay(80, 100))    # 0.0, under watermark
+-    print(determine_backpressure_delay(95, 100))    # partial delay signal
+-    print(determine_backpressure_delay(100, 100))   # 1.0, at capacity
+-

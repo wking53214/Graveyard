@@ -1,0 +1,23 @@
+[tool_result] ## Related repos, not folded in here
+
+- [CITADEL](https://github.com/wking53214/CITADEL) — a Deterministic LLM
+  Output Enforcement Engine, substantial enough to stay its own repo.
+  `wrapper/`'s content includes "Zero-Trust Citadel Linguistic
+  Interceptors" as a component, consuming CITADEL's enforcement logic.
+- [STRIDE](https://github.com/wking53214/STRIDE) (renamed from CLIP) — a
+  gateway system, also substantial enough to stay its own repo, also
+  consuming CITADEL's enforcement logic.
+
+This is a pure content move (files relocated, git history not
+preserved cross-repo) — no code edits, bug fixes, or class renames were
+made as part of this pass. That's a separate, later pass.
+=== END README (total 53 lines) ===
+
+=== any governance-stack notes/README ===
+(none)
+
+=== git log --oneline -10 ===
+f0934b1 Add remaining DGK governance-stack files
+5754649 Add resilience/SRE files from URE, restoring a missing dependency
+28263db Add GSA wrapper classes extracted from CODE repo
+4d08698 Consolidate GSA-lineage content: SECURE, UZTC, WRAPPER, governance-stack

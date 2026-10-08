@@ -1,0 +1,36 @@
+[tool_result] === FORTRESS ===
+{"message":"This repository is empty.","documentation_url":"https://docs.github.com/v3/repos/contents/#get-contents","status":"404"}gh: This repository is empty. (HTTP 404) 
+=== ARCHIVE ===
+PROVENANCE.md README.md TRANSCRIPT.md artifact_1.json artifact_2.json artifact_3.json artifact_5.json artifact_6.json artifact_7.json artifact_8.json artifact_9.json extracted 
+=== GRAPH ===
+.gitignore README.md from-facts gaps-kernel requirements.txt 
+=== EDDP ===
+PROVENANCE.md TRANSCRIPT.md _unsorted content-pipeline-eddp-classes.py eddp-comprehensive-synthesized.py eddp-core-engine-v1.py eddp-core-engine-v2-refined.py eddp-pipeline-core-simple.py metric_assessment_telemetry_dispatch_adapter.py metric_assessment_telemetry_dispatch_source.py 
+=== DGK ===
+PROVENANCE.md TRANSCRIPT.md sre-system-resilience-evaluator-flattened.py vanguard-behavioral-simulation-flattened.py vanguard-unified-governance-wrapper.py 
+=== synapsis ===
+.github .gitignore .venv CHANGELOG.md CODE_OF_CONDUCT.md CONTRIBUTING.md LICENSE README.md SECURITY.md archive config pyproject.toml requirements-dev.txt requirements.txt src synapsis tests tools 
+=== GSA-GATEWAY ===
+README.md governance-stack secure uztc wrapper 
+=== CODE ===
+PROVENANCE.md TRANSCRIPT.md business-strategy-notes.md content-pipeline-modularized.py content-pipeline-user-source.py 
+=== OBSERVE ===
+.github .gitignore CONTRIBUTING.md TROUBLESHOOTING.md certs clinical_capacity_orchestration_adapter.py clinical_capacity_orchestration_source.py clinical_governance_ledger_adapter.py clinical_governance_ledger_source.py docs imports observe_clinical_risk_adapter.py observe_clinical_risk_source.py perceive_policy_enforcement_adapter.py perceive_policy_enforcement_source.py sentinel_os 
+=== sentinel_os ===
+.github .gitignore CODE_OF_CONDUCT.md CONTRIBUTING.md LICENSE README.md SECURITY.md TROUBLESHOOTING.md certs docs sample_data sentinel_os tools 
+=== DIT ===
+PROVENANCE.md TRANSCRIPT.md bootstrap-full-implementation.py bootstrap-simple-structure.py deterministic-integrity-tower-dit-gsa.py sentinel-os-unified-kernel.py transport-manifest-bare-paths.py transport-manifest-markdown-format.py transport-manifest-numbered-format.py weld-script-dictionary-format.py weld-script-embedded-sources.py 
+=== STRIDE ===
+PROVENANCE.md README.md TRANSCRIPT.md clip-original-multi-module-source.py stride-formatted-audited.py stride-synthesized-unified.py stride-wrapped-final.py 
+=== CITADEL ===
+PROVENANCE.md README.md TRANSCRIPT.md artifact_1.py 
+=== ATS ===
+README.md ats_application_tracking_system_auditor.pdf ats_bias_decision_framework.md ats_counter_system.py ats_governance_kernel_bridge.py ats_governance_kernel_bridge_reference.md ats_governor_integration_guide.md ats_governor_operations_toolkit.md ats_governor_package.md ats_gsa_core.py ats_hidden_bias_counter_analysis.pdf ats_production_governor.py ats_red_team_analysis.md ats_seam_inventory.md ats_threat_model.md 
+=== ChatGPT_History ===
+.gitignore Data_sets data index notebooks scripts summaries transcripts 
+=== Conservation_Kernel ===
+.gitignore README.md docs experiments pyproject.toml src test_transactional_rollback.py tests 
+=== Data_files ===
+PROVENANCE.md README.query.md TRANSCRIPT.md data eddp-comprehensive-synthesized.py eddp-core-engine-v1.py eddp-core-engine-v2-refined.py eddp-pipeline-core-simple.py eddp-wrapped-final.py gaps_multilayer_governance_adapter.py gaps_multilayer_governance_source.py generated governance_os_security_adapter.py governance_os_security_source.py index metric_assessment_telemetry_dispatch_adapter.py metric_assessment_telemetry_dispatch_source.py notebooks perceive_policy_enforcement_adapter.py perceive_policy_enforcement_source.py queries quorum_state_governance_adapter.py quorum_state_governance_source.py scripts solvar_stability_governance_adapter.py solvar_stability_governance_cleanup.py solvar_stability_governance_source.py ws3_telemetry_guardrail_adapter.py ws3_telemetry_guardrail_source.py 
+=== GSA-815 ===
+.gitignore 

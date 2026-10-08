@@ -1,0 +1,23 @@
+[tool_result] === citadel-processor-router-flattened.py (first 1500 chars) ===
+import re import asyncio import datetime from enum import Enum # ============================================================ # REGEX ENGINE (HEURISTIC CONSTRAINT DETECTION) # ============================================================ REGEX = {     "identity": re.compile(r"\b(i|me|my|mine|myself|we|us|our|ours|ourselves)\b", re.I),     "hedge": re.compile(         r"\b(may|might|could|seems|generally|potentially|likely|perhaps|probably|I think)\b",         re.I,     ),     "passive": re.compile(r"\b(am|is|are|was|were|be|been|being)\b\s+\w+(ed|en)\b", re.I),     "metric": re.compile(r"\b\d+(\.\d+)?%|\b\d+\b"),     "causal": re.compile(         r"\b(because|due to|driven by|resulting from|caused by|therefore|consequently)\b",         re.I,     ), } # ============================================================ # NORMALIZATION LAYER # ============================================================ class StructureNormalizer:     """     Profile-aware lexical simplification layer.     """     MAP = {         "methodology": "approach",         "suboptimal": "inefficient",         "utilize": "use",         "leverage": "apply",         "functionality": "features",         "prioritize": "rank",         "facilitate": "help",     }     LIGHT_MAP = {         "utilize": "use",         "leverage": "use",     }     def __init__(self, profile: str = "default"):         mapping = self.MAP if profile in ["ops", "default"] else self.LIGHT_MAP         self._map = mapping         self._pattern = 
+...
+LEN 5941 newlines 0
+classes/defs: ['class StructureNormalizer', 'def __init__', 'def rewrite', 'class Constraint', 'class SimplicityTelemetry', 'def __init__', 'def record', 'class CitadelProcessor', 'def __init__', 'def _needs_causality', 'def run', 'class CitadelRouter', 'def __init__', 'def run']
+
+=== CITADEL repo: sizes + what artifact_1 is ===
+15933 artifact_1.py
+ 9011 citadel_v1.1_copy1.py
+10062 citadel_v1.1_copy2.py
+ 9420 citadel_v1.2.py
+44426 total
+--- copy1 vs copy2 identical? ---
+Files citadel_v1.1_copy1.py and citadel_v1.1_copy2.py differ
+differ
+--- CITADEL local vs origin/main ---
+* d1bbb1c Update README.md
+* 5cbae46 README: mention citadel_v1.2.py
+* f2e18f9 Add readable split of artifact_1.py's two concatenated drafts
+* 4c8b87d Add citadel_v1.2.py
+* f1591ab Add README cross-linking to STRIDE
+ README.md | 700 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 679 insertions(+), 21 deletions(-)

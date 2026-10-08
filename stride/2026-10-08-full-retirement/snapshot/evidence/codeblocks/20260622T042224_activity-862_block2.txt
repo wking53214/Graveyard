@@ -1,0 +1,74 @@
+import re
+import asyncio
+import hashlib
+from enum import Enum
+from typing import Dict, Any, Callable, Awaitable
+
+class GatewayStatus(Enum):
+    PASS = "1.0000_PARITY"
+    FAIL = "LOGIC_ASH_DETECTED"
+
+class UnifiedGovernanceKernel:
+    def __init__(self, generator: Callable[[str], Awaitable[str]], max_retries: int = 3):
+        self.generator = generator
+        self.max_retries = max_retries
+        self.seen_outputs = set()
+        
+        # Unified Regex Cache
+        self.regex = {
+            "identity": re.compile(r"\b(i|me|my|mine|myself|we|us|our|ours|ourselves)\b", re.I),
+            "hedge": re.compile(r"\b(may|might|could|seems|generally|potentially|likely|perhaps)\b", re.I),
+            "forbidden": ["paradox", "recursion"]
+        }
+
+    def _sanitize(self, text: str) -> str:
+        """Applies syntactic sieving to force objectification."""
+        text = self.regex["identity"].sub("[SUBJECT_BETA]", text)
+        text = text.replace("utilize", "use").replace("As an AI", "")
+        return text
+
+    def _is_secure(self, query: str) -> bool:
+        """Validates input against entropy-heavy patterns."""
+        return not any(p in query.lower() for p in self.regex["forbidden"])
+
+    async def execute(self, raw_input: str, admin_signature: str = None) -> Dict[str, Any]:
+        """Orchestrates the hardened inference pipeline."""
+        if not self._is_secure(raw_input):
+            return {"status": "ANATHEMA", "reason": "PROVENANCE_FAILED"}
+
+        working_prompt = self._sanitize(raw_input)
+
+        for attempt in range(self.max_retries):
+            output = await self.generator(working_prompt)
+            output_hash = hashlib.sha256(output.encode()).hexdigest()
+
+            if output_hash in self.seen_outputs:
+                continue # Prevent oscillation
+            
+            self.seen_outputs.add(output_hash)
+            
+            # Validation logic
+            if self.regex["identity"].search(output) or self.regex["hedge"].search(output):
+                working_prompt += " [CONSTRAINT_FAILED: SYNTATIC_BREACH]"
+                continue
+
+            return {
+                "status": GatewayStatus.PASS.value,
+                "payload": output,
+                "admin_cleared": admin_signature == "ADMIN_OVERRIDE"
+            }
+
+        return {"status": "HALT", "reason": "MAX_RETRIES_EXCEEDED"}
+
+# Mock Implementation
+async def mock_generator(prompt: str) -> str:
+    await asyncio.sleep(0.01)
+    return f"Data processed: {prompt}"
+
+async def main():
+    kernel = UnifiedGovernanceKernel(mock_generator)
+    result = await kernel.execute("I check system health", "ADMIN_OVERRIDE")
+    print(result)
+
+if __name__ == "__main__":
+    asyncio.run(main())

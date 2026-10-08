@@ -1,0 +1,78 @@
+Paste this as the first message in the new chat:
+
+```text
+I need you to update your long-term memory with the current state of my GitHub system.
+
+FIRST: use the GitHub connector to pull and inspect the current repositories under wking53214. Do NOT rely on old conversation memory where the live repositories can verify the information.
+
+Repository inventory currently known:
+sentinel_os
+Conservation_Kernel
+GSA-GATEWAY
+GSA-815
+Triad-42
+CCC
+innovation_os
+synapsis
+EDDP
+Ecology
+STRIDE
+CODE
+GLCM
+GRAPH
+DIT
+ATS
+CITADEL
+OBSERVE
+GEMS
+VANGUARD
+FORTRESS
+ANVIL
+ARCHIVE
+Resume_OS
+TBCA
+ChatGPT_History
+Claude_History
+Gemini_History
+CoPilot_History
+
+TASK:
+
+1. Pull the current GitHub state for ALL repositories under wking53214.
+2. Identify major commits, architectural changes, new integrations, consolidations, tests, freezes/baselines, and important unresolved defects.
+3. Pay particular attention to the current state of:
+   - Conservation_Kernel
+   - sentinel_os
+   - GSA-815
+   - GSA-GATEWAY
+   - Triad-42
+   - CCC
+   - innovation_os
+   - synapsis
+4. Determine how the repositories currently interact as a system.
+5. Update your understanding of the architecture based on the LIVE repository state, not old assumptions.
+6. Preserve the distinction between:
+   IMPLEMENTED
+   TEST-VERIFIED
+   SOURCE-VERIFIED
+   DOCUMENTED
+   CONCEPTUAL
+   LIVE/DEPLOYED
+   ARCHIVAL
+   SCAFFOLD
+7. Do not claim that consolidation, archival, or file movement means operational integration.
+8. For Conservation_Kernel, preserve the immutable hostile-falsification baseline and identify the current attack/test state separately from the baseline.
+9. Identify anything in previous memory that is now obsolete or contradicted by the repositories.
+10. Update long-term memory with the corrected, current system architecture and repository state.
+
+IMPORTANT:
+Do not merely give me a summary. I specifically want you to UPDATE MEMORY after performing the repository inspection.
+
+Afterward, give me:
+A. What you verified from GitHub.
+B. What changed from the previously known architecture.
+C. What you stored in memory.
+D. Any important uncertainty or repository state that could not be verified.
+```
+
+That will make the new chat perform the **live GitHub verification first**, then update memory from the verified state rather than simply saving the old conversation summary.

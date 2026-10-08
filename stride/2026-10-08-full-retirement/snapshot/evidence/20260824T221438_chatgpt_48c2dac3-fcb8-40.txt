@@ -1,0 +1,47 @@
+Absolutely. I’d keep these **short enough for GitHub’s repository-description field**, while making them accurately reflect the current state rather than overselling maturity.
+
+### Recommended GitHub descriptions
+
+| Repository | Description |
+|---|---|
+| **sentinel_os** | Governed AI execution framework for evidence-bound processing, approval, auditability, and controlled downstream action. |
+| **HERALD** | Evidence-preserving natural-language interpretation layer for extracting, binding, validating, and handing off candidate claims. |
+| **Conservation_Kernel** | Hostile baseline for enforcing epistemic conservation across machine transformations, preserving provenance, evidence, authority, certainty, and historical state. |
+| **Governance_Gateway** | Minimal governance gateway enforcing validated artifacts, provenance continuity, authority constraints, and fail-closed submission boundaries. |
+| **GSA-GATEWAY** | Consolidated GSA-lineage gateway and governance material, preserving source provenance while providing a unified working repository. |
+| **GSA-815** | Governed execution and learning architecture for controlled AI action, incorporating evidence, authorization, and governance constraints. |
+| **TIE** | Reconstructed Transcript Intelligence Engine baseline for evidence-preserving ingestion, reconstruction, validation, identity, relationships, and typed handoff. |
+| **FORTRESS** | Unified governance architecture combining adaptive control, stability verification, energy-based state monitoring, integrity guardrails, and audit mechanisms. |
+| **fortress-kernel** | Experimental unified governance kernel integrating adaptive, stability-based, and energy-based control strategies with shared integrity guardrails. |
+| **ANVIL** | Deterministic hash-chained governance kernel for tamper-evident state, provenance, invariant enforcement, and controlled transformation. |
+| **VANGUARD** | Governance and security control architecture for constrained AI processing, evidence handling, invariant enforcement, and controlled system operation. |
+| **CITADEL** | Deterministic enforcement engine for constraining and validating LLM-generated outputs against explicit rules and governance requirements. |
+| **OBSERVE** | Governance observability and monitoring layer for tracking system behavior, outcomes, drift, evidence, and post-execution state. |
+| **observe-perceive** | Perception and governance orchestration layer for evaluating incoming artifacts through structured evidence and multi-gate decision processes. |
+| **innovation_os** | Governed innovation operating system for capturing, connecting, evaluating, reviewing, approving, and developing ideas through traceable decision workflows. |
+| **synapsis** | Code-intelligence and repository analysis system for structural discovery, AST analysis, metrics, snapshots, and technical knowledge extraction. |
+| **CCC** | Cognitive Continuity Constitution defining provenance, epistemic-state, human-authority, and continuity requirements for governed AI systems. |
+| **Triad-42** | Structured reasoning and adversarial analysis framework built around staged constraints, pattern discovery, inversion, and governed decision formation. |
+| **GEMS** | Modular AI workflow architecture composed of specialized governed intelligence agents with explicit roles, handoffs, continuity, and validation boundaries. |
+| **ATS** | Architecture and testing system for analyzing, validating, and governing complex AI and software-system structures. |
+| **EDDP** | Evidence and data governance architecture for provenance, classification, validation, retention, sanitization, and controlled data transformation. |
+| **GRAPH** | Graph-based architecture for representing relationships, dependencies, provenance, and structural knowledge across governed systems. |
+| **DIT** | Data and intelligence transformation architecture for controlled processing, provenance preservation, and governance-bound system evolution. |
+| **CODE** | Governed software architecture and code-analysis framework for structured development, validation, and system evolution. |
+| **STRIDE** | Gateway and security architecture for deterministic constraint enforcement and governed processing of AI system outputs. |
+| **CITADEL** | Deterministic LLM output enforcement engine for validating generated content against explicit constraints and governance rules. |
+| **ARCHIVE** | Evidence-preserving archival system for retaining research artifacts, provenance, history, and reconstruction context. |
+| **Resume_OS** | Evidence-based resume and professional-record system preserving source provenance, human promotion decisions, and validated document state. |
+| **TBCA** | Transparent Binary Constraint Architecture defining binary governance boundaries at module interfaces while permitting unconstrained internal processing. |
+| **Ecology** | Nature-inspired systems architecture for exploring ecological patterns, relationships, resilience, and adaptive governance concepts. |
+| **ghost_tools** | Codebase integrity toolkit that detects structural ghosts, documentation drift, duplication, dead code, and parallel implementations for human review. |
+
+### Two I'd deliberately phrase conservatively
+
+**`fortress-kernel`** should **not** say “production-ready,” “verified,” “no bypass vectors,” or make performance claims in the GitHub description. The README currently makes those stronger claims, so the description should not amplify them until they're independently demonstrated. fileciteturn18file0L2-L2
+
+**`TIE`** should explicitly retain **“reconstructed”** because the README itself says the original complete repository and exact historical schemas were not recovered. fileciteturn17file0L2-L2
+
+And **GSA-GATEWAY** should retain the distinction between a consolidation repository and a finished product; its README explicitly says the name is provisional and that this pass was a content move rather than a code-fix pass. fileciteturn22file0L2-L2
+
+If you're entering these manually, **I'd use the descriptions above verbatim for the first pass**. Then we can do a second Ghost sweep specifically looking for **README claims that are stronger than the repository can currently substantiate**.

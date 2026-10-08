@@ -1,0 +1,198 @@
+[tool_result] === ATS ===
+ATS
+ats_application_tracking_system_auditor.pdf
+ats_bias_decision_framework.md
+ats_counter_system.py
+ats_governance_kernel_bridge.py
+ats_governance_kernel_bridge_reference.md
+ats_governor_integration_guide.md
+ats_governor_operations_toolkit.md
+ats_governor_package.md
+ats_gsa_core.py
+ats_hidden_bias_counter_analysis.pdf
+ats_production_governor.py
+ats_red_team_analysis.md
+ats_seam_inventory.md
+ats_threat_model.md
+README.md
+=== STRIDE ===
+clip-original-multi-module-source.py
+PROVENANCE.md
+README.md
+stride-formatted-audited.py
+stride-synthesized-unified.py
+stride-wrapped-final.py
+TRANSCRIPT.md
+=== CITADEL ===
+artifact_1.py
+PROVENANCE.md
+README.md
+TRANSCRIPT.md
+=== DEMO_OUTPUT ===
+PROVENANCE.md
+=== OTLP ===
+otlp-http-exporter-spillover.py
+PROVENANCE.md
+TRANSCRIPT.md
+=== SAGE-K ===
+examples
+fortress_audit.log
+PROVENANCE.md
+pyproject.toml
+README.md
+requirements.txt
+tests
+TRANSCRIPT.md
+=== EDDP ===
+data
+eddp-comprehensive-synthesized.py
+eddp-core-engine-v1.py
+eddp-core-engine-v2-refined.py
+eddp-pipeline-core-simple.py
+generated
+index
+metric_assessment_telemetry_dispatch_adapter.py
+metric_assessment_telemetry_dispatch_source.py
+notebooks
+PROVENANCE.md
+queries
+README.query.md
+scripts
+TRANSCRIPT.md
+ws3_telemetry_guardrail_adapter.py
+ws3_telemetry_guardrail_source.py
+=== UZTC ===
+README.md
+=== WRAPPER ===
+README.md
+=== SECURE ===
+README.md
+=== FACTS ===
+PROVENANCE.md
+TRANSCRIPT.md
+=== DGK ===
+agent-factory-tactical-agents.py
+functional-modules-extraction.json
+PROVENANCE.md
+sovereign-governance-stack-v1.py
+sre-system-resilience-evaluator-flattened.py
+TRANSCRIPT.md
+unified-sovereign-kernel-wrapper.py
+vanguard-behavioral-simulation-flattened.py
+vanguard-unified-governance-wrapper.py
+=== AC-HCCSE ===
+artifact_1.py
+artifact_2.py
+artifact_3.py
+artifact_4.py
+artifact_5.py
+artifact_6.py
+PROVENANCE.md
+TRANSCRIPT.md
+=== Data_files ===
+data
+eddp-comprehensive-synthesized.py
+eddp-core-engine-v1.py
+eddp-core-engine-v2-refined.py
+eddp-pipeline-core-simple.py
+eddp-wrapped-final.py
+gaps_multilayer_governance_adapter.py
+gaps_multilayer_governance_source.py
+generated
+governance_os_security_adapter.py
+governance_os_security_source.py
+index
+metric_assessment_telemetry_dispatch_adapter.py
+metric_assessment_telemetry_dispatch_source.py
+notebooks
+perceive_policy_enforcement_adapter.py
+perceive_policy_enforcement_source.py
+PROVENANCE.md
+queries
+quorum_state_governance_adapter.py
+quorum_state_governance_source.py
+README.query.md
+scripts
+solvar_stability_governance_adapter.py
+solvar_stability_governance_cleanup.py
+solvar_stability_governance_source.py
+TRANSCRIPT.md
+ws3_telemetry_guardrail_adapter.py
+ws3_telemetry_guardrail_source.py
+=== VSA ===
+artifact_1.py
+artifact_2.py
+artifact_3.json
+PROVENANCE.md
+TRANSCRIPT.md
+=== DIT ===
+bootstrap-full-implementation.py
+bootstrap-simple-structure.py
+deterministic-integrity-tower-dit-gsa.py
+PROVENANCE.md
+sentinel-os-unified-kernel.py
+TRANSCRIPT.md
+transport-manifest-bare-paths.py
+transport-manifest-markdown-format.py
+transport-manifest-numbered-format.py
+weld-script-dictionary-format.py
+weld-script-embedded-sources.py
+=== synapsis ===
+archive
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+config
+CONTRIBUTING.md
+data
+docs
+examples
+LICENSE
+pyproject.toml
+README.md
+requirements-dev.txt
+requirements.txt
+scripts
+SECURITY.md
+src
+synapsis
+tests
+tools
+=== observe ===
+certs
+clinical_capacity_orchestration_adapter.py
+clinical_capacity_orchestration_source.py
+clinical_governance_ledger_adapter.py
+clinical_governance_ledger_source.py
+CONTRIBUTING.md
+docs
+imports
+observe_clinical_risk_adapter.py
+observe_clinical_risk_source.py
+perceive_policy_enforcement_adapter.py
+perceive_policy_enforcement_source.py
+sentinel_os
+TROUBLESHOOTING.md
+=== GSA-GATEWAY ===
+governance-stack
+README.md
+secure
+uztc
+wrapper
+=== GRAPH ===
+from-facts
+gaps-kernel
+README.md
+=== sentinel_os ===
+certs
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+docs
+ledger_data
+LICENSE
+__pycache__
+README.md
+sample_data
+SECURITY.md
+sentinel_os
+tools
+TROUBLESHOOTING.md

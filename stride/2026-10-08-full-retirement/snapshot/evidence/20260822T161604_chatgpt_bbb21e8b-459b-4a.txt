@@ -1,0 +1,513 @@
+# PASS 8 — CLAUDE_HISTORY PROVENANCE UNWIND
+## Deep artifact provenance, chronological reconstruction, and source-to-system archaeology
+
+Audit date: August 22, 2026
+Method: independent primary-source archaeology of Claude_History
+Standard: skeptical historian / software archaeologist
+Evidence rule: architectural coherence is not historical evidence; repository creation date is not system birth; reconstruction is not original; copied source is not conceptual lineage.
+
+IMPORTANT CONTEXT
+
+Pass 6 established that TIE, GEMS, and HERALD are BRAND-NEW systems developed during the August 17–21, 2026 reconstruction/build window.
+
+Therefore:
+
+DO NOT attempt to prove historical ancestry for TIE, GEMS, or HERALD.
+
+Treat them as current systems only.
+
+Pass 7 established that the older ecosystem is a provenance spiderweb involving systems including:
+
+Sentinel
+GSA-815
+GSA-GATEWAY
+FORTRESS
+STRIDE
+SAGE-K
+DGK
+DIT
+RADAR
+GSA
+gsa-governance-core
+SECURE
+UZTC
+WRAPPER
+EDDP
+URE
+ARCHIVE
+and other older/recovered systems.
+
+Pass 7 also established several strong artifact migrations:
+
+STRIDE → Sentinel
+Sentinel → GSA-815
+DGK → GSA-815
+DIT → GSA-815
+GSA → GSA-815
+RADAR → GSA-815
+gsa-governance-core → GSA-815
+ARCHIVE → FORTRESS
+Sentinel/sage_k → FORTRESS
+Claude_History attachment → FORTRESS
+
+Your job is now to use CLAUDE_HISTORY itself to unwind the provenance behind those systems and artifacts.
+
+Do NOT simply search for system names.
+
+Follow artifacts backward.
+
+==================================================
+1. PRIMARY OBJECTIVE
+==================================================
+
+Determine whether Claude_History contains evidence that allows us to reconstruct:
+
+artifact
+→ conversation
+→ earlier artifact/specification
+→ earlier system name
+→ predecessor system
+→ predecessor artifact
+→ earliest timestamp
+
+The goal is to discover where the surviving Git evidence stops and the conversational development history begins.
+
+We are especially interested in evidence that predates the current repository containing the artifact.
+
+==================================================
+2. SEARCH THE RAW HISTORY — NOT JUST CURRENT REPOSITORIES
+==================================================
+
+Use the actual Claude_History corpus:
+
+- raw conversation files
+- JSON/JSONL
+- transcripts
+- manifests
+- indexes
+- summaries
+- attachments
+- attachment text
+- conversation timestamps
+- message timestamps
+
+Do not treat README descriptions as sufficient when raw conversation evidence exists.
+
+For every significant discovery, record:
+
+conversation identifier
+conversation timestamp
+message timestamp if available
+speaker/role if available
+artifact name
+system name
+exact wording or concise quotation
+repository mentioned
+file mentioned
+relationship asserted
+whether the artifact is supplied, generated, copied, reconstructed, or merely discussed.
+
+==================================================
+3. START FROM THE KNOWN ARTIFACTS
+==================================================
+
+Recursively search backward from:
+
+SENTINEL
+GSA-815
+GSA-GATEWAY
+FORTRESS
+STRIDE
+SAGE-K
+DGK
+DIT
+RADAR
+GSA
+gsa-governance-core
+SECURE
+UZTC
+WRAPPER
+EDDP
+URE
+ARCHIVE
+
+Also search distinctive artifact/file names, not merely system names.
+
+Examples include:
+
+governance_loop_guard.py
+fortress_kernel.py
+PredictiveStateController.py
+Fortress_orchestrator_incomplete.py
+PredictiveIntegrityController.py
+api_server.py
+GSA_Governance_Operating_Core_Enterprise.py
+gsa-master-kernel-base-flattened.py
+gsa-universal-interlock-wrapper-v7.py
+gsa-cryptographic-interlock-wrapper.py
+GSA.py
+gsa_universal_interlock_wrapper.py
+SRE evaluator
+resilience-config-dataclass.py
+and any additional distinctive artifacts discovered.
+
+==================================================
+4. FOLLOW "COPIED FROM", "SALVAGED FROM", "EXTRACTED FROM",
+"BASED ON", "DERIVED FROM", "RECONSTRUCTED FROM"
+==================================================
+
+Every provenance statement is a lead.
+
+For each one, search Claude_History for the source artifact.
+
+Examples:
+
+"copied from X"
+"salvaged from X"
+"extracted from X"
+"reconstructed from X"
+"based on X"
+"derived from X"
+"ported from X"
+"moved from X"
+"originally in X"
+"from the archive"
+"from an earlier conversation"
+"from attachment"
+"from Downloads"
+"from previous implementation"
+
+Then recursively investigate X.
+
+Do not stop at one generation.
+
+==================================================
+5. DISTINGUISH FOUR STATES
+==================================================
+
+Every artifact must be classified as one of:
+
+A. ORIGINAL/SURVIVING SOURCE
+B. COPIED OR MIGRATED SOURCE
+C. RECONSTRUCTED FROM SPECIFICATION
+D. CONCEPTUAL/DESCRIPTIVE ONLY
+
+Also identify:
+
+E. UNKNOWN OR UNRESOLVED
+
+Never promote D into A.
+
+==================================================
+6. DATE THE FIRST KNOWN APPEARANCE
+==================================================
+
+For every major system and artifact, determine:
+
+Earliest Claude_History appearance
+Earliest conversation date
+Earliest message date
+Earliest explicit code appearance
+Earliest explicit specification
+Earliest explicit system name
+Earliest predecessor reference
+
+Then compare that with:
+
+Git repository creation
+Git first commit
+artifact migration commit
+
+The objective is to establish whether:
+
+conversation → code repository
+
+or:
+
+repository → later conversation description
+
+or:
+
+archive → reconstruction
+
+or:
+
+multiple independent branches
+
+is the better-supported sequence.
+
+==================================================
+7. SEARCH FOR PREDECESSOR NAMES
+==================================================
+
+For each major system, search for:
+
+alternate names
+working names
+temporary names
+abbreviations
+project codenames
+old filenames
+old directory names
+"rename"
+"renamed"
+"formerly"
+"previously"
+"successor"
+"replacement"
+"merge"
+"consolidate"
+"extract"
+"split"
+"fork"
+"branch"
+"migration"
+
+Particularly investigate:
+
+STRIDE
+SAGE-K
+FORTRESS
+DGK
+DIT
+RADAR
+GSA
+GSA-815
+GSA-GATEWAY
+Sentinel
+
+The goal is to discover whether a system existed under another name before its surviving repository.
+
+==================================================
+8. IDENTIFY CROSSOVER EVENTS
+==================================================
+
+Look for moments where one system absorbed ideas or source from another.
+
+For every crossover, record:
+
+SOURCE
+ARTIFACT
+DESTINATION
+DATE
+EVIDENCE
+TYPE
+
+Types:
+
+code migration
+partial migration
+concept migration
+schema migration
+prompt migration
+architecture migration
+naming migration
+repository consolidation
+fork
+split
+salvage
+reconstruction
+
+Do not equate conceptual crossover with code lineage.
+
+==================================================
+9. FIND THE GRAVEYARD
+==================================================
+
+Search Claude_History for systems that later disappeared.
+
+Search for language such as:
+
+deleted
+deprecated
+archived
+graveyard
+obsolete
+abandoned
+replaced
+retired
+removed
+repo deleted
+repository deleted
+moved
+consolidated
+no longer used
+superseded
+dead project
+old project
+previous version
+
+Record every candidate.
+
+For each, determine:
+
+What was it?
+When did it exist?
+What artifacts survived?
+Where did those artifacts go?
+Which current system inherited them?
+
+==================================================
+10. IDENTIFY HUMAN/AI DEVELOPMENT EVENTS
+==================================================
+
+Determine whether conversations show:
+
+human instructions
+Claude-generated code
+human review
+human-directed migration
+human-directed deletion
+repository creation
+commit preparation
+artifact extraction
+testing
+renaming
+consolidation
+
+Do not infer authorship merely from AI-generated text.
+
+Separate:
+
+decision provenance
+from
+code authorship.
+
+==================================================
+11. BUILD A TEMPORAL PROVENANCE GRAPH
+==================================================
+
+Produce a graph such as:
+
+Conversation
+    ↓
+artifact/specification
+    ↓
+repository/system
+    ↓
+migration
+    ↓
+destination repository
+
+But permit branching:
+
+             ┌──→ System A
+Artifact ────┤
+             └──→ System B
+
+and convergence:
+
+System A ──┐
+System B ──┼──→ Consolidation
+System C ──┘
+
+This is a spiderweb, not a family tree.
+
+==================================================
+12. CRITICAL QUESTION
+==================================================
+
+What is the earliest genuinely historical software artifact that Claude_History can establish?
+
+Not the earliest mention.
+
+Not the earliest repository.
+
+Not the earliest reconstructed implementation.
+
+The earliest artifact with evidence of actual existence.
+
+Then determine what systems descend from it.
+
+==================================================
+13. OUTPUT REQUIREMENTS
+==================================================
+
+Produce:
+
+1. Executive verdict
+
+2. Claude_History corpus actually examined
+
+3. Earliest temporal evidence recovered
+
+4. System-by-system provenance
+
+5. Artifact-by-artifact provenance
+
+6. Predecessor-name discoveries
+
+7. Graveyard/deleted-system discoveries
+
+8. Cross-system migration events
+
+9. Human/AI decision provenance
+
+10. Temporal graph
+
+11. Provenance table
+
+12. Evidence ledger
+
+13. Unknown register
+
+14. What Pass 7 got right
+
+15. What Pass 7 must now be revised
+
+16. Earliest defensible historical boundary
+
+17. Strongest newly recovered lineage
+
+18. Remaining unresolved ancestry
+
+19. Final historical judgment
+
+==================================================
+14. EVIDENCE DISCIPLINE
+==================================================
+
+Use these labels:
+
+A — directly proven primary evidence
+B — strongly supported
+C — plausible
+N — not found in searched corpus
+X — contradicted
+U — unresolved
+
+Never write:
+
+"probably existed"
+
+without explaining why.
+
+Never use current repository structure as proof of historical structure.
+
+Never use a current reconstruction to prove its own historical existence.
+
+Never treat a copied filename as lineage without source evidence.
+
+==================================================
+FINAL TEST
+==================================================
+
+If all current August reconstruction repositories disappeared tomorrow, what independent historical evidence would Claude_History preserve about:
+
+Sentinel
+GSA-815
+GSA-GATEWAY
+FORTRESS
+STRIDE
+SAGE-K
+DGK
+DIT
+RADAR
+GSA
+and their predecessors?
+
+Answer that explicitly.
+
+The purpose of Pass 8 is to turn Claude_History from an archive into a chronological provenance map.
+
+GitHub.com/wking53214

@@ -1,0 +1,65 @@
+## sentinel_os — housekeeping + IVR scrub + ghost_buster: done, with a shortlist for you
+
+### 1. Housekeeping pass — landed
+
+**PR #32** (`a694802`, squash-merged). Five commits:
+
+| Area | Change |
+|---|---|
+| **IVR island removal** | `git rm` of `Domain/ Sim/ Engines/ Latent/ Model/ Training/ observe/` (18 files), 3 island tests (`test_rl_learning`, `test_rl_governance_integration`, `test_graph_integrity`), the dead manual runner `test_all_suites.py`, stale `structure.txt`, and the `DomainFinder` import shim in `Tests/conftest.py` |
+| **Package README** | `sentinel_os/README.md` was `# Iceberg: Self-Healing IVR Platform` (pre-extraction product marketing, pointed at removed `k8s/`, claimed "no license"). Rewrote as a package orientation deferring to the root README |
+| **Doc banners** | 14 July-2026 point-in-time snapshot docs (`docs/architecture/*_v1` ×4, `docs/sentinel-os-status-v1`, `docs/pass3/*_v3` ×9) got a dated staleness banner rather than a 3,000-line hand-rewrite |
+| **CHANGELOG** | Added the missing 2026-08-27 / -08-28 / -09-03 entries |
+| **Metadata** | Root `.gitignore` venv patterns; root README License section; `CONTRIBUTING`/`TROUBLESHOOTING` simulator recipes → GSA-815; `.ghost_baseline.json` 426 → 401 |
+| **Lint fixup** | Removing the shim orphaned `importlib` in conftest (F401) — dropped it; CI ruff back to its pre-existing 141, zero new debt |
+
+Test collection **706 → 698**, no new failures. GitHub description already accurate (`"Domain-blind governance kernel…"`) — left as-is.
+
+CI `Tests` is red, but **it's red on `main` too and has been since PR #28** — same two `conservation_kernel` collection errors, same 141 ruff. My branch's delta is exactly the 8 removed island tests. Details in the PR #32 comment.
+
+### 2. IVR scrub — confirmed complete
+
+**Gone:** the IVR application layer (PR #30) *and* its orphaned support tree (PR #32). A full code + ghost_buster sweep finds no remaining IVR/contact-centre application code.
+
+**Still present, and deliberately so — none of it is IVR application code:**
+
+- **`Iceberg` naming** — `ICEBERG_LEDGER_*` env vars, the `iceberg` Postgres role + database (the CI workflow itself does `CREATE ROLE iceberg`), "Iceberg" in prose. This is *the kernel's own historical project name*. Renaming it is a much larger separate decision, not part of an IVR scrub.
+- **`cassettes/ivr_cassette.py`** + the `telephony_ingest` / `twilio_*_threshold` capability vocabulary in `cassette_capabilities.py` / `cassette_schema.py` — kept as the **negative fixture**: `test_governance_harness.py` proves the domain-blind harness *refuses* a cassette that declares telephony.
+- **History comments** in ~15 kernel files ("IVR governor moved to the GSA-815 repo", "worker no longer governs Twilio traffic") — accurate breadcrumbs.
+
+### 3 & 4. Does anything IVR-related need integrating into GSA-815?
+
+**No.** Every island file already exists in GSA-815 — byte-identical, or GSA-815's copy is *newer* (`Engines/simple_rl_trainer.py` has the F3 softmax fix; sentinel's was pre-fix). Nothing was missing, so nothing was integrated — just deleted from sentinel_os.
+
+---
+
+## What the sweep turned up (your call on each)
+
+### A packaging finding worth more than the rest
+
+**GSA-815 silently depends on sentinel_os as a PYTHONPATH library, and it's completely undeclared.**
+
+- GSA-815 imports ~15 modules it doesn't carry: `canonical_fields`, `event_v1`, `queue_schema`, `cassette_schema`, `cassette_loader`, `operational_resilience`, `circuit_breaker`, `array_ops`, `governance.friction_core`, `governance_loop_guard`, …
+- GSA-815 standalone: **0 tests collected, 17 import errors.** With `sentinel_os/` on `PYTHONPATH`: **123 tests collect cleanly.**
+- GSA-815 has **no `.github/workflows/` at all** and its `conftest.py` doesn't set the path. Nothing documents the dependency.
+
+Consequence for *this* pass: several ghost_buster "dead code" hits in sentinel_os (`compute_friction`, `PipelineStateEngine`, various `outcome_v1`/`operational_resilience` symbols) are the **provider side of that live contract** — proven by a working consumer, so they stay. The real fix (declare the dependency both directions, give GSA-815 a CI) belongs in the GSA-815 dedicated pass.
+
+### ghost_buster genuine cleanup candidates
+
+| | Item | Size | Evidence |
+|---|---|---|---|
+| **A** | `governance/perceive_integration.py` | 76 ln | **Does not import** — `ModuleNotFoundError: No module named 'governance_orchestrator'` (a sibling-repo import via `sys.path.insert`). Also uses `from sentinel_os.conservation…`, an import style no other file here uses. Class referenced nowhere, not in GSA-815, no test. Same species as the `DomainFinder` shim. → **delete** |
+| **B** | `otlp/sentinel-os-pipeline-core.py` + `otlp/telemetry-processor-complete.py` | 8.4 KB + | Flattened single-line paste — `Import os import re import hashlib …` — not valid Python; hyphenated filename can't be imported; nothing references them. **106 of the 141 CI ruff errors are this one file.** Same as the GSA-GATEWAY flattened-paste dead classes you had me clean. → **delete** |
+| **C** | `telemetry_pipeline.py` | 169 ln | Orphaned IVR-shaped module (`CallMetric.caller_id / queue / wait_time / emotional_frustration`). Only its own test imports it; **not in GSA-815**; not wired to any live path. Per your own rule this is *integrate-into-GSA-815-then-remove*, not a clean delete — so: **move to GSA-815, or discard?** |
+| **D** | `cassette_forensics.validate_cassette_snapshot_chain` (1 function) | ~40 ln | Superseded by the identically-named method on `ledger_postgres.py`; the test calls the ledger one. → low-priority delete |
+
+### Three separate items (pre-existing, not caused by this PR)
+
+1. **`conservation_kernel` is missing from `requirements.txt`.** `conservation/gateway.py` imports it at module level; `governance_harness.py:387` fail-closes the *entire* governed-persist path on it. CI has never installed it → **the conservation boundary and its 2 test files have never run in CI.**
+2. **A real serialization bug behind #1.** With `conservation_kernel` installed locally, the boundary still fails: `str(EpistemicStatus.ESTIMATED)` yields `"EpistemicStatus.ESTIMATED"`, which the kernel rejects (wants `"ESTIMATED"`). Fixing the dependency does **not** turn those 2 tests green — this seam needs its own look.
+3. **`test_A3_gateway_not_yet_integrated` is inverted.** It asserts the gateway is *not* wired, "once fixed, this assertion will flip." It's been wired. Stale — should be updated.
+
+---
+
+Memory + the housekeeping checklist are updated (sentinel_os → Done; "not yet reviewed" now just GSA-815). I've made no further changes — tell me which of A–D you want, whether C moves to GSA-815 or gets dropped, and whether the conservation_kernel seam (items 1–3) gets its own PR now or waits.

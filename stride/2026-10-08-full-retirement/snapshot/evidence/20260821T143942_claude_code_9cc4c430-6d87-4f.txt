@@ -1,0 +1,10 @@
+[tool_result] origin	https://github.com/wking53214/STRIDE.git (fetch)
+origin	https://github.com/wking53214/STRIDE.git (push)
+---
+6bcf487 Add README documenting rename from CLIP, cross-link to CITADEL
+a9aef1b Move AST-named files to AST central repository
+56dd695 Rename CLIP artifacts to reflect system functions
+---
+--- does the github remote still exist? ---
+remote: Repository not found.
+fatal: repository 'https://github.com/wking53214/STRIDE.git/' not found

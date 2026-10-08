@@ -1,0 +1,99 @@
+{
+ "recovered": [
+  {
+   "path": "recovered_repo/artifact_1.py",
+   "bytes": 117211,
+   "crlf_lines": 0,
+   "provenance_stated_bytes": 117211,
+   "provenance_stated_lines": 0,
+   "match": true,
+   "sha256": "5d6f4d1be4fed3791b0525390a67fb3722efc4cfa98481446101451f19cb3770",
+   "source": "byte slice of ~/Downloads/CLIP.txt, carved against turn boundaries",
+   "source_type": "RECOVERED FROM COPY",
+   "status": "DIRECTLY RECOVERED",
+   "confidence": "HIGH \u2014 byte count, line count and execution behaviour all match PROVENANCE.md"
+  },
+  {
+   "path": "recovered_repo/artifact_2.py",
+   "bytes": 25106,
+   "crlf_lines": 705,
+   "provenance_stated_bytes": 25106,
+   "provenance_stated_lines": 705,
+   "match": true,
+   "sha256": "3e128f87f77c4671fe3c285024e6373d77969223f75574e1ae4a373609cd2a4e",
+   "source": "byte slice of ~/Downloads/CLIP.txt, carved against turn boundaries",
+   "source_type": "RECOVERED FROM COPY",
+   "status": "DIRECTLY RECOVERED",
+   "confidence": "HIGH \u2014 byte count, line count and execution behaviour all match PROVENANCE.md"
+  },
+  {
+   "path": "recovered_repo/artifact_3.py",
+   "bytes": 31970,
+   "crlf_lines": 746,
+   "provenance_stated_bytes": 31970,
+   "provenance_stated_lines": 746,
+   "match": true,
+   "sha256": "f2c9e112e48119fc8856a6644ac4998bb24e8bcd536e44b5334b48e739ef0e35",
+   "source": "byte slice of ~/Downloads/CLIP.txt, carved against turn boundaries",
+   "source_type": "RECOVERED FROM COPY",
+   "status": "DIRECTLY RECOVERED",
+   "confidence": "HIGH \u2014 byte count, line count and execution behaviour all match PROVENANCE.md"
+  },
+  {
+   "path": "recovered_repo/artifact_4.py",
+   "bytes": 6994,
+   "crlf_lines": 151,
+   "provenance_stated_bytes": 6994,
+   "provenance_stated_lines": 151,
+   "match": true,
+   "sha256": "d47f0902f6a833185cc27b653e21b24e737902e896d0cfa50c2c68de5fa8ef6e",
+   "source": "byte slice of ~/Downloads/CLIP.txt, carved against turn boundaries",
+   "source_type": "RECOVERED FROM COPY",
+   "status": "DIRECTLY RECOVERED",
+   "confidence": "HIGH \u2014 byte count, line count and execution behaviour all match PROVENANCE.md"
+  },
+  {
+   "path": "recovered_repo/artifact_5.py",
+   "bytes": 5376,
+   "crlf_lines": 0,
+   "provenance_stated_bytes": 5376,
+   "provenance_stated_lines": 0,
+   "match": true,
+   "sha256": "a7026823c9a985cb7ff3d90a24a832fbc51cfb3ff2c922d61c52296808dbaa04",
+   "source": "byte slice of ~/Downloads/CLIP.txt, carved against turn boundaries",
+   "source_type": "RECOVERED FROM COPY",
+   "status": "DIRECTLY RECOVERED",
+   "confidence": "HIGH \u2014 byte count, line count and execution behaviour all match PROVENANCE.md"
+  },
+  {
+   "path": "recovered_repo/artifact_6.py",
+   "bytes": 6579,
+   "crlf_lines": 187,
+   "provenance_stated_bytes": 6579,
+   "provenance_stated_lines": 187,
+   "match": true,
+   "sha256": "fb1bc4b02d60d6af5cce94733e5c77295f87ed14a6f4751bf728071204b96601",
+   "source": "byte slice of ~/Downloads/CLIP.txt, carved against turn boundaries",
+   "source_type": "RECOVERED FROM COPY",
+   "status": "DIRECTLY RECOVERED",
+   "confidence": "HIGH \u2014 byte count, line count and execution behaviour all match PROVENANCE.md"
+  },
+  {
+   "path": "recovered_repo/PROVENANCE.md",
+   "bytes": 10421,
+   "sha256": "dd4a644c9178afffbb7192fa2ac18dd1c44aa1ee3d112c3764b747923082f996",
+   "status": "DIRECTLY RECOVERED (81 of 82 lines)",
+   "note": "viewer render 2026-08-17T22:02:06Z, pre-rename state",
+   "source_type": "RECOVERED FROM CONVERSATION"
+  },
+  {
+   "path": "recovered_repo/TRANSCRIPT.md.SOURCE_CLIP_TXT",
+   "bytes": 217126,
+   "sha256": "6da02d83e290d53d23a91280e72d7b81315b14644bde38a1dd4950b3c7601438",
+   "status": "DIRECTLY RECOVERED (verbatim source)",
+   "note": "1,894 CRLF lines \u2014 exactly the count PROVENANCE.md states",
+   "source_type": "DIRECT RECOVERY"
+  }
+ ],
+ "not_recovered": []
+}

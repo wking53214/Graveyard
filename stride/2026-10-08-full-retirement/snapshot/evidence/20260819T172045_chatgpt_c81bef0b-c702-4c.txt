@@ -1,0 +1,388 @@
+I completed the live GitHub inspection first. I did **not** use the older repository inventory as authoritative; I used GitHub to verify the current account and repository state.
+
+One important problem: **the long-term-memory write was blocked by the system after the GitHub connector was used.** I attempted the memory update with the corrected architecture/state, but the memory tool explicitly rejected the write. So I cannot honestly tell you it was saved. If you start a new conversation and ask me to perform the memory update again, I can retry it there.
+
+## A. What I verified from GitHub
+
+### Current repository inventory
+
+GitHub currently shows **29 repositories** under `wking53214`, matching your supplied inventory:
+
+`sentinel_os` · `Conservation_Kernel` · `GSA-GATEWAY` · `GSA-815` · `Triad-42` · `CCC` · `innovation_os` · `synapsis` · `EDDP` · `Ecology` · `STRIDE` · `CODE` · `GLCM` · `GRAPH` · `DIT` · `ATS` · `CITADEL` · `OBSERVE` · `GEMS` · `VANGUARD` · `FORTRESS` · `ANVIL` · `ARCHIVE` · `Resume_OS` · `TBCA` · `ChatGPT_History` · `Claude_History` · `Gemini_History` · `CoPilot_History`.
+
+GitHub metadata says they are public and not marked as GitHub-archived, but **functional status varies considerably**: some are active implementations, some consolidation repositories, some archival repositories, and some scaffolds/empty repositories.
+
+### Conservation_Kernel
+
+This is the most important correction.
+
+The immutable research baseline remains:
+
+**`d6c67dc1c86f500a8f046046e90642cfe948fa2d`**
+
+That is the baseline we should continue treating as immutable for hostile comparison.
+
+However, **`main` is no longer at that baseline.**
+
+Current `main`:
+
+**`88e4b37507ba84b3a92923fe30c8427d16082365` — “Add hostile attack 9 provenance forgery”**
+
+The progression is:
+
+- `d6c67dc` — hostile baseline
+- `2260320` — freeze after hostile attack #7
+- attack #8 — recursive self-verification
+- attack #9 — provenance forgery
+- current `main` — attack #9 added
+
+The attack #9 test itself explicitly requires rejection of forged provenance and asserts that the verifier returns `REJECT`. fileciteturn43file0L3-L11
+
+The repository's own report currently classifies:
+
+- typed artifact/envelope → **TEST-VERIFIED**
+- unauthorized epistemic promotion → **TEST-VERIFIED**
+- authority escalation → **TEST-VERIFIED**
+- provenance/lineage loss → **TEST-VERIFIED**
+- uncertainty collapse → **TEST-VERIFIED**
+- legitimate transformation → **TEST-VERIFIED**
+- reconstruction → **TEST-VERIFIED**
+- truth verification → **FALSIFIED**
+- library-alone prevention of downstream bypass → **FALSIFIED**
+- general superiority → **UNVERIFIED**
+- novelty → **UNVERIFIED** fileciteturn4file0L2-L2
+
+So the correct architecture is **baseline + evolving hostile attack branch/state**, not “the kernel is frozen and unchanged.”
+
+### sentinel_os
+
+This remains the strongest **operational** repository in the ecosystem.
+
+Its current README describes:
+
+- stable governance kernel
+- industry cassettes
+- regulatory cassettes
+- append-only evidence ledger
+- twin architecture
+- outcome obligations
+- regulatory review
+- modular governance layers fileciteturn40file0L2-L2
+
+Recent live commits show substantial engineering work:
+
+- governed mortgage ingress/queue/worker topology
+- `wiring_verify` static reachability analysis
+- constructor-injection analysis improvements
+- deployment-entry-point verification
+- Kubernetes deployment correction
+- ledger-data build-context correction
+- OTLP pipeline consolidation
+- SAGE-K material brought into `sage_k/`
+- Fortress/GSA adapter/AST extractor brought into `sage_k/`
+- OBSERVE-related material moved out
+- dead GALLM code removed
+
+But there is an important distinction:
+
+**sentinel_os is operationally integrated internally, but not every artifact recently copied into it is automatically part of the live execution path.**
+
+The SAGE-K commit explicitly says `sentinel_os.interpretation` remains the canonical actively maintained implementation while several moved files are inert duplicates. That is exactly the kind of distinction we need to preserve.
+
+### GSA-815
+
+GSA-815 has become a **central GSA/IVR/governance/simulation consolidation repository**.
+
+Live history shows:
+
+- original IVR side extracted from sentinel_os
+- GSA
+- GSA-2
+- governance-core
+- governance-control-plane
+- multiple GSA wrapper implementations
+- Domain / Engines / Model / Sim / Training / Tests
+
+The governance-control-plane removal was reverted, so the current repository still contains that integration material. Its `INTEGRATION.md` describes GOV4 as co-located under GSA-815. fileciteturn47file0L2-L2
+
+But **co-location is not proof of runtime integration**.
+
+The RL work is also more nuanced than our older memory suggested. The F3 work fixed exploration, but the commit explicitly leaves several learning defects unresolved:
+
+- `update_weights` is not a true policy-gradient update
+- `value_weights` is calculated but unused
+- simulator training uses an unrelated random vector
+
+So GSA-815's RL subsystem should **not** be described as a fully validated policy-gradient system.
+
+### GSA-GATEWAY
+
+This is one of the biggest architectural corrections.
+
+The repository itself says:
+
+> **“Name is provisional.”**
+
+and explicitly describes the recent work as a **pure content move** with no code edits, bug fixes, or class renames. fileciteturn36file0L2-L2
+
+It now contains consolidated material from:
+
+- SECURE
+- UZTC
+- WRAPPER
+- DGK
+- EDDP
+- CODE
+- URE/resilience material
+
+But its own README says those are content moves.
+
+Therefore:
+
+**GSA-GATEWAY is currently a consolidation/content repository, not a verified unified production gateway.**
+
+That is now a hard distinction in my understanding.
+
+### Triad-42
+
+This is significantly more mature than a mere conceptual design.
+
+Latest major state is **v2.2.0**:
+
+- two-phase Gray
+- independent Gray analysis before Red findings are exposed
+- cross-cutting structural observations
+- affirmative Gray structural assessment
+- disagreement handling
+- 100 tests reported passing
+
+Earlier v2.1.0 fixed six adversarially discovered defects, including:
+
+- human-root bypass
+- mutable Red/Green ledgers
+- mutable Gray observations
+- overwriteable verdicts
+- analogy-key normalization
+- missing timestamps
+
+The framework is still deliberately **advisory** and the actual Red/Gray/Green/42 reasoning lenses remain unimplemented.
+
+Its limitations are also explicitly recorded, including free-text scope, asserted support links, trusted external roots, and no automated reasoning-quality evaluation. fileciteturn49file0L2-L2
+
+### CCC
+
+CCC is **implemented and tested**, but one major old assumption is wrong.
+
+The repository explicitly says:
+
+> no ratified CCC document or prior harness history is present in GitHub.
+
+Therefore article identifiers remain `null`; the supplied build directive is the implementation source. fileciteturn37file0L2-L2
+
+The implementation report says:
+
+- 27 pytest tests passed
+- H01–H62 exists
+- 62 total harness rows
+- 44 PASS
+- 0 FAIL
+- 0 ERROR
+- 0 SKIPPED
+- 18 UNSPECIFIED
+
+The 18 unspecified rows are intentionally **not** converted into passing results.
+
+Also explicitly not implemented:
+
+- ratified article mapping
+- cryptographically chained external audit
+- multi-process transaction protocol
+- authentication
+- network API
+
+So CCC is:
+
+**IMPLEMENTED + TEST-VERIFIED for its supplied build requirements, but not a verified implementation of a ratified constitutional document.**
+
+### innovation_os
+
+This is currently a serious, tested implementation rather than merely a conceptual architecture.
+
+Live commits show:
+
+- canonicalized provenance storage
+- typed provenance events
+- lineage edges
+- context envelopes
+- SharedRegistries
+- stronger assertions across the test suite
+- clean import normalization
+- declared pytest dev dependency
+- CI
+
+Latest relevant implementation reports **285/285 tests passing**.
+
+But SharedRegistries is a subtle case: the mechanism exists and is tested, yet the commit explicitly says **no production call site currently constructs both pipelines together**.
+
+So:
+
+**implemented capability ≠ demonstrated live integration.**
+
+The README confirms the system's core traceability chain:
+
+Problem → Idea → Decision → Branch → Review → Solution → Approval → Implementation. fileciteturn38file0L2-L2
+
+### synapsis
+
+SYNAPSIS is the code-intelligence / AST-analysis repository.
+
+Its documented architecture includes:
+
+- repository scanning
+- AST analysis
+- symbol extraction
+- metrics
+- reporting
+- snapshots
+- persistent memory
+- plugins
+- CLI fileciteturn39file0L2-L2
+
+Recent work is heavily focused on **consolidating historical AST variants** from ATS, AC-HCCSE, FACTS, DGK and other repositories.
+
+The older Phase 6–15 structures are explicitly described as **scaffolding**.
+
+Therefore I will no longer assume that all those CLI/search/restoration/graph components are production-complete.
+
+---
+
+## B. What changed from the previously known architecture
+
+The biggest change is that the system is now much better understood as a **repository ecosystem rather than one proven monolithic executable system**.
+
+### The current hierarchy is approximately:
+
+**Operational center**
+
+`sentinel_os`
+
+↓
+
+**Independent research/falsification**
+
+`Conservation_Kernel`
+
+↓
+
+**Governance/cognitive mechanisms**
+
+`Triad-42`  
+`CCC`  
+`innovation_os`
+
+↓
+
+**Specialized/consolidated technical systems**
+
+`GSA-815`  
+`GSA-GATEWAY`  
+`synapsis`  
+`GRAPH`  
+`DIT`  
+`ATS`  
+`OBSERVE`  
+`EDDP`  
+`STRIDE`  
+`CITADEL`  
+`FORTRESS`  
+`VANGUARD`
+
+↓
+
+**Historical / archival / evidence systems**
+
+`ARCHIVE`  
+`ChatGPT_History`  
+`Claude_History`  
+`Gemini_History`  
+`CoPilot_History`  
+`Resume_OS`
+
+with several smaller/scaffold repositories around them.
+
+### Most important architectural correction
+
+We previously had a tendency to describe:
+
+> “these repositories interact as one system.”
+
+The live GitHub evidence does **not** justify that statement yet.
+
+What is verified is:
+
+- files have been moved between repositories
+- duplicated implementations have been identified
+- repositories cross-reference one another
+- some components are explicitly described as canonical
+- some components are consumed by other systems
+- some repositories were deliberately split from others
+- some consolidation destinations have been established
+
+What is **not** broadly verified is:
+
+> a single executable dependency graph connecting all 29 repositories.
+
+That distinction is now central.
+
+---
+
+## C. What I stored in memory
+
+**Unfortunately, nothing was successfully stored.**
+
+I attempted the requested long-term-memory update after completing the GitHub inspection, including:
+
+- the 29-repository inventory
+- the corrected architecture
+- the Conservation Kernel baseline/current-main distinction
+- GSA-815 vs GSA-GATEWAY distinction
+- CCC's actual source/ratification status
+- Triad-42's v2.2 state
+- innovation_os's actual verification level
+- synapsis's scaffold status
+- the consolidation-vs-integration rule
+- the IMPLEMENTED / TEST-VERIFIED / SOURCE-VERIFIED / DOCUMENTED / CONCEPTUAL / LIVE/DEPLOYED / ARCHIVAL / SCAFFOLD discipline
+
+The memory system then returned an explicit error saying that memory was disabled because an incompatible tool had already been used in the conversation.
+
+So I **will not falsely claim that this inspection has been persisted to long-term memory**.
+
+If you start a new conversation and tell me to perform the memory update again, that is the point where I should retry it.
+
+---
+
+## D. Important uncertainty
+
+There are four major categories of uncertainty remaining.
+
+1. **Fresh execution wasn't performed by me.**  
+   I inspected GitHub source, commit history, repository metadata, documentation and PR/test evidence. I did not independently execute all 29 repositories' test suites.
+
+2. **Cross-repository runtime edges are not universally proven.**  
+   A move, copy, README cross-link, or consolidation commit is not sufficient evidence of runtime integration.
+
+3. **Some repositories are still transitional.**  
+   In particular GSA-GATEWAY, EDDP, GRAPH, DIT, ATS, OBSERVE and several archival/consolidation repositories are actively being reorganized.
+
+4. **Conservation_Kernel remains an experiment, not yet the proven kernel of Sentinel OS.**  
+   Its current hostile-testing state is extremely important, but the repository evidence does **not** establish that `sentinel_os` is already implemented on top of the Conservation Kernel mechanism.
+
+### Bottom line
+
+The corrected position is:
+
+**You now have a 29-repository ecosystem with `sentinel_os` as the clearest operational center, `Conservation_Kernel` as an independently testable/falsification research kernel with an immutable `d6c67dc` baseline and evolving attacks on `main`, and a growing set of specialized governance, cognition, provenance, code-intelligence, security, archival, and historical repositories around it.**
+
+The repositories are increasingly **organized around a coherent architecture**, but the live evidence does **not yet justify calling the entire 29-repository structure one fully integrated executable system**.
+
+That is a materially more defensible description of the system than the older one.

@@ -1,0 +1,1 @@
+[tool_use TaskCreate] {"subject": "1i: Tag UZTC as GSA lineage", "description": "Add GSA-lineage tag/note to UZTC repo (alongside CITADEL, STRIDE, SECURE, WRAPPER). Preserve UZTC/TRANSCRIPT.md (only surviving copy of VSA-duplicate content once VSA deleted)."}

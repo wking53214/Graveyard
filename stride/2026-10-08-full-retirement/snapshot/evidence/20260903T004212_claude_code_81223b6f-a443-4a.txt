@@ -1,0 +1,54 @@
+[tool_result] 1	# GSA-GATEWAY
+2	
+3	**Name is provisional.** This repo consolidates GSA-lineage content that
+4	was previously scattered across many separately-archived repos with no
+5	unified home. Renaming a GitHub repo afterward is trivial (Settings →
+6	rename), so this name wasn't a blocker on doing the consolidation.
+7	
+8	## Contents
+9	
+10	- `secure/` — the full former [SECURE](https://github.com/wking53214/SECURE)
+11	  repo: a working SECURE-sandbox + GSA-adapter kernel.
+12	- `uztc/` — the full former [UZTC](https://github.com/wking53214/UZTC)
+13	  repo: the Universal Zero-Trust Construct, a 7-layer registry including
+14	  a named Provenance layer.
+15	- `wrapper/` — the full former [WRAPPER](https://github.com/wking53214/WRAPPER)
+16	  repo: the GSA Universal Interlock Wrapper + sandbox kernel. Confirmed
+17	  origin session for `secure/`'s sandbox-kernel content — keep
+18	  `wrapper/artifact_3.py` as canonical; it has real line breaks where the
+19	  copy under `secure/artifact_1.py` was flattened.
+20	- `governance-stack/` — governance-stack material pulled from two other
+21	  repos:
+22	  - From DGK: `sovereign-governance-stack-v2-expanded.py` (the
+23	    `SovereignGovernanceStack V10.0` architecture wiring VANGUARD + SRE +
+24	    DIT + a consensus/quorum engine together) and
+25	    `citadel-processor-router-flattened.py` (a duplicate of CITADEL's
+26	    real regex-enforcement logic).
+27	  - From EDDP (formerly Data_files): `governance_os_security_source.py`/
+28	    `_adapter.py` (a working `BaseGate`/`BoundaryGate`/`InvariantGate`
+29	    pattern), `solvar_stability_governance_source.py`/`_adapter.py`/
+30	    `_cleanup.py` (connects to "Fortress/SOLVAR" per DIT's own
+31	    provenance notes), and `quorum_state_governance_source.py`/
+32	    `_adapter.py` (moved here provisionally as GSA-lineage content
+33	    regardless of the still-open question of whether it's also ATS's
+34	    missing `gov4_kernel` dependency — checked once already: the import
+35	    names didn't line up cleanly, see ATS's `ats_seam_inventory.md`).
+36	
+37	The original three repos (`SECURE`, `UZTC`, `WRAPPER`) still exist on
+38	GitHub but are now empty of code — left in place for William to review
+39	and delete manually, not auto-deleted.
+40	
+41	## Related repos, not folded in here
+42	
+43	- [CITADEL](https://github.com/wking53214/CITADEL) — a Deterministic LLM
+44	  Output Enforcement Engine, substantial enough to stay its own repo.
+45	  `wrapper/`'s content includes "Zero-Trust Citadel Linguistic
+46	  Interceptors" as a component, consuming CITADEL's enforcement logic.
+47	- [STRIDE](https://github.com/wking53214/STRIDE) (renamed from CLIP) — a
+48	  gateway system, also substantial enough to stay its own repo, also
+49	  consuming CITADEL's enforcement logic.
+50	
+51	This is a pure content move (files relocated, git history not
+52	preserved cross-repo) — no code edits, bug fixes, or class renames were
+53	made as part of this pass. That's a separate, later pass.
+54	

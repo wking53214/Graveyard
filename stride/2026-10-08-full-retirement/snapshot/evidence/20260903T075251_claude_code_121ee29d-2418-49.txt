@@ -1,0 +1,32 @@
+[tool_result] sentinel_os/api_server_v2.py:None  ::  '_body_size_guard' is defined but never referenced anywhere in the scanned set
+sentinel_os/api_server_v2.py:None  ::  'submit_call' is defined but never referenced anywhere in the scanned set
+sentinel_os/api_server_v2.py:None  ::  'submit_mortgage_decision' is defined but never referenced anywhere in the scanned set
+sentinel_os/api_server_v2.py:None  ::  'job_status' is defined but never referenced anywhere in the scanned set
+sentinel_os/api_server_v2.py:None  ::  'health' is defined but never referenced anywhere in the scanned set
+sentinel_os/api_server_v2.py:None  ::  'queue_stats' is defined but never referenced anywhere in the scanned set
+sentinel_os/bisg_estimator.py:None  ::  'CensusBISGEstimator' is defined but never referenced anywhere in the scanned set
+sentinel_os/bisg_estimator.py:None  ::  'FakeBISGEstimator' is defined but never referenced anywhere in the scanned set
+sentinel_os/cassette_capabilities.py:None  ::  'require_capabilities' is defined but never referenced anywhere in the scanned set
+sentinel_os/cassette_forensics.py:None  ::  'validate_cassette_snapshot_chain' is defined but never referenced anywhere in the scanned set
+sentinel_os/cassettes/banking_cassette.py:None  ::  'BankingCassette' is defined but never referenced anywhere in the scanned set
+sentinel_os/cassettes/ivr_cassette.py:None  ::  'IvrCassette' is defined but never referenced anywhere in the scanned set
+sentinel_os/conftest.py:None  ::  '_ensure_default_ledger_runtime_role' is defined but never referenced anywhere in the scanned set
+sentinel_os/conftest.py:None  ::  '_default_ledger_runtime_user' is defined but never referenced anywhere in the scanned set
+sentinel_os/conservation/artifact_store.py:None  ::  'init_artifact_store' is defined but never referenced anywhere in the scanned set
+sentinel_os/conservation/gateway.py:None  ::  'submit_for_conservation' is defined but never referenced anywhere in the scanned set
+sentinel_os/contract_attestation.py:None  ::  'verify_continuity' is defined but never referenced anywhere in the scanned set
+sentinel_os/contract_attestation.py:None  ::  'build_attestation' is defined but never referenced anywhere in the scanned set
+sentinel_os/contract_attestation.py:None  ::  'attestation_bytes' is defined but never referenced anywhere in the scanned set
+sentinel_os/contract_cassette.py:None  ::  'ContractCassetteRegistry' is defined but never referenced anywhere in the scanned set
+sentinel_os/contract_cassettes/reference_dpa.py:None  ::  'ReferenceDPAContract' is defined but never referenced anywhere in the scanned set
+sentinel_os/contract_egress.py:None  ::  'request_egress' is defined but never referenced anywhere in the scanned set
+sentinel_os/governance/friction_core.py:None  ::  'compute_friction' is defined but never referenced anywhere in the scanned set
+sentinel_os/governance/perceive_integration.py:None  ::  'SentinelPerceiveIntegration' is defined but never referenced anywhere in the scanned set
+sentinel_os/governance/recommend_v1.py:None  ::  'recommend' is defined but never referenced anywhere in the scanned set
+sentinel_os/governance_loop_guard.py:None  ::  'PipelineStateEngine' is defined but never referenced anywhere in the scanned set
+sentinel_os/operational_resilience.py:None  ::  'retry_with_backoff' is defined but never referenced anywhere in the scanned set
+sentinel_os/operational_resilience.py:None  ::  'HealthChecker' is defined but never referenced anywhere in the scanned set
+sentinel_os/operational_resilience.py:None  ::  'GracefulDegradation' is defined but never referenced anywhere in the scanned set
+sentinel_os/operational_resilience.py:None  ::  'export_alert_rules' is defined but never referenced anywhere in the scanned set
+sentinel_os/outcome_v1.py:None  ::  'horizon_honored' is defined but never referenced anywhere in the scanned set
+sentinel_os/outcome_v1.py:None  ::  'derive_open_obligations' is defined but never referenced anywhere i

@@ -1,0 +1,18 @@
+[tool_result] # FACTS / STRIDE Optional Upgrade Investigation
+
+**Target:** `/home/wking53214/Triad-42`, commit `af96bf9`  
+**Method:** repository-first review of package code, tests, examples, README,
+pending decisions, and the current operational-upgrade modules. FACTS and
+STRIDE were treated as conceptual source families; no supplied implementation
+was copied. This investigation made no production or test changes.
+
+...
+# Optional Cross-Codebase Upgrade Investigation
+
+**Target:** `/home/wking53214/Triad-42` (Triad-42 2.2.0 plus commit
+`af96bf9`)
+
+**Scope:** Repository-first comparison against the FACTS, STRIDE, and
+  251 OPTIONAL_CROSS_CODEBASE_UPGRADES.md
+  250 README.md
+ 1256 total

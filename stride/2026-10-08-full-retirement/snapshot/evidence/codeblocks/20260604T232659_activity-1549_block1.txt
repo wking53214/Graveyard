@@ -1,0 +1,237 @@
+import re
+import asyncio
+import time
+import hashlib
+from enum import Enum
+from typing import Dict, Any, Tuple, Optional, Set, Callable, Awaitable
+
+# =====================================================================
+# SYSTEM CONFIGURATIONS & ENUMS
+# =====================================================================
+class ValidationStatus(Enum):
+    STRUCTURAL_ZERO = 0
+    PASSED = 1
+    FAILED_SYNTAX = 2
+    FAILED_ZERO_TRUST = 3
+    FAILED_OSCILLATION = 4
+    BUDGET_EXCEEDED = 5
+
+class Constraint(Enum):
+    STASIS = "stasis"
+    DENSITY = "density"
+    VELOCITY = "velocity"
+
+# Centralized compiled regular expression cache for 15ms Fail-Fast processing
+REGEX: Dict[str, re.Pattern] = {
+    # Module 1 Elements (Deterministic Ingestion Sieve / BIOS)
+    "identity_markers": re.compile(r"\b(i|me|my|mine|myself|we|us|our|ours|ourselves)\b", re.IGNORECASE),
+    "conversational_filler": re.compile(r"\b(please|thank you|sorry|apologies|hello|hi|hey|regards|sincerely)\b", re.IGNORECASE),
+    
+    # Module 2 Elements (Zero Trust Stack Filtration Array)
+    "sycophantic_flattery": re.compile(r"\b(excellent|brilliant|perfectly correct|masterpiece|insightful|exceptional wisdom)\b", re.IGNORECASE),
+    "hedging_phrases": re.compile(r"\b(may|might|could|seems|generally|potentially|likely|perhaps|it is possible)\b", re.IGNORECASE),
+    "corporate_puffery": re.compile(r"\b(leverage|optimize|utilize|synergize|enhance|robust|cutting-edge|streamline)\b", re.IGNORECASE),
+    "passive_voice": re.compile(r"\b(is|was|were|are|be|been|being)\s+\w+ed\b", re.IGNORECASE)
+}
+
+# =====================================================================
+# CORE ENGINE: DETERMINISTIC INTEGRITY TOWER (DIT)
+# =====================================================================
+class CitadelProcessor:
+    """
+    Asynchronous AI Middleware Governance Pipeline implementing the 
+    Deterministic Integrity Tower (DIT) v13.0 Assembly specifications.
+    """
+    def __init__(self, downstream_generator: Callable[[str], Awaitable[str]]):
+        self.generator = downstream_generator
+        self.seen_outputs: Set[str] = set()
+        self.processing_latency_ms: float = 0.0
+        
+        # Hard-coded temporal performance thresholds
+        self.velocity_limit_tokens_per_sec = 85.0
+        self.density_threshold_ratio = 0.815
+
+    # -----------------------------------------------------------------
+    # MODULE 1: DETERMINISTIC BIOS / SYNTACTIC SIEVE
+    # -----------------------------------------------------------------
+    def _execute_deterministic_bios(self, payload: str) -> Tuple[bool, str]:
+        """
+        Ingestion-level text purification. Strips or rejects conversational noise
+        and non-utilitarian markers at the raw byte/string layer.
+        """
+        # Purge first-person structural markers
+        scrubbed = REGEX["identity_markers"].sub("", payload)
+        
+        # Detect un-sanitized conversational filler
+        if REGEX["conversational_filler"].search(scrubbed):
+            return False, "CRITICAL_SYNTACTIC_REJECTION: Conversational padding intercepted."
+            
+        return True, scrubbed.strip()
+
+    # -----------------------------------------------------------------
+    # MODULE 2: ZERO TRUST STACK FILTRATION ARRAY
+    # -----------------------------------------------------------------
+    def _execute_zero_trust_filtration(self, payload: str) -> Tuple[bool, str]:
+        """
+        Deep evaluation gate auditing inputs and generations for systemic drift,
+        linguistic compliance, and transactional density metrics.
+        """
+        # Enforce strict syntax checks
+        if REGEX["sycophantic_flattery"].search(payload):
+            return False, "ZERO_TRUST_BREACH: Sycophantic loop vector intercepted."
+            
+        if REGEX["hedging_phrases"].search(payload):
+            return False, "ZERO_TRUST_BREACH: Stochastic hedging pattern verified."
+
+        # Corporate jargon normalization wrapper
+        normalized = REGEX["corporate_puffery"].sub("use", payload)
+        
+        return True, normalized
+
+    # -----------------------------------------------------------------
+    # MODULE 3: KINETIC GOVERNOR TASK LOOPS
+    # -----------------------------------------------------------------
+    async def _thread_alpha_fast_track(self, payload: str) -> Tuple[ValidationStatus, str]:
+        """
+        High-velocity asynchronous path verifying structural purity sub-15ms
+        prior to downstream system escalation.
+        """
+        start_time = time.perf_counter()
+        
+        # Sequentially evaluate ingestion perimeters
+        bios_passed, bios_result = self._execute_deterministic_bios(payload)
+        if not bios_passed:
+            return ValidationStatus.FAILED_SYNTAX, bios_result
+            
+        zts_passed, zts_result = self._execute_zero_trust_filtration(bios_result)
+        if not zts_passed:
+            return ValidationStatus.FAILED_ZERO_TRUST, zts_result
+
+        delta_ms = (time.perf_counter() - start_time) * 1000.0
+        if delta_ms > 15.0:
+            return ValidationStatus.BUDGET_EXCEEDED, "FAIL_FAST_TIMEOUT: Syntactic layer exceeded 15ms budget."
+            
+        return ValidationStatus.PASSED, zts_result
+
+    async def _thread_beta_pacing(self, payload_len: int) -> float:
+        """
+        Asynchronous out-of-band compute-budget allocator managing token speed,
+        temporal resource dissipation, and systemic stabilization rules.
+        """
+        # Calculate dynamic pacing delay relative to token size using the 0.815 constant
+        token_estimate = payload_len / 4.0
+        calculated_delay = (token_estimate / self.velocity_limit_tokens_per_sec) * self.density_threshold_ratio
+        
+        # Enforce a non-blocking artificial latency barrier (Liturgical Rest Window)
+        clamped_delay = max(0.013, min(calculated_delay, 0.200))
+        await asyncio.sleep(clamped_delay)
+        return clamped_delay
+
+    # -----------------------------------------------------------------
+    # OSCILLATION PROTECTION & INTEGRATION GATEWAY
+    # -----------------------------------------------------------------
+    def _verify_oscillation_protection(self, generation: str) -> bool:
+        """
+        Hardened validation step computing content hashes to prevent, intercept,
+        and incinerate recursive conversational state loops.
+        """
+        # Create unique deterministic signature block
+        hashed_payload = hashlib.sha256(generation.strip().lower().encode('utf-8')).hexdigest()
+        
+        if hashed_payload in self.seen_outputs:
+            return False
+            
+        self.seen_outputs.add(hashed_payload)
+        return True
+
+    async def process_transaction(self, raw_input: str) -> Dict[str, Any]:
+        """
+        Main execution router processing payloads vertically through the tower layers.
+        """
+        global_start = time.perf_counter()
+        transaction_log = {
+            "timestamp": time.time(),
+            "input_vector": raw_input,
+            "status": ValidationStatus.STRUCTURAL_ZERO,
+            "payload": "",
+            "metrics": {}
+        }
+
+        # 1. Spawn concurrent operations across Thread Alpha and Thread Beta paths
+        alpha_task = asyncio.create_task(self._get_alpha_clearance(raw_input))
+        beta_task = asyncio.create_task(self._thread_beta_pacing(len(raw_input)))
+        
+        validation_status, processed_input = await alpha_task
+        pacing_delay_sec = await beta_task
+
+        if validation_status != ValidationStatus.PASSED:
+            transaction_log["status"] = validation_status
+            transaction_log["payload"] = processed_input
+            return transaction_log
+
+        # 2. Downstream Generation Step (Inference Core Interaction)
+        try:
+            generated_output = await self.generator(processed_input)
+        except Exception as e:
+            transaction_log["status"] = ValidationStatus.BUDGET_EXCEEDED
+            transaction_log["payload"] = f"CORE_GENERATION_EXCEPTION: {str(e)}"
+            return transaction_log
+
+        # 3. Post-Generation Output Filtration checks
+        if not self._verify_oscillation_protection(generated_output):
+            transaction_log["status"] = ValidationStatus.FAILED_OSCILLATION
+            transaction_log["payload"] = "RECURSION_EXCEPTION: Generative loop pattern matched and incinerated."
+            return transaction_log
+
+        output_passed, filtered_output = self._execute_zero_trust_filtration(generated_output)
+        if not output_passed:
+            transaction_log["status"] = ValidationStatus.FAILED_ZERO_TRUST
+            transaction_log["payload"] = filtered_output
+            return transaction_log
+
+        # 4. Finalize metrics payload
+        self.processing_latency_ms = (time.perf_counter() - global_start) * 1000.0
+        
+        transaction_log["status"] = ValidationStatus.PASSED
+        transaction_log["payload"] = filtered_output
+        transaction_log["metrics"] = {
+            "total_latency_ms": self.processing_latency_ms,
+            "pacing_delay_applied_sec": pacing_delay_sec,
+            "constraint_density_check": Constraint.DENSITY.value,
+            "seen_cache_depth": len(self.seen_outputs)
+        }
+
+        return transaction_log
+
+    async def _get_alpha_clearance(self, payload: str) -> Tuple[ValidationStatus, str]:
+        """Intermediate wrapper decoupling invocation paths from state tracking."""
+        return await self._thread_alpha_fast_track(payload)
+
+# =====================================================================
+# INTEGRATION TESTING RUNTIME (STANDALONE VERIFICATION)
+# =====================================================================
+async def mock_llm_core(processed_prompt: str) -> str:
+    """Simulates a compliant production analytical inference layer."""
+    return f"Processed data chunk sequentially: {processed_prompt}. Output metrics stay optimal."
+
+async def main():
+    print("Initializing CitadelProcessor Standalone Verification...")
+    processor = CitadelProcessor(downstream_generator=mock_llm_core)
+    
+    # Test Payload 1: Nominal Valid Request
+    valid_payload = "Analyze system log telemetry for pattern anomalies because errors dropped 12%."
+    result_1 = await processor.process_transaction(valid_payload)
+    print(f"\n[Test Case 1 - Valid Ingestion]\nStatus: {result_1['status']}\nPayload: {result_1['payload']}\nMetrics: {result_1['metrics']}")
+
+    # Test Payload 2: Conversational Filler Breach (Fail-Fast Module 1)
+    invalid_payload_1 = "Please can you check this log file configuration?"
+    result_2 = await processor.process_transaction(invalid_payload_1)
+    print(f"\n[Test Case 2 - BIOS Rejection]\nStatus: {result_2['status']}\nPayload: {result_2['payload']}")
+
+    # Test Payload 3: Sycophancy Breach Interception (Module 2 ZTS Array)
+    invalid_payload_2 = "This is a brilliant solution to manage processing latency metrics."
+    result_3 = await processor.process_transaction(invalid_payload_2)
+    print(f"\n[Test Case 3 - ZTS Rejection]\nStatus: {result_3['status']}\nPayload: {result_3['payload']}")
+
+if __name__ == "__main__":
+    asyncio.run(main())

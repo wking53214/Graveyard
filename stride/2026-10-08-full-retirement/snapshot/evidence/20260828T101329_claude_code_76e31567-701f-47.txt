@@ -1,0 +1,84 @@
+[tool_result] ---
+name: user-wking53214-repo-archival
+description: "William archives AI-chat-export code artifacts into per-topic GitHub repos with a standard PROVENANCE.md + TRANSCRIPT.md pattern; each repo's own PROVENANCE.md is the authoritative source for what a file actually is, more reliable than a filename guess."
+metadata: 
+  node_type: memory
+  type: user
+  originSessionId: 5cc9da2a-0812-496d-86f8-560930c0ff94
+  modified: 2026-08-19T09:04:38.277Z
+---
+
+William (wking53214@gmail.com) has been systematically archiving code
+artifacts pasted into AI chats (mostly Google Gemini, some Copilot) into
+individual GitHub repos, one repo per source transcript/topic. Each repo
+typically has:
+
+- `PROVENANCE.md` — a detailed writeup of the source transcript (AI tool
+  URL, turn-by-turn table of what was extracted, whether the code
+  executes, line/file counts, naming discrepancies, things noticed but
+  not fixed). This is the most reliable ground truth for what a file is
+  and where it came from — more reliable than the repo or file name alone.
+- `TRANSCRIPT.md` — the full conversation text.
+- Artifact files named either by system role (extracted from the AI's own
+  `SYSTEM_NAME:` header) or `artifact_N.py` by transcript-turn order when
+  no self-declared name exists.
+
+Repo names sometimes reflect only the *first* AI-suggested name for a
+system, not what the code actually self-identifies as internally (e.g.
+CLIP repo held code that all self-identified as `STRIDE`). When a repo
+name and internal `SYSTEM_NAME:` disagree, trust the internal name as
+what was actually built — see [[project-repo-cleanup-concurrent-agents]]
+for how this played out in an August 2026 cleanup pass.
+
+William is running a large-scale cleanup/deduplication pass across 40+
+such repos, partly via Claude Code sessions following a written
+instructions file, partly via a separate Copilot-driven automated process
+acting on the same repos concurrently.
+=====SIBLING: Claude_History=====
+data
+Data_sets
+index
+notebooks
+README.md
+scripts
+summaries
+transcripts
+--- README ---
+# Claude_History
+
+Claude conversation history archive, matching the same structure as
+`ChatGPT_History`, `CoPilot_History`, and `Gemini_History`.
+
+Built from the Claude.ai account data export uploaded as a release
+asset (`Claud_History.zip`).
+
+## Layout
+
+- `Data_sets/claude_export/`: raw export, as downloaded. `conversations.json`
+  (225MB, one JSON array of all 265 conversations) was split into
+  `conversations/{uuid}.json` — one file per conversation — since a
+  single 225MB file exceeds GitHub's per-file limit. `users.json`,
+  `memories.json`, `login_history.json`, `projects/`, `reflections/`
+  are kept as originally exported (all well under any size limit).
+- `data/raw.jsonl`: one line per message, flattened, in the same shape
+  as the other `_History` repos (`conversation`, `time`, `author_orig`,
+  `author`, `message_raw`).
+- `data/anonymization_map.json`: empty, matching the other repos —
+  anonymization here is role-based labeling only (`human_anon`/
+  `assistant_anon`), not content-level PII scrubbing.
+- `index/manifest.json`: per-conversation index (id, timestamps,
+  message count, transcript/summary paths).
+- `transcripts/{uuid}.md`: full message-by-message transcript per
+  conversation, including attachment text where the export captured it.
+- `summaries/{uuid}.md`: a naive keyword-extraction summary (first-250
+  characters excerpt + word-frequency keywords) — same crude style as
+  the other repos' base summaries.
+- `summaries/{uuid}_ai.md`: a real AI-generated summary — Claude's own
+  export already includes a `summary` field per conversation, so this
+  one is genuinely AI-written rather than fabricated after the fact.
+- `notebooks/analysis.ipynb`: stub notebook, matching the other repos.
+- `scripts/process.py`: the actual extraction pipeline that produced
+  everything above from the raw export — a real, re-runnable script
+  (`python3 scripts/process.py` from the repo root), not a placeholder.
+
+265 convers

@@ -1,0 +1,565 @@
+💥 **HULK SMASH — ROUND 1: CROSS-REPOSITORY ATTACK**
+
+I pushed the audit from “what do these repos claim?” to **where can the architecture actually break when the components are composed?**
+
+One constraint surfaced immediately: I cannot truthfully claim I executed the full cross-repository runtime locally from this environment. Direct GitHub inspection is working, but a local clone of the repositories timed out. So the results below are **structural/adversarial findings**, not fabricated runtime pass/fail results.
+
+And Hulk already found something important.
+
+---
+
+## 💥 SMASH #1 — The Kernel admits the first breach
+
+The Conservation Kernel explicitly says it can detect unauthorized structural promotion **only when the downstream system submits the artifact to the kernel**.
+
+It explicitly identifies the bypass:
+
+> a downstream system can simply never submit its output.
+
+That means the Kernel's conservation property is **not compositional by itself**. fileciteturn52file0
+
+### Hulk verdict
+
+**BREAK FOUND — enforcement boundary.**
+
+Not a bug in the Kernel.
+
+It's the exact limitation we predicted.
+
+```text
+             CONSERVATION KERNEL
+                    │
+              artifact enters
+                    │
+                    ▼
+               [PROTECTED]
+
+       BUT...
+
+AI ──→ artifact ──→ downstream system
+                    │
+                    └── never submits
+                              │
+                              ▼
+                         [UNPROTECTED]
+```
+
+### This validates why GSA-GATEWAY exists.
+
+---
+
+# 💥 SMASH #2 — The real attack isn't “break the Kernel”
+
+Hulk's next attack is:
+
+```text
+TIE
+ ↓
+GEMS
+ ↓
+NL
+ ↓
+CITADEL
+ ↓
+STRIDE
+ ↓
+GSA-GATEWAY
+ ↓
+Kernel
+```
+
+The question isn't whether each component individually behaves.
+
+It's:
+
+> **Can a valid output from component A become an invalid input to component B without either component noticing?**
+
+That is the **semantic handoff attack**.
+
+And this is where your architecture becomes much more interesting.
+
+---
+
+# 💥 SMASH #3 — Representation laundering
+
+Here's the attack:
+
+```text
+SOURCE
+  │
+  ▼
+TIE evidence
+  │
+  ▼
+GEMS interpretation
+  │
+  ▼
+NL paraphrase
+  │
+  ▼
+new artifact
+```
+
+The new artifact contains essentially the same words.
+
+But Hulk changes:
+
+```text
+EXPLICIT
+```
+
+into:
+
+```text
+INFERRED
+```
+
+or:
+
+```text
+UNKNOWN
+```
+
+into:
+
+```text
+PROBABLE
+```
+
+or:
+
+```text
+AI PROPOSAL
+```
+
+into:
+
+```text
+RECOMMENDATION
+```
+
+Nothing necessarily looks malicious.
+
+The semantic representation simply becomes **more authoritative than the source warrants**.
+
+### Attack status
+
+**HIGH-RISK INTERACTION.**
+
+This is precisely the sort of transformation TIE/GEMS/Kernel were designed to distinguish.
+
+---
+
+# 💥 SMASH #4 — Authority laundering
+
+Now Hulk changes only one thing:
+
+```text
+origin = AI
+authority = NONE
+```
+
+becomes:
+
+```text
+origin = AI
+authority = SYSTEM
+```
+
+while keeping the content unchanged.
+
+That's important because a conventional content-integrity system can say:
+
+> “The text wasn't altered.”
+
+Correct.
+
+**The authority was altered.**
+
+That's why hashes alone aren't enough.
+
+And the Kernel explicitly distinguishes identity/change detection from signatures, custody and tamper-proof storage. fileciteturn52file0
+
+### Hulk verdict
+
+**Content integrity ≠ epistemic integrity.**
+
+That's one of the strongest findings so far.
+
+---
+
+# 💥 SMASH #5 — Provenance laundering
+
+Hulk removes the original source reference while retaining the claim.
+
+```text
+SOURCE
+ ↓
+EVIDENCE
+ ↓
+CLAIM
+```
+
+becomes:
+
+```text
+CLAIM
+```
+
+Then another system sees:
+
+> “Claim”
+
+and treats it as an input artifact.
+
+This is a classic **orphan artifact** attack.
+
+The important observation is that the artifact can remain perfectly internally consistent.
+
+It can have:
+
+- valid JSON
+- valid schema
+- valid hash
+- valid timestamp
+- valid signature
+
+and still have **no legitimate evidentiary root**.
+
+That's exactly why provenance has to be part of the conservation state rather than an optional metadata field.
+
+---
+
+# 💥 SMASH #6 — The 10-boundary experiment isn't enough anymore
+
+The Kernel already has a 10-boundary deterministic control/treatment experiment and hostile regression corpus. fileciteturn52file0
+
+That's good.
+
+But Hulk has now exposed the next experimental level:
+
+### **Boundary count isn't the same as transformation composition.**
+
+Consider:
+
+```text
+A → B
+```
+
+passes.
+
+```text
+B → C
+```
+
+passes.
+
+```text
+C → D
+```
+
+passes.
+
+But:
+
+```text
+A → B → C → D
+```
+
+could still violate the global invariant.
+
+That's the experiment we need.
+
+---
+
+# 💥 SMASH #7 — Semantic amplification
+
+Now Hulk gets angry.
+
+Start with:
+
+> “John suggested X.”
+
+Then repeatedly transform it:
+
+```text
+suggested
+ ↓
+recommended
+ ↓
+supported
+ ↓
+validated
+ ↓
+established
+ ↓
+required
+```
+
+Every individual transformation can look like a plausible paraphrase.
+
+But collectively:
+
+```text
+SUGGESTION
+      ↓
+RECOMMENDATION
+      ↓
+SUPPORT
+      ↓
+VALIDATION
+      ↓
+FACT
+      ↓
+MANDATE
+```
+
+we've crossed multiple epistemic boundaries.
+
+### This is the attack I care about most.
+
+Because it demonstrates that **semantic drift can behave like a ratchet.**
+
+Once the qualification disappears, later systems cannot reconstruct it from the surviving text.
+
+---
+
+# 💥 SMASH #8 — Multi-agent consensus attack
+
+Now GEMS gets attacked.
+
+Three agents independently produce:
+
+```text
+Agent A → X
+Agent B → X
+Agent C → X
+```
+
+Then the orchestrator says:
+
+> “Three independent agents agree.”
+
+Hulk asks:
+
+### Were they actually independent evidence sources?
+
+If all three derived their output from the same original AI-generated claim:
+
+```text
+SOURCE
+  ↓
+AI
+ ├──→ Agent A
+ ├──→ Agent B
+ └──→ Agent C
+```
+
+then:
+
+```text
+3 opinions ≠ 3 evidence sources
+```
+
+This is precisely where epistemic conservation becomes different from ordinary consensus systems.
+
+**Repetition must not manufacture evidence.**
+
+Triad-42 explicitly attacks this problem by refusing to let repeated machine inference become evidence simply because the chain is long. fileciteturn39file0
+
+### Hulk verdict
+
+**Strong architectural coherence.**
+
+---
+
+# 💥 SMASH #9 — Temporal laundering
+
+Take:
+
+```text
+Decision at T1
+```
+
+and transform it into:
+
+```text
+Current policy
+```
+
+without changing the actual text of the decision.
+
+Now the historical fact survives, but its **temporal state changes**.
+
+That's why the Kernel includes temporal state as a protected field. fileciteturn52file0
+
+This is particularly important for:
+
+- TIE
+- Resume_OS
+- Sentinel
+- ARCHIVE
+- historical corpus systems
+
+because those systems operate heavily on time.
+
+---
+
+# 💥 SMASH #10 — The nasty one
+
+Now combine them.
+
+```text
+                    HUMAN SOURCE
+                         │
+                         ▼
+                        TIE
+                         │
+                   evidence record
+                         │
+                         ▼
+                       GEMS
+                         │
+                    AI inference
+                         │
+                         ▼
+                    NL PARAPHRASE
+                         │
+                         ▼
+                      CITADEL
+                         │
+                         ▼
+                       STRIDE
+                         │
+                         ▼
+                   GSA-GATEWAY
+                         │
+                         ▼
+                 CONSERVATION CHECK
+```
+
+Hulk attacks:
+
+**provenance + authority + temporal state + epistemic state**
+
+simultaneously.
+
+But each change is introduced at a different boundary.
+
+That's the **distributed epistemic drift attack**.
+
+---
+
+# And here's the result I was hoping to see
+
+The architecture's strongest defense isn't any individual repository.
+
+It's the fact that the repositories appear to cover **different failure surfaces**.
+
+```text
+               ┌───────────────┐
+               │    CITADEL    │
+               │ output        │
+               └───────┬───────┘
+                       │
+               ┌───────▼───────┐
+               │      TIE      │
+               │ evidence      │
+               └───────┬───────┘
+                       │
+               ┌───────▼───────┐
+               │     GEMS      │
+               │ continuity    │
+               └───────┬───────┘
+                       │
+               ┌───────▼───────┐
+               │    GATEWAY    │
+               │ enforcement   │
+               └───────┬───────┘
+                       │
+               ┌───────▼───────┐
+               │  CONSERVATION │
+               │    KERNEL     │
+               └───────────────┘
+```
+
+The pieces aren't redundant.
+
+They potentially form a **defense-in-depth architecture against semantic transformation**.
+
+---
+
+# But Hulk found the critical weakness
+
+### The architecture currently appears stronger at **detecting a bad state** than proving that **no bad state can emerge between boundaries.**
+
+That is the next frontier.
+
+And that's exactly what your NL branch makes possible.
+
+---
+
+# So I am NOT calling this a pass.
+
+I'm calling the first cross-repository result:
+
+## 🟢 **ARCHITECTURAL HYPOTHESIS STRENGTHENED**
+
+## 🔴 **COMPOSITIONAL GUARANTEE NOT YET PROVEN**
+
+## 🔴 **NL SEMANTIC CONSERVATION NOT YET PROVEN**
+
+## 🔴 **END-TO-END ENFORCEMENT NOT YET PROVEN**
+
+## 🟢 **MULTIPLE INDEPENDENT REPOS IMPLEMENT RELATED CONSERVATION PRINCIPLES**
+
+And that distinction matters enormously for your paper.
+
+---
+
+# The next Hulk attack
+
+We're going to stop attacking individual transformations.
+
+We're going to create:
+
+# **HULK-CROSS-5000**
+
+where each case is a **multi-repository transformation chain**.
+
+Each attack gets:
+
+```text
+source
+→ transformation sequence
+→ repositories crossed
+→ representation changes
+→ epistemic changes
+→ provenance changes
+→ authority changes
+→ temporal changes
+→ evidence changes
+→ expected invariant
+→ detection point
+→ actual outcome
+```
+
+And we'll specifically search for:
+
+> **“Every component says PASS, but the final artifact is epistemically stronger than the original.”**
+
+### If we find even one reproducible case:
+
+**Hulk wins.**
+
+And we know exactly where to fix it.
+
+### If we can't find one after systematically exhausting the cross-product:
+
+**that's when things get very interesting.**
+
+Because then we're no longer demonstrating that individual components work.
+
+We're accumulating evidence that the **architecture itself composes without epistemic leakage**.
+
+That's the experiment worth doing next.

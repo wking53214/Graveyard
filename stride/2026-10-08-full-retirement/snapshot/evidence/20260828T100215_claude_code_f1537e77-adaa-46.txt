@@ -1,0 +1,45 @@
+[tool_result] 450	profile threshold it re-prompts the model with the list of rule violations, up
+451	to 3 times, detecting output loops and forcing a rephrase. Flattened; cannot run.
+452	
+453	CITADEL's own repo (`citadel_v1.2.py`) holds the canonical deterministic engine,
+454	and it also carries two constraints this file lacks (em-dash / punctuation
+455	control, and a prohibited-verbs check from the STRIDE lineage). This file is not
+456	the "duplicate" the parent README calls it. Its genuinely distinct pieces, kept
+457	here as a record:
+458	
+459	  * `StructureNormalizer` - a corporate-jargon synonym map (methodology ->
+460	    approach, facilitate -> help, functionality -> features, prioritize -> rank,
+461	    ...), broader than CITADEL's verb normalization.
+462	  * a `VARIATION` constraint - an anti-loop rule that forces a different
+463	    structure when the model returns text it has already produced.
+464	  * `SimplicityTelemetry` - aggregate pass/bypass telemetry across calls.
+465	
+466	When `sovereign_kernel.py`'s linguistic step is built, it should draw on
+467	CITADEL's deterministic engine, not this variant.
+468	EOF_ARCHIVE_README
+469	
+470	# --------------------------------------------------------------------------
+471	# 4/4  Verify, then stage
+472	# --------------------------------------------------------------------------
+473	echo "==> 4/4  Verifying"
+474	
+475	VANGUARD_AUDIT_LOG_PATH=/dev/null python3 -B - <<'EOF_VERIFY'
+476	import sys, ast
+477	sys.dont_write_bytecode = True
+478	from pathlib import Path
+479	
+480	gs = Path("governance-stack")
+481	
+482	# the 4 targets must have moved out of governance-stack/ into archive/
+483	for name in ("unified-sovereign-kernel-wrapper.py",
+484	             "sovereign-governance-stack-v1.py",
+485	             "sovereign-governance-stack-v2-expanded.py",
+486	             "citadel-processor-router-flattened.py"):
+487	    assert not (gs / name).exists(), f"{name} still in governance-stack/"
+488	    assert (gs / "archive" / name).exists(), f"{name} not in archive/"
+489	print("    4 files moved to governance-stack/archive/")
+490	
+491	# every remaining top-level governance-stack file still parses
+492	bad = []
+493	for f in sorted(gs.glob("*.py")):
+494	    try:

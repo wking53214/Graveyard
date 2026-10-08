@@ -1,0 +1,683 @@
+```text
+# CITADEL
+
+## Deterministic Policy-Driven Detection, Evaluation, and Transformation Engine
+
+CITADEL is a deterministic policy-driven enforcement architecture designed to detect defined conditions in an input, evaluate those conditions against an explicit policy, and apply a prescribed response.
+
+The current implementation applies this underlying architecture to generated natural-language output.
+
+The linguistic implementation should therefore be understood as the **current example of how the underlying system functions**, rather than as the fundamental limit of what the architecture represents.
+
+At its most general level:
+
+    INPUT
+      │
+      ▼
+    POLICY
+      │
+      ▼
+    DETECTION
+      │
+      ▼
+    EVALUATION
+      │
+      ▼
+    TRANSFORMATION / ENFORCEMENT
+      │
+      ▼
+    OUTPUT
+
+The system separates the definition of a constraint from the mechanisms used to detect, evaluate, and respond to that constraint.
+
+---
+
+# Core Architectural Concept
+
+CITADEL establishes an explicit enforcement boundary between an input and its downstream consumer.
+
+Instead of allowing an input to pass directly through:
+
+    INPUT
+      │
+      ▼
+    CONSUMER
+
+CITADEL introduces a policy-controlled intermediary:
+
+    INPUT
+      │
+      ▼
+    CITADEL
+      │
+      ├── detect
+      ├── evaluate
+      ├── score
+      └── transform
+      │
+      ▼
+    CONSUMER
+
+The fundamental capability is therefore not the removal of particular words.
+
+The fundamental capability is:
+
+> **Policy-defined conditions can be detected and subjected to deterministic enforcement actions before the resulting artifact proceeds downstream.**
+
+---
+
+# Current Implementation
+
+The current implementation applies this architecture to natural-language output.
+
+It can identify selected linguistic characteristics, evaluate them against an active enforcement profile, calculate an enforcement score, and apply deterministic transformations.
+
+Current constraints include:
+
+- first-person identity language;
+- hedging language;
+- passive voice;
+- causal-support conditions;
+- punctuation;
+- and prohibited or vague corporate-speak verbs.
+
+These are examples of policies currently implemented by the engine.
+
+They are not the architectural definition of CITADEL.
+
+---
+
+# Application Versus Architecture
+
+The distinction is important.
+
+CITADEL's present application is:
+
+    GENERATED LANGUAGE
+          │
+          ▼
+    LINGUISTIC POLICY
+          │
+          ▼
+    DETECTION
+          │
+          ▼
+    TRANSFORMATION
+          │
+          ▼
+    ENFORCED LANGUAGE
+
+The underlying architecture is broader:
+
+    ARTIFACT
+       │
+       ▼
+    POLICY
+       │
+       ▼
+    CONDITION DETECTION
+       │
+       ▼
+    EVALUATION
+       │
+       ▼
+    POLICY RESPONSE
+       │
+       ├── allow
+       ├── reject
+       ├── modify
+       ├── normalize
+       ├── classify
+       └── route
+       │
+       ▼
+    RESULT
+
+The current natural-language implementation is therefore best understood as a **reference application of the enforcement architecture**.
+
+---
+
+# Why the Current Example Uses Language
+
+Natural-language generation provides a practical environment in which the architecture can be demonstrated.
+
+For example, a policy may define first-person identity language as prohibited.
+
+The system can then detect:
+
+    I
+    me
+    my
+    mine
+    myself
+    we
+    us
+    our
+    ours
+    ourselves
+
+and apply the configured transformation.
+
+But the architectural operation is not:
+
+    "remove the word I"
+
+It is:
+
+    POLICY
+       │
+       ▼
+    CONDITION
+       │
+       ▼
+    DETECT
+       │
+       ▼
+    ENFORCEMENT ACTION
+
+The specific linguistic rule is simply one concrete instance of that pattern.
+
+---
+
+# Policy-Driven Architecture
+
+CITADEL uses named enforcement profiles.
+
+Profiles determine which constraints are active for a particular operating context.
+
+The current implementation provides:
+
+    default
+    ops
+    exec
+    legal
+
+Each profile can enable or disable specific constraints.
+
+This separates:
+
+    WHAT IS ENFORCED
+
+from:
+
+    HOW ENFORCEMENT IS PERFORMED
+
+The detector and transformer provide the mechanisms.
+
+The profile supplies the policy configuration.
+
+---
+
+# Detection
+
+`CitadelDetector` evaluates the input against the active profile.
+
+The current implementation uses deterministic regular-expression and lexical rules.
+
+This makes the detection process:
+
+- explicit;
+- inspectable;
+- reproducible;
+- and testable.
+
+The detector produces identified violations rather than directly modifying the input.
+
+This preserves the separation between:
+
+    DETECTION
+
+and:
+
+    ENFORCEMENT.
+
+---
+
+# Evaluation
+
+CITADEL evaluates detected violations using configured penalty values.
+
+The current scoring model begins at:
+
+    100
+
+and subtracts penalties according to the detected violations.
+
+Current penalties include:
+
+    identity           -10
+    hedging             -5
+    passive             -5
+    causality          -10
+    punctuation        -3
+    prohibited verbs   -5
+
+The resulting score is bounded at zero.
+
+The score represents the enforcement state under the active CITADEL policy.
+
+It is not a universal measure of:
+
+- truth;
+- intelligence;
+- safety;
+- factual accuracy;
+- or model quality.
+
+---
+
+# Transformation
+
+`CitadelTransformer` applies policy-defined deterministic transformations.
+
+Current transformations include:
+
+### Identity
+
+Selected first-person expressions can be removed.
+
+### Hedging
+
+Selected hedging expressions can be removed.
+
+### Passive Voice
+
+Certain recognized constructions can be transformed.
+
+### Causality
+
+A detected unsupported causal statement can receive a standardized causal-support addition.
+
+### Punctuation
+
+Em-dashes can be normalized.
+
+### Prohibited Verbs
+
+Selected prohibited verbs can be normalized to permitted alternatives.
+
+These are current implementations of a broader transformation capability.
+
+---
+
+# The Transformation Primitive
+
+The important abstraction is:
+
+    DETECTED CONDITION
+           │
+           ▼
+    POLICY RESPONSE
+           │
+           ▼
+       TRANSFORM
+
+For one policy, the response may be:
+
+    REMOVE
+
+For another:
+
+    REPLACE
+
+For another:
+
+    NORMALIZE
+
+For another:
+
+    REJECT
+
+For another:
+
+    AUGMENT
+
+The architecture therefore provides a foundation for deterministic policy-controlled transformation rather than merely a collection of word-removal rules.
+
+---
+
+# Enforcement Result
+
+The primary enforcement operation returns a structured result containing information including:
+
+- original input;
+- transformed output;
+- whether a transformation occurred;
+- enforcement score;
+- detected violations;
+- active profile;
+- and processing latency.
+
+This provides downstream systems with both:
+
+    RESULT
+
+and:
+
+    REASON FOR RESULT
+
+The system therefore does not merely return modified content.
+
+It preserves information about the enforcement operation itself.
+
+---
+
+# Determinism
+
+CITADEL is intentionally deterministic.
+
+Given the same:
+
+- input;
+- policy/profile;
+- and implementation version,
+
+the same detection and transformation rules are applied.
+
+This property makes the architecture suitable for environments in which enforcement behavior needs to be:
+
+- repeatable;
+- auditable;
+- testable;
+- and independently reproduced.
+
+---
+
+# Output Boundary
+
+CITADEL is particularly suited to placement at a boundary between a generative or processing system and a downstream consumer.
+
+For example:
+
+    ┌───────────────┐
+    │ GENERATOR     │
+    │ / PROCESSOR   │
+    └───────┬───────┘
+            │
+            ▼
+    ┌───────────────┐
+    │   CITADEL     │
+    │               │
+    │ POLICY        │
+    │ DETECTION     │
+    │ EVALUATION    │
+    │ TRANSFORM     │
+    └───────┬───────┘
+            │
+            ▼
+    ┌───────────────┐
+    │ DOWNSTREAM    │
+    │ CONSUMER      │
+    └───────────────┘
+
+This establishes an explicit policy enforcement point.
+
+---
+
+# Relationship to STRIDE
+
+CITADEL has an architectural relationship with STRIDE.
+
+The STRIDE gateway architecture identifies CITADEL's linguistic enforcement capability as an interception layer.
+
+Conceptually:
+
+    GENERATION / APPLICATION
+             │
+             ▼
+          STRIDE
+             │
+             ▼
+          CITADEL
+             │
+             ▼
+       ENFORCED OUTPUT
+
+STRIDE therefore provides the broader gateway context while CITADEL supplies a specialized deterministic enforcement capability.
+
+CITADEL should not be represented as equivalent to STRIDE.
+
+---
+
+# Broader Architectural Potential
+
+The current implementation demonstrates the architecture using natural language.
+
+The same conceptual structure can be applied to other policy-controlled artifacts where the system can define:
+
+1. a detectable condition;
+2. an evaluation rule;
+3. an enforcement response.
+
+For example:
+
+    STRUCTURED DATA
+          │
+          ▼
+       POLICY
+          │
+          ▼
+      VALIDATION
+          │
+          ▼
+    FIELD CONSTRAINT
+          │
+          ▼
+     MODIFY / REJECT
+
+or:
+
+    REQUEST
+       │
+       ▼
+    POLICY
+       │
+       ▼
+    DETECTION
+       │
+       ▼
+    AUTHORIZATION CONDITION
+       │
+       ▼
+    ALLOW / DENY
+
+These examples describe the architectural pattern, not capabilities currently claimed as implemented by this repository.
+
+---
+
+# What CITADEL Currently Demonstrates
+
+The repository currently demonstrates:
+
+- explicit policy profiles;
+- deterministic condition detection;
+- violation classification;
+- bounded scoring;
+- deterministic transformation;
+- structured enforcement results;
+- configurable constraints;
+- and output-boundary interception.
+
+The natural-language implementation provides a concrete demonstration of these mechanisms.
+
+---
+
+# What CITADEL Does Not Currently Claim
+
+CITADEL is not currently presented as:
+
+- a general-purpose AI safety system;
+- a factuality verifier;
+- a hallucination detector;
+- a semantic truth engine;
+- a general grammar engine;
+- a complete causal reasoning system;
+- an authorization framework;
+- or a universal governance platform.
+
+Those descriptions exceed the current implementation.
+
+The defensible architectural description is:
+
+> **CITADEL is a deterministic policy-driven detection, evaluation, and transformation engine whose current implementation demonstrates the architecture through linguistic output enforcement.**
+
+---
+
+# Version 1.1
+
+The original recovered implementation provides:
+
+- identity detection;
+- hedging detection;
+- passive-voice detection;
+- causal-support detection;
+- punctuation enforcement;
+- scoring;
+- deterministic transformation;
+- and profile-based policy selection.
+
+Its principal components are:
+
+    CitadelDetector
+    CitadelTransformer
+    CitadelScorer
+    Citadel
+
+---
+
+# Version 1.2
+
+CITADEL v1.2 extends the original implementation with a prohibited-verb constraint recovered from the STRIDE lineage.
+
+The additional constraint identifies selected terms including:
+
+    improve
+    optimize
+    enhance
+    enable
+    support
+    strengthen
+    utilize
+    leverage
+
+The current implementation applies this constraint to the `ops` and `exec` profiles.
+
+Detected terms can be normalized to:
+
+    use
+
+The provenance of this addition is intentionally preserved rather than represented as part of the original v1.1 design.
+
+---
+
+# Design Principles
+
+## Explicit Policy
+
+Enforcement behavior should originate from identifiable policy definitions.
+
+## Deterministic Detection
+
+Conditions should be detectable through reproducible mechanisms.
+
+## Separation of Detection and Response
+
+Identifying a violation should remain conceptually separate from deciding what to do about it.
+
+## Deterministic Transformation
+
+Where transformation is authorized, the transformation should follow explicit rules.
+
+## Inspectable Enforcement
+
+The system should report what it detected and how the result was produced.
+
+## Boundary Enforcement
+
+Policy should be enforceable at an identifiable boundary before downstream consumption.
+
+## Application Independence
+
+The current application should not be confused with the underlying architectural capability.
+
+## Provenance Preservation
+
+Later additions and recovered mechanisms should remain distinguishable from the original implementation.
+
+---
+
+# Architectural Model
+
+The current CITADEL architecture can be represented as:
+
+    ┌─────────────────────────────────────┐
+    │              INPUT                  │
+    └──────────────────┬──────────────────┘
+                       │
+                       ▼
+    ┌─────────────────────────────────────┐
+    │              POLICY                 │
+    │                                     │
+    │ constraints / profile / thresholds │
+    └──────────────────┬──────────────────┘
+                       │
+                       ▼
+    ┌─────────────────────────────────────┐
+    │             DETECTOR                │
+    │                                     │
+    │ identify policy-defined conditions  │
+    └──────────────────┬──────────────────┘
+                       │
+                       ▼
+    ┌─────────────────────────────────────┐
+    │              SCORER                 │
+    │                                     │
+    │ evaluate detected conditions        │
+    └──────────────────┬──────────────────┘
+                       │
+                       ▼
+    ┌─────────────────────────────────────┐
+    │           TRANSFORMER               │
+    │                                     │
+    │ apply policy-defined response       │
+    └──────────────────┬──────────────────┘
+                       │
+                       ▼
+    ┌─────────────────────────────────────┐
+    │              RESULT                 │
+    │                                     │
+    │ original / final / score / reasons │
+    └─────────────────────────────────────┘
+
+---
+
+# Current Application
+
+The current application is:
+
+    LLM-GENERATED NATURAL LANGUAGE
+                    │
+                    ▼
+                 CITADEL
+                    │
+                    ▼
+       ENFORCED NATURAL LANGUAGE
+
+This implementation should be understood as the **current practical use of the architecture**.
+
+The repository does not establish that CITADEL is inherently limited to linguistic enforcement.
+
+---
+
+# Status
+
+CITADEL is a deterministic policy-driven detection, evaluation, and transformation engine.
+
+Its current implementation demonstrates that architecture through enforcement of explicit linguistic constraints on generated natural-language output.
+
+The words and phrases currently being detected, removed, replaced, normalized, or supplemented are therefore **examples of configured policy behavior**, not the definition of the underlying system.
+
+The central architectural proposition is:
+
+> **A system can place an explicit, deterministic policy boundary around an artifact, detect conditions defined by that policy, evaluate their significance, and apply an authorized response before the artifact proceeds downstream.**
+```

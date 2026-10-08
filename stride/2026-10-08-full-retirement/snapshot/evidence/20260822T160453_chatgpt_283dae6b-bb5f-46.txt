@@ -1,0 +1,1061 @@
+Pass 7 has now been **executed against the accessible GitHub primary evidence** as of **12:00pm ET, August 22, 2026**.
+
+The result is already materially different from a simple repository-by-repository review: the evidence shows a genuine **artifact migration/consolidation network**, but it also shows that some apparently “old” systems are themselves reconstruction-era extractions.
+
+## PASS 7 — INITIAL FORENSIC RESULT
+
+### Executive finding
+
+The surviving evidence currently supports this broad structure:
+
+```text
+                    ARCHIVE / historical payloads
+                       │        │
+             ┌─────────┘        └──────────┐
+             ▼                             ▼
+       FORTRESS variants              GSA-family artifacts
+             │                             │
+             │                             ├── DGK
+             │                             ├── DIT
+             │                             ├── RADAR
+             │                             ├── EDDP
+             │                             └── other extracted systems
+             │                                      │
+             ▼                                      ▼
+      sentinel_os/sage_k ───────────────► FORTRESS
+             │
+             │
+             ▼
+         SENTINEL
+             │
+       ┌─────┴──────────┐
+       │                │
+       ▼                ▼
+   STRIDE salvage    IVR/kernel split
+       │                │
+       ▼                ▼
+ Sentinel canonical   GSA-815
+ implementation
+```
+
+But there is an important qualification:
+
+**FORTRESS, STRIDE, SAGE-K, and several other apparently “older” names are not presently proven to represent pre-July/August-2026 software projects.** In several cases the surviving evidence explicitly describes them as archive extractions, reconstructions, or newly consolidated repositories.
+
+That is a major Pass 7 finding.
+
+---
+
+# 1. SENTINEL — THE STRONGEST ANCHOR
+
+urlsentinel_os on GitHubhttps://github.com/wking53214/sentinel_os
+
+The repository was created **July 4, 2026 at 03:34am UTC**, with an **“Initial Sentinel OS upload”** commit at **July 4, 2026 at 03:31am UTC**. Thus Sentinel is genuinely older than the later August reconstruction wave, but it is **not evidence of a pre-2026 system family merely from its repository age**. citeturn37file0
+
+The initial commit is:
+
+`cff373e1bf83bc937e0ab9c12cfeed93a3aac4ee`
+
+dated **July 4, 2026 at 03:31am UTC**.
+
+That gives us the current hard lower bound for the surviving Sentinel repository history.
+
+### Important consequence
+
+The investigation cannot currently say:
+
+> “Sentinel descended from an older historical repository.”
+
+It can say:
+
+> **Sentinel is the earliest surviving primary Git repository anchor presently established in this investigation, beginning July 4, 2026.**
+
+Anything before that requires evidence from archives or other repositories.
+
+---
+
+# 2. SENTINEL → GSA-815 IS DEFINITELY A MIGRATION NETWORK
+
+urlGSA-815 on GitHubhttps://github.com/wking53214/GSA-815
+
+GSA-815's repository was created **July 31, 2026 at 01:23pm UTC**. Its initial Git commit is **July 31, 2026 at 01:23pm ET**, consisting essentially of the repository scaffold/license material. citeturn38file0turn51file0
+
+That matters because GSA-815 is **not** older than Sentinel.
+
+The subsequent history explicitly describes GSA-815 as a consolidation destination.
+
+One particularly important Sentinel commit is:
+
+`29f9d749d1526592804c1b3c3621d9ac60b2f078`
+
+dated **August 5, 2026**:
+
+> `Remove api_server.py -- moved to GSA-815`
+
+The commit explicitly says the file belonged to the IVR side and was being moved to GSA-815.
+
+That is **Tier A provenance**.
+
+Even stronger, Sentinel later records the architectural split:
+
+`4975e23...` — **“Governor split: GSA-815 side”**
+
+The commit states that `ClaudeGovernanceDecider` became the GSA-815-side specialization while Sentinel retained the kernel-side `GovernanceDecider`.
+
+That split was subsequently reverted, but the attempted migration itself is historically significant. The later architecture therefore did not emerge as a single clean branch; there was an active **kernel/IVR decomposition experiment**.
+
+---
+
+# 3. GSA-815 IS A CONSOLIDATION HUB
+
+The GSA-815 commit:
+
+`47b14ac7f0731e8a8e190ea602c65a471b9f6b34`
+
+explicitly says:
+
+> “Integrate gsa-governance-core module into GSA-815”
+
+and identifies the architecture as:
+
+**GSA / Citadel / AEGIS Unified Governance Runtime**.
+
+It adds:
+
+- `GSA_Governance_Operating_Core_Enterprise.py`
+- test harness
+- documentation
+
+and describes consolidation of governance-core components. citeturn14file0
+
+Then commit:
+
+`f0b70d61052aee824d212c34d4656db9490b5377`
+
+dated **August 17, 2026 at 23:12:33 UTC**, explicitly consolidates:
+
+- `gsa-master-kernel-base-flattened.py` **from DGK**
+- `gsa-universal-interlock-wrapper-v7.py` **from DGK**
+- `gsa-cryptographic-interlock-wrapper.py` **from DIT**
+- `GSA_Governance_Operating_Core_Enterprise.py` **from gsa-governance-core**
+- `GSA.py` **from GSA**
+- `gsa_universal_interlock_wrapper.py` **from RADAR**
+
+into GSA-815.
+
+It also carries:
+
+`Co-authored-by: Copilot`
+
+This is exceptionally strong provenance evidence. citeturn12file0
+
+### Classification
+
+**GSA-815 is demonstrably a consolidation repository, not the sole birthplace of its constituent architecture.**
+
+That directly validates one of Pass 7's central hypotheses.
+
+---
+
+# 4. SENTINEL → GSA-815 IS NOT SIMPLE ANCESTRY
+
+The evidence instead shows:
+
+```text
+                    Sentinel
+                       │
+          ┌────────────┴────────────┐
+          │                         │
+      kernel-side               IVR-side
+          │                         │
+          │                         ▼
+          │                      GSA-815
+          │
+          └─────── later maintained
+                  independently
+```
+
+The strongest evidence is the Sentinel commit describing `api_server.py` as having been moved to GSA-815, followed by the explicit governance split.
+
+Therefore:
+
+**Sentinel → GSA-815: A/B-level relationship, but specifically as a decomposition/extraction relationship rather than “GSA-815 is the successor to Sentinel.”**
+
+---
+
+# 5. GSA-815 ALSO RECEIVED COMPONENTS FROM OTHER BRANCHES
+
+The August 17 consolidation commit establishes at least six independent source labels:
+
+| Source | Artifact entering GSA-815 | Evidence |
+|---|---|---|
+| DGK | GSA kernel base | explicit commit |
+| DGK | universal interlock wrapper v7 | explicit commit |
+| DIT | cryptographic interlock wrapper | explicit commit |
+| gsa-governance-core | governance operating core | explicit commit |
+| GSA | `GSA.py` | explicit commit |
+| RADAR | universal interlock wrapper | explicit commit |
+
+So the correct model is not:
+
+```text
+Sentinel → GSA-815
+```
+
+It is closer to:
+
+```text
+             DGK ─────────────┐
+                              │
+             DIT ─────────────┤
+                              │
+             GSA ─────────────┤
+                              ├──► GSA-815
+      gsa-governance-core ────┤
+                              │
+             RADAR ───────────┘
+
+             Sentinel ──► selected IVR/kernel artifacts ──► GSA-815
+```
+
+That is genuine spaghetti.
+
+---
+
+# 6. GSA-GATEWAY IS ANOTHER CONSOLIDATION HUB
+
+urlGSA-GATEWAY on GitHubhttps://github.com/wking53214/GSA-GATEWAY
+
+The evidence here is particularly revealing.
+
+Commit:
+
+`4d08698bcf6820cb07c04f2bf547159478d346a3`
+
+dated **August 19, 2026 at 05:48am ET**, explicitly says:
+
+> “Consolidate GSA-lineage content”
+
+and describes moving the full content of:
+
+- SECURE
+- UZTC
+- WRAPPER
+- DGK governance-stack material
+- EDDP governance-stack material
+
+into GSA-GATEWAY.
+
+It explicitly says the source repositories were left in place **empty of code** pending review/deletion.
+
+This is one of the strongest examples of the “repository abandoned while artifacts survive elsewhere” pattern envisioned by Pass 7.
+
+### Classification
+
+**GSA-GATEWAY = consolidation hub, A confidence.**
+
+It is not a single-origin architecture.
+
+---
+
+# 7. ARCHIVE IS A CRITICAL FORENSIC BRIDGE
+
+urlARCHIVE on GitHubhttps://github.com/wking53214/ARCHIVE
+
+The ARCHIVE repository contains eight historical **“System Architecture and Integration Report”** JSON payloads.
+
+Its own README says the raw artifacts were retained as historical records, while extracted duplicates were subsequently removed after cross-reference.
+
+This is important because the archive itself distinguishes:
+
+**historical artifact**
+
+from
+
+**current canonical implementation**.
+
+The README documents several confirmed relationships:
+
+- GSA wrapper material from the archive matched GSA-GATEWAY.
+- IVR/content-pipeline material matched CODE and EDDP.
+- OBSERVE clinical material matched the live OBSERVE implementation.
+- FORTRESS material subsequently moved into the new FORTRESS repository.
+- An older production snapshot in `report_9` differs from current Sentinel/GSA-815 code.
+
+citeturn52file0
+
+This makes ARCHIVE a **historical source reservoir**, not merely documentation.
+
+---
+
+# 8. FORTRESS HAS FOUR DISTINCT SOURCE VARIANTS
+
+urlFORTRESS on GitHubhttps://github.com/wking53214/FORTRESS
+
+This is one of the clearest Pass 7 successes.
+
+The FORTRESS repository itself was not created until:
+
+**August 19, 2026 at 02:35pm UTC.** citeturn39file0
+
+Therefore the repository date absolutely does **not** establish historical invention of FORTRESS.
+
+Its first major consolidation commit,
+
+`23308e41a8e2e55cecea8c4e7f92942f6c10f42d`
+
+explicitly states:
+
+### Variant 1
+`fortress_kernel.py`
+
+copied from:
+
+```text
+sentinel_os/sentinel_os/sage_k/kernel.py
+```
+
+### Variant 2
+`PredictiveStateController.py`
+
+from:
+
+```text
+ARCHIVE/extracted/report_8
+```
+
+### Variant 3
+`Fortress_orchestrator_incomplete.py`
+
+from:
+
+```text
+ARCHIVE/extracted/report_2
+```
+
+citeturn32file0
+
+Then commit:
+
+`7e11118d35878b8854e25ac274c3e2f881b97073`
+
+adds:
+
+### Variant 4
+
+`PredictiveIntegrityController.py`
+
+from a **Claude_History conversation attachment**.
+
+The commit explicitly calls it a fourth FORTRESS variant and describes it as an independent evolution rather than a duplicate. citeturn31file0
+
+### Therefore
+
+FORTRESS is not currently proven to be one historical system.
+
+The evidence supports:
+
+```text
+                 ARCHIVE/report 2
+                       │
+                       ▼
+             Fortress_orchestrator
+                       
+                 ARCHIVE/report 8
+                       │
+                       ▼
+             PredictiveStateController
+
+SENTINEL/sage_k ───────────────► fortress_kernel
+
+Claude_History attachment ─────► PredictiveIntegrityController
+```
+
+The common label **FORTRESS** was applied across these variants during the August reconstruction/consolidation process.
+
+That is a major finding.
+
+---
+
+# 9. SENTINEL'S FORTRESS CONNECTION IS REAL — BUT IT IS ARCHIVE-DERIVED
+
+Sentinel commit:
+
+`207fb4d22e2478651a1690ccd638d38e8e338ae5`
+
+dated **August 19, 2026 at 05:18am ET**, says:
+
+> “Add sage_k: Fortress kernel, GSA adapter, AST extractor from SAGE-K”
+
+and explicitly describes the package as **“Reconstructed, tested package from the SAGE-K archive.”**
+
+citeturn33?
+
+The important point is not the name “SAGE-K.”
+
+It is the provenance statement:
+
+**reconstructed from the SAGE-K archive.**
+
+So:
+
+```text
+SAGE-K archive
+      │
+      ▼
+sentinel_os/sage_k
+      │
+      ▼
+fortress_kernel.py
+      │
+      ▼
+FORTRESS repository
+```
+
+is strongly supported as an **artifact recovery/consolidation chain**.
+
+But it does **not** prove that a historical SAGE-K software repository predating July/August 2026 existed.
+
+### Classification
+
+**SAGE-K → Sentinel: A for recovered archive artifact.**
+
+**SAGE-K as an older independent historical software system: currently C/N.**
+
+---
+
+# 10. FORTRESS'S ARCHIVE LINEAGE IS EVEN STRONGER
+
+ARCHIVE commit:
+
+`617d7673ad8e166b3cf246340bcef47264fa1062`
+
+explicitly records that `PredictiveStateController` was real FORTRESS logic and that, at that point, **no FORTRESS repository existed yet**.
+
+Then:
+
+`c5e7a96238ca546fb4a2a6f987b6c31dd4d37f75`
+
+records the creation of the dedicated FORTRESS repository and movement of:
+
+- `Fortress.py`
+- `PredictiveStateController.py`
+
+into it.
+
+citeturn?
+
+That gives us an unusually clean temporal sequence:
+
+```text
+ARCHIVE artifact exists
+        ↓
+cross-reference determines it is real
+        ↓
+dedicated FORTRESS repository does not yet exist
+        ↓
+FORTRESS repository created
+        ↓
+archive artifact moved into FORTRESS
+        ↓
+sentinel-derived variant added
+        ↓
+Claude-History-derived variant added
+```
+
+This is exactly the kind of “spaghetti unwind” the prompt requested.
+
+---
+
+# 11. STRIDE — DIRECT SALVAGE IS PROVEN
+
+Sentinel commit:
+
+`91755bef6069674fabf386d54f142fa8c2c3eaa6`
+
+dated **August 21, 2026 at 10:51am ET**, is extremely strong evidence.
+
+It says:
+
+- `governance_loop_guard.py` was **salvaged from STRIDE**
+- STRIDE was deleted from GitHub
+- the loop-detection/bounded-retry half was retained
+- the queue-depth/backpressure half was also found but not integrated
+- the source was `stride-formatted-audited.py`
+
+The added file's own provenance block says the same thing.
+
+citeturn19file0
+
+This is **Tier A / confidence A**.
+
+### What remains unresolved
+
+We do not yet have surviving STRIDE repository history establishing:
+
+- its original creation date;
+- its complete contents;
+- whether STRIDE itself derived from something older;
+- whether its queue/backpressure component survived elsewhere.
+
+So:
+
+```text
+STRIDE
+  │
+  ├── governance_loop_guard.py ──► Sentinel
+  │
+  └── queue/backpressure component ──► unresolved
+```
+
+is proven.
+
+But the left side of STRIDE's ancestry remains open.
+
+---
+
+# 12. STRIDE → SENTINEL IS A REAL CODE MIGRATION
+
+This is not merely conceptual similarity.
+
+The Sentinel commit actually adds:
+
+`governance_loop_guard.py`
+
+and preserves the original class/method structure:
+
+- `EngineState`
+- `PipelineStateEngine`
+- `evaluate_integrity`
+- `check_loop_condition`
+- `record_state`
+- `check_retry_capacity`
+- `increment_retry`
+- `clear_retry_state`
+- `process_lifecycle`
+
+The provenance is explicit.
+
+That makes this one of the strongest edges in the entire graph.
+
+---
+
+# 13. SENTINEL IS CLEARLY A HISTORICAL CONVERGENCE POINT
+
+The evidence now shows Sentinel receiving artifacts from several directions:
+
+```text
+             SAGE-K archive
+                  │
+                  ▼
+              Sentinel
+                  ▲
+                  │
+              STRIDE
+                  │
+                  │
+         governance_loop_guard
+
+             other extracted
+             / reconstructed
+             components
+```
+
+And Sentinel itself subsequently exports components toward GSA-815.
+
+So Sentinel is not simply “one repository.”
+
+It is becoming a **convergence hub**.
+
+---
+
+# 14. SENTINEL ALSO CONTAINS EXPLICIT HISTORICAL CLEANUP
+
+An important Pass 7 clue is commit:
+
+`7ae08b40...`
+
+which says a prior commit accidentally swept in 70 files from a local Downloads directory, including:
+
+- duplicate Sentinel files;
+- GSA/MAGNA material;
+- observe/perceive material;
+- drive_safety;
+- sealanes;
+- constellation;
+- ascent_compute;
+- clinical_governance.
+
+The cleanup removed these from HEAD but explicitly states they remain in public Git history.
+
+This is valuable evidence for future archaeology:
+
+**current tree ≠ historical repository contents.**
+
+The repository history itself contains additional cross-project artifacts that were later removed.
+
+---
+
+# 15. “COPIED FROM” IS NOT ALWAYS HISTORICAL LINEAGE
+
+There is an especially useful negative finding.
+
+Sentinel commit `8c137151...` says:
+
+> “Copied verbatim from ANVIL”
+
+but the object being copied is only the Apache 2.0 license.
+
+That is not architectural lineage.
+
+This is exactly why Pass 7's artifact-level classification matters.
+
+**License copied from ANVIL ≠ Sentinel descended from ANVIL.**
+
+That edge should therefore be excluded from the system lineage graph.
+
+---
+
+# 16. GSA-GATEWAY HAS A SECONDARY RESILIENCE CROSSOVER
+
+Commit:
+
+`57546499053af13af3535a67f080da96147250d0`
+
+adds URE/SRE components and says:
+
+- `resilience-config-dataclass.py` explicitly names **Orchestrator, Fortress, and Iceberg**
+- the SRE evaluator had existed in DGK;
+- the DGK copy was byte-identical according to the prior audit;
+- it was apparently dropped during the GSA-GATEWAY v3 move;
+- the URE copy became canonical.
+
+This gives another non-linear relationship:
+
+```text
+DGK
+ ├── SRE evaluator ─────┐
+ │                      │
+ └── governance stack   ├──► GSA-GATEWAY
+                        │
+URE ────────────────────┘
+```
+
+and separately:
+
+```text
+URE resilience config
+       │
+       ├── Orchestrator
+       ├── Fortress
+       └── Iceberg
+```
+
+The last three are **conceptual/integration references**, not yet proven code lineage.
+
+---
+
+# 17. THE ARCHITECTURAL CONCEPTS ARE ALSO MOVING
+
+The evidence supports the following recovered concept sequence:
+
+```text
+governance
+   │
+   ├── integrity
+   ├── provenance
+   ├── state/control
+   ├── bounded retry
+   ├── resilience
+   ├── audit ledger
+   └── orchestration
+             │
+             ▼
+         Sentinel
+             │
+       ┌─────┴─────┐
+       ▼           ▼
+    kernel        IVR
+       │           │
+       │           ▼
+       │        GSA-815
+       │
+       ▼
+    later reconstruction
+```
+
+But the first appearance of the *idea* is not yet equivalent to invention.
+
+The earliest **recovered** appearances still need to be separated from true invention dates.
+
+---
+
+# 18. AI DEVELOPMENT FORENSICS
+
+There is already direct Git evidence for AI-assisted development.
+
+Examples:
+
+### Sentinel / STRIDE integration
+
+Commit `91755bef...` contains:
+
+- `Co-Authored-By: Claude Sonnet 5`
+- a specific Claude Code session identifier.
+
+### FORTRESS
+
+Commit `7e11118...` says the fourth variant was found as a **Claude_History conversation attachment** and carries:
+
+- `Co-Authored-By: Claude Sonnet 5`
+
+### GSA-815
+
+Commit `f0b70d...` carries:
+
+- `Co-authored-by: Copilot`
+
+### GSA-GATEWAY
+
+Several consolidation commits carry:
+
+- `Co-Authored-By: Claude Sonnet 5`
+
+This proves **AI-assisted development involvement**.
+
+It does **not** prove that Claude or Copilot authored every line.
+
+That distinction is preserved.
+
+---
+
+# 19. FOUR-ARCHIVE STATUS
+
+The Claude archive itself is substantial:
+
+- **265 conversations**
+- **10,721 messages**
+- raw export
+- individual conversation JSON files
+- full transcripts
+- summaries
+- manifest
+- attachment text where captured.
+
+Its manifest records conversation timestamps beginning at least **July 22, 2026** in the accessible portion. citeturn30file0turn59file0
+
+That means the AI archive can materially predate some of the repositories into which artifacts were later consolidated.
+
+### Current limitation
+
+The GitHub connector's content-search index does **not currently return searchable results from the four large history repositories**, even though their files are accessible individually.
+
+Therefore I have **not** treated “search returned zero” as “the archive contains no STRIDE/Sentinel/FORTRESS references.”
+
+That would violate your Pass 7 rules.
+
+The archive layer is therefore presently classified:
+
+**AVAILABLE / PARTIALLY ARCHAEOLOGIZED**
+
+rather than **NEGATIVE**.
+
+---
+
+# 20. CURRENT MASTER LINEAGE TABLE
+
+| System | Earliest strong evidence | Major inputs | Major outputs | Status |
+|---|---|---|---|---|
+| **Sentinel** | July 4, 2026 Git history | original Sentinel tree; later salvages | GSA-815 extraction; later components | **A** |
+| **GSA-815** | July 31, 2026 | Sentinel/IVR + DGK + DIT + GSA + RADAR + governance-core | consolidated GSA runtime | **A** |
+| **GSA-GATEWAY** | Aug. 2026 consolidation history | SECURE, UZTC, WRAPPER, DGK, EDDP, URE | GSA governance hub | **A** |
+| **FORTRESS** | Aug. 19 repository consolidation | Sentinel/SAGE-K + ARCHIVE + Claude attachment | dedicated FORTRESS repository | **A as umbrella/consolidation** |
+| **STRIDE** | surviving salvage before Aug. 21 deletion | unknown | `governance_loop_guard.py` → Sentinel | **A for salvage; N/C for origin** |
+| **SAGE-K** | archive/reconstruction reference | historical archive | `sage_k` → Sentinel | **A as archive source; C/N as older repo** |
+| **ARCHIVE** | historical payload corpus | conversation/system reports | FORTRESS/GSA/other extractions | **A as evidence reservoir** |
+
+---
+
+# 21. ARTIFACT MIGRATION TABLE
+
+| Artifact | Origin | Destination | Evidence |
+|---|---|---|---|
+| `governance_loop_guard.py` | STRIDE | Sentinel | explicit salvage statement | **A** |
+| `fortress_kernel.py` | Sentinel `sage_k/kernel.py` | FORTRESS | explicit copy statement | **A** |
+| `PredictiveStateController.py` | ARCHIVE report 8 | FORTRESS | explicit move | **A** |
+| `Fortress_orchestrator_incomplete.py` | ARCHIVE report 2 | FORTRESS | explicit move | **A** |
+| `PredictiveIntegrityController.py` | Claude_History attachment | FORTRESS | explicit commit provenance | **A** |
+| `api_server.py` | Sentinel | GSA-815 | explicit move | **A** |
+| GSA kernel base | DGK | GSA-815 | explicit source label | **A** |
+| GSA wrapper v7 | DGK | GSA-815 | explicit source label | **A** |
+| cryptographic wrapper | DIT | GSA-815 | explicit source label | **A** |
+| governance operating core | gsa-governance-core | GSA-815 | explicit source label | **A** |
+| `GSA.py` | GSA | GSA-815 | explicit source label | **A** |
+| universal wrapper | RADAR | GSA-815 | explicit source label | **A** |
+| GSA/GSA-wrapper artifacts | ARCHIVE | GSA-GATEWAY | cross-reference + consolidation commit | **A/B** |
+| SRE evaluator | DGK/URE | GSA-GATEWAY | explicit cross-reference | **A/B** |
+
+---
+
+# 22. THE CURRENT SPAGHETTI GRAPH
+
+The evidence-derived graph is now better represented as:
+
+```text
+                         ┌────────────────────┐
+                         │   AI / ARCHIVE      │
+                         │   evidence corpus   │
+                         └───────┬────────────┘
+                                 │
+                    ┌────────────┼─────────────┐
+                    │            │             │
+                    ▼            ▼             ▼
+                 ARCHIVE     SAGE-K        Claude attachment
+                    │            │             │
+              ┌─────┴─────┐      │             │
+              │           │      ▼             ▼
+              ▼           ▼  SENTINEL      FORTRESS
+        FORTRESS       GSA/etc.    │       PredictiveIntegrity
+        variants                  │
+              │                    │
+              │              ┌─────┴──────┐
+              │              │            │
+              │              ▼            ▼
+              │          STRIDE       IVR/kernel split
+              │              │            │
+              │              ▼            ▼
+              │         loop guard     GSA-815
+              │
+              └──────────────► FORTRESS
+                                 ▲
+                                 │
+                         Sentinel sage_k
+```
+
+And independently:
+
+```text
+ DGK ─────┐
+ DIT ─────┤
+ GSA ─────┤
+ RADAR ───┤
+ governance-core ──► GSA-815
+ Sentinel ──────────► selected IVR/kernel components
+```
+
+while:
+
+```text
+ SECURE ──┐
+ UZTC ────┤
+ WRAPPER ─┤
+ DGK ─────┤
+ EDDP ────┤
+ URE ─────┴────► GSA-GATEWAY
+```
+
+This is **not a linear family tree**.
+
+---
+
+# 23. WHAT IS DEFINITELY PROVEN
+
+### A — Directly proven
+
+- Sentinel's Git history begins July 4, 2026.
+- GSA-815 was created July 31, 2026.
+- Sentinel explicitly moved an IVR component into GSA-815.
+- GSA-815 explicitly consolidates artifacts from DGK, DIT, GSA, RADAR and gsa-governance-core.
+- GSA-GATEWAY explicitly consolidated material from several other repositories.
+- FORTRESS explicitly copied a component from Sentinel.
+- FORTRESS explicitly moved variants from ARCHIVE.
+- FORTRESS explicitly received a fourth variant from a Claude_History attachment.
+- Sentinel explicitly salvaged `governance_loop_guard.py` from deleted STRIDE.
+- AI-assisted development is explicitly recorded in multiple commits.
+
+---
+
+# 24. VERY LIKELY
+
+### B — Strongly supported
+
+- Sentinel became a convergence point for independently sourced components.
+- GSA-815 is a consolidation/specialization branch rather than a successor to Sentinel as a whole.
+- FORTRESS is an umbrella name applied to multiple independently sourced implementations.
+- GSA-GATEWAY represents another consolidation branch rather than a single-origin system.
+- ARCHIVE acted as an intermediate reservoir through which several artifacts passed before entering dedicated repositories.
+
+---
+
+# 25. STILL ONLY PLAUSIBLE
+
+### C
+
+- STRIDE may itself descend from an earlier governance/control project.
+- SAGE-K may represent an earlier actual system rather than only an archive label.
+- FORTRESS may have had a common conceptual ancestor predating the four recovered implementations.
+- Some DGK/DIT/RADAR components may share a deeper common source.
+- The architectural concepts may have existed before their earliest surviving code artifacts.
+
+None of these should yet be promoted to fact.
+
+---
+
+# 26. NEGATIVE FINDINGS
+
+### X / N
+
+**FORTRESS → Sentinel as a single historical system:** not established.
+
+What is established is a specific `fortress_kernel.py` migration from Sentinel's reconstructed `sage_k` package.
+
+**FORTRESS as one original implementation:** contradicted by the four surviving variants.
+
+**GSA-815 as Sentinel's successor:** contradicted by the multi-source consolidation evidence.
+
+**SAGE-K as an independently proven pre-July-2026 repository:** not established.
+
+**STRIDE as an older independently dated system:** not yet established.
+
+**Conceptual similarity = code lineage:** rejected.
+
+**GEMS/TIE/HERALD/Conservation_Kernel as necessary to explain this history:** no.
+
+---
+
+# 27. THE CURRENT HISTORICAL BOUNDARY
+
+This is the most important Pass 7 result so far.
+
+The surviving Git evidence takes us confidently back to:
+
+## **July 4, 2026**
+
+for Sentinel itself.
+
+The archive evidence can potentially take the conceptual/development record farther backward, but the currently accessible primary Git evidence does **not yet establish a pre-July-2026 software lineage** for the ecosystem.
+
+So the present boundary is:
+
+```text
+                PROVEN
+                  │
+                  ▼
+           July 4, 2026
+              Sentinel
+                  │
+          ┌───────┼────────┐
+          ▼       ▼        ▼
+       STRIDE   SAGE-K   other
+       salvage  archive  components
+          │       │
+          └───┬───┘
+              ▼
+          Aug. 2026
+        consolidation
+              │
+      ┌───────┼─────────┐
+      ▼       ▼         ▼
+  FORTRESS GSA-815 GSA-GATEWAY
+```
+
+Anything earlier remains dependent on the four archive corpora and surviving historical artifacts.
+
+---
+
+# 28. THE “ALL AUGUST SYSTEMS DISAPPEAR” TEST
+
+If **GEMS, TIE, HERALD, and Conservation_Kernel disappeared tomorrow**, the older ecosystem would still be reconstructible to a meaningful degree.
+
+We would retain:
+
+- Sentinel's complete Git history;
+- GSA-815's consolidation history;
+- GSA-GATEWAY's consolidation history;
+- ARCHIVE's historical payloads;
+- FORTRESS's source variants;
+- STRIDE salvage inside Sentinel;
+- Sentinel's SAGE-K reconstruction;
+- AI provenance in Git commits;
+- four independent AI-history repositories as archival evidence.
+
+Therefore:
+
+## **YES — the older ecosystem remains reconstructible without the August reconstruction-era systems.**
+
+And importantly, the reconstruction does **not** depend on assuming GEMS/TIE/HERALD/Conservation_Kernel existed historically.
+
+---
+
+# 29. FINAL JUDGMENT — CURRENT PASS 7 STATE
+
+### WHAT DEFINITELY HAPPENED
+
+A collection of repositories and archived artifacts underwent **active extraction, copying, splitting, renaming, salvage, and consolidation during July–August 2026**.
+
+Sentinel was an early hub.
+
+GSA-815 and GSA-GATEWAY became consolidation hubs.
+
+FORTRESS became a dedicated repository containing multiple independently sourced variants.
+
+STRIDE contributed demonstrable source code to Sentinel.
+
+### WHAT VERY LIKELY HAPPENED
+
+The ecosystem evolved as a **network of parallel projects and consolidation branches**, not as a single clean architecture.
+
+### WHAT MAY HAVE HAPPENED
+
+Some of the archive material may itself preserve genuinely earlier system development predating the current Git repositories.
+
+That remains the key unresolved historical question.
+
+### WHAT IS UNKNOWN
+
+The true origin of:
+
+- STRIDE;
+- SAGE-K;
+- the earliest FORTRESS concepts;
+- DGK/DIT/RADAR relationships;
+- several governance primitives;
+- the earliest code artifacts represented in the AI archives.
+
+### WHAT THE EVIDENCE CONTRADICTS
+
+It contradicts any simple model of:
+
+```text
+Old System → FORTRESS → Sentinel → GSA-815 → current architecture
+```
+
+The evidence instead supports a **spiderweb of recovered artifacts, parallel implementations, and later consolidation**.
+
+---
+
+## The most important new finding
+
+**Pass 7 has already uncovered something stronger than the expected lineage: several “systems” are actually names applied to collections of artifacts recovered from different sources.**
+
+FORTRESS is the clearest example.
+
+GSA-815 and GSA-GATEWAY are the clearest consolidation examples.
+
+STRIDE is the clearest deleted-source/salvage example.
+
+Sentinel is the clearest convergence point.
+
+That means the next forensic step is **not more repository-name searching**. It is to recursively follow the unresolved artifact origins:
+
+**STRIDE → pre-STRIDE**
+
+**SAGE-K → pre-SAGE-K**
+
+**DGK/DIT/RADAR → their source artifacts**
+
+**ARCHIVE artifact → original conversation → attachment → earliest timestamp**
+
+That is where the remaining historical depth is likely to be found.
+
+urlSentinel repositoryhttps://github.com/wking53214/sentinel_os · urlGSA-815 repositoryhttps://github.com/wking53214/GSA-815 · urlFORTRESS repositoryhttps://github.com/wking53214/FORTRESS · urlGSA-GATEWAY repositoryhttps://github.com/wking53214/GSA-GATEWAY · urlARCHIVE repositoryhttps://github.com/wking53214/ARCHIVE

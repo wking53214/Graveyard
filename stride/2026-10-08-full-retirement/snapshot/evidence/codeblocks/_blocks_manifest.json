@@ -1,0 +1,308 @@
+[
+ {
+  "file": "20260409T195809_activity-3107_block0.txt",
+  "activity_index": 3107,
+  "block_index": 0,
+  "time": "2026-04-09T19:58:09.789Z",
+  "bytes": 2087,
+  "sha256": "597339eefaac74ca7b4a4741b6d8820a5727294c2cdc76d7b450c0eaedbcd3ff",
+  "title": "Prompted please make modifications with this new code. import re\nfrom enum import Enum\nfrom collections import defaultdi"
+ },
+ {
+  "file": "20260409T200124_activity-3104_block0.txt",
+  "activity_index": 3104,
+  "block_index": 0,
+  "time": "2026-04-09T20:01:24.314Z",
+  "bytes": 7552,
+  "sha256": "48303ee1c21c1a8c7325214cfc44f0e1d404c676f600832506e12d3984b89e25",
+  "title": "Prompted update it"
+ },
+ {
+  "file": "20260530T132220_activity-1749_block8.txt",
+  "activity_index": 1749,
+  "block_index": 8,
+  "time": "2026-05-30T13:22:20.602Z",
+  "bytes": 626,
+  "sha256": "e768b34908d60fe83aa2ef95a3a019f58bca8c242113bdc85bf206cb85c7b6fd",
+  "title": "Prompted [COMPREHENSIVE CODE EXTRACTION + ITERATION AUDIT PROTOCOL]\n\nCONTEXT:\u00a0\nYou have access to the complete 60+ chat "
+ },
+ {
+  "file": "20260530T132504_activity-1748_block2.txt",
+  "activity_index": 1748,
+  "block_index": 2,
+  "time": "2026-05-30T13:25:04.449Z",
+  "bytes": 1420,
+  "sha256": "e3915f018c4e3316be1e60bdcd6ec1ea7e8d1f82cb272ba15156158604654a40",
+  "title": "Prompted [COMPREHENSIVE CODE EXTRACTION + ITERATION AUDIT PROTOCOL]\n\nCONTEXT:\u00a0\nYou have access to the complete 60+ chat "
+ },
+ {
+  "file": "20260530T151348_activity-1747_block3.txt",
+  "activity_index": 1747,
+  "block_index": 3,
+  "time": "2026-05-30T15:13:48.221Z",
+  "bytes": 876,
+  "sha256": "5b3bb83d835203e25c1cda275bba7e80051e6b4c12f46902ed44e89be16a0d4f",
+  "title": "Prompted [COMPREHENSIVE CODE EXTRACTION + ITERATION AUDIT PROTOCOL]\n\nCONTEXT:\u00a0\nYou have access to the complete 60+ chat "
+ },
+ {
+  "file": "20260530T152532_activity-1745_block0.txt",
+  "activity_index": 1745,
+  "block_index": 0,
+  "time": "2026-05-30T15:25:32.153Z",
+  "bytes": 5599,
+  "sha256": "f6b25075c7d5031d9fc99e6c06057582058ca2e4809619646882d2d3e88899f3",
+  "title": "Prompted guve me the code for v13.0"
+ },
+ {
+  "file": "20260604T060659_activity-1570_block2.txt",
+  "activity_index": 1570,
+  "block_index": 2,
+  "time": "2026-06-04T06:06:59.272Z",
+  "bytes": 5770,
+  "sha256": "6ebb6e5580ddc8ecce1a910ea54ba2c280481c15eae5e852cbabe0de9c7a3ff0",
+  "title": "Prompted summarize: extract and code modules and place in code box: # KNOWLEDGE CATALOG \u2014 CHATS 1\u201310 CONSOLIDATED\n**Docu"
+ },
+ {
+  "file": "20260604T170849_activity-1557_block1.txt",
+  "activity_index": 1557,
+  "block_index": 1,
+  "time": "2026-06-04T17:08:49.515Z",
+  "bytes": 605,
+  "sha256": "0639229573a789d84b73af96e4d209115eb74a21cb0c30861eb55f428d5b359f",
+  "title": "Prompted [TIER 1 \u2014 ARCHITECTURAL BASELINE REVIEW]\n\nYou are the first evaluation layer in a multi-model engineering pipel"
+ },
+ {
+  "file": "20260604T232214_activity-1551_block0.txt",
+  "activity_index": 1551,
+  "block_index": 0,
+  "time": "2026-06-04T23:22:14.177Z",
+  "bytes": 1361,
+  "sha256": "67c33a378f360c3cfc94602996aca5c064bd2a49d8cca4deda7daf8a2a4ac48e",
+  "title": "Prompted Give me the query that I compose back to you such that you will get me full complete code for Citadel in Python"
+ },
+ {
+  "file": "20260604T232659_activity-1549_block0.txt",
+  "activity_index": 1549,
+  "block_index": 0,
+  "time": "2026-06-04T23:26:59.392Z",
+  "bytes": 9077,
+  "sha256": "9fde66cffb7c76faf92165062dda3b505fbaea7215a753dac2ca07b14b40f312",
+  "title": "Prompted \u2699\ufe0f [PROTOCOL EXECUTION: MASTER_CORE_COMPILATION_V13.0]\n[CONTEXT]: Access the complete chronological repository "
+ },
+ {
+  "file": "20260604T232659_activity-1549_block1.txt",
+  "activity_index": 1549,
+  "block_index": 1,
+  "time": "2026-06-04T23:26:59.392Z",
+  "bytes": 11205,
+  "sha256": "e5ccd3eb16df6119264fc6d61e48f09e94fe3c39e7ac73b97c84adae594e3b57",
+  "title": "Prompted \u2699\ufe0f [PROTOCOL EXECUTION: MASTER_CORE_COMPILATION_V13.0]\n[CONTEXT]: Access the complete chronological repository "
+ },
+ {
+  "file": "20260604T233120_activity-1547_block1.txt",
+  "activity_index": 1547,
+  "block_index": 1,
+  "time": "2026-06-04T23:31:20.298Z",
+  "bytes": 25440,
+  "sha256": "103267d7f12e75ede6ea687a3f60f4f31967f2ece0432001a340c97240ac71d4",
+  "title": "Prompted import asyncio\nimport logging\nimport hashlib\nimport json\nimport hmac\nimport os\nimport secrets\nimport time\nfrom "
+ },
+ {
+  "file": "20260607T010845_activity-1438_block0.txt",
+  "activity_index": 1438,
+  "block_index": 0,
+  "time": "2026-06-07T01:08:45.300Z",
+  "bytes": 4356,
+  "sha256": "8d946df1e7ec2ee3da3774a94b4b6e1a4d5ca59a571f828bb62d0eb1f3f4668c",
+  "title": "Prompted import re\nimport asyncio\nfrom enum import Enum\n\n# ============================================================\n"
+ },
+ {
+  "file": "20260607T010932_activity-1437_block0.txt",
+  "activity_index": 1437,
+  "block_index": 0,
+  "time": "2026-06-07T01:09:32.383Z",
+  "bytes": 4356,
+  "sha256": "8d946df1e7ec2ee3da3774a94b4b6e1a4d5ca59a571f828bb62d0eb1f3f4668c",
+  "title": "Prompted Menu 6.2 import re\nimport asyncio\nfrom enum import Enum\n\n# ===================================================="
+ },
+ {
+  "file": "20260608T144927_activity-1372_block0.txt",
+  "activity_index": 1372,
+  "block_index": 0,
+  "time": "2026-06-08T14:49:27.187Z",
+  "bytes": 10290,
+  "sha256": "e7b5cd5c98f5742f110fe87c1b5e186048397065b57e7c9fcab7b0cea4d2ba16",
+  "title": "Prompted rewrite this in standard python format plese:\nOMEGA\n\nimport re\u2028import asyncio\u2028import time\u2028import hmac\u2028import ha"
+ },
+ {
+  "file": "20260612T111222_activity-1347_block1.txt",
+  "activity_index": 1347,
+  "block_index": 1,
+  "time": "2026-06-12T11:12:22.567Z",
+  "bytes": 3721,
+  "sha256": "a9cde3d8b15c6dbbc0cf72185eebf3044515a5b7c324fd709eb6bbece623a7d2",
+  "title": "Prompted You are now running in Extraction Mode.\n\n\nYour task is to scan THIS ENTIRE CHAT and extract ONLY the following:"
+ },
+ {
+  "file": "20260618T193835_activity-1219_block0.txt",
+  "activity_index": 1219,
+  "block_index": 0,
+  "time": "2026-06-18T19:38:35.261Z",
+  "bytes": 6223,
+  "sha256": "c475919d9f35ceee0b12942fd324929129238ca2a003cbd7424160516e1ff61a",
+  "title": "Prompted ==================================================\n\nSYSTEM\nSystem Name:\n\nDIT (Deterministic Integrity Tower)\nCo"
+ },
+ {
+  "file": "20260618T194040_activity-1217_block0.txt",
+  "activity_index": 1217,
+  "block_index": 0,
+  "time": "2026-06-18T19:40:40.415Z",
+  "bytes": 6213,
+  "sha256": "3216d5287c0958cc1bc6a1ef93ad607f5862f2836fd0b1b97fc646386b92a10d",
+  "title": "Prompted SYSTEM\nSystem Name:\n\nCITADEL / DIT (Deterministic Integrity Tower)\nComponent:\n\nFull CitadelProcessor Execution "
+ },
+ {
+  "file": "20260618T194129_activity-1216_block0.txt",
+  "activity_index": 1216,
+  "block_index": 0,
+  "time": "2026-06-18T19:41:29.418Z",
+  "bytes": 7202,
+  "sha256": "635afaf4520d382e8506b06e899eb1bc260a79fd00fac7f8c8b2ef03c2023454",
+  "title": "Prompted ==================================================\n\nSYSTEM\nSystem Name:\n\nDIT (Deterministic Integrity Tower) / "
+ },
+ {
+  "file": "20260619T033203_activity-1139_block0.txt",
+  "activity_index": 1139,
+  "block_index": 0,
+  "time": "2026-06-19T03:32:03.853Z",
+  "bytes": 29389,
+  "sha256": "a1e0cc1a99643bf2c2358a7331da1d3a95792b2fa523b9b70d19d2374785af21",
+  "title": "Prompted merging all aspects of the DIT or GSA contained in this chat, produce a final python script that represents all"
+ },
+ {
+  "file": "20260619T142340_activity-1137_block0.txt",
+  "activity_index": 1137,
+  "block_index": 0,
+  "time": "2026-06-19T14:23:40.362Z",
+  "bytes": 24879,
+  "sha256": "e2c74194a6cd1e80c7b7925ed87fe1d18df4201af87221246c111dfdfd524f05",
+  "title": "Prompted blend all of this code together into one cohesive output:\n\nimport json\nimport hmac\nimport hashlib\nimport time\nf"
+ },
+ {
+  "file": "20260622T025720_activity-904_block2.txt",
+  "activity_index": 904,
+  "block_index": 2,
+  "time": "2026-06-22T02:57:20.552Z",
+  "bytes": 31741,
+  "sha256": "5e37d167ac18f10186a4bc74db6bbf4c91c7a74b085e926a7bf22b4a60647ffb",
+  "title": "Prompted ### OPTION 6 EXECUTION PROTOCOLS: CODE OPTIMIZATION, VALIDATION, & TRANSPORTATION ENGINE\n\nWhen Option 6 is init"
+ },
+ {
+  "file": "20260622T035537_activity-870_block0.txt",
+  "activity_index": 870,
+  "block_index": 0,
+  "time": "2026-06-22T03:55:37.743Z",
+  "bytes": 3565,
+  "sha256": "b2a54c5cc06579f06b082696d2680918abe3f833a700c2989546f0aff65561aa",
+  "title": "Prompted go ahead and merge them"
+ },
+ {
+  "file": "20260622T042224_activity-862_block0.txt",
+  "activity_index": 862,
+  "block_index": 0,
+  "time": "2026-06-22T04:22:24.969Z",
+  "bytes": 2175,
+  "sha256": "589dd748b0566d859f80cc147b3a11e67bdbe3eb51d8b787f906d075295839d8",
+  "title": "Prompted do it"
+ },
+ {
+  "file": "20260622T042224_activity-862_block2.txt",
+  "activity_index": 862,
+  "block_index": 2,
+  "time": "2026-06-22T04:22:24.969Z",
+  "bytes": 2715,
+  "sha256": "5da8857c970a9a109dcc4a98c60024bfd14cb732556de8eaaedb9da756b3366d",
+  "title": "Prompted do it"
+ },
+ {
+  "file": "20260622T042915_activity-860_block0.txt",
+  "activity_index": 860,
+  "block_index": 0,
+  "time": "2026-06-22T04:29:15.543Z",
+  "bytes": 2472,
+  "sha256": "051a3de8e84dd47cc74d8da331a9e290f8ad2f4383389d4483312ac2931f048c",
+  "title": "Prompted remove all religious references and replace with viable descriptive variables"
+ },
+ {
+  "file": "20260622T043022_activity-859_block0.txt",
+  "activity_index": 859,
+  "block_index": 0,
+  "time": "2026-06-22T04:30:22.394Z",
+  "bytes": 2997,
+  "sha256": "ca996e5408077e2acfdc331d10c29c0ebe96d346d9b54aef17de66396bf4eba1",
+  "title": "Prompted ### OPTION 6 EXECUTION PROTOCOLS: CODE OPTIMIZATION, VALIDATION, & TRANSPORTATION ENGINE\n\nWhen Option 6 is init"
+ },
+ {
+  "file": "20260704T203922_activity-218_block3.txt",
+  "activity_index": 218,
+  "block_index": 3,
+  "time": "2026-07-04T20:39:22.644Z",
+  "bytes": 6910,
+  "sha256": "d01b8a9e027599c6c92ecd8f5e137988cabcdbb27f886be20202cb8473f02189",
+  "title": "Prompted \"Please generate the Python script by performing a comprehensive scan of this entire conversation thread to ext"
+ },
+ {
+  "file": "20260706T041801_activity-56_block4.txt",
+  "activity_index": 56,
+  "block_index": 4,
+  "time": "2026-07-06T04:18:01.749Z",
+  "bytes": 9525,
+  "sha256": "509ecdbe59417230d4c9befe8900f160efa8b56390784e0f8c25e2641c042127",
+  "title": "Prompted import hashlib\nfrom datetime import datetime\nfrom typing import Dict, Any, List, Optional\nimport re\n\nclass MAGN"
+ },
+ {
+  "file": "20260706T041851_activity-55_block4.txt",
+  "activity_index": 55,
+  "block_index": 4,
+  "time": "2026-07-06T04:18:51.612Z",
+  "bytes": 9525,
+  "sha256": "509ecdbe59417230d4c9befe8900f160efa8b56390784e0f8c25e2641c042127",
+  "title": "Prompted Add to this code that you must provide a scorecard that covers the following on a scale of 1-10 \u2b50 Security, Gov"
+ },
+ {
+  "file": "20260706T042000_activity-54_block4.txt",
+  "activity_index": 54,
+  "block_index": 4,
+  "time": "2026-07-06T04:20:00.442Z",
+  "bytes": 2079,
+  "sha256": "9b763f89ef97e118e80ea0af4083cf5ba8bc5d81e267e8a50e1054ec0a2ae8f6",
+  "title": "Prompted \"\"\"\nPROGRAM: MAGNA_GSA_CONSOLIDATED_KERNEL (v8.0.0)\nDESCRIPTION: Unified operational stack for asynchronous inf"
+ },
+ {
+  "file": "20260706T050126_activity-42_block28.txt",
+  "activity_index": 42,
+  "block_index": 28,
+  "time": "2026-07-06T05:01:26.814Z",
+  "bytes": 2079,
+  "sha256": "9b763f89ef97e118e80ea0af4083cf5ba8bc5d81e267e8a50e1054ec0a2ae8f6",
+  "title": "Prompted Add to this code that you must provide a scorecard that covers the following on a scale of 1-10 \u2b50 Security, Gov"
+ },
+ {
+  "file": "20260706T124959_activity-34_block11.txt",
+  "activity_index": 34,
+  "block_index": 11,
+  "time": "2026-07-06T12:49:59.100Z",
+  "bytes": 10332,
+  "sha256": "405b5f446a23e2e0deebf7740096a493944b5b1404b86448ab6d60c4f3565e5a",
+  "title": "Prompted ACTIVATE MODE: GSA-UNIFIED-REFACTOR\nCONTEXT: Integrate all provided code components into a single, cohesive, an"
+ },
+ {
+  "file": "20260706T231754_activity-12_block6.txt",
+  "activity_index": 12,
+  "block_index": 6,
+  "time": "2026-07-06T23:17:54.976Z",
+  "bytes": 6499,
+  "sha256": "7a79b2de08a950c8232b5267c4672e87a8b6b216c4acea38c585de1446259231",
+  "title": "Prompted \"\"\"\nDeterministic AST-based graph extractor.\n\nConverts Python source code into:\n- Nodes (classes, functions, mo"
+ }
+]

@@ -1,0 +1,213 @@
+# Repo Consolidation — Move Instructions (v3, full sweep)
+
+Scope: move files to where they belong. NO code edits, NO bug fixes, NO
+renaming classes yet — that's a separate later pass. Just get files into the
+right repos. Preserve git history where practical (`git mv` within a repo;
+for cross-repo moves, plain copy + delete + commit is fine, this isn't a
+history-preservation exercise).
+
+After each move, do NOT delete the source repo itself, even if it's empty —
+William wants to review the empty-repo list himself and delete manually.
+
+Where a destination repo doesn't exist yet, create it (see Section C) with
+the proposed name, and note in its README that the name is provisional —
+renaming a GitHub repo after the fact is trivial (Settings → rename) so
+don't block the move on getting the name perfect.
+
+For duplicated content that recurs across many repos (the AST extractor,
+the CITADEL regex engine), detect by content signature, not by filename —
+exact filenames as remembered here may not be 100% precise, and grepping
+for the actual code is more reliable than trusting a filename list.
+
+---
+
+## SECTION A — Confirmed destinations that already exist
+
+### A1. → `synapsis` (real AST/code-intelligence engine)
+
+Detect by content signature: any file containing `class GraphExtractor(ast.NodeVisitor)`
+or `def extract_graph(source` — this pattern recurs across at least ATS,
+CLIP, DGK, FACTS, SECURE, WRAPPER, DIT, and AC-HCCSE.
+
+- Known exact files in `ATS`: `ast-graph-extractor-source.py`,
+  `ast-graph-extractor-core-wrapped.py`, `stride-ast-extractor-wrapped.py`
+- Search every other repo in this sweep for the same signature and collect
+  all matches.
+- Move all matches into `synapsis/archive/imported-variants/`, keeping
+  each one's original filename prefixed with its source repo (e.g.
+  `ATS__ast-graph-extractor-source.py`) so provenance isn't lost.
+- Do not overwrite anything already in `synapsis/src/synapsis/` — this is
+  archival, not replacement of the real engine.
+- Before moving `stride-ast-extractor-wrapped.py` specifically: its header
+  falsely claims `SYSTEM_NAME: STRIDE`. Leave the mislabel in place for
+  now (this pass is move-only) but note it in the commit message.
+
+### A2. → `sentinel_os`
+
+- From `DEMO_OUTPUT`: move `DEMO_OUTPUT_v1.txt` into wherever sentinel_os
+  keeps demo/sample outputs (create `demo_outputs/` if nothing fits).
+- From `OTLP`: move `sentinel-os-pipeline-core.py` and
+  `telemetry-processor-complete.py` into sentinel_os's telemetry layer.
+- From `SAGE-K`: move the entire `sage_k/` package — `scenarios.py`,
+  `generator.py`, `harness.py`, `drift.py`, `realignment.py`, `report.py`,
+  `kernel.py`, `gsa_adapter.py`, `graph_extractor.py`, `__init__.py`,
+  plus `tests/` and `examples/` — into sentinel_os as a real module
+  (this is the tested F1+F3 interpretation-framework implementation, not
+  draft material). Do NOT bring `SAGE-K/README.md` — it describes an
+  unrelated system and doesn't belong with this package.
+
+### A3. → `EDDP` (currently empty)
+
+- From `Data_files`: move `eddp-pipeline-core-simple.py`,
+  `eddp-comprehensive-synthesized.py`, `eddp-wrapped-final.py`,
+  `eddp-core-engine-v2-refined.py`.
+- Also from `Data_files`: `metric_assessment_telemetry_dispatch_source.py`
+  and `metric_assessment_telemetry_dispatch_adapter.py` — confirmed to be
+  the same EDDP pipeline classes (`BoundaryValidationFilter`,
+  `MetricAssessmentLayer`, `ParallelEvaluationEngine`,
+  `AggregatedMetricScorer`, `DestinationTargetRouter`,
+  `PresentationRenderer`) under a generic filename.
+
+### A4. → `OBSERVE` (existing main system)
+
+- From `Data_files`: `perceive_policy_enforcement_source.py` and
+  `perceive_policy_enforcement_adapter.py`. Before overwriting anything,
+  diff against what's already in OBSERVE — this may be a duplicate, an
+  older version, or genuinely new material; don't assume.
+- Also worth checking against this same repo: the OBSERVE Clinical Engine
+  content found in `ARCHIVE`'s report 6/7 JSON payloads (`RiskAdapters`,
+  `BayesianFusion`, `EscalationPolicy`, `ObserveClinicalEngine` — real,
+  substantial pediatric risk-scoring code with genuine bug-fix history in
+  its comments). This isn't a separate file to move — it's embedded in
+  `ARCHIVE/artifact_6.json` and `artifact_7.json`'s JSON payloads and
+  would need to be extracted from there first. Flagging so it doesn't get
+  lost when ARCHIVE eventually gets cleaned up; not a blocking part of
+  this move pass.
+
+### A5. Within `ATS` (no cross-repo move, just internal cleanup)
+
+- Rename `synapsis_gsa_source.txt` → `ats_gsa_core.py` (or keep `.txt`,
+  William's call at execution time). Do not rename the internal classes
+  yet — that's a code-edit pass, not this one.
+- Delete `ats_governance_kernel_bridge_source_copy.txt` — confirmed
+  byte-identical duplicate of `ats_governance_kernel_bridge.py`.
+
+---
+
+## SECTION B — Delete (explicit instruction already given)
+
+### B1. `VSA` repo
+
+William confirmed: "VSA is one of my original original systems from
+months ago, the whole thing can be deleted." Delete the repo entirely.
+
+Before deleting: `UZTC/TRANSCRIPT.md` (turns 9-18) already contains an
+exact duplicate of VSA's full raw transcript, so the source material
+survives — but `VSA/artifact_1.py`, `artifact_2.py`, and `artifact_3.json`
+are cleanly-extracted files that exist only in VSA. If nothing needs to
+survive in usable form, proceed with deletion as instructed.
+
+---
+
+## SECTION C — Needs a new repo (doesn't exist yet)
+
+### C1. Propose creating `GSA-GATEWAY` (or William's preferred name)
+
+Real, working GSA-lineage content is currently scattered across many
+repos with no unified home:
+
+- `CITADEL` — stays as its own repo (it's substantial enough alone), but
+  cross-link it here since STRIDE consumes its logic.
+- `CLIP` — rename this repo to `STRIDE` (the code's own self-declared
+  name; CLIP was just the AI's first of four suggested names). Either
+  make STRIDE its own repo, or fold it into GSA-GATEWAY — William's call;
+  default to keeping STRIDE as its own repo and cross-linking, same
+  treatment as CITADEL, since it's substantial enough alone too.
+- `SECURE` — move here in full (the working SECURE-sandbox + GSA-adapter
+  kernel).
+- `UZTC` — move here in full (the Universal Zero-Trust Construct /
+  provenance-layer content).
+- `WRAPPER` — move here in full (confirmed as the origin session for
+  SECURE's content — keep `WRAPPER/artifact_3.py` as canonical, since
+  it has real line breaks where SECURE's copy is flattened).
+- From `DGK`: `sovereign-governance-stack-v2-expanded.py` (the
+  `SovereignGovernanceStack V10.0` architecture wiring VANGUARD + SRE +
+  DIT + a consensus/quorum engine together) and
+  `citadel-processor-router-flattened.py` (duplicate of CITADEL's real
+  regex-enforcement logic).
+- From `Data_files`: `governance_os_security_source.py` and
+  `governance_os_security_adapter.py` (simple but genuinely working
+  `BaseGate`/`BoundaryGate`/`InvariantGate` pattern) and
+  `solvar_stability_governance_source.py` /
+  `solvar_stability_governance_cleanup.py` (connects to "Fortress/SOLVAR"
+  per DIT's own provenance notes).
+- From `Data_files`: `quorum_state_governance_source.py` — still needs
+  the verification step from the earlier cleanup pass (checking whether
+  it's actually the missing `gov4_kernel` ATS's bridge imports) before
+  it's placed with confidence. Move it here provisionally either way,
+  since it's GSA-lineage regardless of whether it also turns out to be
+  ATS's missing dependency.
+
+### C2. Propose creating `GRAPH` (or William's preferred name)
+
+- From `FACTS`: everything except the AST-extractor-signature files
+  (which go to synapsis per A1) — specifically `graph-module-registry.py`
+  (the one file in this whole sweep that's genuinely close to working —
+  parses clean once `[Row ###]` tags are stripped, one small dataclass
+  bug away from running), plus the other `graph-v2.*.py` variants and
+  `graph-cryptographic-engine.py`, `graph-state-integrity.py`,
+  `graph-adapter-hooks.py`, `graph-context-envelope.py`.
+- Also move `gaps_multilayer_governance_source.py` and
+  `gaps_multilayer_governance_adapter.py` from `Data_files` here — this
+  is the real GAPS KERNEL implementation (the `register_as_module`
+  decorator referenced throughout ARCHIVE's report-generation prompts),
+  and GRAPH/GAPS are closely related governance-layer concepts. If
+  William would rather these be separate repos, that's a fine split too
+  — flagging the connection, not mandating the merge.
+
+### C3. `ws3_telemetry_guardrail_source.py` / `_adapter.py` (from Data_files)
+
+No clear existing or proposed destination — genuinely new content (a
+"Deadman Switch" telemetry guardrail) with no obvious overlap found
+anywhere else in this sweep. Leave in `Data_files` for now; flag for
+William to decide once C1/C2 exist and there's more context on whether
+it fits either.
+
+---
+
+## SECTION D — Explicitly do NOT move into a code repo
+
+These have real value but aren't code-destination decisions — moving them
+into a repo would bury them the same way they were buried before.
+
+- **TBCA**: the complete white-paper draft. Leave the repo as-is; this
+  is for the spine white paper project, not a code consolidation target.
+- **CODE's business-strategy conversation** (turns 2-6 of
+  `CODE/TRANSCRIPT.md`): monetization discussion, target-customer
+  criteria, a request for an actual company target list. Real strategic
+  thinking, currently buried in a code repo's transcript. Recommend
+  extracting into a plain text/doc file William can actually revisit —
+  not part of this move pass, just flagging so it isn't lost.
+- **ARCHIVE's UGPIS-Ω blueprint** (reports 6-7): the closest thing found
+  all night to an explicit "how do DIT/OBSERVE/FORTRESS/URE/EDDP/GSA fit
+  together" answer, with real integration code. Worth William reading in
+  full before deciding where it lives — don't auto-file it.
+- **DIT's real bootstrap session**: the actual origin/deployment history
+  for sentinel_os (SSH keys, git setup, GitHub push) — already redacted
+  for personal info at William's prior request. This is historical
+  record, not code to relocate.
+- **Omega-prefixed / biblical-axiom / "Council of Five" content**,
+  wherever it appears (CODE, ARCHIVE, DGK's agent factory): consistently
+  narrative flourish, not design intent, confirmed across at least 4
+  separate appearances tonight. Do not migrate anywhere as if it were
+  real architecture.
+
+---
+
+## After all moves: report back
+
+Once the moves in Sections A-C are done, list every repo in this sweep
+that is now empty (or contains only `TRANSCRIPT.md`/`PROVENANCE.md` with
+no code left) so William can review and delete them himself. Do not
+delete any repo automatically except VSA (Section B, explicit instruction
+already given).

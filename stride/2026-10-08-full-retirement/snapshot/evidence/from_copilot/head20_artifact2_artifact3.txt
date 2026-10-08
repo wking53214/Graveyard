@@ -1,0 +1,43 @@
+==> artifact_2.py <==
+from __future__ import annotations
+
+import asyncio
+import hashlib
+import hmac
+import logging
+import re
+import secrets
+import time
+from collections import deque
+from dataclasses import asdict, dataclass, field
+from datetime import datetime, timezone
+from typing import Any, Awaitable, Callable, Deque, Dict, Final, List, Optional, Set
+
+# ============================================================
+# LOGGING & CENTRALIZED PRE-COMPILED REGEX CACHE
+# ============================================================
+
+logging.basicConfig(
+   level=logging.INFO,
+
+==> artifact_3.py <==
+"""
+SYSTEM_NAME: STRIDE
+SYSTEM_DESCRIPTION: Secure Telemetry Runtime and Intelligence Deterministic Engine
+                    A multi-layered gateway architecture designed for zero-trust
+                    linguistic validation, tokenized policy assessment, async
+                    cryptographic attestation, and operational intelligence reporting.
+"""
+
+import asyncio
+import hashlib
+import hmac
+import logging
+import re
+import secrets
+import time
+from collections import deque
+from dataclasses import asdict, dataclass, field
+from datetime import datetime, timezone
+from typing import Any, Awaitable, Callable, Deque, Dict, Final, List, Optional, Set
+<shellId: 28 completed with exit code 0>

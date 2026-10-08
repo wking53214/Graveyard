@@ -1,0 +1,1050 @@
+Yes — given the Pass 4 result you pasted, **I would do Pass 5 without memory**. That makes the audit reproducible and forces the next agent to work from the repository corpus itself rather than relying on conversational context.
+
+Because you're doing this in a fresh context, the prompt should include the **full GitHub organization/user URL** and explicitly tell the agent to treat the Pass 4 report as a hypothesis/evidence map, not as established truth.
+
+I’d use this:
+
+---
+
+# PASS 5 — RAW HISTORY, GIT OBJECT, AND DEPLOYMENT RECOVERY AUDIT
+
+**Audit date:** August 22, 2026  
+**Method:** independent primary-source recovery  
+**Mode:** NO MEMORY / NO RELIANCE ON PRIOR CONVERSATIONAL CONTEXT  
+**Standard:** skeptical independent historian; assume no architectural continuity unless primary evidence establishes it
+
+## Full repository corpus
+
+Audit the GitHub corpus beginning at:
+
+**https://github.com/**
+
+Use the GitHub repositories available under the relevant account/organization and inspect the repositories named or referenced below.
+
+### Primary repositories
+
+- `sentinel_os`
+- `OBSERVE`
+- `GSA-815`
+- `GSA-GATEWAY`
+- `ARCHIVE`
+- `TIE`
+- `GEMS`
+- `HERALD`
+- `CCC`
+- `Triad-42`
+- `Conservation_Kernel`
+- `FORTRESS`
+- `CITADEL`
+- `VANGUARD`
+- `KAGGLE`
+- `ATS`
+
+### Historical/export repositories
+
+- `ChatGPT_History`
+- `Claude_History`
+- `Gemini_History`
+- `CoPilot_History`
+
+Also inspect any repositories discovered during the audit that are directly implicated in the lineage of:
+
+- Iceberg
+- Sentinel
+- TIE
+- GEMS
+- HERALD
+- CCC
+- Triad
+- Conservation Kernel
+- FORTRESS
+- STRIDE
+- CLIP
+- DGK
+- EDDP
+- SECURE
+- UZTC
+- WRAPPER
+- GSA
+- GRAPH
+- DIT
+- URE
+- ANVIL
+
+Do **not** assume repository names are stable identifiers. Follow redirects, renames, deleted-repository references, commit parents, provenance documents, and explicit migration statements.
+
+---
+
+# 1. PURPOSE OF PASS 5
+
+Pass 4 established that the surviving corpus contains a mixture of:
+
+- genuine historical lineage;
+- extraction;
+- migration;
+- consolidation;
+- salvage;
+- archival artifacts;
+- reconstruction;
+- current-only implementations;
+- experimental implementations.
+
+Pass 5 must now attempt to recover the **remaining primary evidence** that could change those classifications.
+
+The central questions are:
+
+1. Can the original TIE implementation be recovered?
+2. Can historical GEMS implementation material be recovered?
+3. Can historical HERALD evidence be recovered?
+4. Can historical CCC/Triad evidence be recovered?
+5. Can deleted STRIDE material be recovered?
+6. Can Git objects reveal deleted or renamed historical repositories?
+7. Can raw conversation exports establish earlier versions of TIE/GEMS/HERALD/CCC/Triad?
+8. Can deployment artifacts establish actual deployment rather than merely executable/tested status?
+9. Can exact human decision provenance be reconstructed?
+10. Can any evidence establish that TIE → GEMS → HERALD → governance → execution actually existed as a historical runtime chain?
+
+Do not attempt to make the architecture "fit."
+
+The objective is specifically to determine whether the clean historical story survives primary-source scrutiny.
+
+---
+
+# 2. CRITICAL METHODOLOGICAL RULE
+
+Treat the Pass 4 report as an **audit map**, not as ground truth.
+
+Every Pass 4 conclusion must remain revisable.
+
+Use this hierarchy:
+
+**Primary source > contemporaneous artifact > Git history > Git object/repository metadata > deployment/runtime evidence > archival artifact > current repository provenance > AI-generated historical summary > architectural inference**
+
+A current README describing a historical system is **not automatically historical evidence**.
+
+A current implementation resembling an older conceptual description is **not proof of continuity**.
+
+A commit proving that code was committed is **not automatically proof that it was deployed**.
+
+A successful test is **not automatically proof of production use**.
+
+A repository creation date is **not proof of project birth**.
+
+Absence must be reported as:
+
+> "not found in the searched corpus"
+
+unless the evidence actually establishes deletion, nonexistence, or explicit absence.
+
+---
+
+# 3. FIRST TASK — RECONSTRUCT THE RAW CORPUS
+
+Before making architectural conclusions, enumerate what is actually accessible.
+
+For every relevant repository record:
+
+- repository name;
+- URL;
+- creation date;
+- last update;
+- default branch;
+- fork status;
+- archived status;
+- visibility if available;
+- rename history if available;
+- deleted/404 status;
+- accessible commit history;
+- accessible branches;
+- accessible tags/releases;
+- provenance documents;
+- references to other repositories.
+
+Create:
+
+### REPOSITORY INVENTORY
+
+| Repository | Created | Status | Historical material | Rename/delete evidence | Notes |
+
+Do not infer lineage from the repository name alone.
+
+---
+
+# 4. RAW CONVERSATION RECOVERY
+
+This is the highest-priority task.
+
+Inspect:
+
+- `ChatGPT_History`
+- `Claude_History`
+- `Gemini_History`
+- `CoPilot_History`
+
+Determine the actual structure of each export.
+
+Search the **rawest available files**, not merely repository code-search indexes.
+
+Search for exact and variant forms of:
+
+### TIE
+
+- `TIE`
+- `TIE_PACKAGE`
+- `EvidenceRecord`
+- `EvidenceRecord`
+- `tie_package`
+- `tie`
+- schema fragments
+- class names
+- filenames
+- API routes
+- serialized JSON
+- test fixtures
+
+### GEMS
+
+- `GEMS`
+- `GEMS-FER`
+- `Gem`
+- `GemRouter`
+- `handoff`
+- `handoff envelope`
+- role names
+- Gem prompts
+- transport
+- API
+- vector store
+- database
+- production
+- deployment
+
+### HERALD
+
+Search for:
+
+- `HERALD`
+- `Herald`
+- `herald`
+- interpreter
+- source binding
+- downstream seam
+- HMAX
+- filenames from the current HERALD repository
+- version numbers
+- architectural descriptions
+
+### CCC
+
+Search for:
+
+- `CCC`
+- `Constitutional`
+- `constitutional`
+- `article`
+- article numbers
+- governance contract
+- enforcement harness
+- Sentinel + CCC
+- CCC + Triad
+
+### TRIAD
+
+Search for:
+
+- `Triad`
+- `Triad+42`
+- `42`
+- Red
+- Gray
+- Green
+- epistemic state
+- review harness
+- authorization
+
+### CONSERVATION KERNEL
+
+Search for:
+
+- `Conservation Kernel`
+- `conservation_kernel`
+- `kernel`
+- structural support
+- protected distinction
+- provenance loss
+- authority escalation
+- gateway
+- Sentinel relationship
+
+### STRIDE / CLIP
+
+Search for:
+
+- `STRIDE`
+- `CLIP`
+- `prohibited_verbs`
+- `governance_loop_guard`
+- queue depth
+- backpressure
+- loop detection
+
+### SENTINEL / ICEBERG
+
+Search for:
+
+- `Sentinel OS`
+- `sentinel_os`
+- `Iceberg`
+- `OBSERVE`
+- `production_harness.py`
+
+Search for filenames as well as conceptual terms.
+
+---
+
+# 5. CONVERSATION TIMELINE RECOVERY
+
+For every positive historical conversation result, record:
+
+- export source;
+- file path;
+- conversation ID if present;
+- message timestamp;
+- author;
+- exact relevant artifact;
+- whether source code was attached/generated;
+- whether the artifact predates the current repository;
+- whether it appears to be copied from an existing repository;
+- whether it was subsequently recovered into GitHub.
+
+Create:
+
+| Date/time | Source | Conversation | Artifact | System | Evidence | Pre-current-repo? | Confidence |
+
+The objective is to determine whether the following chain exists:
+
+**AI conversation → historical source artifact → later repository recovery**
+
+ATS is the control example.
+
+Determine whether the same pattern exists for:
+
+- TIE;
+- GEMS;
+- HERALD;
+- CCC;
+- Triad;
+- FORTRESS;
+- STRIDE.
+
+---
+
+# 6. TIE RECOVERY
+
+Perform an exhaustive targeted search for the original TIE.
+
+Do not search only for "TIE."
+
+Search for:
+
+- `TIE_PACKAGE`
+- `EvidenceRecord`
+- exact schema fields
+- class definitions
+- imports
+- serializers
+- JSON examples
+- database models
+- tests
+- fixtures
+- API contracts
+- filenames
+- module names
+- references from GEMS
+- references from HERALD
+- references from governance systems
+
+Determine separately:
+
+1. Historical TIE concept
+2. Historical TIE source code
+3. Historical TIE schema
+4. Historical TIE API
+5. Historical TIE tests
+6. Historical TIE deployment
+7. Historical TIE runtime
+8. Historical TIE consumer
+9. Current TIE reconstruction
+10. Identity between current and historical TIE
+
+Do not collapse these into one conclusion.
+
+---
+
+# 7. GEMS RECOVERY
+
+Search for actual historical GEMS implementation material.
+
+Specifically attempt to recover:
+
+- production Gem implementations;
+- prompts;
+- Gem schema;
+- router;
+- handoff protocol;
+- transport;
+- persistence;
+- vector/database layer;
+- API;
+- deployment configuration;
+- tests;
+- examples;
+- runtime logs;
+- historical version numbers.
+
+Search the raw conversation corpus for `GEMS-FER` and every filename referenced by the current reconstruction.
+
+Determine whether any historical executable GEMS implementation can be established.
+
+Classify each result:
+
+- historical;
+- archival;
+- reconstructed;
+- current-only;
+- proposed;
+- inferred.
+
+---
+
+# 8. HERALD RECOVERY
+
+Search for evidence predating the August 20, 2026 repository creation.
+
+Look specifically for:
+
+- source files;
+- earlier filenames;
+- conversation-generated code;
+- architecture documents;
+- API contracts;
+- downstream consumers;
+- version numbers;
+- deployment records;
+- references from TIE/GEMS;
+- references from governance systems.
+
+The key question is:
+
+> Did HERALD exist before the current HERALD repository?
+
+Do not treat conceptual similarity as sufficient.
+
+Then separately ask:
+
+> Did any historical deployed system actually consume HERALD?
+
+---
+
+# 9. CCC / TRIAD RECOVERY
+
+Attempt to recover historical versions of:
+
+- CCC;
+- constitutional articles;
+- ratified governance documents;
+- prior harnesses;
+- Triad implementations;
+- Triad+42;
+- historical CCC/Triad integration.
+
+Search both repositories and raw conversations.
+
+Determine:
+
+- earliest occurrence;
+- earliest executable occurrence;
+- earliest ratified-document occurrence;
+- earliest test;
+- earliest runtime;
+- earliest Sentinel integration;
+- earliest TIE/GEMS relationship.
+
+If none is found, explicitly state:
+
+> "No independent historical implementation was recovered in the searched corpus."
+
+Do not state that it never existed.
+
+---
+
+# 10. CONSERVATION KERNEL RECOVERY
+
+Determine whether any evidence predates the August 17 repository.
+
+Search for:
+
+- earlier names;
+- earlier code;
+- earlier hypotheses;
+- earlier experiments;
+- references to Sentinel;
+- references to governance gateway;
+- replacement/complement decisions.
+
+The key question:
+
+> Was Conservation Kernel an older architectural component, or is the current repository genuinely the first independently testable implementation?
+
+Do not assume either answer.
+
+---
+
+# 11. STRIDE / CLIP GIT RECOVERY
+
+The surviving evidence says STRIDE was deleted and partially salvaged.
+
+Attempt to recover the lost whole.
+
+Search for:
+
+- deleted repository references;
+- old commit SHAs;
+- parent trees;
+- forks;
+- renamed repositories;
+- commit references from CITADEL;
+- commit references from Sentinel;
+- `prohibited_verbs`;
+- `governance_loop_guard.py`;
+- queue-depth/backpressure logic;
+- CLIP references.
+
+If Git objects or historical commits are recoverable, reconstruct the repository as far as possible.
+
+Report:
+
+- recovered files;
+- unrecovered files;
+- last known commit;
+- known branches;
+- known deployment evidence;
+- whether surviving components represent the whole or only fragments.
+
+---
+
+# 12. GIT OBJECT / DELETED HISTORY RECOVERY
+
+For every repository with evidence of deletion, rename, migration, or extraction:
+
+Inspect wherever the connector/API permits:
+
+- commit parents;
+- commit trees;
+- historical file paths;
+- deleted files;
+- renamed files;
+- old branches;
+- tags;
+- releases;
+- forks;
+- migration commits;
+- references to old SHAs;
+- references to deleted repositories.
+
+Pay particular attention to:
+
+- STRIDE;
+- CLIP;
+- original TIE;
+- historical GEMS;
+- older FORTRESS variants;
+- Iceberg;
+- older DGK material;
+- EDDP;
+- GRAPH;
+- DIT;
+- URE.
+
+If a Git object cannot actually be retrieved, do not imply that it was recovered.
+
+---
+
+# 13. DEPLOYMENT / RUNTIME RECOVERY
+
+This is the second major priority after raw conversation recovery.
+
+Search the corpus for evidence of:
+
+- Docker image builds;
+- registry pushes;
+- Kubernetes manifests;
+- Kubernetes rollout output;
+- Helm charts;
+- cloud deployment;
+- systemd services;
+- process supervisors;
+- shell scripts;
+- deployment logs;
+- runtime logs;
+- database migrations;
+- Redis initialization;
+- API request logs;
+- production URLs;
+- DNS;
+- TLS certificates;
+- monitoring;
+- Prometheus metrics;
+- actual request traces;
+- API credentials/configuration references;
+- scheduled jobs.
+
+For each system, classify separately:
+
+**Implemented**
+
+**Tested**
+
+**Operational in test environment**
+
+**Deployed**
+
+**Actually used**
+
+**Sustained production operation**
+
+Do not infer one level from another.
+
+Apply this to:
+
+- Sentinel;
+- OBSERVE;
+- TIE;
+- GEMS;
+- HERALD;
+- CCC;
+- Triad;
+- Conservation Kernel;
+- FORTRESS;
+- GSA-GATEWAY;
+- VANGUARD;
+- STRIDE.
+
+---
+
+# 14. HUMAN DECISION PROVENANCE
+
+Construct the strongest possible chronological decision ledger.
+
+For each significant transition:
+
+| Transition | Original proposal | Human instruction | Decision | Implementer | Tester | Deployer | Evidence |
+
+Search for explicit references such as:
+
+- William's instructions;
+- roadmap;
+- go-ahead;
+- approved;
+- rejected;
+- moved;
+- deleted;
+- superseded;
+- "per William";
+- "Wm's";
+- decision;
+- directive;
+- architecture choice.
+
+Distinguish:
+
+**AI generated**
+
+from
+
+**AI proposed**
+
+from
+
+**human instructed**
+
+from
+
+**human approved**
+
+from
+
+**human implemented**
+
+from
+
+**human tested**
+
+from
+
+**human deployed**
+
+Never infer these are the same actor.
+
+---
+
+# 15. RECONSTRUCT THE ACTUAL LINEAGES
+
+Build separate lineage graphs.
+
+### Lineage A — Sentinel
+
+Iceberg → Sentinel → OBSERVE/Sentinel → GSA-815
+
+### Lineage B — GSA-GATEWAY
+
+SECURE  
+UZTC  
+WRAPPER  
+DGK  
+EDDP  
+↓  
+GSA-GATEWAY
+
+### Lineage C — VANGUARD
+
+DGK → VANGUARD
+
+### Lineage D — FORTRESS
+
+Sentinel  
+ARCHIVE  
+Claude history  
+↓  
+FORTRESS
+
+### Lineage E — STRIDE
+
+STRIDE/CLIP  
+↓  
+deletion  
+↓  
+partial salvage  
+↓  
+CITADEL / Sentinel
+
+### Lineage F — reconstructed family
+
+Historical forensic material  
+↓  
+TIE reconstruction  
+↓  
+GEMS reconstruction  
+↓  
+current HERALD
+
+### Lineage G — current governance/experimental family
+
+Current directive/design  
+├── CCC  
+├── Triad+42  
+├── Conservation Kernel  
+└── HERALD
+
+Do not connect these graphs unless primary evidence establishes the connection.
+
+---
+
+# 16. TEST THE CLEAN STORY AGAIN
+
+Specifically retest:
+
+**HISTORY → TIE → GEMS → HERALD → GOVERNANCE → EXECUTION**
+
+For every arrow report:
+
+- direct evidence;
+- indirect evidence;
+- current-only evidence;
+- contradictory evidence;
+- missing evidence;
+- confidence.
+
+Use exactly:
+
+**PROVEN**
+
+**PARTIALLY PROVEN**
+
+**INFERRED**
+
+**RECONSTRUCTED**
+
+**CURRENT-ONLY**
+
+**UNKNOWN**
+
+**CONTRADICTED**
+
+Do not use vague terms such as "likely" without explaining the evidence basis.
+
+---
+
+# 17. SEARCH FOR CONTRADICTIONS
+
+Actively attempt to falsify the current Pass 4 conclusions.
+
+At minimum test:
+
+### C1
+Could TIE's original implementation actually be present under another name?
+
+### C2
+Could GEMS historical implementation exist under role/module names rather than "GEMS"?
+
+### C3
+Could HERALD predate the current repository under another filename?
+
+### C4
+Could CCC have an earlier ratified form outside the current repository?
+
+### C5
+Could Triad have an earlier executable implementation?
+
+### C6
+Could Conservation Kernel predate August 17?
+
+### C7
+Could STRIDE's full repository be recoverable from Git history?
+
+### C8
+Could FORTRESS have had a canonical predecessor despite multiple variants?
+
+### C9
+Could GLCM/KAGGLE have another software lineage not visible in the current provenance?
+
+### C10
+Could deployment evidence establish actual production operation for systems currently classified UNKNOWN?
+
+The audit should attempt to **disprove its own conclusions**.
+
+---
+
+# 18. DO NOT OVERCLAIM NEGATIVE RESULTS
+
+For every failed search state exactly what was searched.
+
+Example:
+
+> "Search of Claude export files accessible through the connector for `TIE_PACKAGE`, `EvidenceRecord`, and current TIE filenames returned no recoverable match."
+
+Do NOT write:
+
+> "TIE_PACKAGE never existed."
+
+Likewise:
+
+> "No historical HERALD implementation was recovered from the searched corpus."
+
+Do NOT write:
+
+> "HERALD did not exist before August 20."
+
+---
+
+# 19. FINAL EVIDENCE LEDGER
+
+Produce a complete ledger in this form:
+
+| ID | Date | Source | Location | Actor | Claim | Evidence Type | Status | Confidence | Limitation |
+
+Continue numbering from Pass 4's `E20`.
+
+Every important conclusion must point to one or more evidence IDs.
+
+---
+
+# 20. FINAL UNKNOWN REGISTER
+
+Produce a revised UNKNOWN register.
+
+For every unresolved question state:
+
+- exact question;
+- searches performed;
+- evidence recovered;
+- evidence missing;
+- why the question remains unresolved;
+- what evidence would resolve it.
+
+Pay particular attention to:
+
+1. original TIE;
+2. historical GEMS;
+3. historical HERALD;
+4. historical CCC;
+5. historical Triad;
+6. Conservation Kernel origin;
+7. STRIDE;
+8. deployment;
+9. TIE → GEMS runtime;
+10. GEMS → HERALD runtime;
+11. HERALD → governance runtime;
+12. ecosystem-wide deployment.
+
+---
+
+# 21. REVISED HISTORICAL TIMELINE
+
+Produce a corrected timeline containing only events supported by evidence.
+
+Use:
+
+**PROVEN EVENT**
+
+**PARTIALLY PROVEN EVENT**
+
+**INFERRED EVENT**
+
+**RECONSTRUCTED EVENT**
+
+Do not put reconstructed events into the timeline as though they were historical facts.
+
+---
+
+# 22. PASS 3 / PASS 4 / PASS 5 COMPARISON
+
+Create:
+
+| Claim | Pass 3 | Pass 4 | Pass 5 | Final status | Evidence |
+
+For every claim, identify whether Pass 5:
+
+- strengthens;
+- weakens;
+- confirms;
+- contradicts;
+- leaves unchanged
+
+the prior classification.
+
+---
+
+# 23. FINAL ARCHITECTURAL CLASSIFICATION
+
+Produce four separate lists.
+
+## HISTORICALLY PROVEN
+
+Only systems/relationships supported by independent primary evidence.
+
+## HISTORICALLY INFERRED
+
+Conceptual relationships supported indirectly but not directly established.
+
+## RECONSTRUCTED
+
+Current implementations explicitly derived from incomplete/lost historical material.
+
+## CURRENT-ONLY
+
+Systems for which no independent earlier implementation has been recovered.
+
+Also provide:
+
+## LOST / DELETED / UNRECOVERED
+
+Clearly distinguish:
+
+- explicitly deleted;
+- explicitly unrecovered;
+- inaccessible;
+- not found;
+- unknown.
+
+These are not equivalent.
+
+---
+
+# 24. FINAL JUDGMENT
+
+Answer these questions directly:
+
+### A.
+Was there one continuously designed master architecture?
+
+### B.
+Was there a real early operational Sentinel/Iceberg lineage?
+
+### C.
+Which later systems can be proven to have been extracted or migrated from it?
+
+### D.
+Which systems are demonstrably reconstructions?
+
+### E.
+Which systems remain current-only?
+
+### F.
+Can TIE → GEMS → HERALD be established as a historical runtime chain?
+
+### G.
+Can governance → execution be established historically outside Sentinel/OBSERVE?
+
+### H.
+What evidence establishes actual deployment?
+
+### I.
+What evidence establishes actual human decision-making?
+
+### J.
+What remains unknowable?
+
+Then provide one concise final historical model.
+
+Do **not** optimize for a coherent story.
+
+Optimize for the most defensible story supported by primary evidence.
+
+---
+
+# 25. FINAL VERDICT FORMAT
+
+End with exactly these sections:
+
+## PASS 5 VERDICT
+
+### Historically proven
+
+### Historically inferred
+
+### Reconstructed
+
+### Current-only
+
+### Deleted / lost / unrecovered
+
+### Deployment status
+
+### Human decision provenance
+
+### Historical runtime chains
+
+### Critical contradictions
+
+### Remaining UNKNOWNs
+
+### What Pass 5 changed
+
+### Final historical judgment
+
+The final judgment must explicitly distinguish:
+
+**what actually happened**
+
+from
+
+**what the surviving evidence merely permits us to believe.**
+
+---
+
+### One important change from Pass 4
+
+For Pass 5, **do not spend most of the effort rereading current repositories**. The biggest remaining opportunity is exactly what the report identified: **raw historical exports, deleted Git history, and deployment/runtime evidence**.
+
+And I would **not use memory** for this pass. A fresh agent with this prompt can independently reconstruct the evidence, while the embedded Pass 4 results give it a precise set of hypotheses to attack. That is much stronger for an audit trail.

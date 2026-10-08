@@ -1,0 +1,116 @@
+Yes. This Pass 3 result is a **major methodological correction**, and I would treat it as the new baseline rather than trying to defend the earlier unified architecture narrative.
+
+The most important finding is this:
+
+> **The architecture you have now is substantially more coherent than the historical record proves it was.**
+
+That is not a failure of the work. It is exactly the kind of distinction a serious forensic reconstruction is supposed to uncover.
+
+### What Pass 3 establishes
+
+The evidence now gives you four separate historical layers:
+
+**1. PROVEN / OBSERVED**
+- Sentinel → GSA-815 extraction
+- FACTS → GRAPH extraction
+- DGK → VANGUARD extraction
+- GSA repositories → GSA-GATEWAY consolidation
+- STRIDE deletion → selected salvage into Sentinel
+- Sentinel/OBSERVE operational evidence
+- multiple independent FORTRESS variants
+
+**2. INFERRED**
+- relationships suggested by archived architecture
+- conceptual convergence among governance systems
+- possible relationships among DIT, URE, FORTRESS, OBSERVE, EDDP and GSA
+
+**3. RECONSTRUCTED**
+- TIE
+- GEMS
+- CCC
+- portions of the current FORTRESS architecture
+- the proposed TIE → GEMS relationship
+- much of the current system-of-systems interpretation
+
+**4. CURRENT-ONLY**
+- HERALD's current implementation/role
+- current TIE/GEMS adapters
+- current CCC ↔ Triad-42 relationship
+- Conservation_Kernel as currently implemented
+
+That four-layer distinction should now become **non-negotiable** in the master architecture documentation.
+
+### The particularly important correction
+
+The old story:
+
+```text
+HISTORY
+   ↓
+TIE
+   ↓
+GEMS
+   ↓
+HERALD
+   ↓
+GOVERNANCE
+   ↓
+EXECUTION
+```
+
+should **not** be presented as historical fact.
+
+The defensible statement is closer to:
+
+```text
+HISTORICAL MATERIAL
+       ↓
+   PRESERVATION
+       ↓
+FORENSIC RECOVERY
+       ↓
+ RECONSTRUCTION
+       ↓
+CURRENT ARCHITECTURAL CONVERGENCE
+```
+
+with Sentinel/OBSERVE occupying a separate, much stronger **historically operational** lineage.
+
+### And there is a very useful consequence
+
+Pass 3 has actually identified the **highest-value next research question**:
+
+> **Not "What is the architecture?" but "What primary evidence can establish what was actually decided, implemented, deployed, and used?"**
+
+That is why the Pass 4 recommendations are substantially better than simply doing another architecture synthesis.
+
+In particular, recovering the **actual Pass 2 report** matters enormously. Without it, Pass 3 could only audit the claims it could reconstruct from the available corpus. A genuine Pass 2 → Pass 3 differential audit should compare **every individual Pass 2 assertion** against the evidence.
+
+### I would preserve this finding verbatim as a methodological rule
+
+> **CURRENT-CODE CONTAMINATION RULE:**  
+> A current implementation, README, reconstructed architecture, or current repository relationship may establish the current state of the artifact, but shall not by itself establish that the same architecture, schema, relationship, deployment, or decision existed historically.
+
+And alongside it:
+
+> **RECONSTRUCTION RULE:**  
+> A reconstructed artifact may preserve a historically supported concept without establishing historical identity with the original implementation.
+
+Those two rules prevent exactly the kind of backward projection that Pass 3 caught.
+
+### One thing I would *not* do yet
+
+I would **not immediately start Pass 4 as another giant ecosystem-wide research run**.
+
+The report itself identifies the bottleneck: **primary historical evidence**.
+
+The logical next move is therefore to recover the underlying evidence corpus—especially **Pass 2 and the four history repositories**—and then perform a targeted differential audit. That gives you a much stronger evidentiary foundation without contaminating the historical record with another layer of interpretation.
+
+In other words:
+
+**Pass 1:** reconstruct  
+**Pass 2:** challenge/reconstruct further  
+**Pass 3:** forensic correction  
+**Pass 4:** recover primary evidence and test the corrected claims
+
+That is a much more defensible research progression than repeatedly asking an AI to synthesize the architecture again.

@@ -1,0 +1,186 @@
+# PASS 10 — COPILOT_HISTORY PROVENANCE UNWIND
+
+Audit date: August 22, 2026
+Method: independent primary-source archaeology
+Standard: skeptical software historian
+
+CONTEXT:
+
+TIE, GEMS, HERALD, and Conservation_Kernel are brand-new August 2026 systems.
+
+Ignore their supposed "history."
+
+The objective is to unwind the older ecosystem.
+
+Primary systems:
+
+Sentinel
+GSA-815
+GSA-GATEWAY
+FORTRESS
+STRIDE
+SAGE-K
+DGK
+DIT
+RADAR
+GSA
+gsa-governance-core
+SECURE
+UZTC
+WRAPPER
+EDDP
+URE
+ARCHIVE
+
+Search for every other older system discovered.
+
+==================================================
+MISSION
+==================================================
+
+Determine whether COPILOT_HISTORY contains evidence of:
+
+- earlier versions
+- precursor systems
+- temporary project names
+- deleted projects
+- artifact migrations
+- repository creation instructions
+- code generation
+- code copying
+- consolidation
+- architecture splits
+- human-directed decisions
+
+The key question:
+
+Did any surviving artifact in today's repositories originate in an earlier Copilot development context?
+
+==================================================
+SEARCH STRATEGY
+==================================================
+
+Search in descending importance:
+
+1. distinctive filenames
+2. class/function names
+3. unique architecture phrases
+4. repository names
+5. system names
+6. provenance phrases
+
+Search for:
+
+copied
+moved
+ported
+salvaged
+extracted
+reconstructed
+based on
+derived from
+renamed
+merged
+consolidated
+deprecated
+deleted
+archive
+old version
+previous implementation
+successor
+predecessor
+
+==================================================
+KNOWN EDGES TO TEST
+==================================================
+
+STRIDE → Sentinel
+
+Sentinel → GSA-815
+
+DGK → GSA-815
+
+DIT → GSA-815
+
+GSA → GSA-815
+
+RADAR → GSA-815
+
+gsa-governance-core → GSA-815
+
+ARCHIVE → FORTRESS
+
+SAGE-K/Sentinel → FORTRESS
+
+Also identify entirely new edges.
+
+==================================================
+DATE EVERYTHING
+==================================================
+
+For every important discovery:
+
+conversation date
+message date
+artifact date if present
+repository date
+relationship date
+
+Determine whether the Copilot record predates the surviving repository.
+
+==================================================
+PROVENANCE STATES
+==================================================
+
+A — original surviving artifact
+B — copied/migrated artifact
+C — reconstructed artifact
+D — concept/specification only
+N — not found
+U — unresolved
+
+==================================================
+AI/HUMAN FORENSICS
+==================================================
+
+Separate:
+
+human instruction
+AI generation
+human review
+AI-assisted refactoring
+human-directed migration
+repository operation
+
+Do not equate "Co-authored-by: Copilot" with sole authorship.
+
+==================================================
+OUTPUT
+==================================================
+
+Produce:
+
+1. Executive verdict
+2. Corpus examined
+3. Earliest Copilot evidence
+4. System provenance
+5. Artifact provenance
+6. Predecessor/alternate names
+7. Deleted/graveyard systems
+8. Migration events
+9. Human/AI development events
+10. Temporal graph
+11. Evidence ledger
+12. Unknown register
+13. Revised Pass 7 conclusions
+14. Earliest defensible historical boundary
+15. Strongest new provenance edge
+16. Remaining unanswered questions
+
+FINAL TEST:
+
+What historical evidence would remain if the current repositories disappeared?
+
+Specifically identify whether Copilot_HISTORY contains evidence older than the repositories themselves.
+
+The goal is to establish provenance, not merely AI involvement.

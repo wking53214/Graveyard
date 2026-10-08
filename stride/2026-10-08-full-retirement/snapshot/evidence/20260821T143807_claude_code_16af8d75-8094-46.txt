@@ -1,0 +1,1 @@
+[tool_use Bash] {"command": "grep -niE \"PipelineStateEngine|EngineState|determine_backpressure_delay|check_loop_condition|BLOCKED_LOOP|high_watermark\" ~/observe/sentinel_os/governance/log_rotation_v1.py"}

@@ -1,0 +1,9 @@
+[tool_result] === GSA-815: does it have these? ===
+
+=== GSA-815: production_harness.py present? ===
+./production_harness.py
+
+=== GSA-815: compute_friction / PipelineStateEngine / loop guard referenced? ===
+cassette_harness.py
+iceberg_complete_simulator.py
+production_harness.py

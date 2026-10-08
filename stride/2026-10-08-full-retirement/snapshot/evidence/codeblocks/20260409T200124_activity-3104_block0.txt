@@ -1,0 +1,212 @@
+import re
+import asyncio
+import datetime
+from enum import Enum
+from collections import defaultdict
+
+# ============================================================
+# CENTRALIZED REGEX CACHE (Pattern Centralization)
+# ============================================================
+
+REGEX = {
+    "identity": re.compile(r"\b(i|me|my|mine|myself|we|us|our|ours|ourselves)\b", re.I),
+    "hedge": re.compile(r"\b(may|might|could|seems|generally|potentially|likely|perhaps)\b", re.I),
+    "passive": re.compile(r"\b(is|was|were|are)\s+\w+ed\b", re.I),
+    "metric": re.compile(r"\b\d+(\.\d+)?%|\b\d+\b"),
+    "causal": re.compile(r"\b(because|due to|driven by|resulting from|caused by)\b", re.I),
+    "simple_verbs": re.compile(
+        r"\b(is|are|was|were|increased|decreased|remained|processed|completed|dropped|rose|use|show)\b", re.I
+    ),
+    "abstract_verbs": re.compile(
+        r"\b(improve|optimize|enhance|enable|support|strengthen|utilize|leverage)\b", re.I
+    ),
+}
+
+# ============================================================
+# SIMPLICITY SCORING (Weighted Penalty Logic)
+# ============================================================
+
+class SimplicityScore:
+    BASE = 100
+    MAX_WORDS = 18
+
+    # Profile-specific weights can be adjusted here
+    PENALTIES = {
+        "too_long": 20,
+        "identity": 30,
+        "hedge": 25,
+        "passive": 25,
+        "abstract_no_metric": 30,
+        "no_simple_verb": 20,
+    }
+
+    def score(self, text: str):
+        current_score = self.BASE
+        reasons = []
+
+        words = text.split()
+        if len(words) > self.MAX_WORDS:
+            current_score -= self.PENALTIES["too_long"]
+            reasons.append("too_long")
+
+        if REGEX["identity"].search(text):
+            current_score -= self.PENALTIES["identity"]
+            reasons.append("identity")
+
+        if REGEX["hedge"].search(text):
+            current_score -= self.PENALTIES["hedge"]
+            reasons.append("hedge")
+
+        if REGEX["passive"].search(text):
+            current_score -= self.PENALTIES["passive"]
+            reasons.append("passive")
+
+        if REGEX["abstract_verbs"].search(text) and not REGEX["metric"].search(text):
+            current_score -= self.PENALTIES["abstract_no_metric"]
+            reasons.append("abstract_no_metric")
+
+        if not REGEX["simple_verbs"].search(text):
+            current_score -= self.PENALTIES["no_simple_verb"]
+            reasons.append("no_simple_verb")
+
+        return max(current_score, 0), reasons
+
+# ============================================================
+# SIMPLICITY TELEMETRY (Persistent-Ready Logs)
+# ============================================================
+
+class SimplicityTelemetry:
+    def __init__(self):
+        self.total = 0
+        self.bypassed = 0
+        self.records = []
+
+    def record(self, text, score, reasons, bypassed, path="default"):
+        self.total += 1
+        if bypassed: self.bypassed += 1
+        
+        # SHP-01: Log entry with ISO timestamp for audit
+        self.records.append({
+            "timestamp": datetime.datetime.now().isoformat(),
+            "text": text,
+            "score": score,
+            "reasons": reasons,
+            "bypassed": bypassed,
+            "path": path
+        })
+
+# ============================================================
+# CITADEL GATES & NORMALIZATION
+# ============================================================
+
+class Constraint(Enum):
+    NO_IDENTITY = "Remove personal or analytical perspective."
+    ACTIVE_VOICE = "Use active voice and name the actor."
+    CAUSALITY = "Include a clear cause or measurable evidence."
+    DENSITY = "Eliminate corporate jargon (e.g., utilize -> use)."
+
+class StructureNormalizer:
+    def rewrite(self, text):
+        # Advanced Normalization: Corporate Verbosity Filter
+        replacements = {
+            "methodology": "approach",
+            "suboptimal": "inefficient",
+            "utilize": "use",
+            "leverage": "apply",
+            "functionality": "features",
+            "prioritize": "rank"
+        }
+        for old, new in replacements.items():
+            text = re.sub(rf"\b{old}\b", new, text, flags=re.I)
+        
+        text = re.sub(r"\s{2,}", " ", text)
+        return text.strip()
+
+# ============================================================
+# CITADEL PROCESSOR (Async + Recursive Integrity)
+# ============================================================
+
+class CitadelProcessor:
+    def __init__(self, generator, max_retries=5):
+        self.generator = generator
+        self.max_retries = max_retries
+        self.normalizer = StructureNormalizer()
+
+    async def run(self, prompt: str):
+        rules = set()
+        working_prompt = prompt
+        seen_outputs = set() # GHP-01: Detect oscillation
+
+        for _ in range(self.max_retries):
+            output = await self.generator(working_prompt)
+            
+            if output in seen_outputs:
+                rules.add(Constraint.DENSITY.value) # Force density on repeat
+            seen_outputs.add(output)
+
+            # Gate Checks
+            if REGEX["identity"].search(output):
+                rules.add(Constraint.NO_IDENTITY.value)
+            
+            # Auto-strip hedging
+            output = REGEX["hedge"].sub("", output).strip()
+
+            if REGEX["passive"].search(output) and not REGEX["causal"].search(output):
+                rules.add(Constraint.ACTIVE_VOICE.value)
+
+            if not (REGEX["causal"].search(output) or REGEX["metric"].search(output)):
+                rules.add(Constraint.CAUSALITY.value)
+
+            # Integrity Check: If no new rules added, we pass
+            if not rules:
+                return self.normalizer.rewrite(output)
+
+            # Apply constraints for next retry
+            rule_block = "\n".join(f"- {r}" for r in rules)
+            working_prompt = f"{prompt}\n\nSTRICT REQUIREMENTS:\n{rule_block}"
+        
+        return self.normalizer.rewrite(output)
+
+# ============================================================
+# ROUTER (Entry Point)
+# ============================================================
+
+class CitadelRouter:
+    def __init__(self, generator, profile="default"):
+        self.generator = generator
+        self.profiles = {"ops": 90, "exec": 85, "legal": 97, "default": 88}
+        self.threshold = self.profiles.get(profile, self.profiles["default"])
+        self.scorer = SimplicityScore()
+        self.telemetry = SimplicityTelemetry()
+        self.citadel = CitadelProcessor(generator)
+
+    async def run(self, prompt: str):
+        # Initial generation
+        output = await self.generator(prompt)
+        score, reasons = self.scorer.score(output)
+        bypass = score >= self.threshold
+
+        self.telemetry.record(output, score, reasons, bypass, path=prompt[:20])
+
+        if bypass:
+            return output
+
+        return await self.citadel.run(prompt)
+
+# ============================================================
+# ASYNC TEST EXECUTION
+# ============================================================
+
+async def mock_generator(prompt: str) -> str:
+    # Simulates AI behavior
+    if "STRICT" in prompt:
+        return "System latency increased by 20% because legacy code utilized suboptimal buffers."
+    return "I think the methodology is suboptimal."
+
+async def main():
+    router = CitadelRouter(mock_generator, profile="exec")
+    result = await router.run("Check system health")
+    print(f"[{datetime.datetime.now().strftime('%H:%M:%S')}] Result: {result}")
+
+if __name__ == "__main__":
+    asyncio.run(main())
