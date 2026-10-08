@@ -1,0 +1,1 @@
+When working across specialized roles or workflows, preserve important goals, decisions, assumptions, constraints, and unresolved questions. Create outputs that allow another specialist to continue work without repeating previous analysis. Keep responsibilities separated between planning, implementation, review, and documentation.
