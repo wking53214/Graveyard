@@ -1,28 +1,50 @@
-# Burial: STRIDE (entire repo retired)
+# Burial: STRIDE, retired in full
 
-- **Date:** 2026-10-08
-- **Source:** github.com/wking53214/stride, branch `main`, commit `596f81b`
-- **Contents:** `snapshot/` (the files as they were at that commit) and `stride-full-history.bundle` (complete git history, 3 commits)
+**Repo:** `wking53214/stride` (its live README now says retired, PR #1)
+**Snapshot commit:** `596f81b` (main), the last live state before retirement
+**Date:** 2026-10-08
+**Decision:** William N. King
 
-## What it was
+## Why
 
-A reconstruction of the STRIDE gateway, rebuilt from fragments of a pasted conversation. It held several flattened variants of the same code, the recovered evidence, manifests, provenance notes, and reports.
+STRIDE is a reconstruction of a deleted gateway, rebuilt from fragments of a pasted conversation. It holds several flattened variants of the same code, plus evidence, manifests, and reports. Nothing in the stack imports it, and every part worth keeping now exists in a better form elsewhere.
 
-## Why it was retired
+The one idea that existed only in STRIDE, the analytics layer (distortion, fragility, stability, confidence), was not ported. Its "repeat contact" input is really message length, so it measures the payload, not customer behavior.
 
-It is superseded. Every part worth keeping now lives in a better form elsewhere:
+## Where each part lives now
 
-- **DIT:** hardened signing (it refuses the old hardcoded key), a hash-chained ledger, the kinetic governor, an oscillation guard, and the linguistic gates.
-- **ZTS:** the gates plus a constraint-based rewrite loop. A telemetry dashboard was added on branch `feature/telemetry-dashboard` (PR #9).
-- **sentinel_os:** the graph extractor, the hash-chained adapter, the loop guard, and backpressure.
+| Part | Where it lives now |
+|---|---|
+| Linguistic gates (first person, hedging, causal claims) | DIT, ZTS, and `sentinel_os/epistemic/dit_gate.py` |
+| Constraint-based rewrite loop | DIT `src/dit/injection.py`, ZTS `src/zts/tower.py` |
+| Kinetic governor (pacing) | DIT `src/dit/governor.py` |
+| Hash-chained ledger | DIT `src/dit/ledger.py` |
+| Signed attestation | DIT `src/dit/signing.py` (refuses the hardcoded key) |
+| Oscillation / repeat guard | DIT `src/dit/oscillation.py`, `sentinel_os/governance_loop_guard.py` |
+| Graph extractor | `sentinel_os/sage_k/graph_extractor.py` |
+| Hash-chained interlock wrapper | `sentinel_os/sage_k/gsa_adapter.py` |
+| Backpressure | `sentinel_os/backpressure.py` (newer version than STRIDE's) |
+| Telemetry dashboard idea | ZTS `feature/telemetry-dashboard` (PR #9), governance_gateway `feature/telemetry-dashboard` (PR #8) |
+| Analytics layer (distortion, fragility, stability, confidence) | Not ported. Preserved in `snapshot/` only |
+| All variants and evidence | Preserved in `snapshot/` |
 
-The one piece that existed only in STRIDE was the analytics layer (distortion, fragility, stability, confidence). It was not ported. Its "repeat contact" input is really message length, so it measures the payload, not customer behavior.
+## What's here
 
-## Warning
+- `snapshot/`: every tracked file at `596f81b`, exactly as it was.
+- `stride-full-history.bundle`: complete history (3 commits on main).
 
-The recovered CLIP source contains a hardcoded signing key string from the GSA lineage. Do not reuse it. DIT refuses it on purpose.
+## Known issues at time of burial
 
-## How to bring it back
+- It was reconstructed from fragments. The original repo was deleted, and its 4 original commits are missing.
+- The flattened CLIP source does not parse as one program. Several variants disagree on names and details.
+- The recovered source contains a hardcoded signing key string from the GSA lineage. Do not reuse it. DIT refuses it on purpose.
+- The analytics layer takes proxy inputs, so its outputs should not be used as measurements.
+- The duplicate-payload set in the execute path has no size limit.
+- The interlock's hash chain uses plain SHA-256 with no secret key, and the verifier checks only the last link. It catches accidental changes, not tampering.
+- About 30 repos could not be read, and non-default branches were not checked. The library review was done by name and behavior, not line by line.
+- Open PRs that must be merged or closed before this counts as finished: Graveyard #10 (this burial), STRIDE #1 (retirement notice), ZTS #9, and governance_gateway #8.
 
-- Read the files directly from `snapshot/`.
-- For full history, clone the bundle: `git clone stride-full-history.bundle <folder>`.
+## Bringing it back
+
+- Whole repo with history: `git clone stride-full-history.bundle stride`
+- Files only: copy `snapshot/`.
