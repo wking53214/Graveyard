@@ -1,0 +1,81 @@
+# Provenance
+
+## Source
+
+- Source file: `CLIP.txt`, provided by the user from their local `Downloads` folder.
+- Filesystem timestamp on the source file at time of archival: 2026-08-13 11:49:36 -0400 (this is the file's mtime on the archiving machine, not a stated authorship date).
+- Producing AI tool: the transcript's first line states a Google Gemini URL — `https://gemini.google.com/app/7a0bcc5ecb8f6d62` — under the heading "CLIP (Citadel Linguistic Integrity Pipeline)." No specific Gemini model version/name is stated anywhere in the transcript body.
+- Origin date: unknown. No date or timestamp appears anywhere in the transcript text itself.
+- This repo was created on 2026-08-13 from a pre-existing artifact. Git history reflects the archival date, not the artifact's development history. No development chronology is available.
+
+## What the transcript contains
+
+This is a 6-turn conversation. In the first turn the user pastes a very large (117,207-character) block of pre-existing code with the instruction "blend all of this code together into one cohesive output," and the AI produces a synthesized, unified version. The system is then named via a follow-up turn (the AI proposes four candidate acronyms — CLIP, STRIDE, VITAL, SHIELD — and the transcript's own title, "CLIP," reflects the first of these), refined through a large formatting-audit prompt, and finally passed through the same "comprehensive scan and synthesize... wrap in wrapper" mega-prompt template seen in the user's other archived transcripts from this source. Six distinct code blocks were extracted:
+
+| File | Turn | Source | Contents |
+|---|---|---|---|
+| `artifact_1.py` | 1 (prompt) | User-pasted | A very large, pre-existing multi-module system (Stateful Loop Detection, Zero-Trust Citadel Linguistic Interceptors, Tokenized Policy Evaluation, Concurrency/Backpressure Worker Queue, DOIS Operational Intelligence Engine) that the user asked the AI to blend into one file. |
+| `artifact_2.py` | 1 (response) | AI-generated | The AI's synthesized, unified version of `artifact_1.py`'s content. |
+| `artifact_3.py` | 3 (response) | AI-generated | A further-refined version, now self-identified inside its own header as `SYSTEM_NAME: STRIDE`, produced after a long "OPTION 6 EXECUTION PROTOCOLS" formatting/audit request (the same template style seen in the user's `RADAR` archive). |
+| `artifact_4.py` | 5 (response) | AI-generated | The final "comprehensive scan and synthesize... wrap in wrapper" response — also headed `SYSTEM_NAME: STRIDE (Secure Telemetry Runtime and Intelligence Deterministic Engine)`, followed by an embedded `.gitignore` comment block. |
+| `artifact_5.py` | 6 (prompt) | User-pasted | A deterministic AST-based graph extractor (`GraphExtractor`, `extract_graph`, `graph_to_dict`) — the same extractor code seen in the user's other archived transcripts from this source. |
+| `artifact_6.py` | 6 (response) | AI-generated | A `SYSTEM_NAME: STRIDE`-headed wrapping of the AST extractor, with its own `Version-Control-ID: STRIDE-AST-GRAPH-V7.0.0-SHA256-F8E9D2` and `.gitignore` comment block. |
+
+Two turns are excluded as non-code: turn 2 ("give me an acronym based name...") is naming discussion only, and turn 4 ("is this a Kernel and if so, what kind?") drew a bare refusal from the AI — "I cannot fulfill this request." — with no code and no further explanation given anywhere in the transcript for the refusal.
+
+Turn 3's prompt (the "OPTION 6 EXECUTION PROTOCOLS" formatting request) and turn 5's prompt (the "comprehensive scan and synthesize... wrap in wrapper" request, which embeds the same `gsa_universal_interlock_wrapper.py` template text used in the user's other archived transcripts) are both instructional prompts, not code artifacts, and were not extracted separately — consistent with how equivalent template text was handled in those other archives.
+
+None of the six code blocks states its own filename inside its own text (the four self-declared `SYSTEM_NAME` values found — `STRIDE`, appearing in `artifact_3.py`, `artifact_4.py`, and `artifact_6.py` — are system/program names, not filenames), so files are numbered `artifact_1.py` … `artifact_6.py` in transcript order, per the fallback naming rule.
+
+**A naming discrepancy worth recording as a fact:** the transcript's own title and this repository's name are both "CLIP" (the first of the AI's four suggested acronyms in turn 2), but none of the three later code artifacts that carry a self-declared system name (`artifact_3.py`, `artifact_4.py`, `artifact_6.py`) actually uses "CLIP" — all three identify themselves internally as `STRIDE` instead, the AI's second-listed suggestion.
+
+## Whether the artifacts execute
+
+All six files were run once each, unmodified, with `python3` (system interpreter). Results:
+
+- **`artifact_1.py`**: `SyntaxError: invalid syntax`. Like the raw code pastes seen in the user's other archived transcripts, this very large file has no internal line breaks — the entire 117,207-character module is a single unbroken line of text.
+- **`artifact_2.py`**: **runs successfully**, producing real, multi-line log and diagnostic output on stdout across two simulated "Execution" runs (an HTTP-status-422 rejection trace with a linguistic-finding summary, followed by a status-200 acceptance trace with linguistic-diagnostic and executive-summary output). It creates no files on disk.
+- **`artifact_3.py`**: **runs successfully**, producing similar real output under its `STRIDE_CORE_GATEWAY`-branded logging and a two-transaction demonstration ("Divergent Content Triggers Iteration Loops" followed by "Structured Compliant Ingestion Pathway"). It also creates no files on disk.
+- **`artifact_4.py`**: runs with **no error and no output** — it parses and executes cleanly, but the file only defines functions/classes; it contains no `if __name__ == "__main__":` block or other top-level executable statement, so running it does nothing observable.
+- **`artifact_5.py`**: `SyntaxError: invalid syntax`. Same single-line-flattening pattern as `artifact_1.py`.
+- **`artifact_6.py`**: runs with **no error and no output**, for the same reason as `artifact_4.py` (no entry point).
+
+## Line and file counts
+
+| File | Lines | Characters |
+|---|---|---|
+| `artifact_1.py` | 0 (no newline characters) | 117,211 |
+| `artifact_2.py` | 705 | 25,106 |
+| `artifact_3.py` | 746 | 31,970 |
+| `artifact_4.py` | 151 | 6,994 |
+| `artifact_5.py` | 0 (no newline characters) | 5,376 |
+| `artifact_6.py` | 187 | 6,579 |
+| `TRANSCRIPT.md` | 1,894 (identical line count to the source `.txt` file) | — |
+
+Total files in this repo: 8 (6 artifact files, `TRANSCRIPT.md`, `PROVENANCE.md`).
+
+## Tests
+
+No tests exist for any of the six artifacts. The source transcript contains no test files, no test framework references, and no `assert`-based test code — only inline `if __name__ == "__main__":`-style demonstration blocks in `artifact_2.py` and `artifact_3.py`, and no entry point at all in `artifact_1.py`, `artifact_4.py`, `artifact_5.py`, or `artifact_6.py`.
+
+## Extraction: what was stripped
+
+Only transport-layer wrapper text was removed; the code itself was copied byte-for-byte from the source `.txt` file (verified against exact character offsets, preserving original CRLF line endings):
+
+- The literal labels `User prompt:` and `Response:` that the transcript export prepends to each turn.
+- The chat UI turn separator `________________` that appears between conversation turns.
+- Surrounding conversational text: the user's short instructions ("blend all of this code together into one cohesive output:", "is this a Kernel and if so, what kind?", etc.) and the AI's prose commentary — including the multi-paragraph "PHASE 1: EFFICIENCY & STREAMLINING REPORT" through "PHASE 5" audit narration in turn 3's response, and the numbered "1. VERSION CONTROL METADATA" / "2. ..." preamble in turn 6's response — that precedes each block of actual code.
+- The verbatim refusal text "I cannot fulfill this request." (turn 4) was not treated as a code artifact — it is preserved in full inside `TRANSCRIPT.md` as part of the complete transcript, but it contains no code to extract.
+- The large formatting-instruction templates embedded in turn 3's and turn 5's user prompts (including the `gsa_universal_interlock_wrapper.py` wrapper-request template used in the user's other archived transcripts) were treated as instructional material, not as separate artifacts — consistent with how equivalent template text was handled in those other archives.
+- No markdown code fences (```` ``` ````) were present anywhere in the source file — there was nothing of that kind to strip.
+- Nothing was stripped from the `.txt` file to build `TRANSCRIPT.md` — that file is the complete source document, copied verbatim, unmodified, including all six code blocks in their original surrounding context, the refusal, and all prose commentary.
+
+## Duplication
+
+No duplication was found. Each of the six extracted code blocks is materially different from the others — even `artifact_2.py`, `artifact_3.py`, and `artifact_4.py`, which represent three successive revisions of the same underlying system, differ in content (variable/function naming, added `STRIDE_CORE_GATEWAY` branding, restructured log messages, and the final `.gitignore`/version-control header) and were kept as separate, complete files rather than merged or deduplicated.
+
+## Things noticed but not fixed
+
+- `artifact_1.py` and `artifact_5.py` have no recoverable line/indentation structure in the source transcript; each was left as a single flattened line rather than being reformatted into conventionally indented Python.
+- The transcript's own title and this repo's name ("CLIP") do not match the `SYSTEM_NAME` self-declared inside three of the six code artifacts ("STRIDE"), as described above under "What the transcript contains." No attempt was made to reconcile this or rename anything to match.
+- Turn 4's refusal ("I cannot fulfill this request.") is not accompanied by any stated reason anywhere in the transcript, despite the question itself ("is this a Kernel and if so, what kind?") closely resembling questions the AI answered at length in the user's other archived transcripts from this source. This is recorded as an observed fact about the transcript; no explanation for the discrepancy is available from the source material.
