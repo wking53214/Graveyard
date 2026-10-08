@@ -1,0 +1,12 @@
+[main 681fed6] Rename RADAR artifacts to reflect EDDP system functions
+ 5 files changed, 0 insertions(+), 0 deletions(-)
+ rename artifact_4.py => eddp-comprehensive-synthesized.py (100%)
+ rename artifact_2.py => eddp-core-engine-v1.py (100%)
+ rename artifact_3.py => eddp-core-engine-v2-refined.py (100%)
+ rename artifact_1.py => eddp-pipeline-core-simple.py (100%)
+ rename artifact_5.py => eddp-wrapped-final.py (100%)
+To https://github.com/wking53214/RADAR.git
+   d5e52dd..681fed6  main -> main
+681fed6 Rename RADAR artifacts to reflect EDDP system functions
+d5e52dd Archive of pre-existing artifact. Preserved verbatim, unmodified.
+<shellId: 40 completed with exit code 0>

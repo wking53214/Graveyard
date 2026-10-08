@@ -1,0 +1,16 @@
+class Payload:
+class EvaluationResult:
+class BenchmarkResult:
+class DeliveryEvent:
+class ECPValidator:
+class EvaluationLayer:
+class EvaluationEngine:
+class BenchmarkScorer:
+class RoleRouter:
+class Renderer:
+class Distributor:
+class FeedbackLoop:
+class EDDPSystem:
+Program Name: Executive Dashboard Distribution Processor (EDDP) Core Engine
+class InputPayloadContract:
+<shellId: 38 completed with exit code 0>

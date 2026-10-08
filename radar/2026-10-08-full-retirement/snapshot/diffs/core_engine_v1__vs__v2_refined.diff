@@ -1,0 +1,587 @@
+--- eddp-core-engine-v1.py
++++ eddp-core-engine-v2-refined.py
+@@ -1,6 +1,8 @@
+ """
+-EDDP (Executive Dashboard Distribution Processor)
+-Fully Integrated Enterprise Kernel & Evaluation Reference Implementation
++Program Name: Executive Dashboard Distribution Processor (EDDP) Core Engine
++Description: A deterministic data processing, multi-layer evaluation, validation, 
++            and secure distribution processor with built-in cryptographic 
++            integrity tracing and append-only persistent logging.
+ """
+ 
+ from __future__ import annotations
+@@ -13,21 +15,28 @@
+ 
+ 
+ # ============================================================
+-# CRYPTOGRAPHIC & STATE UTILITIES
+-# ============================================================
+-
+-def stable_hash(obj: Dict[str, Any]) -> str:
+-   """Generates a stable SHA-256 hash from a dictionary for deterministic tracking."""
+-   blob = json.dumps(obj, sort_keys=True, default=str).encode("utf-8")
+-   return hashlib.sha256(blob).hexdigest()
+-
+-
+-# ============================================================
+-# DATA CONTRACTS (TYPED COMPONENT BOUNDARIES)
++# CRYPTOGRAPHIC & INTEGRITY UTILITIES
++# ============================================================
++
++def calculate_secure_hash(data_object: Dict[str, Any]) -> str:
++   """
++   Generates a deterministic SHA-256 hex string from an input dictionary.
++   
++   Inputs:
++       data_object (Dict[str, Any]): Dictionary payload to be signed.
++   Outputs:
++       str: Unique SHA-256 hex signature string.
++   """
++   serialized_blob = json.dumps(data_object, sort_keys=True, default=str).encode("utf-8")
++   return hashlib.sha256(serialized_blob).hexdigest()
++
++
++# ============================================================
++# DATA STRUCTS & CONTRACT BOUNDARIES
+ # ============================================================
+ 
+ @dataclass
+-class Payload:
++class InputPayloadContract:
+    dataset_id: str
+    timestamp: float
+    kpis: Dict[str, Any]
+@@ -37,281 +46,324 @@
+ 
+ 
+ @dataclass
+-class EvaluationResult:
+-   layer: str
+-   score: float
+-   notes: str = ""
++class EvaluationLayerResult:
++   layer_name: str
++   metric_score: float
++   evaluation_notes: str = ""
+ 
+ 
+ @dataclass
+-class BenchmarkResult:
++class BenchmarkCompositeResult:
+    overall_score: float
+-   breakdown: Dict[str, float]
+-   integrity_hash: str
++   metric_breakdown: Dict[str, float]
++   integrity_signature: str
+ 
+ 
+ @dataclass
+-class DeliveryEvent:
++class DeliveryTrackingEvent:
+    timestamp: float
+    recipients: List[str]
+    channel: str
+-   dashboard: Dict[str, Any]
+-   status: str
+-
+-
+-# ============================================================
+-# UNIQUE COMPONENTS
+-# ============================================================
+-
+-class ECPValidator:
+-   """Upstream verification engine trusted to map raw payloads into typed structures."""
++   dashboard_content: Dict[str, Any]
++   delivery_status: str
++
++
++# ============================================================
++# CORE PROCESSING MODULES
++# ============================================================
++
++class DataPayloadValidator:
++   """Validates structural integrity of inbound unstructured execution payloads."""
+    REQUIRED_FIELDS = {"dataset_id", "timestamp", "kpis", "role_context"}
+ 
+-   def validate(self, payload: Dict[str, Any]) -> Payload:
+-       missing = self.REQUIRED_FIELDS - set(payload.keys())
+-       if missing:
+-           raise ValueError(f"Invalid payload missing required keys: {missing}")
+-
+-       return Payload(
+-           dataset_id=payload["dataset_id"],
+-           timestamp=payload["timestamp"],
+-           kpis=payload["kpis"],
+-           dimensions=payload.get("dimensions", {}),
+-           role_context=payload["role_context"],
+-           metadata=payload.get("metadata", {})
++   def process_data_validation(self, raw_input: Dict[str, Any]) -> InputPayloadContract:
++       """
++       Enforces constraints on inbound parameter dictionaries.
++       
++       Inputs:
++           raw_input (Dict[str, Any]): The unverified raw execution payload.
++       Outputs:
++           InputPayloadContract: Strongly typed structural contract.
++       """
++       missing_keys = self.REQUIRED_FIELDS - set(raw_input.keys())
++       if missing_keys:
++           raise ValueError(f"Payload validation failed. Missing parameters: {missing_keys}")
++
++       return InputPayloadContract(
++           dataset_id=raw_input["dataset_id"],
++           timestamp=raw_input["timestamp"],
++           kpis=raw_input["kpis"],
++           dimensions=raw_input.get("dimensions", {}),
++           role_context=raw_input["role_context"],
++           metadata=raw_input.get("metadata", {})
+        )
+ 
+ 
+-class EvaluationLayer:
+-   """A pluggable, isolated logic checkpoint applied against dataset metrics."""
+-   def __init__(self, name: str, fn: Callable[[Payload], float]):
+-       self.name = name
+-       self.fn = fn
+-
+-   def evaluate(self, payload: Payload) -> EvaluationResult:
++class EvaluationProcessingLayer:
++   """Defines a separate checkpoint wrapper for calculating dynamic operational metrics."""
++   def __init__(self, layer_name: str, processing_function: Callable[[InputPayloadContract], float]):
++       self.layer_name = layer_name
++       self.processing_function = processing_function
++
++   def execute_layer_evaluation(self, payload: InputPayloadContract) -> EvaluationLayerResult:
++       """Runs the layer logic safely, protecting the orchestration engine from failures."""
+        try:
+-           score = self.fn(payload)
+-       except Exception as e:
+-           score = 0.0
+-           return EvaluationResult(layer=self.name, score=score, notes=f"Error during evaluation: {str(e)}")
++           score = self.processing_function(payload)
++       except Exception as execution_error:
++           return EvaluationLayerResult(
++               layer_name=self.layer_name,
++               metric_score=0.0,
++               evaluation_notes=f"Execution error encountered: {str(execution_error)}"
++           )
+        
+-       return EvaluationResult(
+-           layer=self.name,
+-           score=score,
+-           notes=f"Evaluated successfully by {self.name}"
++       return EvaluationLayerResult(
++           layer_name=self.layer_name,
++           metric_score=score,
++           evaluation_notes=f"Successful evaluation run by {self.layer_name}"
+        )
+ 
+ 
+-class EvaluationEngine:
+-   """Orchestrates sequential iteration across all registered evaluation sub-layers."""
+-   def __init__(self, layers: List[EvaluationLayer]):
+-       self.layers = layers
+-
+-   def run(self, payload: Payload) -> List[EvaluationResult]:
+-       return [layer.evaluate(payload) for layer in self.layers]
+-
+-
+-class BenchmarkScorer:
+-   """Computes mathematical composites and seals states with structural hashes."""
+-   def score(self, results: List[EvaluationResult], payload: Payload) -> BenchmarkResult:
+-       breakdown = {r.layer: r.score for r in results}
+-       overall = sum(breakdown.values()) / max(len(breakdown), 1)
+-
+-       # Uses native 'asdict' to elegantly deep-serialize dataclasses without string errors
+-       integrity_hash = stable_hash({
+-           "payload": asdict(payload),
+-           "breakdown": breakdown,
+-           "overall": overall
++class EvaluationOrchestrationEngine:
++   """Manages sequential execution flows across multiple structural evaluation checkpoints."""
++   def __init__(self, processing_layers: List[EvaluationProcessingLayer]):
++       self.processing_layers = processing_layers
++
++   def run_all_evaluations(self, payload: InputPayloadContract) -> List[EvaluationLayerResult]:
++       """Iterates down the registered metrics checks array."""
++       return [layer.execute_layer_evaluation(payload) for layer in self.processing_layers]
++
++
++class MetricsBenchmarkScorer:
++   """Handles mathematical scoring averages and generates integrity-sealed signatures."""
++   def calculate_composite_metrics(
++       self, 
++       evaluation_results: List[EvaluationLayerResult], 
++       payload: InputPayloadContract
++   ) -> BenchmarkCompositeResult:
++       """Computes score breakdown mappings and seals the runtime context footprint."""
++       score_breakdown = {result.layer_name: result.metric_score for result in evaluation_results}
++       composite_average = sum(score_breakdown.values()) / max(len(score_breakdown), 1)
++
++       structural_fingerprint = calculate_secure_hash({
++           "payload_data": asdict(payload),
++           "breakdown_data": score_breakdown,
++           "composite_score": composite_average
+        })
+ 
+-       return BenchmarkResult(
+-           overall_score=overall,
+-           breakdown=breakdown,
+-           integrity_hash=integrity_hash
++       return BenchmarkCompositeResult(
++           overall_score=composite_average,
++           metric_breakdown=score_breakdown,
++           integrity_signature=structural_fingerprint
+        )
+ 
+ 
+-class RoleRouter:
+-   """Maps configured enterprise access lists statically or at dynamic runtimes."""
+-   def route(self, role_map: Dict[str, List[str]], role: str) -> List[str]:
+-       return role_map.get(role, [])
+-
+-
+-class Renderer:
+-   """Assembles layout presentations by decoupling configuration data from KPIs."""
+-   def render(self, template: Dict[str, Any], payload: Payload, benchmark: Optional[BenchmarkResult] = None) -> Dict[str, Any]:
+-       rendered = {
+-           "title": template.get("title"),
+-           "sections": template.get("sections"),
++class AccessRoleRouter:
++   """Extracts target target mappings for configured recipient classifications."""
++   def resolve_routing_targets(self, routing_map: Dict[str, List[str]], target_role: str) -> List[str]:
++       """Returns safe fallback array to avoid routing runtime exceptions."""
++       return routing_map.get(target_role, [])
++
++
++class ComponentRenderer:
++   """Assembles layout presentation models by binding visual specs with execution data."""
++   def generate_rendered_output(
++       self, 
++       ui_template: Dict[str, Any], 
++       payload: InputPayloadContract, 
++       benchmark: Optional[BenchmarkCompositeResult] = None
++   ) -> Dict[str, Any]:
++       """Composes isolated dictionary structure containing unified metrics information."""
++       composite_dashboard = {
++           "title": ui_template.get("title"),
++           "sections": ui_template.get("sections"),
+            "kpis": payload.kpis,
+-           "role": payload.role_context,
+-           "timestamp": payload.timestamp
++           "role_context": payload.role_context,
++           "generation_timestamp": payload.timestamp
+        }
+        if benchmark:
+-           rendered["benchmark_score"] = benchmark.overall_score
+-           rendered["benchmark_breakdown"] = benchmark.breakdown
+-           rendered["integrity_hash"] = benchmark.integrity_hash
++           composite_dashboard["benchmark_score"] = benchmark.overall_score
++           composite_dashboard["benchmark_breakdown"] = benchmark.metric_breakdown
++           composite_dashboard["integrity_hash"] = benchmark.integrity_signature
+            
+-       return rendered
+-
+-
+-class Distributor:
+-   """Dispatches dashboard assets and saves serialized tracking rows cleanly to a JSONL audit log."""
+-   def __init__(self, log_path: str = "logs/delivery_log.jsonl"):
+-       self.log_path = log_path
+-       log_dir = os.path.dirname(self.log_path)
+-       if log_dir:
+-           os.makedirs(log_dir, exist_ok=True)
+-
+-   def deliver(self, recipients: List[str], dashboard: Dict[str, Any], channel: str) -> DeliveryEvent:
+-       event = DeliveryEvent(
++       return composite_dashboard
++
++
++class AssetDistributor:
++   """Handles delivery transactions and appends valid JSON Lines to disk files."""
++   def __init__(self, persistent_log_path: str = "logs/delivery_log.jsonl"):
++       self.persistent_log_path = persistent_log_path
++       target_directory = os.path.dirname(self.persistent_log_path)
++       if target_directory:
++           os.makedirs(target_directory, exist_ok=True)
++
++   def execute_delivery_dispatch(
++       self, 
++       recipient_list: List[str], 
++       dashboard_payload: Dict[str, Any], 
++       transport_channel: str
++   ) -> DeliveryTrackingEvent:
++       """Dispatches data objects and saves valid JSON strings to the logging sink."""
++       tracking_event = DeliveryTrackingEvent(
+            timestamp=time.time(),
+-           recipients=recipients,
+-           channel=channel,
+-           dashboard=dashboard,
+-           status="DELIVERED"
++           recipients=recipient_list,
++           channel=transport_channel,
++           dashboard_content=dashboard_payload,
++           delivery_status="DELIVERED"
+        )
+ 
+-       # Encodes directly via json.dumps to fully adhere to the JSON Lines format specification
+-       with open(self.log_path, "a", encoding="utf-8") as f:
+-           f.write(json.dumps(asdict(event)) + "\n")
+-
+-       return event
+-
+-
+-class FeedbackLoop:
+-   """Maintains an execution log history to dynamically evaluate pipeline novelty metrics."""
++       with open(self.persistent_log_path, "a", encoding="utf-8") as append_file:
++           append_file.write(json.dumps(asdict(tracking_event)) + "\n")
++
++       return tracking_event
++
++
++class PipelineFeedbackSystem:
++   """Maintains historic state vectors to track overall pipeline validation uniqueness."""
+    def __init__(self):
+-       self.history: List[Dict[str, Any]] = []
+-
+-   def record(self, payload: Payload, benchmark: BenchmarkResult, delivery: DeliveryEvent):
+-       event = {
+-           "payload_hash": stable_hash(asdict(payload)),
+-           "benchmark_hash": benchmark.integrity_hash,
+-           "delivery_status": delivery.status,
+-           "timestamp": time.time()
++       self.execution_history: List[Dict[str, Any]] = []
++
++   def record_execution_state(
++       self, 
++       payload: InputPayloadContract, 
++       benchmark: BenchmarkCompositeResult, 
++       delivery: DeliveryTrackingEvent
++   ) -> None:
++       """Stores historical metadata signatures."""
++       state_record = {
++           "payload_fingerprint": calculate_secure_hash(asdict(payload)),
++           "benchmark_fingerprint": benchmark.integrity_signature,
++           "status_assertion": delivery.delivery_status,
++           "logged_timestamp": time.time()
+        }
+-       self.history.append(event)
+-
+-   def integrity_check(self) -> float:
+-       if not self.history:
++       self.execution_history.append(state_record)
++
++   def assess_system_novelty(self) -> float:
++       """Calculates ratio of completely unique inbound signatures to total script iterations."""
++       if not self.execution_history:
+            return 1.0
+ 
+-       unique_payloads = len({h["payload_hash"] for h in self.history})
+-       total = len(self.history)
+-       return unique_payloads / total
+-
+-
+-# ============================================================
+-# MASTER ORCHESTRATION PIPELINE KERNEL
+-# ============================================================
+-
+-class EDDPSystem:
++       distinct_payloads = len({record["payload_fingerprint"] for record in self.execution_history})
++       total_runs = len(self.execution_history)
++       return distinct_payloads / total_runs
++
++
++# ============================================================
++# MASTER COORDINATION INTEGRATION PLATFORM (EDDP KERNEL)
++# ============================================================
++
++class ExecutiveDashboardDistributionProcessor:
+    def __init__(
+        self,
+-       validator: ECPValidator,
+-       evaluator: EvaluationEngine,
+-       scorer: BenchmarkScorer,
+-       router: RoleRouter,
+-       renderer: Renderer,
+-       distributor: Distributor,
+-       feedback: FeedbackLoop
++       validator: DataPayloadValidator,
++       evaluation_engine: EvaluationOrchestrationEngine,
++       scorer: MetricsBenchmarkScorer,
++       router: AccessRoleRouter,
++       renderer: ComponentRenderer,
++       distributor: AssetDistributor,
++       feedback_loop: PipelineFeedbackSystem
+    ):
+        self.validator = validator
+-       self.evaluator = evaluator
++       self.evaluation_engine = evaluation_engine
+        self.scorer = scorer
+        self.router = router
+        self.renderer = renderer
+        self.distributor = distributor
+-       self.feedback = feedback
+-       self.delivery_log: List[DeliveryEvent] = []  # Local internal session state capture
+-
+-   def execute(self, raw_payload: Dict[str, Any], template: Dict[str, Any], role_map: Dict[str, List[str]], role: str, channel: str = "email") -> Dict[str, Any]:
+-       # 1. Validation Contract Processing
+-       payload = self.validator.validate(raw_payload)
+-
+-       # 2. Rule Evaluation
+-       eval_results = self.evaluator.run(payload)
+-
+-       # 3. Benchmark Scoring & Hash Signing
+-       benchmark = self.scorer.score(eval_results, payload)
+-
+-       # 4. Target Recipient Routing
+-       recipients = self.router.route(role_map, role)
+-
+-       # 5. Composite Presentation Rendering
+-       dashboard = self.renderer.render(template, payload, benchmark)
+-
+-       # 6. Output Delivery & Persistent JSONL Logging
+-       delivery = self.distributor.deliver(recipients, dashboard, channel)
+-
+-       # 7. Internal Session Storage & Global Pipeline Novelty Audit
+-       self.delivery_log.append(delivery)
+-       self.feedback.record(payload, benchmark, delivery)
++       self.feedback_loop = feedback_loop
++       self.session_delivery_cache: List[DeliveryTrackingEvent] = []
++
++   def execute_orchestration_cycle(
++       self, 
++       raw_payload: Dict[str, Any], 
++       template_spec: Dict[str, Any], 
++       role_routing_map: Dict[str, List[str]], 
++       user_role: str, 
++       distribution_channel: str = "email"
++   ) -> Dict[str, Any]:
++       """
++       Coordinates full synchronous end-to-end processing execution pipeline.
++       """
++       # Phase 1: Inbound Validation and Transformation
++       validated_contract = self.validator.process_data_validation(raw_payload)
++
++       # Phase 2: Layered Rule Evaluations
++       layer_results = self.evaluation_engine.run_all_evaluations(validated_contract)
++
++       # Phase 3: Benchmark Calculations & Secure Cryptographic Fingerprinting
++       composite_benchmark = self.scorer.calculate_composite_metrics(layer_results, validated_contract)
++
++       # Phase 4: Dynamic Access Routing Selection
++       assigned_recipients = self.router.resolve_routing_targets(role_routing_map, user_role)
++
++       # Phase 5: Presentation Assembler Mapping
++       finalized_dashboard = self.renderer.generate_rendered_output(template_spec, validated_contract, composite_benchmark)
++
++       # Phase 6: Persistent Transport Execution
++       delivery_receipt = self.distributor.execute_delivery_dispatch(assigned_recipients, finalized_dashboard, distribution_channel)
++
++       # Phase 7: Verification System Updating
++       self.session_delivery_cache.append(delivery_receipt)
++       self.feedback_loop.record_execution_state(validated_contract, composite_benchmark, delivery_receipt)
+ 
+        return {
+-           "dashboard": dashboard,
+-           "delivery": asdict(delivery),
+-           "benchmark": asdict(benchmark),
+-           "integrity": self.feedback.integrity_check()
++           "rendered_dashboard": finalized_dashboard,
++           "delivery_event_metadata": asdict(delivery_receipt),
++           "benchmark_score_audit": asdict(composite_benchmark),
++           "system_novelty_metric": self.feedback_loop.assess_system_novelty()
+        }
+ 
+ 
+ # ============================================================
+-# REFERENCE TEST BENCH PIPELINE RUN
+-# ============================================================
+-
+-def custom_revenue_stability(payload: Payload) -> float:
++# REFERENCE INTEGRATION TEST BED RUNNER
++# ============================================================
++
++def reference_revenue_stability_check(payload: InputPayloadContract) -> float:
+    return min(payload.kpis.get("revenue", 0) / 100000, 1.0)
+ 
+ 
+-def custom_operational_health(payload: Payload) -> float:
++def reference_operational_health_check(payload: InputPayloadContract) -> float:
+    return min(payload.kpis.get("calls", 0) / 5000, 1.0)
+ 
+ 
+ if __name__ == "__main__":
+-   # Sample Mock Dynamic Core Data Source
+-   mock_payload = {
+-       "dataset_id": "ds-prod-887",
++   # Mock data definitions matching baseline input specifications
++   sample_payload_data = {
++       "dataset_id": "ds-reference-101",
+        "timestamp": time.time(),
+-       "kpis": {"revenue": 125000, "calls": 3800},
++       "kpis": {"revenue": 145000, "calls": 4100},
+        "role_context": "executive"
+    }
+ 
+-   # Configuration Template Map Specs
+-   mock_template = {
+-       "title": "Executive Dashboard",
+-       "sections": ["Revenue Summary", "Operational KPIs", "Risk Indicators"]
++   sample_template_configuration = {
++       "title": "Executive Performance Summary Dashboard",
++       "sections": ["Revenue Performance Indicators", "Operational Call Center Analytics"]
+    }
+ 
+-   # Access Role Bindings Map
+-   mock_roles = {
+-       "executive": ["ceo@company.com", "cfo@company.com"],
+-       "operations": ["coo@company.com"]
++   sample_organizational_roles = {
++       "executive": ["chief_executive@enterprise.org", "chief_financial@enterprise.org"],
++       "operations": ["operations_director@enterprise.org"]
+    }
+ 
+-   # Initializing Integrated Cluster Ecosystem
+-   eddp_kernel = EDDPSystem(
+-       validator=ECPValidator(),
+-       evaluator=EvaluationEngine([
+-           EvaluationLayer("revenue_stability", custom_revenue_stability),
+-           EvaluationLayer("operational_health", custom_operational_health)
++   # Assembling isolated modules into integrated processor system
++   eddp_processing_kernel = ExecutiveDashboardDistributionProcessor(
++       validator=DataPayloadValidator(),
++       evaluation_engine=EvaluationOrchestrationEngine([
++           EvaluationProcessingLayer("revenue_stability_analysis", reference_revenue_stability_check),
++           EvaluationProcessingLayer("operational_health_analysis", reference_operational_health_check)
+        ]),
+-       scorer=BenchmarkScorer(),
+-       router=RoleRouter(),
+-       renderer=Renderer(),
+-       distributor=Distributor(log_path="logs/production_deliveries.jsonl"),
+-       feedback=FeedbackLoop()
++       scorer=MetricsBenchmarkScorer(),
++       router=AccessRoleRouter(),
++       renderer=ComponentRenderer(),
++       distributor=AssetDistributor(persistent_log_path="logs/production_deliveries.jsonl"),
++       feedback_loop=PipelineFeedbackSystem()
+    )
+ 
+-   # Process Master Orchestration Pipeline
+-   pipeline_output = eddp_kernel.execute(
+-       raw_payload=mock_payload,
+-       template=mock_template,
+-       role_map=mock_roles,
+-       role="executive",
+-       channel="email"
++   # Core engine verification run execution
++   system_execution_output = eddp_processing_kernel.execute_orchestration_cycle(
++       raw_payload=sample_payload_data,
++       template_spec=sample_template_configuration,
++       role_routing_map=sample_organizational_roles,
++       user_role="executive",
++       distribution_channel="email"
+    )
+ 
+-   print("\n=== SYSTEM EXECUTION PIPELINE COMPLETE ===")
+-   print(json.dumps(pipeline_output, indent=2, default=str))
++   print(json.dumps(system_execution_output, indent=2, default=str))
