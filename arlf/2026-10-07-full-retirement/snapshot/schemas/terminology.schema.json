@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ARLF terminology record",
+  "type": "object",
+  "required": [
+    "term",
+    "expansion",
+    "status",
+    "grade"
+  ],
+  "properties": {
+    "term": {
+      "type": "string"
+    },
+    "expansion": {
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "CANONICAL",
+        "CONDEMNED_VARIANT",
+        "AUTHORITATIVE_AT_PEAK",
+        "CONCURRENT_VARIANT",
+        "SHORT_FORM",
+        "DISAMBIGUATION_ARTIFACT",
+        "CORE_COMPONENT",
+        "CORE_MECHANISM",
+        "SALVAGE_CLASS",
+        "REVIEW_INSTRUMENT",
+        "FINDING"
+      ]
+    },
+    "first_occurrence": {
+      "type": "object"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "grade": {
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "U"
+      ]
+    }
+  }
+}

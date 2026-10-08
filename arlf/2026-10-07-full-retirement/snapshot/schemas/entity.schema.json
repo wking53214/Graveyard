@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ARLF entity",
+  "type": "object",
+  "required": [
+    "entity_id",
+    "canonical_name",
+    "entity_type",
+    "confidence"
+  ],
+  "properties": {
+    "entity_id": {
+      "type": "string"
+    },
+    "canonical_name": {
+      "type": "string"
+    },
+    "entity_type": {
+      "enum": [
+        "FRAMEWORK",
+        "COMPONENT",
+        "MECHANISM",
+        "REVIEW_BODY",
+        "SOURCE_SET",
+        "READING"
+      ]
+    },
+    "observed_names": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "first_occurrence": {
+      "type": "string"
+    },
+    "peak_state": {
+      "type": "string"
+    },
+    "terminal_disposition": {
+      "type": "string"
+    },
+    "maturity_at_peak": {
+      "type": "string"
+    },
+    "executable_implementation": {
+      "type": "string"
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string"
+    },
+    "confidence": {
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "U"
+      ]
+    },
+    "canonical_expansion": {},
+    "canonical_reading_basis": {},
+    "superseded_peak_state": {},
+    "variant_disposition": {},
+    "reading": {},
+    "role": {},
+    "components": {},
+    "parent_systems": {},
+    "membership": {}
+  }
+}

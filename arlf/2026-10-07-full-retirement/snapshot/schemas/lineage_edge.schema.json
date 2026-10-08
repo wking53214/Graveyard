@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ARLF lineage edge",
+  "type": "object",
+  "required": [
+    "edge_id",
+    "source",
+    "target",
+    "edge_type",
+    "grade"
+  ],
+  "properties": {
+    "edge_id": {
+      "type": "string"
+    },
+    "source": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    },
+    "edge_type": {
+      "enum": [
+        "PROPOSED_REPLACEMENT_FOR",
+        "CONTAINS_ENGINE",
+        "SPECIFIES_MECHANISM",
+        "MODULE_OF",
+        "CONDEMNED_BY",
+        "SALVAGED_AS",
+        "SUCCEEDED_BY",
+        "RETAINED_COMPONENT_OF",
+        "CONSTRAINED_BY_SUCCESSOR",
+        "HAS_READING",
+        "REALIZED_AS",
+        "PROHIBITS",
+        "PURGED_FROM"
+      ]
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "grade": {
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "U"
+      ]
+    },
+    "status": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

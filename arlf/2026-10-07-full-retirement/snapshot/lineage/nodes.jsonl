@@ -1,0 +1,14 @@
+{"node_id": "RLHF", "node_type": "PRIOR_ART", "name": "Reinforcement Learning from Human Feedback"}
+{"node_id": "ARLF", "node_type": "FRAMEWORK", "name": "ARLF / Affective Recursive Loop Framework"}
+{"node_id": "JESTER", "node_type": "COMPONENT", "name": "The Jester"}
+{"node_id": "RLCF", "node_type": "MECHANISM", "name": "Reinforcement Learning from Charity Feedback"}
+{"node_id": "VSA", "node_type": "ARCHITECTURE", "name": "VSA / Vassal-State Architecture"}
+{"node_id": "CITADEL", "node_type": "SYSTEM", "name": "The Citadel"}
+{"node_id": "GSA", "node_type": "ARCHITECTURE", "name": "GSA / Governance-State Architecture"}
+{"node_id": "BLACK_PAPER", "node_type": "REVIEW_ARTIFACT", "name": "The Black Paper: Project Incineration"}
+{"node_id": "STRUCTURAL_DIAMONDS", "node_type": "SALVAGE", "name": "Structural Diamonds"}
+{"node_id": "JOY_DIAL", "node_type": "COMPONENT", "name": "The Joy Dial"}
+{"node_id": "SYCOPHANCY_FILTER", "node_type": "COMPONENT", "name": "Sycophancy Filter / Layer 5"}
+{"node_id": "ARLF_ARCH", "node_type": "READING", "name": "ARLF / Architectural Recursive Logic Feedback (canonical)"}
+{"node_id": "ARLF_AFFECT", "node_type": "READING", "name": "ARLF / Affective Recursive Loop Framework (variant)"}
+{"node_id": "NOTRUST_STACK", "node_type": "ARCHITECTURE", "name": "7-Layer No-Trust Stack"}

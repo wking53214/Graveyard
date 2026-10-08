@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ARLF chronology event",
+  "type": "object",
+  "required": [
+    "event_id",
+    "date",
+    "event_type",
+    "description",
+    "evidence_id"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string"
+    },
+    "date_precision": {
+      "enum": [
+        "EXACT_TIMESTAMP",
+        "DAY",
+        "MONTH",
+        "UNKNOWN"
+      ]
+    },
+    "systems": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "event_type": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "evidence_id": {
+      "type": "string"
+    },
+    "source_location": {
+      "type": "string"
+    },
+    "confidence": {
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "U"
+      ]
+    },
+    "status": {
+      "type": "string"
+    }
+  }
+}
