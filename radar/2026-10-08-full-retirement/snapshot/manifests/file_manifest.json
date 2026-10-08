@@ -1,0 +1,114 @@
+{
+ "recovered": [
+  {
+   "path": "recovered_repo/TRANSCRIPT.md.SOURCE_RADAR_TXT",
+   "sha256": "c22d3000402d59c23312134453d0326600de7cee11ab3fef4f7678123793aa6a",
+   "size": 114455,
+   "crlf_lines": 2010,
+   "source": "~/Downloads/RADAR.txt",
+   "source_type": "DIRECT RECOVERY (file on disk)",
+   "historical_name": "TRANSCRIPT.md (candidate source)",
+   "commit": "d5e52dd",
+   "timestamp": "mtime 2026-08-13 10:58:59 -0400",
+   "cross_validation": "contains all 6 code artifacts as exact byte substrings",
+   "status": "DIRECTLY RECOVERED (as verbatim source)",
+   "confidence": "HIGH on containment; byte-identity to the committed TRANSCRIPT.md is UNVERIFIED (no PROVENANCE.md counts)"
+  },
+  {
+   "path": "recovered_repo/eddp-comprehensive-synthesized.py",
+   "sha256": "ede000dfbdf94d099fe6d85aab4f971a52d9bd9852fc8b10a767585e80fa998b",
+   "size": 14751,
+   "crlf_lines": 369,
+   "historical_name": "artifact_4.py",
+   "source": "EDDP repo, commit 6dd34d3, git blob",
+   "source_type": "RECOVERED FROM GIT (byte-exact blob)",
+   "git_blob_sha1": "e157349101a371d31b7481559e698db0f6fc5e95",
+   "commit": "content from d5e52dd; copied to EDDP in 6dd34d3",
+   "timestamp": "2026-08-17T19:14:01-04:00 (EDDP commit)",
+   "cross_validation": "exact byte substring of ~/Downloads/RADAR.txt at offset 34293",
+   "status": "DIRECTLY RECOVERED",
+   "confidence": "HIGH \u2014 git blob + independent byte-substring match in the source transcript"
+  },
+  {
+   "path": "recovered_repo/eddp-core-engine-v1.py",
+   "sha256": "97f9ae9a9875e72aa232bab5000ac084742e29ba63494ba799113f5ee454846c",
+   "size": 10662,
+   "crlf_lines": 316,
+   "historical_name": "artifact_2.py",
+   "source": "EDDP repo, commit 6dd34d3, git blob",
+   "source_type": "RECOVERED FROM GIT (byte-exact blob)",
+   "git_blob_sha1": "22f07960ea8ef96e3f435cbca661786578023f48",
+   "commit": "content from d5e52dd; copied to EDDP in 6dd34d3",
+   "timestamp": "2026-08-17T19:14:01-04:00 (EDDP commit)",
+   "cross_validation": "exact byte substring of ~/Downloads/RADAR.txt at offset 2927",
+   "status": "DIRECTLY RECOVERED",
+   "confidence": "HIGH \u2014 git blob + independent byte-substring match in the source transcript"
+  },
+  {
+   "path": "recovered_repo/eddp-core-engine-v2-refined.py",
+   "sha256": "df7f91037f7e1a6b584c8db046e1d6140d37d755e7859a4dbdb657052ebf5c18",
+   "size": 14576,
+   "crlf_lines": 368,
+   "historical_name": "artifact_3.py",
+   "source": "EDDP repo, commit 6dd34d3, git blob",
+   "source_type": "RECOVERED FROM GIT (byte-exact blob)",
+   "git_blob_sha1": "b03f02506bb7adaee30d1b0ceb2b346c2b966423",
+   "commit": "content from d5e52dd; copied to EDDP in 6dd34d3",
+   "timestamp": "2026-08-17T19:14:01-04:00 (EDDP commit)",
+   "cross_validation": "exact byte substring of ~/Downloads/RADAR.txt at offset 19213",
+   "status": "DIRECTLY RECOVERED",
+   "confidence": "HIGH \u2014 git blob + independent byte-substring match in the source transcript"
+  },
+  {
+   "path": "recovered_repo/eddp-pipeline-core-simple.py",
+   "sha256": "66df1813ace0998b8d9d6334a9c06a616b07d281e27ed04436c92ab323140541",
+   "size": 1174,
+   "crlf_lines": 0,
+   "historical_name": "artifact_1.py",
+   "source": "EDDP repo, commit 6dd34d3, git blob",
+   "source_type": "RECOVERED FROM GIT (byte-exact blob)",
+   "git_blob_sha1": "a8ad5a7ff6918bb6d4c59d2805ce13b856fd9fb4",
+   "commit": "content from d5e52dd; copied to EDDP in 6dd34d3",
+   "timestamp": "2026-08-17T19:14:01-04:00 (EDDP commit)",
+   "cross_validation": "exact byte substring of ~/Downloads/RADAR.txt at offset 149",
+   "status": "DIRECTLY RECOVERED",
+   "confidence": "HIGH \u2014 git blob + independent byte-substring match in the source transcript"
+  },
+  {
+   "path": "recovered_repo/eddp-wrapped-final.py",
+   "sha256": "a7026823c9a985cb7ff3d90a24a832fbc51cfb3ff2c922d61c52296808dbaa04",
+   "size": 5376,
+   "crlf_lines": 0,
+   "historical_name": "artifact_5.py",
+   "source": "EDDP repo, commit 6dd34d3, git blob",
+   "source_type": "RECOVERED FROM GIT (byte-exact blob)",
+   "git_blob_sha1": "4a68b4342671f8c6a46fb5d8c38732fc312a3107",
+   "commit": "content from d5e52dd; copied to EDDP in 6dd34d3",
+   "timestamp": "2026-08-17T19:14:01-04:00 (EDDP commit)",
+   "cross_validation": "exact byte substring of ~/Downloads/RADAR.txt at offset 90849",
+   "status": "DIRECTLY RECOVERED",
+   "confidence": "HIGH \u2014 git blob + independent byte-substring match in the source transcript"
+  },
+  {
+   "path": "recovered_repo/gsa_universal_interlock_wrapper.py",
+   "sha256": "aba510cc512b4aed074c81606819761a33161d5ba1e2a80ff58d7f78f2c9a4eb",
+   "size": 18179,
+   "crlf_lines": 396,
+   "historical_name": "gsa_universal_interlock_wrapper.py (self-named, not renamed)",
+   "source": "GSA-815 repo, commit f0b70d6, git blob",
+   "source_type": "RECOVERED FROM GIT (byte-exact blob)",
+   "commit": "removed from RADAR by 93cd72e; added to GSA-815 by f0b70d6; deleted from GSA-815 by 3e979a5 (2026-09-03)",
+   "timestamp": "2026-08-17T19:12:33-04:00",
+   "cross_validation": "exact byte substring of ~/Downloads/RADAR.txt at offset 72631",
+   "status": "DIRECTLY RECOVERED",
+   "confidence": "HIGH \u2014 same dual evidence"
+  }
+ ],
+ "not_recovered": [
+  {
+   "path": "RADAR/PROVENANCE.md",
+   "status": "NOT RECOVERED",
+   "note": "existed (in the 2026-08-17 /tmp/RADAR listing and the 2026-08-13 ~/RADAR clone). No surviving session ever viewed it, so its contents are UNKNOWN. This is the missing validation key: unlike STRIDE, no per-file line/char/behaviour table is available."
+  }
+ ]
+}

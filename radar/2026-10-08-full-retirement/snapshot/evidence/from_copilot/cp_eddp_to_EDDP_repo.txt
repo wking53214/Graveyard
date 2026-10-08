@@ -1,0 +1,15 @@
+[main 6dd34d3] Add EDDP system files to EDDP central repository
+ 5 files changed, 1058 insertions(+)
+ create mode 100644 eddp-comprehensive-synthesized.py
+ create mode 100644 eddp-core-engine-v1.py
+ create mode 100644 eddp-core-engine-v2-refined.py
+ create mode 100644 eddp-pipeline-core-simple.py
+ create mode 100644 eddp-wrapped-final.py
+remote: This repository moved. Please use the new location:        
+remote:   https://github.com/wking53214/Data_files.git        
+To https://github.com/wking53214/EDDP.git
+   ff34a5b..6dd34d3  main -> main
+6dd34d3 Add EDDP system files to EDDP central repository
+ff34a5b Move clinical modules to wking53214/observe; remove from EDDP\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+d7a2750 Organize generated artifacts: move transcripts and summaries into generated/ and rename to <safe>_transcript/summary[_ai].md; update manifest\n\nCo-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>
+<shellId: 63 completed with exit code 0>

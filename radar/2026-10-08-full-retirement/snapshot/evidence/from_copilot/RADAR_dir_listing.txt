@@ -1,0 +1,16 @@
+
+diff --git a/tmp/RADAR b/tmp/RADAR
+create file mode 100644
+index 0000000..0000000
+--- a/dev/null
++++ b/tmp/RADAR
+@@ -1,0 +1,9 @@
+ .git
+ PROVENANCE.md
+ TRANSCRIPT.md
+ artifact_1.py
+ artifact_2.py
+ artifact_3.py
+ artifact_4.py
+ artifact_5.py
+ gsa_universal_interlock_wrapper.py
