@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "augur"
+version = "1.0.0"
+description = "Standalone closed-loop control simulation: controllers plus a learning policy steer a noisy value toward a moving target under guardrails"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "William N. King" }]
+dependencies = []
+
+[project.optional-dependencies]
+# predictive_controller.py uses numpy; the main kernel does not.
+predictive = ["numpy"]
+dev = ["pytest>=8"]
+# Optional: lets AUGUR's screen verdict be expressed as a CNS gate result. AUGUR
+# imports nothing from CNS unless augur.cns_connector is used. Pinned to tag v1.4.0.
+cns = [
+    "cns @ git+https://github.com/wking53214/cns.git@3b465dbcc1a6a4ab6f1040f93d44483196abd737",
+]
+
+[project.scripts]
+augur = "augur.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["augur*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

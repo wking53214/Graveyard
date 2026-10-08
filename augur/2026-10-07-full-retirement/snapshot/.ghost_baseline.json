@@ -1,0 +1,412 @@
+[
+  {
+    "category": "complexity",
+    "confidence": null,
+    "detail": "Line-count proxy for the 'Long Method' smell, not true cyclomatic complexity -- a long function that's mostly a flat sequence of simple statements is a weaker signal than a short function with deep branching. Treat as a prompt to look, not a verdict.",
+    "detector": "long_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/kernel.py",
+      "line_end": 548,
+      "line_start": 440,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:19.968668+00:00",
+    "id": "ghost-1b0ffc789b0d",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'run_cycle' spans 108 lines (threshold 80)"
+  },
+  {
+    "category": "complexity",
+    "confidence": null,
+    "detail": "Line-count proxy for the 'Long Method' smell, not true cyclomatic complexity -- a long function that's mostly a flat sequence of simple statements is a weaker signal than a short function with deep branching. Treat as a prompt to look, not a verdict.",
+    "detector": "long_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/predictive_controller.py",
+      "line_end": 260,
+      "line_start": 128,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:19.972957+00:00",
+    "id": "ghost-076870ce487a",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'process' spans 132 lines (threshold 80)"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/kernel.py",
+      "line_end": 214,
+      "line_start": 214,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/kernel.py:216-216"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:20.009963+00:00",
+    "id": "ghost-59475869843c",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'classify' repeats the same single statement 2 times (lines 214-214, 216-216): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/kernel.py",
+      "line_end": 286,
+      "line_start": 286,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/kernel.py:287-287"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:20.011030+00:00",
+    "id": "ghost-a95bcb72d63a",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'__init__' repeats the same single statement 2 times (lines 286-286, 287-287): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/predictive_controller.py",
+      "line_end": 102,
+      "line_start": 102,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/predictive_controller.py:108-108",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/predictive_controller.py:109-109"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:20.021989+00:00",
+    "id": "ghost-777f6f5a56f0",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "'__init__' repeats the same single statement 3 times (lines 102-102, 108-108, 109-109): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/predictive_controller.py",
+      "line_end": 103,
+      "line_start": 103,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/predictive_controller.py:104-104",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/predictive_controller.py:105-105"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:20.022023+00:00",
+    "id": "ghost-d5f65c1c33d0",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "'__init__' repeats the same single statement 3 times (lines 103-103, 104-104, 105-105): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/predictive_controller.py",
+      "line_end": 133,
+      "line_start": 133,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/predictive_controller.py:246-246"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:20.024735+00:00",
+    "id": "ghost-07b0f5044b79",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'process' repeats the same single statement 2 times (lines 133-133, 246-246): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/predictive_controller.py",
+      "line_end": 144,
+      "line_start": 144,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/fortress/predictive_controller.py:146-146"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:20.024753+00:00",
+    "id": "ghost-d1bea8850c59",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'process' repeats the same single statement 2 times (lines 144-144, 146-146): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/tests/test_fortress.py",
+      "line_end": 120,
+      "line_start": 120,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/FORTRESS/tests/test_fortress.py:121-121"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:20.029421+00:00",
+    "id": "ghost-5df0abbc8ab9",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_target_shifts_at_the_configured_step' repeats the same single statement 2 times (lines 120-120, 121-121): same shape, names/literals differ"
+  },
+  {
+    "category": "complexity",
+    "confidence": null,
+    "detail": "Line-count proxy for the 'Long Method' smell, not true cyclomatic complexity -- a long function that's mostly a flat sequence of simple statements is a weaker signal than a short function with deep branching. Treat as a prompt to look, not a verdict.",
+    "detector": "long_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/AUGUR/augur/kernel.py",
+      "line_end": 548,
+      "line_start": 440,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:38.966699+00:00",
+    "id": "ghost-037f8296c523",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'run_cycle' spans 108 lines (threshold 80)"
+  },
+  {
+    "category": "complexity",
+    "confidence": null,
+    "detail": "Line-count proxy for the 'Long Method' smell, not true cyclomatic complexity -- a long function that's mostly a flat sequence of simple statements is a weaker signal than a short function with deep branching. Treat as a prompt to look, not a verdict.",
+    "detector": "long_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/AUGUR/augur/predictive_controller.py",
+      "line_end": 260,
+      "line_start": 128,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:38.971260+00:00",
+    "id": "ghost-c4c317b82603",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'process' spans 132 lines (threshold 80)"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/AUGUR/augur/kernel.py",
+      "line_end": 214,
+      "line_start": 214,
+      "related_files": [
+        "/home/wking53214/AUGUR/augur/kernel.py:216-216"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:39.009189+00:00",
+    "id": "ghost-ccf90faeb744",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'classify' repeats the same single statement 2 times (lines 214-214, 216-216): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/AUGUR/augur/kernel.py",
+      "line_end": 286,
+      "line_start": 286,
+      "related_files": [
+        "/home/wking53214/AUGUR/augur/kernel.py:287-287"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:39.010410+00:00",
+    "id": "ghost-6686a6ed6359",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'__init__' repeats the same single statement 2 times (lines 286-286, 287-287): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/AUGUR/augur/predictive_controller.py",
+      "line_end": 102,
+      "line_start": 102,
+      "related_files": [
+        "/home/wking53214/AUGUR/augur/predictive_controller.py:108-108",
+        "/home/wking53214/AUGUR/augur/predictive_controller.py:109-109"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:39.021538+00:00",
+    "id": "ghost-8a3f812ef7aa",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "'__init__' repeats the same single statement 3 times (lines 102-102, 108-108, 109-109): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/AUGUR/augur/predictive_controller.py",
+      "line_end": 103,
+      "line_start": 103,
+      "related_files": [
+        "/home/wking53214/AUGUR/augur/predictive_controller.py:104-104",
+        "/home/wking53214/AUGUR/augur/predictive_controller.py:105-105"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:39.021733+00:00",
+    "id": "ghost-62225eb5c889",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "'__init__' repeats the same single statement 3 times (lines 103-103, 104-104, 105-105): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/AUGUR/augur/predictive_controller.py",
+      "line_end": 133,
+      "line_start": 133,
+      "related_files": [
+        "/home/wking53214/AUGUR/augur/predictive_controller.py:246-246"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:39.024648+00:00",
+    "id": "ghost-97bb1b0baee3",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'process' repeats the same single statement 2 times (lines 133-133, 246-246): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/AUGUR/augur/predictive_controller.py",
+      "line_end": 144,
+      "line_start": 144,
+      "related_files": [
+        "/home/wking53214/AUGUR/augur/predictive_controller.py:146-146"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:39.024800+00:00",
+    "id": "ghost-82952cb4766c",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'process' repeats the same single statement 2 times (lines 144-144, 146-146): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/AUGUR/tests/test_augur.py",
+      "line_end": 120,
+      "line_start": 120,
+      "related_files": [
+        "/home/wking53214/AUGUR/tests/test_augur.py:121-121"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:39.029582+00:00",
+    "id": "ghost-44f0de5362c0",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_target_shifts_at_the_configured_step' repeats the same single statement 2 times (lines 120-120, 121-121): same shape, names/literals differ"
+  }
+]

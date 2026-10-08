@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+*.log
+fortress_audit.log
+.venv/
