@@ -1,0 +1,2689 @@
+drum roll...
+Worked for 2m 31s
+
+1. EXECUTIVE SUMMARY
+
+Scope and inventory result
+
+The live GitHub account inventory returned 30 current public repositories. Every one of those 30 is present in the user-supplied list.
+
+Three supplied names require special treatment:
+
+- STRIDE — current repository lookup returns 404. Repository history elsewhere explicitly says STRIDE was deleted from GitHub, and current code was salvaged from it before deletion. STATUS: historical/deleted.
+- DIT — current repository lookup returns 404. Other repositories contain commits explicitly moving deterministic assets into DIT, so DIT existed historically, but no current repository is available. STATUS: historical/deleted or otherwise inaccessible.
+- GLCM — current GitHub API access redirects the supplied repository name to repository ID "1333402381"; that repository ID is now "KAGGLE". STATUS: historical alias/rename, not an additional current repository.
+
+DISCOVERED OUTSIDE INITIAL LIST: None. The current public inventory is fully contained within the original list.
+
+The account therefore does not currently expose one monolithic software product. It contains a mixed ecosystem of:
+
+1. working governance/evidence systems,
+2. specialized domain governance systems,
+3. code-intelligence and repository-analysis tooling,
+4. experimental/reconstructed systems,
+5. consolidation targets containing material moved from predecessor repositories,
+6. historical transcript/corpus archives.
+
+The strongest architectural fact is not a single runtime dependency graph. It is a pattern of extraction, consolidation, reconstruction, and specialization across repositories.
+
+The repositories repeatedly preserve the same concerns:
+
+- provenance,
+- evidence lineage,
+- epistemic state,
+- validation,
+- governance boundaries,
+- human authorization,
+- tamper detection,
+- deterministic processing,
+- auditability,
+- historical reconstruction.
+
+But those concerns are implemented through multiple independent mechanisms, not one shared library or one canonical schema.
+
+The most important observed architectural centers
+
+Sentinel OS
+
+"sentinel_os" is the largest and most operationally elaborate repository observed. Its source tree contains domain models, latent payload handling, graph construction, simulation, deployment configuration, a test suite, governance and evidence mechanisms, and a substantial interpretation/governance layer. The README explicitly describes a stable kernel, cassette architecture, evidence ledger, twin verification, outcome verification, and fail-closed governance semantics. The tree confirms that this is not merely a README-only architecture: there are real Python modules, Kubernetes manifests, Docker configuration, tests, and deployment material.
+
+HERALD
+
+"HERALD" is a particularly clear, current, test-heavy subsystem. It implements a natural-language interpretation boundary that extracts candidate claims but deliberately refuses to become the final decision-maker. Its code contains explicit modules for boundary enforcement, source ingestion, claims, extraction, ambiguity analysis, confidence gating, binding, handoff, and calibration, plus a substantial adversarial test file and CI.
+
+Repository history shows sustained adversarial development through HMAX campaigns, including cryptographic continuity, provenance verification, boundary evasion, ReDoS, cross-document substitution, TOCTOU, and Unicode canonicalization issues. The latest observed merge reports 303 passed and 25 skipped, while also documenting a pre-existing demo failure. That is strong evidence of active functional development rather than a purely conceptual repository.
+
+Conservation Kernel
+
+"Conservation_Kernel" is a real Python package rather than a document collection. Its source package contains kernel, event, model, ledger, registry, reconstruction, verifier, result, experiment, and enumeration components; it also includes formal threat/invariant documentation and adversarial tests. The latest commits explicitly add hostile attacks and then “freeze” the kernel after attack work.
+
+This repository therefore represents a distinct, executable treatment of conservation/integrity/provenance semantics rather than merely an architectural essay.
+
+GSA / EDDP / OBSERVE / GRAPH / CODE cluster
+
+A large amount of recent repository history is devoted to moving material between these repositories. The moves are explicit in commit history rather than inferred from naming:
+
+- GSA material moved into "GSA-GATEWAY".
+- EDDP pipeline material moved out of "CODE" into "EDDP".
+- governance-stack material moved from EDDP into "GSA-GATEWAY".
+- GAPS material moved from EDDP into "GRAPH".
+- OBSERVE material moved from EDDP, GSA-815, Gemini history, and innovation_os into "OBSERVE".
+- AST/code-graph material moved from ATS and other repositories into "synapsis".
+- FORTRESS material moved from "sentinel_os" and "ARCHIVE" into "FORTRESS".
+
+The repositories are therefore not merely parallel projects. They form an actively reorganized code-and-artifact corpus.
+
+Historical/reconstruction layer
+
+"ARCHIVE", the four history repositories, "Ecology", "GEMS", and "TIE" show that historical preservation is itself an important part of the ecosystem.
+
+This is strongest in "GEMS" and "TIE", whose README files explicitly distinguish recovered evidence from reconstruction choices. GEMS says the historical canonical repository, exact schemas, production implementations, APIs, and deployment details were not recovered. TIE similarly states that the original repository and exact historical schemas were not recovered and that the repository is therefore a reconstructed baseline rather than the original system.
+
+That distinction is architecturally significant: some current repositories are software implementations, while others are software archaeology artifacts that intentionally preserve uncertainty.
+
+Overall conclusion
+
+OBSERVED: The ecosystem is not one clean, installable application.
+
+OBSERVED: It contains several functional systems with real executable code and tests.
+
+OBSERVED: A substantial fraction of the recent development effort is consolidation, migration, recovery, and duplicate elimination.
+
+INFERRED: The current ecosystem is best understood as an evolving family of governance, evidence, interpretation, code-intelligence, and historical-continuity systems, with multiple partially overlapping kernels and adapters.
+
+INFERRED: The strongest organizing principle across repositories is not shared runtime dependency. It is the recurring requirement that claims, actions, decisions, artifacts, and derived knowledge remain attributable, reviewable, and resistant to silent transformation.
+
+UNKNOWN: There is no repository-level evidence sufficient to prove that all current systems are intended to become one deployable runtime.
+
+---
+
+2. COMPLETE REPOSITORY INVENTORY
+
+#| Repository| URL| Status| Purpose| Apparent Maturity| Confidence
+1| sentinel_os| https://github.com/wking53214/sentinel_os| Current| Governance/evidence system and operational kernel| ACTIVE DEVELOPMENT / FUNCTIONAL| High
+2| Conservation_Kernel| https://github.com/wking53214/Conservation_Kernel| Current| Executable conservation/integrity kernel| FUNCTIONAL / EXPERIMENTAL| High
+3| GSA-GATEWAY| https://github.com/wking53214/GSA-GATEWAY| Current| Consolidation target for GSA/governance-stack material| ACTIVE DEVELOPMENT / SCAFFOLD| High
+4| GSA-815| https://github.com/wking53214/GSA-815| Current| IVR/telephony-side extraction depending on Sentinel kernel| FUNCTIONAL / ACTIVE DEVELOPMENT| High
+5| Triad-42| https://github.com/wking53214/Triad-42| Current| Advisory multi-stage cognitive review harness| FUNCTIONAL| High
+6| CCC| https://github.com/wking53214/CCC| Current| Executable Cognitive Continuity Constitution enforcement layer| FUNCTIONAL| High
+7| innovation_os| https://github.com/wking53214/innovation_os| Current| Governed innovation/workflow operating system| ACTIVE DEVELOPMENT / FUNCTIONAL| High
+8| synapsis| https://github.com/wking53214/synapsis| Current| Code intelligence, repository archaeology, analysis and memory tooling| SCAFFOLD / EXPERIMENTAL| High
+9| EDDP| https://github.com/wking53214/EDDP| Current| Pipeline/telemetry/governance extraction archive| EXPERIMENTAL / ARCHIVAL| High
+10| Ecology| https://github.com/wking53214/Ecology| Current| Large engineering corpus and source/document archive| ARCHIVAL / CORPUS| High
+11| STRIDE| https://github.com/wking53214/STRIDE| Not current / 404| Historical gateway containing CITADEL-related logic| DELETED / ARCHIVAL| High
+12| CODE| https://github.com/wking53214/CODE| Current| Source reservoir for content pipeline and extracted modules| EXPERIMENTAL / MIGRATION| High
+13| GLCM| https://github.com/wking53214/GLCM| Redirect/alias| Historical repository name now resolving to KAGGLE repository ID| RENAMED / UNKNOWN FUNCTION| High
+14| GRAPH| https://github.com/wking53214/GRAPH| Current| Governance/routing/anchor and GAPS implementations| FUNCTIONAL BUT INCOMPLETE| High
+15| DIT| https://github.com/wking53214/DIT| Not current / 404| Historical repository receiving deterministic assets| DELETED / UNKNOWN CURRENT STATE| High
+16| ATS| https://github.com/wking53214/ATS| Current| Applicant-tracking governance and bias-detection system| FUNCTIONAL / EXPERIMENTAL| High
+17| CITADEL| https://github.com/wking53214/CITADEL| Current| Deterministic LLM-output enforcement/filtering engine| FUNCTIONAL| High
+18| OBSERVE| https://github.com/wking53214/OBSERVE| Current| Observation/perception/clinical governance adapters and imported system material| ACTIVE DEVELOPMENT / MIXED| High
+19| GEMS| https://github.com/wking53214/GEMS| Current| Reconstructed governed cognitive “Gems” framework| PROTOTYPE / RECONSTRUCTION| High
+20| VANGUARD| https://github.com/wking53214/VANGUARD| Current| Specialized material moved from DGK| SCAFFOLD / EXPERIMENTAL| Medium
+21| FORTRESS| https://github.com/wking53214/FORTRESS| Current| Predictive/integrity/guardrail control variants| MIXED FUNCTIONAL / EXPERIMENTAL| High
+22| ANVIL| https://github.com/wking53214/ANVIL| Current| Deterministic hash-chained governance kernel| FUNCTIONAL| High
+23| ARCHIVE| https://github.com/wking53214/ARCHIVE| Current| Historical architecture-report corpus and extracted artifacts| ARCHIVAL| High
+24| Resume_OS| https://github.com/wking53214/Resume_OS| Current| Evidence-backed professional-history/MOB system| FUNCTIONAL BUT NOT YET USABLE| High
+25| TBCA| https://github.com/wking53214/TBCA| Current| Purpose not established from inspected root material| UNKNOWN| Low
+26| ChatGPT_History| https://github.com/wking53214/ChatGPT_History| Current| Historical conversation corpus| ARCHIVAL| High
+27| Claude_History| https://github.com/wking53214/Claude_History| Current| Historical Claude conversation corpus and extraction pipeline| ARCHIVAL / FUNCTIONAL TOOLING| High
+28| Gemini_History| https://github.com/wking53214/Gemini_History| Current| Historical Gemini conversation corpus| ARCHIVAL| Medium
+29| CoPilot_History| https://github.com/wking53214/CoPilot_History| Current| Historical Copilot conversation corpus| ARCHIVAL| Medium
+30| HERALD| https://github.com/wking53214/HERALD| Current| Natural-language claim extraction and governed handoff layer| FUNCTIONAL / ACTIVE DEVELOPMENT| High
+31| TIE| https://github.com/wking53214/TIE| Current| Reconstructed transcript-intelligence/evidence system| PROTOTYPE / RECONSTRUCTION| High
+32| KAGGLE| https://github.com/wking53214/KAGGLE| Current| Current repository sharing the numeric repository identity to which GLCM redirects| UNKNOWN| Medium
+33| ghost_tools| https://github.com/wking53214/ghost_tools| Current| Repository “ghost” detector/writer tooling| FUNCTIONAL / ACTIVE DEVELOPMENT| High
+
+Inventory note: No repository outside the initial list was discovered in the current public account inventory.
+
+---
+
+3. REPOSITORY DOSSIERS
+
+sentinel_os
+
+URL: https://github.com/wking53214/sentinel_os
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE(S): Python, YAML, Markdown
+
+PURPOSE
+
+OBSERVED: The repository implements a governance/evidence system intended to sit beside or around automated decision systems. Its README defines a stable kernel, cassette-based governance modules, an evidence ledger, a twin/independent witness, outcome verification, and strict provenance states.
+
+OBSERVED IMPLEMENTATION
+
+The repository contains real implementation directories including "Domain", "Engines", "Latent", "Model", "Sim", and "Tests", plus Docker/Kubernetes deployment material. The source tree contains Python modules for graph building, simulation, latent payloads, domain state, and an "sage_k" package.
+
+The latest observed development adds a governor-loop guard to "production_harness.py", explicitly checking repeated reasoning responses and failing closed on detected loops. Repository history records actual verification of this new component in isolation, while also documenting missing environment dependencies for the full harness path.
+
+INFERRED FUNCTION
+
+A domain-agnostic governance/evidence kernel with specialized operating modes and at least one telephony/IVR deployment lineage.
+
+ARCHITECTURE
+
+Major concepts evidenced by repository material:
+
+- governance kernel,
+- episode/decision representations,
+- cassettes and cassette loading,
+- governance decision logic,
+- ledger/evidence mechanisms,
+- domain models,
+- simulation,
+- resilience/breaker infrastructure,
+- AI cost tracking,
+- deployment orchestration.
+
+DATA / ARTIFACTS
+
+Hash-bound evidence, episode records, cassette metadata, decision records, latent payloads, graph structures, telemetry, simulation outputs.
+
+INTERFACES
+
+Python modules, configuration environment variables, Docker, Kubernetes manifests, and operational harnesses.
+
+TESTING
+
+Large "Tests/" tree with unit, integration, AI-cost, adversarial and end-to-end tests. Repository history contains explicit executed test counts, but those are repository-history claims rather than tests run by this investigation.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+OBSERVED: README contains long-range architectural claims that exceed what can be established merely from source presence. The README itself explicitly distinguishes “direction” from current capability in several areas.
+
+OBSERVED: Some dependencies are still operationally coupled to repository-local modules rather than a packaged interface.
+
+DEPENDENCIES
+
+Direct cross-repository dependency is established by GSA-815 documentation: GSA-815 explicitly states it depends on Sentinel kernel modules and is not standalone.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "GSA-815 → DEPENDS ON → sentinel_os" — OBSERVED
+- "FORTRESS → COPIES IMPLEMENTATION FROM → sentinel_os" — OBSERVED
+- "sentinel_os → SALVAGED CODE FROM → STRIDE" — OBSERVED via repository history
+- "sentinel_os → CONTAINS → imported/salvaged historical material" — OBSERVED
+
+MATURITY
+
+ACTIVE DEVELOPMENT / FUNCTIONAL.
+
+NEGATIVE FINDINGS
+
+ABSENT: A single installable package boundary that makes all downstream extracted systems independently installable.
+
+UNKNOWN / CONFLICTED
+
+The README describes a long-term shared governance foundation, but repository evidence does not establish that every repository currently participates in one operational runtime.
+
+---
+
+Conservation_Kernel
+
+URL: https://github.com/wking53214/Conservation_Kernel
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE(S): Python, Markdown, JSON
+
+PURPOSE
+
+OBSERVED: Executable kernel focused on preserving and verifying structured state, events, provenance and conservation-like invariants.
+
+OBSERVED IMPLEMENTATION
+
+The source tree includes a real Python package with "kernel.py", "events.py", "ledger.py", "model.py", "reconstruction.py", "registry.py", "result.py", "verifier.py", experiments and enums. It also contains extensive adversarial tests and threat/invariant documentation.
+
+INFERRED FUNCTION
+
+A deterministic integrity/conservation kernel intended to maintain invariants across transformations.
+
+ARCHITECTURE
+
+Core modules include event representation, modeling, ledgering, registry, reconstruction and verification.
+
+DATA / ARTIFACTS
+
+Events, ledger entries, verification records, experiment metrics, model/state structures.
+
+INTERFACES
+
+Python package APIs and experiment runner.
+
+TESTING
+
+Dedicated tests include adversarial attacks, rollback, round trips, reconstruction, model and kernel behavior. Recent commits added attack 7, 8 and 9.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+Strong correspondence: unlike repositories that contain only architecture notes, this repository has matching executable modules and tests.
+
+DEPENDENCIES
+
+"pyproject.toml"; no evidence in inspected material of dependence on another user repository.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- Conceptual overlap with "sentinel_os", "HERALD", "CCC", "Triad-42" — INFERRED
+- Direct import/dependency relationship — UNKNOWN / not found in inspected metadata
+
+MATURITY
+
+FUNCTIONAL / EXPERIMENTAL.
+
+NEGATIVE FINDINGS
+
+ABSENT: Evidence of broad deployment or ecosystem-wide consumption.
+
+UNKNOWN / CONFLICTED
+
+Whether Conservation Kernel is intended to become a shared kernel for the other governance repositories is UNKNOWN.
+
+---
+
+GSA-GATEWAY
+
+URL: https://github.com/wking53214/GSA-GATEWAY
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+The repository description itself calls it a provisional consolidated home for GSA-lineage material from SECURE, UZTC, WRAPPER, DGK and EDDP.
+
+OBSERVED IMPLEMENTATION
+
+Repository history shows actual code extraction from CODE and EDDP, plus governance-stack consolidation. Other history entries show URE/resilience files being restored to satisfy a missing dependency.
+
+INFERRED FUNCTION
+
+A consolidation repository acting as the current home for a previously fragmented governance/GSA family.
+
+ARCHITECTURE
+
+Multiple single-file modules grouped under governance-stack rather than one clean package boundary.
+
+DATA / ARTIFACTS
+
+Python modules, configuration and integration material.
+
+INTERFACES
+
+Python module imports; no evidence of a fully packaged public API.
+
+TESTING
+
+Some imported components have runnable demos, but no single coherent GSA-GATEWAY-wide test architecture was established in the inspected evidence.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+OBSERVED: Commit history is unusually candid about incomplete modules. For example, the “100+ tactical agents” registry exists, but the individual "execute()" methods are only label-returning stubs.
+
+DEPENDENCIES
+
+Internal dependencies remain heterogeneous and historically sourced.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "GSA-GATEWAY ← CODE" — OBSERVED
+- "GSA-GATEWAY ← EDDP" — OBSERVED
+- "GSA-GATEWAY ← DGK" — OBSERVED
+- "GSA-GATEWAY ← SECURE / UZTC / WRAPPER" — OBSERVED historically
+- "GSA-GATEWAY ← URE" for resilience material — OBSERVED
+
+MATURITY
+
+ACTIVE DEVELOPMENT / SCAFFOLD.
+
+NEGATIVE FINDINGS
+
+ABSENT: Evidence that the repository is already a unified, standalone, deployable package.
+
+UNKNOWN / CONFLICTED
+
+The provisional repository name and broad content scope suggest continuing consolidation rather than settled architecture.
+
+---
+
+GSA-815
+
+URL: https://github.com/wking53214/GSA-815
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: The repository is explicitly described as the “IVR/Iceberg side” extracted from "sentinel_os".
+
+OBSERVED IMPLEMENTATION
+
+The tree contains copied domain classes, engine code, GSA artifacts, GSA-2 artifacts, models, simulation, and integration documentation.
+
+INFERRED FUNCTION
+
+A specialized operational/domain implementation extracted from the larger Sentinel repository rather than an independent architecture.
+
+ARCHITECTURE
+
+The most important architectural fact is its dependency contract:
+
+- episode
+- event
+- cassette interfaces/loaders/schema/capabilities/forensics
+- governance ledger
+- governance decider
+- governor injection defense
+- AI cost tracking
+- queue schema
+- circuit breaker
+- resilience
+- authentication
+- tracing
+- array operations.
+
+DATA / ARTIFACTS
+
+IVR/telephony state, domain models, GSA implementations, latent payloads and simulator artifacts.
+
+INTERFACES
+
+Python imports into Sentinel kernel modules.
+
+TESTING
+
+Repository tree includes "Tests" material; repository documentation says some kernel dependencies remain external.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+The dependency document is unusually direct: this repository is intentionally not standalone and avoids duplicating the kernel to prevent drift.
+
+DEPENDENCIES
+
+"GSA-815 → DEPENDS ON → sentinel_os" — OBSERVED
+
+This is one of the clearest direct cross-repository dependencies in the entire census.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "GSA-815 → EXTRACTED FROM → sentinel_os" — OBSERVED
+- "OBSERVE → COPIES/IMPORTS MATERIAL FROM → GSA-815" — OBSERVED
+- "ATS → REFERENCES/SALVAGES COMPONENTS ASSOCIATED WITH → GSA lineage" — PARTIAL / HISTORICAL
+
+MATURITY
+
+FUNCTIONAL / ACTIVE DEVELOPMENT.
+
+NEGATIVE FINDINGS
+
+ABSENT: Standalone packaging suitable for a fresh install without a Sentinel checkout.
+
+UNKNOWN / CONFLICTED
+
+The old "governance-control-plane" integration is documented, but Git history includes a remove/revert sequence. The current exact state of that integration should therefore be treated cautiously.
+
+---
+
+Triad-42
+
+URL: https://github.com/wking53214/Triad-42
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Advisory cognitive review harness with ordered Red, Gray, Green and 42 stages.
+
+OBSERVED IMPLEMENTATION
+
+Real package modules cover findings, lenses, epistemic states, provenance, retrieval, review, engines, and deep-thought handling. The package has explicit tests for provenance and core behavior.
+
+INFERRED FUNCTION
+
+A deterministic protocol/enforcement shell around human or model review rather than an autonomous reasoning engine.
+
+ARCHITECTURE
+
+Three review lenses plus synthesis, with explicit provenance and epistemic label handling.
+
+DATA / ARTIFACTS
+
+Findings, evidence/support links, origin metadata, epistemic transitions, pass records, verdicts, JSON outputs.
+
+INTERFACES
+
+Python package and example scripts.
+
+TESTING
+
+Dedicated test suite and examples; README states accepted/rejected cases are tested.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+Strong match: README repeatedly states that the software does not perform the reasoning itself, and source layout corresponds to enforcement mechanisms rather than “thinking modules.”
+
+DEPENDENCIES
+
+No external dependencies beyond Python standard library.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "GEMS → INTEGRATES → Triad-42" — OBSERVED in GEMS repository history
+- "Triad-42 ↔ TIE" conceptual relationship — INFERRED
+
+MATURITY
+
+FUNCTIONAL.
+
+NEGATIVE FINDINGS
+
+ABSENT: Evidence that Red/Gray/Green reasoning itself is implemented autonomously.
+
+UNKNOWN / CONFLICTED
+
+Whether Triad-42 is a core system component or a review substrate used by other systems is not fully established.
+
+---
+
+CCC
+
+URL: https://github.com/wking53214/CCC
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Dependency-free executable enforcement layer for a “Cognitive Continuity Constitution.”
+
+OBSERVED IMPLEMENTATION
+
+Public facade "ccc.CCCSystem", immutable artifact IDs, provenance and epistemic transitions, separate Chain A/B records, evidence-root cascades, historical lineage, human resolution, audit events and JSON snapshots.
+
+INFERRED FUNCTION
+
+Constitutional continuity/provenance enforcement layer.
+
+ARCHITECTURE
+
+Artifact identity + provenance + epistemic transitions + evidence-root dependency graph + human resolution.
+
+DATA / ARTIFACTS
+
+JSON snapshots and historical audit events.
+
+INTERFACES
+
+CLI/demo/module execution.
+
+TESTING
+
+README explicitly identifies pytest and numbered testing harness.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+OBSERVED: README explicitly says no ratified CCC document or prior harness history is present in the repository. The repository does not invent missing article numbers.
+
+DEPENDENCIES
+
+Standard library only.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+Conceptual overlap with Triad-42, TIE, Resume_OS and HERALD — INFERRED, not direct-import evidence.
+
+MATURITY
+
+FUNCTIONAL.
+
+NEGATIVE FINDINGS
+
+ABSENT: Evidence of current downstream consumers.
+
+UNKNOWN / CONFLICTED
+
+Relationship to the broader ecosystem beyond common provenance concepts is not established by direct imports.
+
+---
+
+innovation_os
+
+URL: https://github.com/wking53214/innovation_os
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "master"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Framework for capturing, connecting, evaluating and developing ideas, with traceability from problem through implementation.
+
+OBSERVED IMPLEMENTATION
+
+The repository is packaged with "pyproject.toml", tests and CLI/demo instructions. Its stated MVP contains problem management, ideation, review, branch, decision replay, code registry, solution, forecast, nature-inspired and human-approval mechanisms.
+
+INFERRED FUNCTION
+
+An innovation workflow and decision-record system.
+
+ARCHITECTURE
+
+Traceability chain, decision records, review/approval structures and code registry.
+
+DATA / ARTIFACTS
+
+Problems, ideas, decisions, branches, reviews, solutions, approvals.
+
+INTERFACES
+
+Python package, CLI, ingestion command, demos.
+
+TESTING
+
+Pytest suite declared.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+The README is a feature catalog; direct source inspection beyond package metadata was limited in this pass, so the implementation depth of every listed MVP capability remains partially uncertain.
+
+DEPENDENCIES
+
+No runtime dependencies listed; pytest development dependency.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+"OBSERVE ← innovation_os memory/artifacts/decisions/episodes" — OBSERVED through copied import paths in OBSERVE.
+
+MATURITY
+
+ACTIVE DEVELOPMENT / FUNCTIONAL.
+
+NEGATIVE FINDINGS
+
+No evidence that all listed MVP subsystems have equal implementation depth.
+
+UNKNOWN / CONFLICTED
+
+The real boundary between innovation_os’s own runtime and its imported memory corpus is not fully established.
+
+---
+
+synapsis
+
+URL: https://github.com/wking53214/synapsis
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "master"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Modular multi-phase code intelligence engine.
+
+OBSERVED IMPLEMENTATION
+
+The repository contains scanning, ".gitignore" handling, AST analysis, symbol extraction, metrics, archaeology modules, snapshots, CLI commands, and archive material.
+
+INFERRED FUNCTION
+
+Repository/code archaeology and structural intelligence engine.
+
+ARCHITECTURE
+
+Analysis → metrics → reporting → snapshots → memory/archaeology → CLI.
+
+DATA / ARTIFACTS
+
+Repository scans, snapshots, metrics, graph data, history/archaeology records and JSON memory.
+
+INTERFACES
+
+CLI plus Python package.
+
+TESTING
+
+CI exists, but many current modules are unusually small. Some command modules are only thin stubs, so feature presence must not be equated with feature depth.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+CONFLICTED/PARTIAL: The README lists a broad feature set, but the tree shows some modules that appear skeletal. The architecture is therefore more mature than some individual features.
+
+DEPENDENCIES
+
+The repository accidentally contains a committed ".venv" tree, including package binaries and site-packages. That is an artifact rather than a meaningful runtime architecture.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "synapsis ← ATS AST extractor variants" — OBSERVED
+- "synapsis ← ARCHIVE AST/code-graph material" — OBSERVED
+- "synapsis ← EDDP AST extractor material" — OBSERVED
+- ATS’s "SynapsisGSA" naming was explicitly renamed to "ATSGovernanceCore" to prevent confusion — OBSERVED
+
+MATURITY
+
+SCAFFOLD / EXPERIMENTAL.
+
+NEGATIVE FINDINGS
+
+No evidence that its broad archaeology CLI surface is fully implemented end-to-end.
+
+UNKNOWN / CONFLICTED
+
+Whether "synapsis" is intended as a general-purpose library or mainly an internal archaeology tool is not settled.
+
+---
+
+EDDP
+
+URL: https://github.com/wking53214/EDDP
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python + Markdown
+
+PURPOSE
+
+OBSERVED: Repository contains multiple generations of EDDP pipeline/engine code and a large transcript/provenance record.
+
+OBSERVED IMPLEMENTATION
+
+Current tree is small but heterogeneous: provenance and 464KB transcript, several engine versions, a pipeline core, telemetry adapters/sources, and an "_unsorted" area.
+
+INFERRED FUNCTION
+
+A staging/consolidation repository for a data/evidence/telemetry pipeline family rather than one finished runtime.
+
+ARCHITECTURE
+
+Multiple historical engine versions coexist.
+
+DATA / ARTIFACTS
+
+Transcript, provenance, Python sources, telemetry adapters, experiment/prototype material.
+
+INTERFACES
+
+Python scripts rather than a clearly packaged service.
+
+TESTING
+
+No dedicated test structure was found in the inspected tree.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+Repository history explicitly moves many capabilities elsewhere and marks unsorted telemetry files as having no confirmed destination.
+
+DEPENDENCIES
+
+Mixed, with historical content derived from CODE and other sources.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "EDDP ← CODE" — OBSERVED
+- "EDDP → GRAPH" — GAPS files moved — OBSERVED
+- "EDDP → GSA-GATEWAY" — governance-stack files moved — OBSERVED
+- "EDDP → OBSERVE" — perception/governance files moved — OBSERVED
+- "EDDP → synapsis" — duplicate AST extractor removed — OBSERVED
+
+MATURITY
+
+EXPERIMENTAL / ARCHIVAL.
+
+NEGATIVE FINDINGS
+
+No current evidence of a single tested production pipeline package.
+
+UNKNOWN / CONFLICTED
+
+The historical name suggests a narrower subsystem than the current archive actually contains.
+
+---
+
+Ecology
+
+URL: https://github.com/wking53214/Ecology
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE(S): Markdown, JSON, Python
+
+PURPOSE
+
+OBSERVED: Corpus/archive holding extractor output, engineering reports, decision records, handoffs, source snapshots and large imported documents.
+
+OBSERVED IMPLEMENTATION
+
+The tree is dominated by corpus content, including large extractor files, reports, handoff documents, decision records, licenses, and other project artifacts.
+
+INFERRED FUNCTION
+
+A broad engineering-memory/corpus repository rather than a primary runtime.
+
+ARCHITECTURE
+
+Corpus-oriented, not service-oriented.
+
+DATA / ARTIFACTS
+
+Large Markdown/TXT/JSON artifacts, engineering reports, extracted source snapshots.
+
+INTERFACES
+
+Primarily file-level artifact access plus small benchmark/pre-commit tooling.
+
+TESTING
+
+Little evidence of a comprehensive executable test suite.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+README-level claims, where present in corpus material, must be treated as historical artifacts rather than current system contracts.
+
+DEPENDENCIES
+
+None established as a runtime package.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+Contains references to Iceberg, DGK, extractors and other historical systems.
+
+MATURITY
+
+ARCHIVAL / CORPUS.
+
+NEGATIVE FINDINGS
+
+No evidence that the corpus itself is the main executing runtime for the systems it documents.
+
+UNKNOWN / CONFLICTED
+
+Whether every artifact in the corpus is still semantically current is unknown.
+
+---
+
+STRIDE
+
+URL: https://github.com/wking53214/STRIDE
+STATUS: 404 / not currently accessible
+VISIBILITY: Unknown current state
+DEFAULT BRANCH: Unknown
+PRIMARY LANGUAGE: Historically Python
+
+PURPOSE
+
+INFERRED from surviving repository evidence: gateway that consumed CITADEL linguistic enforcement logic. CITADEL explicitly describes STRIDE as consuming its enforcement engine, and current Sentinel history says code was salvaged from STRIDE before deletion.
+
+OBSERVED IMPLEMENTATION
+
+Current implementation cannot be inspected because the repository is no longer available at the supplied URL.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "STRIDE → CONSUMES → CITADEL" — OBSERVED historically
+- "sentinel_os ← SALVAGED ← STRIDE" — OBSERVED historically
+- "CITADEL ← SALVAGED FEATURE FROM ← STRIDE" — "prohibited_verbs" — OBSERVED
+
+MATURITY
+
+ARCHIVAL / DELETED.
+
+NEGATIVE FINDINGS
+
+Current source cannot be verified because the repository is unavailable.
+
+UNKNOWN / CONFLICTED
+
+No current repository state can be established.
+
+---
+
+CODE
+
+URL: https://github.com/wking53214/CODE
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Repository containing content-pipeline source and extracted modules.
+
+OBSERVED IMPLEMENTATION
+
+Commit history explicitly identifies a Content Polish Pipeline and describes modules for filters, normalizer, pacer, IVR content, governance wrappers and pipeline orchestration.
+
+INFERRED FUNCTION
+
+A source reservoir / staging ground from which specialized components were extracted.
+
+ARCHITECTURE
+
+Large mixed source file(s) plus extracted modules.
+
+DATA / ARTIFACTS
+
+Pipeline classes, IVR classes, GSA wrappers, business-strategy notes.
+
+INTERFACES
+
+Python scripts and class-level integration points.
+
+TESTING
+
+Limited evidence of a unified test suite.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+History explicitly records removal of fictional or stale dependencies and later extraction into destination repos.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "GSA-GATEWAY ← CODE" — OBSERVED
+- "EDDP ← CODE" — OBSERVED
+- "CODE → retains" — content pipeline/IVR/Omega material — OBSERVED
+
+MATURITY
+
+EXPERIMENTAL / MIGRATION.
+
+NEGATIVE FINDINGS
+
+No evidence that CODE is the final canonical home for most of the governance classes it once contained.
+
+UNKNOWN / CONFLICTED
+
+Current intended role of retained Omega/IVR material is not established.
+
+---
+
+GLCM
+
+URL: https://github.com/wking53214/GLCM
+STATUS: Redirected historical name
+VISIBILITY: Current target repository is public
+DEFAULT BRANCH: Target repository "main"
+
+OBSERVED
+
+The supplied GLCM API path returns a “Moved Permanently” response pointing to repository ID "1333402381"; that ID is the current KAGGLE repository.
+
+INFERRED
+
+GLCM was renamed to KAGGLE or otherwise became the repository currently represented by KAGGLE.
+
+PURPOSE
+
+UNKNOWN from current repository state.
+
+MATURITY
+
+RENAMED / UNKNOWN.
+
+NEGATIVE FINDINGS
+
+No independent current GLCM implementation remains at the supplied URL.
+
+---
+
+GRAPH
+
+URL: https://github.com/wking53214/GRAPH
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Provisional governance/routing/anchor-processing repository consolidated from material previously stored in FACTS.
+
+OBSERVED IMPLEMENTATION
+
+Two canonical GRAPH modules plus a GAPS kernel. The repository history records stripping malformed line tags, fixing a dataclass/slots issue, adding "msgpack", consolidating duplicate variants, and retaining a known caching/hashability bug.
+
+INFERRED FUNCTION
+
+Governance/routing/processing layer combining two different implementation families.
+
+ARCHITECTURE
+
+- dual-payload graph module,
+- simple user/AI envelope module,
+- GAPS kernel.
+
+DATA / ARTIFACTS
+
+Payload envelopes, session-state mappings, extraction modes, hooks, signatures.
+
+INTERFACES
+
+Python modules and runnable demo drivers.
+
+TESTING
+
+Some end-to-end verification exists, but the known "MappingProxyType"/"lru_cache" problem prevents clean execution of key paths.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+The README accurately discloses the remaining bug and the provenance of the merged variants.
+
+DEPENDENCIES
+
+"msgpack".
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "GRAPH ← EDDP" — GAPS kernel — OBSERVED
+- "GRAPH ← FACTS" — main GRAPH family — OBSERVED
+- "GRAPH → synapsis" for AST extractor variants — OBSERVED
+
+MATURITY
+
+FUNCTIONAL BUT INCOMPLETE.
+
+NEGATIVE FINDINGS
+
+Known runnable-path failure remains.
+
+UNKNOWN / CONFLICTED
+
+Whether the two GRAPH families are meant to converge is not established.
+
+---
+
+DIT
+
+URL: https://github.com/wking53214/DIT
+STATUS: 404 / not currently accessible
+VISIBILITY: Unknown
+DEFAULT BRANCH: Unknown
+PRIMARY LANGUAGE: Historically Python
+
+PURPOSE
+
+INFERRED: Historical central repository for deterministic AST/code-analysis material.
+
+OBSERVED
+
+ATS history contains a commit explicitly moving an AST deterministic extractor into DIT.
+
+MATURITY
+
+DELETED / ARCHIVAL UNKNOWN.
+
+NEGATIVE FINDINGS
+
+Current implementation unavailable.
+
+UNKNOWN
+
+Whether any DIT code remains elsewhere under a different current repository name.
+
+---
+
+ATS
+
+URL: https://github.com/wking53214/ATS
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Applicant-tracking governance/bias analysis system.
+
+OBSERVED IMPLEMENTATION
+
+The tree contains multiple real Python modules for counters, embeddings, statistics, governance bridge/kernel, governor logic and GSA core, plus extensive explanatory documents and PDF analyses.
+
+INFERRED FUNCTION
+
+Evidence-producing governance layer around applicant-tracking decisions, especially bias and counterfactual analysis.
+
+ARCHITECTURE
+
+Governor, counter-system, statistics/embeddings, governance-kernel bridge, supporting evidence.
+
+DATA / ARTIFACTS
+
+Bias analyses, audit PDFs, governance documents, demo outputs.
+
+INTERFACES
+
+Python modules and direct demos.
+
+TESTING
+
+Evidence of executable demonstrations and verification; no large dedicated test package was established from the current root tree.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+History explicitly caught and removed references to a fictional "worst_system.py", corrected documentation counts, and documented missing capabilities rather than silently assuming replacement equivalence.
+
+DEPENDENCIES
+
+"requirements.txt"; scientific dependencies such as scipy/scikit-learn were added after runtime import failures were discovered.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "ATS ← Claude_History" for recovered files — OBSERVED
+- "ATS → synapsis" for AST extraction material — OBSERVED
+- "ATS → DIT" for deterministic extractor material, historically — OBSERVED
+- "ATS → CONTAINS governance-kernel bridge" — OBSERVED
+
+MATURITY
+
+FUNCTIONAL / EXPERIMENTAL.
+
+NEGATIVE FINDINGS
+
+Some previously documented detection capabilities were explicitly removed or marked as gaps.
+
+UNKNOWN / CONFLICTED
+
+The relationship between ATS’s governance kernel and the broader Sentinel/GSA kernel family remains partly unresolved.
+
+---
+
+CITADEL
+
+URL: https://github.com/wking53214/CITADEL
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Deterministic LLM-output enforcement engine using regex-based detection, scoring and rewriting.
+
+OBSERVED IMPLEMENTATION
+
+"CitadelDetector", "CitadelTransformer", "CitadelScorer", "Citadel" and a v1.2 variant adding "prohibited_verbs".
+
+INFERRED FUNCTION
+
+A constrained language-output hygiene/filtering subsystem.
+
+ARCHITECTURE
+
+Detect → score → transform.
+
+DATA / ARTIFACTS
+
+Text outputs, constraints, profiles and penalties.
+
+INTERFACES
+
+Python modules and likely direct execution.
+
+TESTING
+
+Current repository history documents direct end-to-end checks of v1.2.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+Strong correspondence between README and source.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "STRIDE → CONSUMES → CITADEL" — OBSERVED historically
+- "CITADEL ← STRIDE" for "prohibited_verbs" — OBSERVED
+
+MATURITY
+
+FUNCTIONAL.
+
+NEGATIVE FINDINGS
+
+Current gateway consumer is absent because STRIDE is no longer available.
+
+UNKNOWN
+
+Whether CITADEL is currently embedded elsewhere is not established.
+
+---
+
+OBSERVE
+
+URL: https://github.com/wking53214/OBSERVE
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Observation/perception/clinical-governance family containing adapters, source modules and imported historical implementations.
+
+OBSERVED IMPLEMENTATION
+
+Current tree includes clinical capacity orchestration, clinical governance ledger, clinical signal validator, GSA-815 imports, Gemini-history imports, innovation_os memory imports and living-memory corpora.
+
+INFERRED FUNCTION
+
+A consolidation target for perception/observation/clinical governance components rather than a single clean package.
+
+ARCHITECTURE
+
+Adapter/source pairs plus imported snapshots.
+
+DATA / ARTIFACTS
+
+YAML memory records, Python source snapshots, ZIP archives and copied corpora.
+
+INTERFACES
+
+Python adapters and imported integration surfaces.
+
+TESTING
+
+CI workflow exists.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+No root README was found. Documentation therefore cannot serve as the main architectural authority; the source tree and commit history are more reliable.
+
+DEPENDENCIES
+
+Some live consumers appear to expect modules such as "observe_perceive_core"; the existence of copied source does not prove package-level installability.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "OBSERVE ← GSA-815" — OBSERVED
+- "OBSERVE ← Gemini_History" — OBSERVED
+- "OBSERVE ← innovation_os" — OBSERVED
+- "OBSERVE ← ARCHIVE" — OBSERVED
+- "OBSERVE ← EDDP" — OBSERVED
+- "OBSERVE ↔ sentinel_os" through perceptual/governance material — OBSERVED/PARTIAL
+
+MATURITY
+
+ACTIVE DEVELOPMENT / MIXED.
+
+NEGATIVE FINDINGS
+
+ABSENT: A single clearly packaged, standalone OBSERVE release boundary.
+
+UNKNOWN / CONFLICTED
+
+Several imported systems are explicitly older or superseded snapshots.
+
+---
+
+GEMS
+
+URL: https://github.com/wking53214/GEMS
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python/Markdown
+
+PURPOSE
+
+OBSERVED: Reconstruction baseline for a historical “GEMS” architecture.
+
+OBSERVED IMPLEMENTATION
+
+The repository intentionally implements minimal deterministic contracts and adapters for recovered requirements.
+
+INFERRED FUNCTION
+
+Typed/human-governed handoff architecture for role-oriented cognitive components.
+
+ARCHITECTURE
+
+Contracts, core registry/router/workflow coordinator, governance boundary, TIE adapter, Triad-42 integration.
+
+DATA / ARTIFACTS
+
+Typed provenance/epistemic contracts, schemas, preserved prompts.
+
+INTERFACES
+
+Python package and adapters.
+
+TESTING
+
+Repository history reports 7 passing tests at reconstruction baseline.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+The README is unusually explicit about what is not recovered: canonical repository tree, universal schema, production implementations, transport/API and database/deployment.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "GEMS → INTEGRATES → TIE" — OBSERVED
+- "GEMS → INTEGRATES → Triad-42" — OBSERVED
+
+MATURITY
+
+PROTOTYPE / RECONSTRUCTION.
+
+NEGATIVE FINDINGS
+
+Historical canonical implementation is not present.
+
+UNKNOWN
+
+Whether GEMS’s reconstruction corresponds exactly to any historical production system.
+
+---
+
+VANGUARD
+
+URL: https://github.com/wking53214/VANGUARD
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Destination repository for two files deliberately moved out of DGK.
+
+OBSERVED IMPLEMENTATION
+
+Current repository is very small.
+
+INFERRED FUNCTION
+
+Specialized behavior/simulation/governance module family.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+"VANGUARD ← DGK" — OBSERVED
+
+MATURITY
+
+SCAFFOLD / EXPERIMENTAL.
+
+NEGATIVE FINDINGS
+
+The current repository does not contain evidence of a broad standalone system.
+
+UNKNOWN
+
+Full historical DGK context is not available in this current account census.
+
+---
+
+FORTRESS
+
+URL: https://github.com/wking53214/FORTRESS
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Consolidated predictive/integrity control family.
+
+OBSERVED IMPLEMENTATION
+
+Four variants are explicitly documented. "fortress_kernel.py" is described as the only genuinely complete, self-contained tested implementation. "PredictiveStateController.py" is real but corrupted by the ARCHIVE source pipeline. "Fortress_orchestrator_incomplete.py" has real orchestration logic but missing dependencies. "PredictiveIntegrityController.py" is independently written and runs cleanly.
+
+INFERRED FUNCTION
+
+Predictive system-state monitoring and guardrail/control mechanisms.
+
+ARCHITECTURE
+
+State prediction, integrity checking, hysteresis/override, provenance verification, gradient tracking and causal-divergence detection.
+
+DATA / ARTIFACTS
+
+State vectors, control outputs, provenance signatures, diagnostics.
+
+INTERFACES
+
+Python scripts.
+
+TESTING
+
+At least one variant ("PredictiveIntegrityController.py") has a built-in 21-step stress harness.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+The README explicitly warns against marketing-language overclaiming in the kernel.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "FORTRESS ← sentinel_os" — "fortress_kernel.py" copied — OBSERVED
+- "FORTRESS ← ARCHIVE" — two variants — OBSERVED
+- "FORTRESS ← Claude_History" — fourth variant — OBSERVED
+
+MATURITY
+
+MIXED FUNCTIONAL / EXPERIMENTAL.
+
+NEGATIVE FINDINGS
+
+Several variants are incomplete or corrupted.
+
+UNKNOWN
+
+Whether there is one canonical long-term implementation or merely a family of preserved variants.
+
+---
+
+ANVIL
+
+URL: https://github.com/wking53214/ANVIL
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Deterministic hash-chained governance kernel with fail-closed execution lineage.
+
+INFERRED FUNCTION
+
+Governance/integrity enforcement for proving what executed and whether lineage changed.
+
+ARCHITECTURE
+
+Hash chaining, governance kernel, execution validation.
+
+TESTING
+
+Repository history shows ANVIL being actively used as a real target by ghost_tools and manually inspected to distinguish real findings from false positives.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "ghost_tools → DOGFOODS → ANVIL" — OBSERVED
+- Conceptual overlap with "HERALD", "Conservation_Kernel", "sentinel_os" — INFERRED
+
+MATURITY
+
+FUNCTIONAL.
+
+NEGATIVE FINDINGS
+
+No evidence of broad external consumers.
+
+---
+
+ARCHIVE
+
+URL: https://github.com/wking53214/ARCHIVE
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE(S): JSON, Python, Markdown
+
+PURPOSE
+
+OBSERVED: Historical “System Architecture and Integration Report” corpus.
+
+OBSERVED IMPLEMENTATION
+
+Contains eight JSON payloads, extracted code, provenance, transcripts, and reports. It explicitly documents two forms of source corruption: flattened indentation and doubled-character collapse.
+
+INFERRED FUNCTION
+
+Historical source preservation and forensic recovery workspace.
+
+DATA / ARTIFACTS
+
+Raw report JSON, extracted code, provenance, transcript records.
+
+INTERFACES
+
+File-level forensic access, not a runtime service.
+
+TESTING
+
+Testing is artifact-specific rather than repository-wide.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+This repository is strongest where it explicitly labels corruption, duplicates, missing dependencies, and historical drift.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+It has served as source material for:
+
+- GSA-GATEWAY,
+- EDDP,
+- OBSERVE,
+- synapsis,
+- FORTRESS,
+- CITADEL-related history,
+- and other extracted systems.
+
+MATURITY
+
+ARCHIVAL.
+
+NEGATIVE FINDINGS
+
+Not a coherent executable system.
+
+UNKNOWN
+
+Historical reports contain architecture claims that may not correspond to surviving code.
+
+---
+
+Resume_OS
+
+URL: https://github.com/wking53214/Resume_OS
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE(S): Python, SQLite, Markdown
+
+PURPOSE
+
+OBSERVED: Evidence-backed professional-history system centered on a SQLite “Master Operational Baseline.”
+
+OBSERVED IMPLEMENTATION
+
+Source ingestion, extraction, draft/promote states, review CLI, SQL schema, matching, generation, polishing, and validation.
+
+INFERRED FUNCTION
+
+A provenance-preserving document-generation system.
+
+ARCHITECTURE
+
+Source → extraction → human review → production MOB → generation → validation.
+
+DATA / ARTIFACTS
+
+SQLite database, source documents, JSON extraction runs, evidence links.
+
+INTERFACES
+
+CLI and SQL.
+
+TESTING
+
+README reports 38 passing tests.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+This is a strong case where implementation matches the “AI proposes; humans authorize” principle. The README explicitly reports 68 artifacts extracted but 0 in the production MOB.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+Conceptual overlap with HERALD, CCC, Triad-42 and TIE — INFERRED.
+
+MATURITY
+
+FUNCTIONAL BUT NOT YET USABLE according to its own state.
+
+NEGATIVE FINDINGS
+
+The production dataset is intentionally empty pending human review.
+
+UNKNOWN
+
+Whether it is intended to become a general-purpose evidence/document system beyond resumes.
+
+---
+
+TBCA
+
+URL: https://github.com/wking53214/TBCA
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Unknown
+
+PURPOSE
+
+UNKNOWN.
+
+The repository exists and is small, but the supplied root README path was not found.
+
+OBSERVED IMPLEMENTATION
+
+Insufficient evidence from the inspected root material to classify its implementation responsibly.
+
+MATURITY
+
+UNKNOWN.
+
+NEGATIVE FINDINGS
+
+ABSENT: Sufficient documentation/source evidence for a reliable functional classification.
+
+UNKNOWN / CONFLICTED
+
+This repository should be a priority for Pass 2 historical archaeology.
+
+---
+
+ChatGPT_History
+
+URL: https://github.com/wking53214/ChatGPT_History
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE(S): JSON, Markdown, Python
+
+PURPOSE
+
+OBSERVED: Historical conversation corpus repository.
+
+IMPLEMENTATION
+
+Likely data-extraction/preservation rather than a runtime application.
+
+DATA / ARTIFACTS
+
+Conversation records, transcripts, summaries, indexes.
+
+INTERFACES
+
+File-level corpus access and any processing scripts.
+
+MATURITY
+
+ARCHIVAL.
+
+NEGATIVE FINDINGS
+
+No evidence that this is a production software component.
+
+UNKNOWN
+
+Exact conversation count and processing pipeline were not separately resolved in this pass.
+
+---
+
+Claude_History
+
+URL: https://github.com/wking53214/Claude_History
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE(S): JSON, Markdown, Python
+
+PURPOSE
+
+OBSERVED: Structured Claude conversation-history archive and extraction pipeline.
+
+OBSERVED IMPLEMENTATION
+
+Repository history reports 265 conversations and 10,721 messages, with per-conversation raw JSONL, anonymization map, manifest, Markdown transcripts, summaries, an analysis notebook and a real processing script. The original 225MB export was split because of GitHub file limits.
+
+INFERRED FUNCTION
+
+Long-term historical memory/corpus repository.
+
+MATURITY
+
+ARCHIVAL / FUNCTIONAL TOOLING.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+It has supplied recovered files to ATS and FORTRESS and imported source material into other repositories.
+
+NEGATIVE FINDINGS
+
+It is not itself a software runtime.
+
+UNKNOWN
+
+Archive completeness relative to all historical conversations.
+
+---
+
+Gemini_History
+
+URL: https://github.com/wking53214/Gemini_History
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE(S): JSON, Markdown
+
+PURPOSE
+
+OBSERVED: Gemini conversation-history corpus.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+"OBSERVE ← Gemini_History" — OBSERVED through imported ZIP artifacts.
+
+MATURITY
+
+ARCHIVAL.
+
+UNKNOWN
+
+Exact corpus completeness and current extraction tooling.
+
+---
+
+CoPilot_History
+
+URL: https://github.com/wking53214/CoPilot_History
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE(S): JSON, Markdown
+
+PURPOSE
+
+OBSERVED: Copilot historical corpus.
+
+MATURITY
+
+ARCHIVAL.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+Used as part of the larger historical reconstruction corpus, but no direct current runtime dependency was established.
+
+UNKNOWN
+
+Exact corpus scope and processing depth.
+
+---
+
+HERALD
+
+URL: https://github.com/wking53214/HERALD
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Natural-language interpretation layer.
+
+OBSERVED IMPLEMENTATION
+
+Real package modules include:
+
+- "boundary.py"
+- "source.py"
+- "claim.py"
+- "extract.py"
+- "ambiguity.py"
+- "gate.py"
+- "handoff.py"
+- "binding.py"
+- "calibration.py"
+- "golden_set.py"
+
+with CI and an extensive adversarial test suite.
+
+INFERRED FUNCTION
+
+A reusable text-to-claim boundary that stops before domain decision-making.
+
+ARCHITECTURE
+
+Source ingestion → extraction → claim construction → confidence gating → handoff.
+
+DATA / ARTIFACTS
+
+Claims, source identity, standing, content hashes, anchors, refusals, verdicts, export MACs.
+
+INTERFACES
+
+Python package and demo CLI.
+
+TESTING
+
+Repository history records repeated live adversarial campaigns and remediation. Latest observed merge reports 303 passed/25 skipped.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+Strong implementation correspondence. A notable current discrepancy is the README’s earlier 296-test count versus later 303-test reality, which history records as corrected.
+
+DEPENDENCIES
+
+Standard-library posture.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+Direct consuming-project integration is described conceptually; however, no current package dependency on another repository was established.
+
+MATURITY
+
+FUNCTIONAL / ACTIVE DEVELOPMENT.
+
+NEGATIVE FINDINGS
+
+The README states that no consuming project is currently wired in.
+
+UNKNOWN
+
+Whether HERALD will become the universal text interpretation layer for all current repositories.
+
+---
+
+TIE
+
+URL: https://github.com/wking53214/TIE
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Reconstructed Transcript Intelligence Engine.
+
+OBSERVED IMPLEMENTATION
+
+Source, coverage, evidence, artifacts, identity references, relationships, reconstruction, validation, knowledge views, typed handoff and routing are represented in a reconstructed runtime.
+
+INFERRED FUNCTION
+
+Evidence-preserving historical/transcript processing and typed handoff.
+
+ARCHITECTURE
+
+Evidence graph plus reconstruction and routing layers.
+
+DATA / ARTIFACTS
+
+Transcript-derived records, evidence packages, relationships and reconstruction structures.
+
+INTERFACES
+
+Python package.
+
+TESTING
+
+Repository history reports 9 passing tests at reconstruction baseline.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+Critical limitation is explicit: the original complete repository and exact historical schemas were not recovered.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "GEMS → TIE" — OBSERVED
+- "TIE ↔ historical corpora" — INFERRED
+
+MATURITY
+
+PROTOTYPE / RECONSTRUCTION.
+
+NEGATIVE FINDINGS
+
+Historical canonical implementation unavailable.
+
+UNKNOWN
+
+How closely the reconstructed API matches the historical system.
+
+---
+
+KAGGLE
+
+URL: https://github.com/wking53214/KAGGLE
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+
+PURPOSE
+
+UNKNOWN from the inspected evidence.
+
+OBSERVED
+
+Current repository identity is the same repository ID to which GLCM redirects.
+
+MATURITY
+
+UNKNOWN.
+
+NEGATIVE FINDINGS
+
+No reliable functional interpretation was established without over-reading the name.
+
+UNKNOWN
+
+Pass 2 should resolve the historical GLCM/KAGGLE transition and inspect what the repository actually contains.
+
+---
+
+ghost_tools
+
+URL: https://github.com/wking53214/ghost_tools
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Tooling for detecting “ghosts” in code repositories: dead code, duplication, documentation drift and related structural problems.
+
+OBSERVED IMPLEMENTATION
+
+Repository history describes:
+
+- mechanical AST detectors,
+- semantic detector with Anthropic-backed and stub clients,
+- baselines,
+- stable content-hash finding IDs,
+- CLI,
+- report generation,
+- correction proposals.
+
+INFERRED FUNCTION
+
+Repository-quality/archaeology tool that detects structural divergence between code and documentation.
+
+TESTING
+
+Version 0.3 history reports 47 passed / 0 failed and live checks against HERALD, ANVIL and CITADEL.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+Strong: the tool explicitly separates discovery from human disposition, and correction generation does not write files automatically.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "ghost_tools → DOGFOODS → HERALD" — OBSERVED
+- "ghost_tools → DOGFOODS → ANVIL" — OBSERVED
+- "ghost_tools → REGRESSION-CHECKS → CITADEL" — OBSERVED
+
+MATURITY
+
+FUNCTIONAL / ACTIVE DEVELOPMENT.
+
+NEGATIVE FINDINGS
+
+No evidence that ghost_tools is itself a governance component; it is a developer/archaeology tool.
+
+---
+
+4. CROSS-REPOSITORY ARCHITECTURE
+
+OBSERVED RELATIONSHIPS
+
+Direct extraction / migration graph
+
+CODE
+ ├──→ EDDP
+ └──→ GSA-GATEWAY
+
+EDDP
+ ├──→ GRAPH
+ ├──→ GSA-GATEWAY
+ └──→ OBSERVE
+
+GSA-815
+ └──→ OBSERVE
+
+ARCHIVE
+ ├──→ FORTRESS
+ ├──→ OBSERVE
+ ├──→ synapsis
+ └──→ historical evidence for multiple other systems
+
+ATS
+ ├──→ synapsis
+ └──→ historical DIT
+
+sentinel_os
+ └──→ FORTRESS
+
+DGK
+ ├──→ GSA-GATEWAY
+ └──→ VANGUARD
+
+Claude_History
+ ├──→ ATS
+ └──→ FORTRESS
+
+Gemini_History
+ └──→ OBSERVE
+
+innovation_os
+ └──→ OBSERVE memory imports
+
+These are OBSERVED because the repository histories explicitly state the moves.
+
+Direct dependency
+
+"GSA-815 → DEPENDS ON → sentinel_os" — OBSERVED
+
+This is the strongest formal runtime dependency established in the census. "GSA-815" explicitly says that its kernel modules are deliberately not copied and that it is not meant to run standalone.
+
+---
+
+INFERRED RELATIONSHIPS
+
+Shared governance/evidence family
+
+The following repositories independently implement some combination of provenance, verification, human authority, epistemic state, evidence or deterministic validation:
+
+- sentinel_os
+- Conservation_Kernel
+- HERALD
+- Triad-42
+- CCC
+- Resume_OS
+- TIE
+- GEMS
+- ANVIL
+- ATS
+- GSA-GATEWAY
+- OBSERVE
+
+This is INFERRED conceptual overlap, not proof of one shared implementation.
+
+Possible layered architecture
+
+A plausible evidence-based interpretation is:
+
+Historical / source material
+        ↓
+   TIE / ARCHIVE / History repos
+        ↓
+Interpretation / extraction
+        ↓
+       HERALD
+        ↓
+Review / epistemic controls
+        ↓
+Triad-42 / CCC / GEMS
+        ↓
+Governance / decision enforcement
+        ↓
+Sentinel / Conservation / GSA / ATS / ANVIL / OBSERVE
+        ↓
+Domain-specific systems / adapters
+
+This is INFERRED, not an observed runtime graph.
+
+The codebase does not currently prove that these layers are wired into one execution path.
+
+---
+
+CONFLICTED RELATIONSHIPS
+
+“Canonical” implementations
+
+Several repositories contain a source that is called canonical in one context while copies remain elsewhere.
+
+Example:
+
+- FORTRESS calls a copied "fortress_kernel.py" the canonical reference copy.
+- sentinel_os still contains and actively wires the same kernel into its tested package.
+
+This is CONFLICTED terminology, not necessarily conflicting code.
+
+Historical schemas
+
+GEMS and TIE explicitly state that historical canonical schemas were not recovered. Their current schemas therefore cannot be treated as historical originals.
+
+Documentation vs current test counts
+
+HERALD’s README historically stated 296 tests while subsequent commits report 303. Repository history explicitly corrected this. The conflict is historical documentation drift, not evidence of two runtimes.
+
+---
+
+UNKNOWN RELATIONSHIPS
+
+Several repositories look related by vocabulary but lack direct-import evidence:
+
+- Conservation_Kernel ↔ Sentinel OS
+- Conservation_Kernel ↔ HERALD
+- CCC ↔ Sentinel OS
+- TIE ↔ Sentinel OS
+- GEMS ↔ Sentinel OS
+- FORTRESS ↔ Conservation_Kernel
+- VANGUARD ↔ Sentinel OS
+
+These should not be promoted to observed relationships without additional evidence.
+
+---
+
+5. FUNCTIONAL CLUSTERS
+
+Cluster A — Governance / Evidence Kernels
+
+Primary members:
+
+- sentinel_os
+- Conservation_Kernel
+- ANVIL
+- CCC
+- HERALD
+
+Evidence
+
+All have executable code dealing with integrity, provenance, governance boundaries, validation or evidence preservation.
+
+Interpretation
+
+This is the most mature architectural family, but it is fragmented across multiple kernels.
+
+---
+
+Cluster B — Review / Epistemic / Human-Authorization Systems
+
+Primary members:
+
+- Triad-42
+- CCC
+- HERALD
+- GEMS
+- TIE
+- Resume_OS
+- innovation_os
+
+Evidence
+
+Repeated use of:
+
+- explicit epistemic labels,
+- human authorization,
+- provenance,
+- review gates,
+- historical records,
+- “unknown” as an explicit state,
+- refusal over silent acceptance.
+
+Interpretation
+
+These systems appear conceptually compatible, but no common runtime protocol was established.
+
+---
+
+Cluster C — GSA / Governance-Stack Consolidation
+
+Primary members:
+
+- GSA-GATEWAY
+- GSA-815
+- GRAPH
+- EDDP
+- CODE
+- OBSERVE
+
+Evidence
+
+Actual code movement between the repositories is heavily documented in Git history.
+
+Interpretation
+
+This is the clearest repository lineage cluster in the census.
+
+---
+
+Cluster D — Domain-Specialized Governance
+
+Primary members:
+
+- ATS
+- OBSERVE
+- CITADEL
+- GSA-815
+- VANGUARD
+- FORTRESS
+
+Interpretation
+
+These are specialized systems rather than one general kernel.
+
+---
+
+Cluster E — Code Intelligence / Archaeology
+
+Primary members:
+
+- synapsis
+- ghost_tools
+
+Interpretation
+
+These are development-support systems used to inspect and improve the larger ecosystem itself.
+
+---
+
+Cluster F — Historical / Forensic Corpus
+
+Primary members:
+
+- ARCHIVE
+- Ecology
+- ChatGPT_History
+- Claude_History
+- Gemini_History
+- CoPilot_History
+- TIE
+- GEMS
+
+Interpretation
+
+This cluster is not peripheral. It is a source-of-truth layer for reconstruction work, though not all historical material is itself trustworthy or complete.
+
+---
+
+6. DUPLICATION / FRAGMENTATION MAP
+
+Capability| Repositories| Evidence| Likely explanation| Confidence
+Provenance / evidence lineage| sentinel_os, Conservation_Kernel, HERALD, CCC, Triad-42, TIE, GEMS, Resume_OS| Real source/docs/tests in each| Intentional specialization + repeated evolution| High
+Hashing / tamper evidence| sentinel_os, Conservation_Kernel, ANVIL, HERALD, Resume_OS, CITADEL-related systems| Hash/chained/sealed records or validation mechanisms| Shared design pressure, not one shared library| High
+Human authorization gates| HERALD, Triad-42, CCC, Resume_OS, GEMS, innovation_os| Explicit human-review/promotion logic| Intentional governance principle| High
+Governance kernels| sentinel_os, Conservation_Kernel, ATS, GSA-GATEWAY, ANVIL| Multiple independent kernel-like modules| Evolution / experimentation / domain specialization| High
+AST / graph extraction| synapsis, ATS history, GRAPH history, ARCHIVE/EDDP variants| Explicit file moves and duplicate elimination| Consolidation| High
+Natural-language filtering| CITADEL, CODE historical material, HERALD| Actual filter/extraction systems| Partial overlap, different stages| Medium
+Historical memory| ARCHIVE, History repos, Ecology, TIE, innovation_os| Corpus and provenance structures| Intentional continuity strategy| High
+Predictive control / state governance| FORTRESS variants, Sentinel/SAGE-K material| Multiple real variants| Experimentation and extraction| High
+Clinical observation/governance| OBSERVE, ARCHIVE snapshots, EDDP sources| Copy/migration history| Domain consolidation| High
+Governance wrappers/adapters| GSA-GATEWAY, GSA-815, CODE, OBSERVE, EDDP| Explicit extraction history| Architectural decomposition| High
+
+Likely causes of duplication
+
+Intentional specialization — HIGH
+
+Many duplicate capabilities are in genuinely different semantic roles.
+
+Example:
+
+- HERALD extracts claims,
+- Triad-42 reviews,
+- Sentinel governs,
+- Resume_OS generates from approved evidence.
+
+These are not necessarily competing implementations.
+
+Evolution — HIGH
+
+A large amount of duplication is plainly historical. Repositories retain old variants while newer versions are moved elsewhere.
+
+Extraction/consolidation — HIGH
+
+This is directly established by commit history for GSA-GATEWAY, EDDP, GRAPH, OBSERVE, synapsis and FORTRESS.
+
+Accidental duplication — MEDIUM
+
+Some duplicate AST extractors and governance modules existed in repositories where they were not actually needed. The ecosystem has actively pruned some of these, which suggests at least some duplication was accidental or opportunistic.
+
+---
+
+7. ARCHITECTURAL EVOLUTION
+
+Generation 1 — Large mixed source reservoirs
+
+Repositories such as:
+
+- CODE
+- ARCHIVE
+- EDDP
+- FACTS historically
+- DGK historically
+
+contain heterogeneous material with multiple systems mixed together.
+
+OBSERVED: repository histories show later extraction of components from these reservoirs.
+
+---
+
+Generation 2 — Named destination repositories
+
+The next stage creates dedicated homes:
+
+- GSA-GATEWAY
+- GRAPH
+- OBSERVE
+- FORTRESS
+- synapsis
+- VANGUARD
+- GEMS
+- TIE
+
+This is not merely conceptual restructuring. Git history records the physical moves.
+
+---
+
+Generation 3 — Integrity and boundary hardening
+
+Repositories such as:
+
+- HERALD
+- Conservation_Kernel
+- ANVIL
+- CCC
+- Sentinel OS
+
+show stronger emphasis on adversarial testing, explicit refusal, sealing, provenance and fail-closed behavior.
+
+HERALD’s HMAX campaign is particularly clear evidence of a transition from “implement the mechanism” to “attack the mechanism, isolate failure primitives, then encode them as regression tests.”
+
+---
+
+Generation 4 — Archaeological self-observation
+
+"ghost_tools" and "synapsis" represent an additional layer: tooling that inspects codebases and detects structural ghosts, stale documentation, duplication and code archaeology signals.
+
+This is qualitatively different from ordinary application tooling.
+
+INFERRED evolution
+
+The ecosystem appears to be developing tools for maintaining the ecosystem’s own historical and architectural integrity.
+
+That is a significant architectural pattern, but it remains an inference rather than a declared system-level design.
+
+---
+
+8. ORPHANS / STRAYS / INCOMPLETE SYSTEMS
+
+Clearly orphaned or historical
+
+STRIDE
+
+Current repository unavailable. Its functionality survives partially through salvaged components.
+
+DIT
+
+Current repository unavailable. Some deterministic material was moved into it historically, but its current contents are gone.
+
+GLCM
+
+Current name resolves to KAGGLE repository identity.
+
+---
+
+Incomplete systems
+
+GRAPH
+
+Known runtime failure involving unhashable mapping structures and caching.
+
+FORTRESS
+
+Several variants are incomplete or corrupted, despite one clean implementation.
+
+GSA-GATEWAY
+
+Some modules are stubs or consolidation remnants rather than complete production components.
+
+EDDP
+
+Multiple historical versions and no unified tested package.
+
+synapsis
+
+Broad CLI/architecture claims coexist with many very small or skeletal modules.
+
+OBSERVE
+
+Large imported corpus plus current adapters, but no clearly packaged unified runtime.
+
+TIE
+
+Functional reconstruction, but historical canonical implementation absent.
+
+GEMS
+
+Functional reconstruction, not recovered original.
+
+Resume_OS
+
+Executable and tested, but its own state says production MOB contains zero promoted artifacts.
+
+TBCA
+
+Insufficient evidence.
+
+---
+
+9. MISSING ARCHITECTURE
+
+9.1 Shared package boundary between Sentinel and GSA-815
+
+NOT FOUND: A published/installable package interface that replaces the current “put Sentinel on PYTHONPATH” arrangement.
+
+This is not speculation. GSA-815 explicitly documents that it is not standalone and lists Sentinel-local kernel modules as external dependencies.
+
+---
+
+9.2 Unified ecosystem-wide schema
+
+NOT FOUND: One canonical schema shared by:
+
+- Sentinel,
+- HERALD,
+- Triad-42,
+- CCC,
+- TIE,
+- GEMS,
+- Resume_OS,
+- Conservation_Kernel.
+
+Instead, each repository defines its own evidence/provenance/claim/artifact structures.
+
+This does not make the systems incompatible; it means compatibility is not currently established by a common schema.
+
+---
+
+9.3 Unified package/dependency graph
+
+NOT FOUND: A current repository that acts as a canonical ecosystem manifest.
+
+The account has multiple direct copies and extracted modules, but no central package metadata establishing the whole graph.
+
+---
+
+9.4 Current canonical home for some historical components
+
+NOT FOUND / UNKNOWN:
+
+- STRIDE gateway implementation
+- DIT repository contents
+- historical FACTS/DGK/SAGE-K source boundaries
+- original TIE source
+- original GEMS source
+
+Some components were recovered or reconstructed, but their historical source systems are gone.
+
+---
+
+9.5 Full runtime interface across major subsystems
+
+NOT FOUND: A verified end-to-end path such as:
+
+"historical transcript → TIE → HERALD → Triad/CCC → Sentinel → domain adapter"
+
+Parts exist independently, but the current repositories do not prove that this full path runs as one system.
+
+---
+
+9.6 Independent deployment evidence
+
+UNKNOWN: There is deployment material in Sentinel, but no evidence in this pass of a fully deployed ecosystem integrating all major repositories.
+
+---
+
+10. THE EMERGENT SYSTEM
+
+Only after examining the repository evidence, the following system emerges.
+
+The system is not one application
+
+OBSERVED: There are multiple independent executable systems.
+
+They do not share one package boundary, one schema, one test suite, or one deployment mechanism.
+
+Therefore the ecosystem should not be described as a single current software product.
+
+What does emerge is a layered ecosystem
+
+Layer 1 — Historical source and memory
+
+"ChatGPT_History", "Claude_History", "Gemini_History", "CoPilot_History", "ARCHIVE", "Ecology"
+
+These preserve conversation records, extracted artifacts, source snapshots and provenance.
+
+Layer 2 — Reconstruction and historical intelligence
+
+"TIE", "GEMS", "synapsis"
+
+These turn historical material and software structure into reusable representations.
+
+Layer 3 — Interpretation and review
+
+"HERALD", "Triad-42", "CCC", "innovation_os"
+
+These enforce boundaries around claims, epistemic states, provenance, review and human authorization.
+
+Layer 4 — Governance and integrity kernels
+
+"sentinel_os", "Conservation_Kernel", "ANVIL"
+
+These implement deterministic enforcement, sealing, ledgering, verification and integrity.
+
+Layer 5 — Domain/specialized implementations
+
+"GSA-815", "GSA-GATEWAY", "ATS", "OBSERVE", "CITADEL", "FORTRESS", "VANGUARD", "GRAPH", "EDDP", "CODE"
+
+These hold domain-specific or extracted mechanisms.
+
+Layer 6 — Meta-tooling
+
+"ghost_tools"
+
+This inspects the code ecosystem itself for duplication, dead code and documentation drift.
+
+---
+
+The most defensible architectural interpretation
+
+INFERRED: The ecosystem is an evolving evidence-governed software ecology, not a single application.
+
+Its recurring invariant is:
+
+«a claim, action, artifact or decision should preserve enough provenance and structure that a later reviewer can determine where it came from, what changed, what authority was involved, and what is still uncertain.»
+
+That invariant appears in multiple independent implementations.
+
+The repositories differ in implementation:
+
+- HERALD focuses on language-derived claims,
+- Triad-42 on staged review,
+- CCC on constitutional continuity,
+- Resume_OS on evidence-backed artifact generation,
+- Conservation_Kernel on state conservation,
+- Sentinel on governance/evidence,
+- ATS on hiring governance,
+- CITADEL on output filtering,
+- TIE on historical/transcript evidence,
+- GEMS on reconstructed cognitive handoffs,
+- synapsis/ghost_tools on code archaeology.
+
+So the commonality is real, but it is architectural and methodological more than runtime-integrational.
+
+The ecosystem’s strongest unusual property
+
+The repository history shows the system being repeatedly reconstructed from its own historical artifacts, with explicit preservation of uncertainty.
+
+ARCHIVE, GEMS and TIE do not pretend that missing historical code exists.
+
+ATS records where a component was reconstructed from Claude history.
+
+FORTRESS preserves multiple variants rather than flattening them into one invented “canonical” implementation.
+
+GRAPH records known broken behavior rather than silently repairing it.
+
+HERALD preserves adversarial findings as executable regression knowledge.
+
+That means the ecosystem contains not just software, but a growing archaeological record of software evolution.
+
+---
+
+11. QUESTIONS FOR PASS 2
+
+Historical AI conversation records should now be used to answer the questions the repositories alone cannot settle.
+
+Highest-priority unexplained repositories
+
+1. TBCA
+   
+   - What was it created for?
+   - Was it an experiment, archive, or missing component?
+   - What source artifacts preceded its current state?
+
+2. KAGGLE / GLCM
+   
+   - What was GLCM before the rename?
+   - What does the current KAGGLE repository represent?
+   - Was the rename semantic, administrative, or an architectural migration?
+
+3. STRIDE
+   
+   - What was the complete gateway architecture before deletion?
+   - What components survived elsewhere?
+   - Which components were lost permanently?
+
+4. DIT
+   
+   - What did the central repository contain?
+   - Why did it disappear?
+   - Where were its intended canonical artifacts moved?
+
+Missing architectural transitions
+
+5. Why did the ecosystem move from large mixed reservoirs such as CODE/EDDP/ARCHIVE toward dedicated repositories?
+
+6. When did "sentinel_os" become the canonical kernel home?
+
+7. Why was GSA-815 deliberately split out of Sentinel instead of remaining an internal module?
+
+8. Why do multiple governance kernels coexist:
+   
+   - Sentinel,
+   - Conservation Kernel,
+   - ANVIL,
+   - GSA governance kernels,
+   - ATS governance kernels?
+
+9. Was there ever an explicit decision to maintain multiple kernels for different trust domains, or did they emerge independently?
+
+Conflicting or overlapping implementations
+
+10. How were the boundaries between:
+    - Sentinel,
+    - Conservation Kernel,
+    - CCC,
+    - HERALD,
+    - TIE,
+    - Triad-42,
+    - GEMS
+
+actually decided?
+
+11. Which repository was intended to own provenance semantics?
+
+12. Which repository was intended to own epistemic-state semantics?
+
+13. Which repository was intended to own the final evidence/handoff schema?
+
+14. Why do several repositories independently encode “human authority must not silently become machine authority”?
+
+Missing historical components
+
+15. Did a canonical GEMS implementation ever exist?
+
+16. Did a canonical TIE repository ever exist?
+
+17. Did the original FORTRESS repository ever exist before reconstruction?
+
+18. What exactly was SAGE-K, and which parts were genuinely production code versus historical experiments?
+
+19. What happened to FACTS and DGK beyond the extracted material now visible elsewhere?
+
+20. What was the original URE architecture, and what components remain external?
+
+Architecture decisions that shaped the current state
+
+21. Why was code intentionally copied between repositories rather than packaged as shared libraries?
+
+22. When was the decision made to preserve duplicate historical artifacts rather than delete them?
+
+23. Why are some “canonical” source copies left in older repositories after extraction?
+
+24. Why was the principle “preserve before interpret” elevated across several systems?
+
+25. Why were explicit UNKNOWN/UNRESOLVED states repeatedly introduced rather than simple booleans?
+
+Lost or abandoned work
+
+26. Which repositories were deleted because they were obsolete, and which were deleted because they were superseded?
+
+27. Which incomplete systems had planned successors that never materialized?
+
+28. Which components mentioned in historical documents cannot be found in any current repository?
+
+29. Were any major architectures abandoned after successful prototype implementation?
+
+30. Which parts of the current ecosystem are deliberate end states versus temporary archaeological staging areas?
+
+Questions about the emergent architecture
+
+31. Was there ever an explicit plan for:
+
+"history → reconstruction → interpretation → review → governance → domain execution"
+
+or did that structure emerge accidentally?
+
+32. Was HERALD intended to become the universal language boundary for the ecosystem?
+
+33. Was TIE intended to become a universal historical evidence substrate?
+
+34. Was Sentinel intended to become the universal governance substrate, or only one domain of governance?
+
+35. Was Conservation Kernel intended to replace, complement or remain independent from Sentinel?
+
+36. Why do GEMS and TIE reconstruct historical architectures rather than recover exact source?
+
+37. Which repository was supposed to be the authoritative system-of-record for cross-project provenance?
+
+38. Was the repeated use of hash binding, provenance, human authorization and fail-closed behavior driven by one explicit design decision or independent discoveries?
+
+39. Which current repository boundaries were created because of technical architecture, and which were created simply because material needed somewhere to live?
+
+40. What important architecture existed historically but is now absent from the current GitHub inventory?
+
+---
+
+PASS 1 EVIDENCE DISCIPLINE SUMMARY
+
+OBSERVED
+
+- 30 current public repositories are present under the account.
+- No current public repositories outside the user-supplied list were discovered.
+- STRIDE and DIT are not currently available at their supplied URLs.
+- GLCM resolves to the current KAGGLE repository identity.
+- Multiple direct code migrations between repositories are documented in Git history.
+- Several repositories contain real executable implementations and tests.
+- Several repositories are explicitly reconstructions rather than historical originals.
+- Several repositories contain known incomplete or broken paths.
+- Multiple independent systems implement provenance, epistemic state, human authorization, hashing, and evidence-preservation mechanisms.
+
+INFERRED
+
+- The ecosystem is an evolving software ecology centered on governance, evidence, interpretation and continuity.
+- Dedicated repositories increasingly represent specialized or extracted components.
+- Historical records are part of the architectural substrate, not merely documentation.
+- Duplication largely reflects evolution, migration and specialization, although some accidental duplication existed.
+
+UNKNOWN
+
+- Whether all repositories were ever intended to become one deployable runtime.
+- Whether one kernel was ever intended to supersede all others.
+- Exact historical architectures of deleted repositories.
+- Exact historical canonical schemas for TIE and GEMS.
+- Intended long-term role of several small repositories, especially TBCA and KAGGLE.
+
+CONFLICTED
+
+- Multiple repositories use “canonical” language while leaving copies in other repositories.
+- Current README claims sometimes lag behind actual test counts or current source state.
+- Reconstructed repositories intentionally coexist with historical-source terminology that cannot be fully verified.
+
+ABSENT
+
+- A current unified ecosystem package.
+- A confirmed universal cross-repository schema.
+- A verified end-to-end runtime connecting the history, interpretation, review, governance and domain layers.
+- Current implementations for STRIDE and DIT.
+- A current, independently verifiable historical canonical TIE/GEMS source tree.PASS 1 COMPLETE: This reconstruction is based on repository evidence only. Historical conversational context and prior architectural descriptions were intentionally excluded.

@@ -1,0 +1,43 @@
+[tool_result] # CITADEL
+
+CITADEL v1.1 is a deterministic LLM output enforcement engine — regex-based
+detection of first-person pronouns, hedging language, passive voice, and
+em-dashes, with a scoring/rewriting pipeline (`CitadelDetector`,
+`CitadelTransformer`, `CitadelScorer`, `Citadel`). See `PROVENANCE.md` for
+the full source history and `TRANSCRIPT.md` for the original audit
+conversation.
+
+`citadel_v1.2.py` adds one further check on top of v1.1: `prohibited_verbs`,
+salvaged from the STRIDE repo before its deletion, flagging vague
+corporate-speak verbs (`improve`, `optimize`, `enhance`, `leverage`, etc.).
+Nothing else changes from v1.1 — same classes, same profiles, same scoring
+model — the new constraint is wired consistently into `Constraint`,
+`PROFILES` (enabled for `ops`, off elsewhere), `PENALTY`, `detect()`, and
+`rewrite()`.
+
+## Related repo
+
+[STRIDE](https://github.com/wking53214/STRIDE) is a gateway system whose
+source explicitly includes "Zero-Trust Citadel Linguistic Interceptors" as
+a component — STRIDE's gateway appears to consume this repo's enforcement
+logic as a sub-component.
+---
+diff --git a/README.md b/README.md
+index 8f42b0f..8bd6529 100644
+--- a/README.md
++++ b/README.md
+@@ -7,6 +7,14 @@ em-dashes, with a scoring/rewriting pipeline (`CitadelDetector`,
+ the full source history and `TRANSCRIPT.md` for the original audit
+ conversation.
+ 
++`citadel_v1.2.py` adds one further check on top of v1.1: `prohibited_verbs`,
++salvaged from the STRIDE repo before its deletion, flagging vague
++corporate-speak verbs (`improve`, `optimize`, `enhance`, `leverage`, etc.).
++Nothing else changes from v1.1 — same classes, same profiles, same scoring
++model — the new constraint is wired consistently into `Constraint`,
++`PROFILES` (enabled for `ops`, off elsewhere), `PENALTY`, `detect()`, and
++`rewrite()`.
++
+ ## Related repo
+ 
+ [STRIDE](https://github.com/wking53214/STRIDE) is a gateway system whose

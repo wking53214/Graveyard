@@ -1,0 +1,68 @@
+[
+ {
+  "artifact": "artifact_1.py",
+  "renamed": "clip-original-multi-module-source.py",
+  "offset": 165,
+  "end": 117376,
+  "chars": 117211,
+  "crlf_lines": 0,
+  "target_lines": 0,
+  "line_match": true,
+  "sha256": "3de265d72723565428a4c081b173b8fda98496d696cee2bc60ae583fef051674"
+ },
+ {
+  "artifact": "artifact_2.py",
+  "renamed": "stride-synthesized-unified.py",
+  "offset": 117745,
+  "end": 142851,
+  "chars": 25106,
+  "crlf_lines": 705,
+  "target_lines": 705,
+  "line_match": true,
+  "sha256": "3e128f87f77c4671fe3c285024e6373d77969223f75574e1ae4a373609cd2a4e"
+ },
+ {
+  "artifact": "artifact_3.py",
+  "renamed": "stride-formatted-audited.py",
+  "offset": 150371,
+  "end": 182341,
+  "chars": 31970,
+  "crlf_lines": 746,
+  "target_lines": 746,
+  "line_match": true,
+  "sha256": "f2c9e112e48119fc8856a6644ac4998bb24e8bcd536e44b5334b48e739ef0e35"
+ },
+ {
+  "artifact": "artifact_4.py",
+  "renamed": "stride-wrapped-final.py",
+  "offset": 197233,
+  "end": 204227,
+  "chars": 6994,
+  "crlf_lines": 151,
+  "target_lines": 151,
+  "line_match": true,
+  "sha256": "d47f0902f6a833185cc27b653e21b24e737902e896d0cfa50c2c68de5fa8ef6e"
+ },
+ {
+  "artifact": "artifact_5.py",
+  "renamed": "ast-graph-extractor-source.py",
+  "offset": 204266,
+  "end": 209642,
+  "chars": 5376,
+  "crlf_lines": 0,
+  "target_lines": 0,
+  "line_match": true,
+  "sha256": "a7026823c9a985cb7ff3d90a24a832fbc51cfb3ff2c922d61c52296808dbaa04"
+ },
+ {
+  "artifact": "artifact_6.py",
+  "renamed": "stride-ast-extractor-wrapped.py",
+  "offset": 210518,
+  "end": 217097,
+  "chars": 6579,
+  "crlf_lines": 187,
+  "target_lines": 187,
+  "line_match": true,
+  "sha256": "fb1bc4b02d60d6af5cce94733e5c77295f87ed14a6f4751bf728071204b96601"
+ }
+]

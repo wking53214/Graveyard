@@ -1,0 +1,1 @@
+[tool_use Bash] {"command": "for d in ATS synapsis CITADEL STRIDE; do\n  echo \"=== $d ===\"\n  cd /home/wking53214/$d\n  git push origin HEAD 2>&1\ndone"}

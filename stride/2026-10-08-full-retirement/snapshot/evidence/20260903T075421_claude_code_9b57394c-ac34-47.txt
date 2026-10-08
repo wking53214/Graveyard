@@ -1,0 +1,37 @@
+[tool_result] === how GSA-815 references friction / loop guard ===
+cassette_harness.py:10:from governance.friction_core import compute_friction
+cassette_harness.py:201:        return compute_friction(duration, long_wait)
+iceberg_complete_simulator.py:15:from governance.friction_core import compute_friction
+iceberg_complete_simulator.py:45:        return compute_friction(wait, threshold)
+iceberg_complete_simulator.py:87:            # friction now comes from the unified compute_friction path
+production_harness.py:26:from governance.friction_core import compute_friction
+production_harness.py:37:from governance_loop_guard import PipelineStateEngine
+production_harness.py:152:        # instead. See governance_loop_guard.py for provenance.
+production_harness.py:153:        self.claude_loop_guard = PipelineStateEngine()
+production_harness.py:432:                    if compute_friction(node_wait, long_wait):
+twilio_log_ingestion.py:384:        and deliberately NOT unified with governance/friction_core in Items
+
+=== GSA-815 file list (top level .py, first 40) ===
+adaptive_config.py
+api_server_resilient.py
+cassette_harness.py
+claude_governance_api.py
+conftest.py
+grafana_dashboard.py
+gsa-cryptographic-interlock-wrapper.py
+GSA_Governance_Operating_Core_Enterprise.py
+gsa-master-kernel-base-flattened.py
+GSA.py
+gsa_universal_interlock_wrapper.py
+gsa-universal-interlock-wrapper-v7.py
+iceberg_complete_simulator.py
+metrics_prometheus.py
+observe_perceive_core.py
+production_harness.py
+queue_staffing_bayes_integration.py
+resilient_harness.py
+sentinel_core.py
+twilio_log_ingestion.py
+
+=== does GSA-815 vendor a governance/ dir? ===
+perceive_gate.py

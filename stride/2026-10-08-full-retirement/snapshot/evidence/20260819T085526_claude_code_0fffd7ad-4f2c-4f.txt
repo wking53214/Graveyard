@@ -1,0 +1,1 @@
+[tool_use TaskCreate] {"subject": "1b: Move AST extractor files from ATS to synapsis", "description": "Move ATS/ast-graph-extractor-source.py, ATS/ast-graph-extractor-core-wrapped.py, ATS/stride-ast-extractor-wrapped.py into synapsis/archive/imported-variants/. Fix misleading STRIDE header in stride-ast-extractor-wrapped.py before moving."}

@@ -1,0 +1,11 @@
+⚙️ [PROTOCOL EXECUTION: MASTER_CORE_COMPILATION_V13.0]
+[CONTEXT]: Access the complete chronological repository of the Citadel/GSA/DIT architecture frameworks.
+[OBJECTIVE]: Synthesize the ultimate production-ready, asynchronous Python engine representing the complete vertical integration of the Deterministic Integrity Tower (DIT).
+
+[EXTRACTION CONSTRAINTS]:
+1. Bypassing all mythopoetic or theological nomenclature; map elements to clinical, enterprise-grade architecture.
+2. Build code around a centralized compiled regular expression cache (REGEX = {}).
+3. Integrate Module 1 (Deterministic BIOS / Syntactic Sieve) and Module 2 (Zero Trust Stack Filtration Array) sequentially to enforce a 15ms Fail-Fast optimization before deep inference.
+4. Implement Module 3 (Kinetic Governor) via decoupled async/await task loops (Thread_Alpha_Fast_Track and Thread_Beta_Pacing) to manage the temporal compute budgets and token velocity.
+5. Embed a hardened Oscillation Protection mechanism utilizing seen_outputs hash-sets and a Constraint.DENSITY check to catch and incinerate recursive conversational loops.
+6. Present the architecture as a singular, completely unified, valid, and executable class structure named `CitadelProcessor` or `CitadelDiamond`. Deliver the complete technical script in a single code fence without omitting implementation placeholders.

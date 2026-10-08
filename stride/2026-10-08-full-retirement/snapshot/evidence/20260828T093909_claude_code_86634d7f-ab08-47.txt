@@ -1,0 +1,104 @@
+[tool_result] ###### citadel_v1.2.py (226 lines) ######
+import re 
+import time 
+from enum import Enum 
+from typing import Dict, List, Any # ============================================================ # CITADEL v1.2 # Deterministic LLM Output Enforcement Engine # Reconstructed from flattened source (artifact_1.py, copy 1 of 2) 2026-08-20; # v1.2 adds the prohibited_verbs check salvaged from the STRIDE repo before its deletion. 
+# ============================================================ 
+# ============================================================ # REGEX DETECTION LAYERS 
+# ============================================================ 
+REGEX = {
+    "identity": re.compile(
+        r"\b(i|me|my|mine|myself|we|us|our|ours|ourselves)\b",
+        re.I
+    ),
+    "hedging": re.compile(
+        r"\b(may|might|could|seems|generally|potentially|likely|perhaps|probably|i think)\b",
+        re.I
+    ),
+    "passive": re.compile(
+        r"\b(am|is|are|was|were|be|been|being)\b\s+\w+(ed|en)\b",
+        re.I
+    ),
+    "metric": re.compile(
+        r"\b\d+(\.\d+)?%|\b\d+\b"
+    ),
+    "causal": re.compile(
+        r"\b(because|due to|driven by|resulting from|caused by|therefore|consequently)\b",
+        re.I
+    ),
+    # PUNCTUATION CONTROL LAYER
+    "emdash": re.compile(r"—"),
+    # VAGUE-VERB CONTROL LAYER (salvaged from STRIDE/CLIP's PROHIBITED_VERBS,
+    # confirmed not present in the original v1.1 pull; added v1.2)
+    "prohibited_verbs": re.compile(
+        r"\b(improve|optimize|enhance|enable|support|strengthen|utilize|leverage)\b",
+        re.I
+    )
+} # ============================================================ # ENFORCEMENT PROFILES 
+# ============================================================ 
+PROFILES = {
+    "default": {
+        "identity": True,
+        "hedging": True,
+        "passive": False,
+        "causality": False,
+        "punctuation": True,
+        "prohibited_verbs": False
+    },
+    "ops": {
+        "identity": True,
+        "hedging": True,
+        "passive": True,
+        "causality": True,
+        "punctuation": True,
+        "prohibited_verbs": True
+    },
+    "exec": {
+        "identity": True,
+        "hedging": True,
+        "passive": True,
+        "causality": False,
+        "punctuation": True,
+        "prohibited_verbs": True
+    },
+    "legal": {
+        "identity": True,
+        "hedging": True,
+        "passive": True,
+        "causality": True,
+        "punctuation": True,
+        "prohibited_verbs": False
+    } } # ============================================================ # CONSTRAINT MODEL 
+# ============================================================ 
+class Constraint(Enum):
+    IDENTITY = "identity"
+    HEDGING = "hedging"
+    PASSIVE = "passive"
+    CAUSALITY = "causality"
+    PUNCTUATION = "punctuation"
+    PROHIBITED_VERBS = "prohibited_verbs" # ============================================================ # DETECTOR ENGINE 
+# ============================================================ 
+class CitadelDetector:
+    def detect(self, text: str, profile: Dict[str, bool]) -> List[Dict[str, str]]:
+        violations = []
+        if profile["identity"] and REGEX["identity"].search(text):
+            violations.append({
+                "type": Constraint.IDENTITY.value,
+                "snippet": self._extract(REGEX["identity"], text)
+            })
+        if profile["hedging"] and REGEX["hedging"].search(text):
+            violations.append({
+                "type": Constraint.HEDGING.value,
+                "snippet": self._extract(REGEX["hedging"], text)
+            })
+        if profile["passive"] and REGEX["passive"].search(text):
+            violations.append({
+                "type": Constraint.PASSIVE.value,
+                "snippet": self._extract(REGEX["passive"], text)
+            })
+        if profile["causality"] and self._needs_causality(text):
+            if not (
+                REGEX["causal"].search(text)
+                or REGEX["metric"].search(text)
+            ):
+               

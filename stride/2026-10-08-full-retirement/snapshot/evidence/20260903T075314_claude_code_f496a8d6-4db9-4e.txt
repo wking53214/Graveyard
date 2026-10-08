@@ -1,0 +1,45 @@
+[tool_result] ### SentinelPerceiveIntegration
+governance/perceive_integration.py:18:class SentinelPerceiveIntegration:
+
+### PipelineStateEngine
+governance_loop_guard.py:48:class PipelineStateEngine:
+
+### compute_friction
+governance_harness.py:28:BEFORE judging (friction_core.compute_friction); mortgage counts
+governance/friction_core.py:10:Now every governance path calls compute_friction, and the threshold is
+governance/friction_core.py:24:def compute_friction(duration: float, long_wait_threshold: float) -> int:
+
+### end_to_end_telemetry_flow
+telemetry_pipeline.py:137:def end_to_end_telemetry_flow(call_sequence: List[Dict],
+Tests/test_telemetry_pipeline.py:5:from telemetry_pipeline import RealTelemetryCollector, GovernanceReactor, end_to_end_telemetry_flow
+Tests/test_telemetry_pipeline.py:94:    result = end_to_end_telemetry_flow(calls, baseline)
+
+### validate_cassette_snapshot_chain
+cassette_forensics.py:233:def validate_cassette_snapshot_chain(ledger_decisions: list) -> Dict[str, Any]:
+Tests/test_cassette_snapshot_forensics.py:266:    def test_validate_cassette_snapshot_chain(self, test_ledger, test_cassette):
+Tests/test_cassette_snapshot_forensics.py:284:        audit_result = test_ledger.validate_cassette_snapshot_chain()
+governance/ledger_postgres.py:2622:    def validate_cassette_snapshot_chain(self) -> Dict[str, Any]:
+
+### require_capabilities
+cassette_capabilities.py:62:Engines guard their entry points with require_capabilities() so a
+cassette_capabilities.py:306:def require_capabilities(cassette, required: Tuple[str, ...], consumer: str) -> None:
+Tests/test_capability_gate.py:3:Until now the only proof that require_capabilities actually refuses a
+Tests/test_capability_gate.py:33:    require_capabilities,
+Tests/test_capability_gate.py:47:        require_capabilities(MortgageCassette(),
+Tests/test_capability_gate.py:60:        require_capabilities(
+
+### governance_loop_guard
+governance_loop_guard.py:1:"""governance_loop_guard.py -- detects a governance decision repeating
+
+### perceive_integration
+
+### telemetry_pipeline
+Tests/test_telemetry_pipeline.py:5:from telemetry_pipeline import RealTelemetryCollector, GovernanceReactor, end_to_end_telemetry_flow
+
+### cassette_forensics
+cassette_loader.py:61:        cassette_forensics.compute_cassette_code_hash labels its hash with.
+contract_attestation.py:85:import cassette_forensics
+contract_attestation.py:386:        contract_hash=cassette_forensics.compute_cassette_hash(
+governance_harness.py:62:from cassette_forensics import (
+regulatory_cassette_interface.py:366:        (cassette_forensics.compute_cassette_hash) and bound into the
+regulatory_deck.py:98:from cassette_forensics import compute_cassette_code_hash, compute_cassette_hash

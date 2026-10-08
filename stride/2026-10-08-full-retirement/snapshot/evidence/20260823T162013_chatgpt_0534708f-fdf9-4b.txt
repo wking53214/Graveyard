@@ -1,0 +1,209 @@
+Yes. Based on the architecture we've established and the repository relationships we've actually verified, this is the **current global system graph** I would use as the working model:
+
+```text
+                              ┌─────────────────────────┐
+                              │     HISTORICAL SOURCES  │
+                              │                         │
+                              │ ChatGPT / Gemini /      │
+                              │ Claude / Copilot        │
+                              └────────────┬────────────┘
+                                           │
+                                           ▼
+                              ┌─────────────────────────┐
+                              │       HISTORY /         │
+                              │       ARCHIVE LAYER     │
+                              │                         │
+                              │ ChatGPT_History         │
+                              │ Gemini_History          │
+                              │ Claude_History          │
+                              │ CoPilot_History          │
+                              │ ARCHIVE / EDDP / Ecology│
+                              └────────────┬────────────┘
+                                           │
+                                           ▼
+                              ┌─────────────────────────┐
+                              │          HERALD          │
+                              │                         │
+                              │ Natural-language        │
+                              │ interpretation branch   │
+                              │                         │
+                              │ claims / source /       │
+                              │ standing / anchors      │
+                              └────────────┬────────────┘
+                                           │
+                                  [BRANCH — NOT YET
+                                   FULLY CONNECTED]
+                                           │
+                                           ▼
+                              ┌─────────────────────────┐
+                              │           TIE           │
+                              │                         │
+                              │ Transcript Intelligence │
+                              │ Evidence preservation   │
+                              │ Archaeology / extraction │
+                              │ Reconstruction           │
+                              └────────────┬────────────┘
+                                           │
+                                    TYPED HANDOFF
+                                           │
+                                           ▼
+                              ┌─────────────────────────┐
+                              │          GEMS           │
+                              │                         │
+                              │ Sequential specialized │
+                              │ intelligence layer      │
+                              │                         │
+                              │ Research / Requirements │
+                              │ Architecture / Security │
+                              │ Testing / Documentation │
+                              │ Knowledge / etc.        │
+                              └────────────┬────────────┘
+                                           │
+                                           ▼
+                              ┌─────────────────────────┐
+                              │       GOVERNANCE /       │
+                              │       CONTROL PLANE      │
+                              │                         │
+                              │        GSA / GSA-815    │
+                              │        Sentinel OS       │
+                              │        DIT / CITADEL     │
+                              └────────────┬────────────┘
+                                           │
+                                           │
+                         ┌─────────────────┴─────────────────┐
+                         │                                   │
+                         ▼                                   ▼
+              ┌─────────────────────┐             ┌─────────────────────┐
+              │   CONSERVATION       │             │   GOVERNANCE /      │
+              │      KERNEL          │             │   SECURITY SYSTEMS  │
+              │                     │             │                     │
+              │ identity            │             │ GSA-GATEWAY         │
+              │ content/hash        │             │ Sentinel OS         │
+              │ provenance          │             │ DIT / CITADEL       │
+              │ authority           │             │ VANGUARD            │
+              │ epistemic state     │             │ FORTRESS            │
+              │ uncertainty         │             │ ANVIL               │
+              │ lineage             │             │ OBSERVE             │
+              │ transformation      │             │ STRIDE              │
+              └──────────┬──────────┘             └─────────────────────┘
+                         │
+                         │ MANDATORY CONSERVATION
+                         │ BOUNDARY
+                         │
+              ┌──────────┴──────────┐
+              │                     │
+              ▼                     ▼
+       ┌──────────────┐      ┌──────────────┐
+       │  SENTINEL OS │─────▶│   GSA-815    │
+       │              │      │              │
+       │ ingress /    │      │ governed     │
+       │ execution    │      │ processing   │
+       └──────┬───────┘      └──────┬───────┘
+              │                     │
+              └──────────┬──────────┘
+                         │
+                         ▼
+                  CONSERVATION KERNEL
+                         │
+                         ▼
+                  VERIFIED RESULT
+```
+
+### But there is an important correction
+
+I would **not yet treat every arrow in that diagram as proven**.
+
+The parts we have actually established are:
+
+```text
+Sentinel OS
+     ↕
+Conservation Kernel
+     ↕
+GSA-815
+```
+
+That was just independently adversarially verified.
+
+The **HERALD → TIE → GEMS** portion is currently a **working architectural hypothesis**, not an established connection.
+
+And your recollection about HERALD being a **natural-language branch deliberately kept out of the main chain** is important. That means I would actually draw it more like this:
+
+```text
+                         MAIN EVIDENCE / INTELLIGENCE CHAIN
+                         ================================
+
+Sources
+   │
+   ▼
+History / Archive
+   │
+   ▼
+  TIE
+   │
+   ▼
+ GEMS
+   │
+   ▼
+Governed execution
+   │
+   ▼
+Sentinel
+   │
+   ▼
+Conservation Kernel
+   │
+   ▼
+GSA-815
+
+
+                         NATURAL-LANGUAGE BRANCH
+                         =======================
+
+                    ┌───────────────┐
+                    │    HERALD     │
+                    │               │
+                    │ NL            │
+                    │ interpretation│
+                    └───────┬───────┘
+                            │
+                            │
+                     [controlled
+                       handoff]
+                            │
+                            ▼
+                    MAIN CHAIN
+```
+
+**That distinction is probably the key.**
+
+HERALD was not supposed to contaminate the main evidence/intelligence chain with free-form natural-language interpretation. It was supposed to be a **controlled branch into the architecture**.
+
+So before we connect anything, the next forensic question is:
+
+> **What exact component did HERALD branch from, and what exact component was supposed to consume its output?**
+
+I would resolve that historically from the repositories before touching code. That should tell us whether the correct topology is:
+
+```text
+X → HERALD → TIE
+```
+
+or
+
+```text
+X → HERALD → GEMS
+```
+
+or, quite possibly:
+
+```text
+X
+├── HERALD       (NL branch)
+│
+└── TIE          (main evidence branch)
+        ↓
+      GEMS
+```
+
+That last possibility is **especially plausible given your description**, and I would not want us to accidentally turn HERALD into a mandatory stage of the main chain when its original architectural purpose was specifically to remain a branch.

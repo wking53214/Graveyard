@@ -1,0 +1,29 @@
+Now let me give the full report.
+
+## Section 1 — done and pushed
+
+- **1a**: `ATS/synapsis_gsa_source.txt` → `ats_gsa_core.py`, `SynapsisGSA` → `ATSGovernanceCore`, seam inventory updated.
+- **1b**: Moved the 3 AST extractor files from ATS into `synapsis/archive/imported-variants/`; corrected the STRIDE mislabel header in the wrapped variant. (These files didn't exist locally until I `git fetch`ed — ATS was 2 commits behind origin, where a Copilot-authored commit had just added them.)
+- **1c**: Renamed the `CLIP` repo to `STRIDE` on GitHub and locally, added cross-linking READMEs between STRIDE and CITADEL. (CLIP was also 2 commits behind origin — another Copilot commit had already renamed its files to `stride-*`.)
+- **1d**: Confirmed byte-identical, deleted `ats_governance_kernel_bridge_source_copy.txt`.
+- **1e**: Moved `DEMO_OUTPUT_v1.txt` into `sentinel_os/sample_data/`, archived the now-empty `DEMO_OUTPUT` GitHub repo (archived, not deleted — reversible).
+
+## Section 2 — verified, no action taken (as instructed when unconfirmed)
+
+- **2a**: `quorum_state_governance_source.py` is **not** ATS's missing `gov4_kernel`. Only superficial naming similarity (`WriteAheadLog`≈WAL, `PolicyVirtualMachine`≈PolicyVM); 12 of the 16 required names (`EventStore`, `GovernanceAuditor`, `Manifest`, `NormalizedEvent`, `Provenance`, `Verdict`, `Regime`, `TrafficPayload`, etc.) don't appear at all. Left both files alone, flagging back to you as instructed.
+- **2b**: `perceive_policy_enforcement_source.py` is genuinely superseded — its class list (`PerceiveGovernanceKernel`, `EventStore`, `Provenance`, `PolicyGates`, etc.) is a strict subset of `observe/sentinel_os/perceive_consolidated.py`, which already has everything plus more (`DGKGateway`, `GovernanceNode`, `Signer`, etc.). It's an earlier version, already folded into the real OBSERVE/PERCEIVE repo. No move needed — but I stopped short of deleting anything from EDDP/Data_files given the issue below.
+
+## Bigger issue — needs your call, not mine
+
+**1f couldn't be done as written**, and it surfaced something worth knowing: **a separate automated process (commits co-authored by "Copilot") is reorganizing these same repos concurrently**, sometimes just ahead of me. Concretely:
+
+- `EDDP` isn't empty — it holds a fully-documented 14-turn transcript archive (its own `PROVENANCE.md` catalogs every file, including the exact ones Section 2/3 called "misplaced": `perceive_policy_enforcement_*`, `quorum_state_governance_*`, `solvar_stability_governance_*`, `ws3_telemetry_guardrail_*`, `governance_os_security_*`, `gaps_multilayer_governance_*`, `metric_assessment_telemetry_dispatch_*`). These aren't orphans in a junk-drawer — they're turns 1, 2, 4, 6, 7, 8, 10, 14 of one coherent conversation.
+- `Data_files` turns out to share EDDP's exact git history (same root commit) plus one extra commit — the Copilot process forked it from EDDP, moved clinical-named turns to `observe`, added SQLite tooling, and copied the loose `eddp-*.py` files in, effectively making Data_files the "EDDP master" — but that commit landed under the `Data_files` remote, not `EDDP`.
+- The result: `EDDP` (real repo) is now one commit **behind** `Data_files`, and it's unclear which name should be canonical going forward.
+
+This directly touches Section 3 items you said not to move yet, and the instructions file's picture of "Data_files as messy dumping ground" no longer matches reality — it's been reorganized out from under it. Rather than guess and add a third layer of moves, I stopped. Two decisions needed from you:
+
+1. Should `EDDP` (the correctly-named remote) be fast-forwarded to match `Data_files`' extra commit, and `Data_files` then archived/renamed as redundant? Or is `Data_files` meant to stay as the "master" and `EDDP` gets archived instead?
+2. Since Section 3's five governance sub-systems and Section 2's two "unverified" files are actually already-cataloged, already-relocated components of a documented transcript (not loose orphans), does Section 3 still need individual per-file review, or is it effectively resolved by this discovery?
+
+I saved a couple of memory notes about the concurrent-agent situation so future sessions check `git fetch` before trusting either local state or the instructions file. Let me know how you want to resolve the EDDP/Data_files split and I'll pick back up.

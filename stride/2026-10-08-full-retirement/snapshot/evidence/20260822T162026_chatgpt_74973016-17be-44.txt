@@ -1,0 +1,1307 @@
+:::writing{variant="document" id="73184" title="PASS 11 — GEMINI_HISTORY TEMPORAL ARCHAEOLOGY"}
+# PASS 11 — GEMINI_HISTORY TEMPORAL ARCHAEOLOGY
+
+**Audit date:** August 22, 2026  
+**Method:** primary-source temporal archaeology of `wking53214/Gemini_History`, with current GitHub repository metadata used only for chronology comparison.  
+**Standard:** skeptical historian / software archaeologist.  
+**Priority:** chronology > naming > repository structure.
+
+---
+
+# 1. Executive verdict
+
+**Pass 11 materially changes the historical picture established by Pass 8.**
+
+Gemini_History contains direct evidence that a multi-system software ecosystem existed **before July 2026**, and the strongest recovered historical snapshot is dated **June 10, 2026**.
+
+A preserved artifact titled **“ARCHITECTURAL CONSOLIDATION ANALYSIS”**, dated **June 10, 2026**, explicitly describes a **15-system integrated ecosystem** comprising:
+
+- GALLM
+- GOVERNANCE_KERNEL_V4
+- DCT-Ω
+- UGPIS-Ω
+- FORTRESS 2.0
+- DIT
+- GSA
+- OBSERVE
+- URE
+- ECP
+- HTTP
+- EDDP
+- CITADEL
+- ZTGKT
+- ATS
+- GOVERNANCE_OS_FULL
+
+It characterizes the ecosystem as **“Prototype-grade, architecturally sound, operationally fragmented”**, and says several portions were complete, testable, modular, functional, or working prototypes. fileciteturn52file0
+
+That is not a current-August reconstruction describing an imagined past. It is a dated Gemini artifact that itself records a then-existing software state.
+
+The consequence is fundamental:
+
+> **The historical ecosystem does not begin with Sentinel in July.**
+
+At minimum, the software history demonstrably reaches into **June 2026**, with CITADEL-related material reaching back to at least **April 14, 2026 at the session/document level**. The April evidence is not yet sufficient to prove executable software, but it establishes a real earlier project/session layer. The June evidence crosses the stronger boundary into an actual prototype software ecosystem. fileciteturn51file0
+
+Pass 8 therefore underestimated the depth of the historical record because Claude_History was being used as the primary conversational archaeology layer. Gemini_History preserves a different and deeper artifact layer: **generated source files, ZIPs, exported PDFs, tests, manifests, architecture documents, and project handoffs**.
+
+The strongest historical interpretation is now:
+
+```text id="u3h46r"
+APRIL 2026
+    │
+    └── CITADEL session/export evidence
+            │
+            ▼
+JUNE 10 2026
+    │
+    ├── GALLM
+    ├── GOVERNANCE_KERNEL_V4
+    ├── DCT-Ω
+    ├── UGPIS-Ω
+    ├── FORTRESS 2.0
+    ├── DIT
+    ├── GSA
+    ├── OBSERVE
+    ├── URE
+    ├── ECP
+    ├── HTTP
+    ├── EDDP
+    ├── CITADEL
+    ├── ZTGKT
+    ├── ATS
+    └── GOVERNANCE_OS_FULL
+            │
+            ├── modularization
+            ├── integration
+            ├── consolidation
+            ├── Sentinel development
+            ├── later GSA-family migration
+            └── August repository reconstruction/consolidation
+```
+
+This is now the deepest defensible historical layer recovered across the investigation.
+
+---
+
+# 2. Gemini corpus coverage
+
+`Gemini_History` is structurally different from `Claude_History`.
+
+Its repository contains:
+
+- `Takeout/`
+- `Takeout/My Activity/Gemini Apps/`
+- `data/raw.csv`
+- `data/raw.jsonl`
+- `index/manifest.json`
+- `transcripts/`
+- `summaries/`
+
+The manifest contains seven reconstructed conversation/inventory records, including:
+
+- `component_inventory`
+- `artifact_inventory`
+- `content_date_inventory`
+- `file_creation_timeline`
+- `demographics`
+- `ICD_codes_CI`
+- `channel_table`
+
+The manifest was generated August 17, 2026. fileciteturn41file0
+
+The original Takeout layer is the more important historical source. It contains a large `Gemini Apps` artifact collection including:
+
+- source `.py`
+- `.txt` source/spec files
+- `.zip` source bundles
+- `.pdf` session exports
+- `.csv`
+- `.xlsx`
+- `.json`
+- HTML
+- test files
+- integration files
+- README and manifest material.
+
+The tree includes, among many others:
+
+`gsa.zip`, `sentinel.zip`, `sentinel_build.zip`, `sentinel_v2.zip`, `fortress_adapter.txt`, `dgk_integration.txt`, `citadel_adapter.txt`, `gallm_reference_impl.txt`, `ugpis*.txt`, `unified_governance.txt`, `observe_consolidated.txt`, `perceive_consolidated.txt`, and dated session PDFs such as `citadel_session_export_2026_04_14.pdf`. fileciteturn51file0
+
+### Important corpus limitation
+
+The normalized Gemini `transcripts/*.md` layer is severely degraded. The transcript records expose message counts, but many entries contain empty `user_anon` messages. The normalized `raw.csv` likewise contains conversation IDs with empty timestamps and empty messages in the accessible export. fileciteturn42file0 fileciteturn45file0
+
+Therefore this pass does **not** treat the normalized transcript layer as a reliable chronological source.
+
+Instead, chronology is reconstructed from:
+
+1. explicit dates inside preserved artifact content;
+2. dates embedded in artifact filenames;
+3. preserved code/specification content;
+4. exact duplicate hashes within the Takeout tree;
+5. current repository metadata for comparison.
+
+This is an important archaeological distinction.
+
+---
+
+# 3. Date-range methodology
+
+The requested temporal ranges were used, but the evidence density differs sharply by period.
+
+| Period | Historical conclusion |
+|---|---|
+| April 2026 | Earlier project/session layer demonstrably exists; executable software not yet proven |
+| May 2026 | No independently dated major-system artifact recovered in the accessible corpus |
+| June 2026 | **Proven multi-system prototype ecosystem** |
+| Jul 1–15 | Transition from integrated prototype ecosystem into named application/system builds |
+| Jul 16–31 | Increasing specialization, hardening, testing, and repository preparation |
+| Aug 1–7 | Mature modular/consolidation phase |
+| Aug 8–14 | Strong consolidation and artifact-packaging phase |
+| Aug 15–21 | Repository migration/reconstruction/convergence |
+| Aug 22 | No additional primary Gemini evidence recovered for the current date |
+
+The key temporal breakpoint is **June 10**.
+
+---
+
+# 4. APRIL findings
+
+The strongest April evidence is a preserved file named:
+
+`citadel_session_export_2026_04_14.pdf`
+
+The artifact exists inside the original Takeout layer. fileciteturn51file0
+
+That establishes:
+
+**A:** a Gemini-generated/exported CITADEL session artifact exists bearing an explicit **April 14, 2026** date.
+
+It does **not** establish from the accessible binary metadata alone that executable CITADEL source code existed on April 14.
+
+Therefore:
+
+```text
+CITADEL:
+April 14 session/export = A
+April 14 executable software = U
+```
+
+This is nonetheless important because it moves the historical boundary behind July by more than two months.
+
+The correct wording is:
+
+> **Gemini_History preserves an April 14 CITADEL-related historical artifact, but the first executable software boundary recovered in this pass is later.**
+
+---
+
+# 5. MAY findings
+
+No independently dated artifact in the accessible corpus establishes a major-system software build during May with the same confidence as June 10.
+
+This should be recorded as:
+
+**N/U — no decisive May software birth evidence recovered.**
+
+That does not mean no May work occurred. It means the accessible Gemini export does not currently provide enough primary temporal evidence to make that claim.
+
+---
+
+# 6. JUNE findings
+
+## June 10 is the decisive historical breakpoint
+
+The artifact:
+
+`consolidation_analysis_complete.txt`
+
+contains:
+
+> **Date: June 10, 2026**
+
+and describes:
+
+> **15 integrated systems**
+
+with the explicit system inventory listed above.
+
+More importantly, the document describes several components as:
+
+- “Complete, testable, ready for integration”
+- “Modular, composable, fully functional”
+- “Core logic complete”
+- “Working prototype, tested with synthetic data”
+- “Conceptual framework solid”
+- “implementation code partial.”
+
+This is far beyond brainstorming.
+
+It is evidence of an actual prototype ecosystem.
+
+fileciteturn52file0
+
+### June systems proven historically
+
+#### GALLM
+
+The June 10 snapshot identifies GALLM as a formal typed state system alongside `GOVERNANCE_KERNEL_V4`, with:
+
+- deterministic transitions
+- versioned manifests
+- cryptographic hashing
+- invariant-gated transitions
+- append-only audit ledger
+- deterministic identity projection
+- state reconstruction.
+
+fileciteturn52file0
+
+A separately preserved artifact `gallm_reference_impl.txt` contains actual Python implementing:
+
+- `DecisionStatus`
+- `Event`
+- `State`
+- `Manifest`
+- `AuditEntry`
+- `GovernanceKernel`
+- transition validation
+- invariant execution
+- gates
+- state hashing
+- state reconstruction
+- synthetic 290-patient clinical data.
+
+That is direct surviving source material in Gemini_History. fileciteturn58file0
+
+#### FORTRESS
+
+The June 10 snapshot explicitly lists:
+
+**FORTRESS 2.0**
+
+under the “System Resilience & Health Monitoring” category.
+
+It states that FORTRESS 2.0 already had:
+
+- Shannon entropy regime classification
+- weighted composite risk scoring
+- Lyapunov energy calculations
+- hysteresis state machine
+- deterministic blending coefficients.
+
+Status:
+
+**“Core logic complete, integration pending.”**
+
+fileciteturn52file0
+
+This is a major revision to Pass 8.
+
+FORTRESS is **not historically a purely August-2026 system name**.
+
+There was a June 2026 FORTRESS implementation/design branch.
+
+The later August `FORTRESS` repository is therefore much more plausibly a **recovery/consolidation/reconstruction destination**, although exact byte-level continuity still needs proof.
+
+#### GSA
+
+The June 10 snapshot explicitly lists:
+
+**GSA**
+
+as the **Macro-Governance Framework**.
+
+It describes:
+
+- 12-segment modular governance architecture
+- constitutional layer
+- consensus voting
+- rule amendment with temporal locking
+- trajectory tracking
+- systemic failure detection
+- compliance filtration
+- intent guardrails.
+
+Status:
+
+**“Conceptual framework solid, implementation code partial.”**
+
+fileciteturn52file0
+
+This materially precedes the July 2 Claude evidence for GSA.
+
+#### DIT
+
+DIT is explicitly listed in the June 10 text-processing stack.
+
+Its function is identified as:
+
+**Text Signature / text processing**
+
+alongside ZTGKT, HTTP and CITADEL. fileciteturn52file0
+
+Therefore:
+
+**DIT definitely existed as part of the June ecosystem.**
+
+#### URE
+
+URE is explicitly listed in the June resilience layer.
+
+The June document says URE handled:
+
+- regime classification
+- energy tracking.
+
+fileciteturn52file0
+
+#### EDDP
+
+EDDP appears in the June ecosystem under Data Governance & Audit and again in the Distribution Layer.
+
+The document attributes to EDDP:
+
+- schema validation
+- cryptographic payload signing
+- metrics aggregation
+- routing
+- audit trail
+- transaction ledger uniqueness verification.
+
+fileciteturn52file0
+
+#### CITADEL
+
+CITADEL is listed in the June text-processing stack.
+
+A surviving `citadel_adapter.txt` contains actual code implementing a Citadel policy adapter for intent clarity and request validation. fileciteturn56file0
+
+#### OBSERVE
+
+OBSERVE is a major June subsystem.
+
+The June document describes:
+
+- Lyapunov energy tracking
+- multi-signal trajectory derivation
+- drift detection
+- risk aggregation
+- cryptographic state encoding.
+
+fileciteturn52file0
+
+Separate preserved artifacts include a large OBSERVE/PERCEIVE codebase and later consolidated implementations. `readme_consolidated.py` explicitly describes a 19-file modular implementation consolidated into seven files, with 186 tests, two audit ledgers, OBSERVE, PERCEIVE and DGK integration. fileciteturn60file0
+
+#### GOVERNANCE_KERNEL_V4
+
+This is especially important historically.
+
+It predates the later naming of the generic governance kernel and establishes that a typed governance-core concept was already operational in June.
+
+That makes later `gsa-governance-core`, PERCEIVE, governance-kernel, and related artifacts candidates for **conceptual and possibly code-level descent**, but not automatically identical.
+
+#### DCT-Ω, UGPIS-Ω, GOVERNANCE_OS_FULL
+
+The June artifact says these served as orchestration/integration layers and that a working prototype had been tested with synthetic data involving 290 patients and 580 events. fileciteturn52file0
+
+These are therefore not merely future plans.
+
+---
+
+# 7. JULY findings
+
+The July period appears to be a **specialization and crystallization phase** rather than the birth of the ecosystem.
+
+The June 10 ecosystem already contained the major conceptual primitives.
+
+What changes in July is:
+
+- system specialization;
+- stronger individual system identities;
+- dedicated source bundles;
+- test suites;
+- handoffs;
+- Sentinel-specific decision records;
+- modularization;
+- migration toward independently recognizable systems.
+
+### Sentinel
+
+Gemini_History contains:
+
+- `sentinel.pdf`
+- `sentinel.zip`
+- `sentinel_build.zip`
+- `sentinel_v2.zip`.
+
+fileciteturn51file0
+
+The preserved `decisions.txt` is explicitly titled:
+
+**“Sentinel — Decisions Log”**
+
+and contains a long sequence of architecture decisions and verified implementation results. It describes the IVR harness, routing graph, caller state, deterministic simulation, fairness auditing, simulator, prescription layer, and tests. fileciteturn54file0
+
+That confirms a substantial Sentinel software branch in Gemini_History.
+
+This is stronger than the July 2 Claude checkpoint because it is accompanied by actual source artifacts.
+
+### Important chronological consequence
+
+Pass 8 identified July 2 as the earliest recovered Sentinel system identity.
+
+Pass 11 now establishes:
+
+**Sentinel-related software artifacts exist in Gemini_History as part of the larger pre-repository artifact ecosystem, but the exact creation timestamp of the Sentinel ZIP/build artifacts is not exposed in the normalized corpus available here.**
+
+Therefore:
+
+```text
+Sentinel first conceptual mention: July 2 in Claude_History = A
+Sentinel artifact existence in Gemini_History: A
+Sentinel artifact creation date before Jul 4: U
+Sentinel current repository creation: Jul 4 = A
+```
+
+The software undoubtedly predates or surrounds the July repository period, but the exact artifact timestamp still needs the underlying Gemini activity metadata.
+
+### GSA
+
+A distinct `gsa.zip` artifact exists in the Takeout collection. fileciteturn51file0
+
+That is significantly stronger than the Claude-only evidence.
+
+It proves that a GSA software package was preserved in Gemini_History.
+
+Exact date remains U.
+
+---
+
+# 8. AUGUST findings
+
+August is primarily a **consolidation, packaging, hardening, and repository migration period**.
+
+The preserved artifacts show:
+
+- `observe_consolidated.txt`
+- `perceive_consolidated.txt`
+- `readme_consolidated.py`
+- `phase_1_2_3_complete.txt`
+- `phase_4_complete.txt`
+- test suites
+- `dgk_integration.txt`
+- `fortress_adapter.txt`
+- `sentinel_build.zip`
+- `sentinel_v2.zip`
+- `gsa.zip`
+- multiple duplicated/fixed artifacts.
+
+fileciteturn51file0
+
+The August `deliverable_manifest.txt` describes a modular OBSERVE + PERCEIVE system with:
+
+- 5,250 lines production code
+- 1,200 lines test code
+- 77 tests
+- OBSERVE
+- PERCEIVE
+- DGK
+- Fortress
+- Citadel
+- Sentinel
+- MicroPatch.
+
+fileciteturn55file0
+
+This appears much closer to **packaging and consolidation of a pre-existing ecosystem** than to an August-only invention.
+
+That does not apply to the explicitly excluded August-born systems TIE, GEMS, HERALD, and Conservation_Kernel.
+
+Those remain reconstruction-era systems and are not included in this historical ancestry.
+
+---
+
+# 9. Earliest actual code/artifact recovered
+
+The answer must distinguish three boundaries.
+
+## Earliest historical artifact
+
+**April 14, 2026**
+
+`citadel_session_export_2026_04_14.pdf`
+
+This proves an earlier CITADEL-related session/export artifact existed by that date.
+
+**Classification: A for artifact/session existence; U for executable software.** fileciteturn51file0
+
+## Earliest proven software ecosystem
+
+**June 10, 2026**
+
+The dated `consolidation_analysis_complete.txt` describes a functioning prototype ecosystem with 15 integrated systems and repeatedly characterizes concrete implementations as complete, testable, functional, or working prototypes.
+
+**Classification: A/B depending on component.** fileciteturn52file0
+
+## Earliest directly preserved executable source
+
+A preserved `gallm_reference_impl.txt` is an actual Python implementation containing a complete typed governance engine and synthetic clinical dataset generator. Its exact original creation date is not embedded in the accessible source itself, but the June 10 consolidation artifact explicitly identifies GALLM as an already completed, testable system.
+
+**Classification: A for source preservation; B for June-10 temporal linkage.** fileciteturn58file0turn52file0
+
+Therefore:
+
+> **June 10, 2026 is the earliest defensible date at which the Gemini evidence can establish a real multi-system software ecosystem.**
+
+---
+
+# 10. Earliest system lifecycle
+
+The earliest recoverable lifecycle is not Sentinel.
+
+A better reconstruction is:
+
+```text id="g6q24c"
+CITADEL-era work
+(Apr 14 evidence)
+        │
+        ▼
+Typed governance / state primitives
+(GALLM + GOVERNANCE_KERNEL_V4)
+        │
+        ├── validation / audit
+        ├── resilience
+        ├── clinical
+        ├── governance
+        └── orchestration
+                │
+                ▼
+June 10 integrated ecosystem
+                │
+        ┌───────┼────────┐
+        ▼       ▼        ▼
+     FORTRESS  GSA      OBSERVE
+        │       │        │
+        ├── URE ├── DCT  ├── PERCEIVE
+        ├── DIT └── ...  ├── DGK
+        └── ...          └── CITADEL
+                │
+                ▼
+July specialization
+                │
+                ├── Sentinel
+                ├── GSA-specific packages
+                └── modular system boundaries
+                │
+                ▼
+August consolidation / reconstruction
+                │
+                ├── GSA-815
+                ├── GSA-GATEWAY
+                ├── FORTRESS repository
+                └── other current destinations
+```
+
+This is a far more historically coherent sequence than treating every July/August repository as an independent birth.
+
+---
+
+# 11. Graveyard register
+
+## GALLM
+
+**First proven period:** June 10  
+**Purpose:** typed governance/state reference implementation  
+**Status:** precursor/core primitive, later concepts redistributed  
+**Surviving artifacts:** `gallm_reference_impl.txt`  
+**Successors:** likely governance-kernel lineage, but exact code identity unresolved  
+**Classification:** **A/B**
+
+## GOVERNANCE_KERNEL_V4
+
+**First proven period:** June 10  
+**Purpose:** typed invariant/gate governance kernel  
+**Status:** precursor primitive  
+**Survivors:** GALLM/reference implementations, later governance cores  
+**Successor:** conceptual descendants in governance layers  
+**Code identity to gsa-governance-core:** **U**
+
+## FORTRESS 2.0
+
+**First proven period:** June 10  
+**Purpose:** resilience/health monitoring and risk regime classification  
+**Status:** survives through later FORTRESS-labeled artifacts  
+**Successor:** current FORTRESS repository is strongly plausible as descendant  
+**Exact byte lineage:** **U**
+
+## DIT
+
+**First proven period:** June 10  
+**Purpose:** text signature / validation layer  
+**Status:** later GSA-family migration candidate  
+**Successor:** GSA-815 / GSA-GATEWAY lineage remains to be proved artifact-by-artifact  
+**Classification:** **A for existence; U for exact descendant path**
+
+## URE
+
+**First proven period:** June 10  
+**Purpose:** regime classification / energy tracking  
+**Status:** later ecosystem component  
+**Successor:** unresolved.
+
+## EDDP
+
+**First proven period:** June 10  
+**Purpose:** governance/audit/distribution analytics  
+**Status:** later governance-stack component  
+**Successor:** GSA-GATEWAY explicitly names EDDP governance material as a source. fileciteturn33file0
+
+## CITADEL
+
+**First historical evidence:** Apr 14 session artifact  
+**Software ecosystem presence:** June 10  
+**Surviving source:** `citadel_adapter.txt`  
+**Successor:** later PERCEIVE gate  
+**Classification:** **A**
+
+## OBSERVE
+
+**First proven period:** June 10  
+**Purpose:** clinical early warning  
+**Survivors:** multiple modular and consolidated packages.  
+**Successor:** later OBSERVE repositories / PERCEIVE integration.  
+**Classification:** **A**
+
+## Sentinel
+
+**Earlier ecosystem presence:** later June/July material  
+**Artifact survivors:** `sentinel.zip`, `sentinel_build.zip`, `sentinel_v2.zip`, `decisions.txt`.  
+**Current repository:** `sentinel_os`.  
+**Classification:** **A for artifact existence; U for exact birth date.**
+
+---
+
+# 12. System-by-system provenance
+
+| System | Earliest recovered evidence | Earliest software evidence | Likely historical role | Status |
+|---|---|---|---|---|
+| CITADEL | Apr 14, 2026 session artifact | Jun ecosystem + adapter | linguistic/intent validation | **A** |
+| GALLM | Jun 10 | preserved implementation | typed governance/state primitive | **A/B** |
+| GOVERNANCE_KERNEL_V4 | Jun 10 | Jun system description | governance primitive | **A/B** |
+| FORTRESS 2.0 | Jun 10 | Jun prototype claim + later adapter | resilience/containment | **A/B** |
+| DIT | Jun 10 | later artifact family | text signature/validation | **A** |
+| GSA | Jun 10 | `gsa.zip` preserved | macro-governance | **A** |
+| URE | Jun 10 | later artifacts | regime/energy | **A** |
+| EDDP | Jun 10 | later integration artifacts | analytics/distribution/governance | **A** |
+| OBSERVE | Jun 10 | extensive preserved code | clinical early warning | **A** |
+| PERCEIVE | later June/Aug consolidation | preserved code | governance kernel | **A** |
+| DGK | June/July integration | `dgk_integration.txt` | multi-node governance | **A** |
+| Sentinel | June/July artifact layer | multiple preserved bundles | IVR/friction system | **A** |
+| GSA-815 | later July | current repository | destination/consolidation | **U for ancestor** |
+| GSA-GATEWAY | Aug | current repository | GSA-family consolidation | **A current state** |
+| FORTRESS repo | Aug | current repository | destination/recovery branch | **U exact continuity** |
+
+---
+
+# 13. Artifact-by-artifact provenance
+
+## Strongest historical artifacts
+
+| Artifact | Evidence | Historical meaning |
+|---|---|---|
+| `citadel_session_export_2026_04_14.pdf` | dated filename in Takeout | earliest recovered historical session artifact |
+| `consolidation_analysis_complete.txt` | explicit June 10 date | strongest temporal snapshot of the pre-July ecosystem |
+| `gallm_reference_impl.txt` | full executable source | actual governance implementation |
+| `dgk_integration.txt` | full source | actual DGK implementation |
+| `citadel_adapter.txt` | full source | actual Citadel implementation |
+| `fortress_adapter.txt` | full source | actual Fortress implementation |
+| `unified_governance.txt` | full source | shared governance spine |
+| `readme_consolidated.py` | explicit pre-consolidation 19-file layout | direct evidence of earlier modular architecture |
+| `gsa.zip` | preserved package | actual GSA software artifact |
+| `sentinel.zip` | preserved package | actual Sentinel software artifact |
+| `sentinel_build.zip` | preserved build package | Sentinel implementation history |
+| `sentinel_v2.zip` | preserved later variant | evolution/versioning evidence |
+
+fileciteturn51file0turn52file0turn58file0turn53file0turn56file0turn59file0turn60file0
+
+---
+
+# 14. Predecessor / alternate-name discoveries
+
+The most important naming discovery is that the June ecosystem used **different names than some later repositories**.
+
+For example:
+
+```text id="awq0xf"
+GOVERNANCE_KERNEL_V4
+        ↓
+later governance-kernel / PERCEIVE / gsa-governance-core candidates
+```
+
+and:
+
+```text id="ub7u9q"
+FORTRESS 2.0
+        ↓
+later FORTRESS repository
+```
+
+and:
+
+```text id="k3g2oz"
+GSA
+        ↓
+gsa.zip
+        ↓
+later GSA-family repositories
+```
+
+and:
+
+```text id="f5g0nd"
+CITADEL
+        ↓
+citadel_adapter
+        ↓
+PERCEIVE citadel gate
+```
+
+These are **not all proven byte-for-byte lineages**.
+
+But they are clearly historical naming layers.
+
+This is precisely the distinction the requested archaeology was designed to expose.
+
+---
+
+# 15. Cross-system migration graph
+
+The current strongest graph is:
+
+```text id="gk0poo"
+                 CITADEL
+            Apr 14 session layer
+                    │
+                    ▼
+        ┌───────────────────────┐
+        │ June 10 ecosystem     │
+        │                       │
+        │ GALLM                 │
+        │ GOVERNANCE_KERNEL_V4  │
+        │ FORTRESS 2.0          │
+        │ DIT                   │
+        │ GSA                   │
+        │ URE                   │
+        │ EDDP                  │
+        │ OBSERVE               │
+        │ CITADEL               │
+        │ ZTGKT / HTTP / ECP    │
+        │ DCT-Ω / UGPIS-Ω       │
+        │ GOVERNANCE_OS_FULL    │
+        └──────────┬────────────┘
+                   │
+        ┌──────────┼───────────┐
+        ▼          ▼           ▼
+     Sentinel    GSA-line      Clinical /
+     branch      branch        governance branch
+        │          │                │
+        ▼          ▼                ▼
+   sentinel_os  GSA-815       OBSERVE/PERCEIVE
+                    │                │
+                    └──────┬─────────┘
+                           ▼
+                      GSA-GATEWAY
+```
+
+Additional current metadata gives:
+
+```text id="q4r5a6"
+SECURE ───┐
+UZTC ─────┤
+WRAPPER ──┼──→ GSA-GATEWAY
+DGK ──────┤
+EDDP ─────┘
+```
+
+The GSA-GATEWAY repository itself explicitly describes this as consolidated GSA-lineage material and calls the repository name provisional. fileciteturn33file0
+
+---
+
+# 16. Temporal conflict register
+
+## Conflict 1 — Sentinel
+
+**Git:** `sentinel_os` created July 4.
+
+**Gemini:** Sentinel artifacts and Sentinel decision documentation exist in the Takeout archive, while the June 10 ecosystem already names Sentinel as an application-layer component.
+
+**Resolution:** not a contradiction.
+
+Possible explanation:
+
+```text
+software / conceptual system
+        ↓
+Gemini-generated artifacts
+        ↓
+repository creation
+```
+
+Status: **B**
+
+## Conflict 2 — FORTRESS
+
+**Git:** current FORTRESS repository created August 19.
+
+**Gemini:** FORTRESS 2.0 is explicitly listed in a June 10 15-system ecosystem and later Fortress adapter code survives in the Takeout layer.
+
+**Resolution:** current repository is almost certainly a later destination, recovery, consolidation, or reconstruction boundary.
+
+Status: **B**
+
+## Conflict 3 — GSA
+
+**Git:** current repository lineage cannot be used as origin.
+
+**Gemini:** GSA is a named June 10 system, and `gsa.zip` is preserved.
+
+**Resolution:** GSA unquestionably predates the current late repository layer.
+
+Status: **A**
+
+## Conflict 4 — GSA-GATEWAY
+
+**Git:** repository created August 19.
+
+**Gemini:** June ecosystem already contains the GSA, DGK and EDDP components later claimed as GSA-lineage material.
+
+**Resolution:** GSA-GATEWAY is a late consolidation name, not the origin of the GSA ecosystem.
+
+Status: **A/B**
+
+---
+
+# 17. Human / AI development provenance
+
+Gemini_History gives unusually strong evidence for **artifact production**, but weaker evidence for **authorship**.
+
+The preserved artifacts include:
+
+- build decision logs,
+- generated source,
+- tests,
+- manifests,
+- ZIP packages,
+- integration code,
+- architecture documents.
+
+The Sentinel decision log explicitly records individual design decisions, reversals, bugs, fixes, and testing outcomes. fileciteturn54file0
+
+The June consolidation analysis is particularly valuable because it records system status rather than merely offering ideas.
+
+The correct historical separation is therefore:
+
+```text id="0z39dy"
+human-directed decision
+        ≠
+AI-generated implementation
+        ≠
+original conception date
+        ≠
+repository creation date
+```
+
+A preserved generated source file establishes that the code existed in the Gemini artifact archive.
+
+It does not independently prove who originally conceived the system.
+
+---
+
+# 18. Evidence ledger
+
+| ID | Evidence | Label | Significance |
+|---|---|---|---|
+| G01 | Gemini_History preserves original Takeout artifact tree | A | Primary artifact archive |
+| G02 | `citadel_session_export_2026_04_14.pdf` exists | A | Earliest recovered date boundary |
+| G03 | June 10 consolidation analysis explicitly dates itself | A | Strong temporal anchor |
+| G04 | June 10 lists 15 integrated systems | A | Establishes pre-July ecosystem |
+| G05 | June 10 calls prototype components complete/testable/working | A | Software existence evidence |
+| G06 | `gallm_reference_impl.txt` contains full executable implementation | A | Real software artifact |
+| G07 | `gsa.zip` exists in Takeout | A | Real GSA package |
+| G08 | `sentinel.zip`, `sentinel_build.zip`, `sentinel_v2.zip` exist | A | Real Sentinel artifact family |
+| G09 | `decisions.txt` is explicitly a Sentinel build decisions log | A | Historical development record |
+| G10 | `fortress_adapter.txt` exists as actual source | A | Real Fortress source |
+| G11 | `dgk_integration.txt` contains actual DGK source | A | Real DGK source |
+| G12 | `citadel_adapter.txt` contains actual Citadel source | A | Real Citadel source |
+| G13 | `readme_consolidated.py` says the modular system was consolidated from 19 files | A | Earlier modular architecture |
+| G14 | GSA-GATEWAY current metadata names SECURE/UZTC/WRAPPER/DGK/EDDP as sources | B | Current consolidation corroboration |
+| G15 | normalized Gemini transcripts are largely empty | A | Corpus limitation |
+| G16 | current Git dates for July/Aug repositories are later than June ecosystem | A | Repository ≠ birth |
+
+---
+
+# 19. UNKNOWN / NOT FOUND register
+
+### U1 — exact April CITADEL source date
+
+The April 14 PDF exists, but its binary contents were not successfully extracted in this pass. Therefore executable code on April 14 is **U**.
+
+### U2 — exact creation timestamps of `gsa.zip`, `sentinel.zip`, and `fortress_adapter.txt`
+
+Their existence is proven; their original creation time is not exposed by the accessible normalized history.
+
+### U3 — exact GALLM first-code timestamp
+
+The code is preserved and is clearly linked to the June 10 system snapshot, but the code file itself carries no definitive first-created timestamp.
+
+### U4 — exact byte lineage FORTRESS 2.0 → current FORTRESS repository
+
+Strongly supported conceptually and temporally. Exact source-file continuity not yet proven.
+
+### U5 — exact DIT → later repository artifact map
+
+DIT clearly existed in June, but every later destination edge needs artifact-level matching.
+
+### U6 — exact GSA → GSA-815 path
+
+GSA clearly existed before GSA-815. The specific files migrated into GSA-815 remain unresolved.
+
+### U7 — earliest pre-GSA predecessor
+
+Not yet found.
+
+### U8 — earliest pre-FORTRESS predecessor
+
+Not yet found.
+
+### U9 — May ecosystem
+
+No strong dated software artifact recovered.
+
+### U10 — earlier-than-April history
+
+No evidence examined here proves a pre-April software ancestor.
+
+---
+
+# 20. Revised Pass 7 findings
+
+Pass 7 should now be revised substantially.
+
+The older ecosystem is not best modeled as:
+
+```text
+STRIDE → Sentinel → GSA-815
+```
+
+It is more accurately represented as:
+
+```text id="7qek9s"
+             ┌── GALLM / typed state
+             │
+             ├── GOVERNANCE_KERNEL_V4
+             │
+             ├── FORTRESS 2.0
+             │
+             ├── GSA
+             │
+June 2026 ───┼── DIT
+             │
+             ├── URE
+             │
+             ├── EDDP
+             │
+             ├── OBSERVE
+             │
+             ├── CITADEL
+             │
+             ├── ZTGKT / HTTP / ECP
+             │
+             └── DCT-Ω / UGPIS-Ω / GOVERNANCE_OS_FULL
+                         │
+                         ▼
+              July specialization
+                         │
+              ┌──────────┼──────────┐
+              ▼          ▼          ▼
+           Sentinel      GSA      OBSERVE/PERCEIVE
+              │          │
+              ▼          ▼
+         sentinel_os   GSA-815
+                           │
+                           ▼
+                     GSA-GATEWAY
+```
+
+Pass 7's individual migrations may still be correct, but they are now shown as **downstream edges in a much older ecosystem**.
+
+In particular, the claim that Sentinel is one of the oldest roots is no longer defensible.
+
+**Sentinel is a later application-layer specialization of an ecosystem that was already operational by June.**
+
+---
+
+# 21. Earliest defensible historical boundary
+
+There are two boundaries:
+
+### Historical project boundary
+
+**April 14, 2026**
+
+CITADEL session/export evidence.
+
+### Proven software boundary
+
+**June 10, 2026**
+
+A dated primary artifact explicitly documents a multi-system prototype ecosystem with concrete implementations, completed components, tests, and working prototypes.
+
+The correct archaeological statement is:
+
+> **The ecosystem's earliest defensible software boundary is June 10, 2026, while the historical project/session boundary reaches at least April 14, 2026.**
+
+---
+
+# 22. Strongest historical lineage discovered
+
+The strongest newly recovered lineage is the **governance + resilience + clinical convergence that predates Sentinel**.
+
+The chain is:
+
+```text id="x5j3kq"
+GALLM
+  ↓
+GOVERNANCE_KERNEL_V4
+  ↓
+shared invariant/gate/audit model
+  ├── CITADEL
+  ├── FORTRESS
+  ├── DGK
+  ├── Sentinel gate
+  └── PERCEIVE
+
+Meanwhile:
+
+FORTRESS 2.0
+  ↓
+later Fortress adapter
+  ↓
+current FORTRESS destination
+
+GSA
+  ↓
+gsa.zip
+  ↓
+later GSA-family repositories
+  ↓
+GSA-815
+  ↓
+GSA-GATEWAY
+```
+
+The **CITADEL → governance-layer** continuity and **FORTRESS 2.0 → later Fortress** continuity are especially strong conceptually and structurally.
+
+The exact byte identity of each step remains to be proven separately.
+
+---
+
+# 23. What remains unresolved
+
+The remaining historical questions are now narrower and more interesting.
+
+The major unresolved problem is no longer:
+
+> “Did an ecosystem exist before July?”
+
+That is now answered.
+
+The unresolved problem is:
+
+> **What was the first root of that June ecosystem?**
+
+Specifically:
+
+```text id="0kq7oj"
+April CITADEL
+      │
+      ▼
+???? earliest governance primitive
+      │
+      ├── GALLM
+      ├── GOVERNANCE_KERNEL_V4
+      ├── FORTRESS 2.0
+      ├── GSA
+      ├── DIT
+      └── OBSERVE
+```
+
+The next archaeological target should therefore be the **April artifact layer**, especially the original CITADEL session export and whatever `myactivity.json` contains about its event timestamps and titles.
+
+That is where a true pre-June ancestor may still be recoverable.
+
+---
+
+# 24. Final historical test
+
+## 1. What is the earliest date at which a real software artifact is demonstrably present?
+
+**June 10, 2026** is the earliest date at which the accessible Gemini evidence establishes a real multi-system software ecosystem.
+
+**April 14, 2026** is the earliest date at which a CITADEL-related session/export artifact is directly evidenced.
+
+## 2. What is the earliest system that can be proven to have actually existed?
+
+**CITADEL** is the earliest system for which the historical record reaches back to an explicitly dated April 14 session artifact, but executable CITADEL code is only securely established in the later June ecosystem.
+
+For **actual software**, the earliest proven system layer is therefore the June ecosystem containing **GALLM / GOVERNANCE_KERNEL_V4** and CITADEL/FORTRESS/GSA/OBSERVE.
+
+## 3. What systems existed before Sentinel?
+
+At minimum:
+
+**GALLM, GOVERNANCE_KERNEL_V4, FORTRESS 2.0, DIT, GSA, URE, EDDP, CITADEL, OBSERVE, ECP, HTTP, ZTGKT, DCT-Ω, UGPIS-Ω, GOVERNANCE_OS_FULL, and ATS** are explicitly documented in the June 10 ecosystem.
+
+fileciteturn52file0
+
+## 4. Which dead systems contributed artifacts to surviving systems?
+
+Strongest current candidates:
+
+- GALLM → governance-kernel lineage
+- GOVERNANCE_KERNEL_V4 → later governance layers
+- FORTRESS 2.0 → Fortress descendants
+- DIT → later governance/GSA family
+- EDDP → GSA-GATEWAY
+- DGK → later GSA-GATEWAY / PERCEIVE
+- CITADEL → PERCEIVE citadel gate
+- OBSERVE/PERCEIVE modular stack → later consolidated clinical governance.
+
+Exact file-by-file migration remains partially unresolved.
+
+## 5. What is the earliest demonstrable ancestor of Sentinel?
+
+**Not Sentinel itself.**
+
+The earliest demonstrable environment around it is the **June 10 integrated governance ecosystem**, particularly the shared governance/validation primitives and application-layer architecture.
+
+Exact single-file ancestor: **U**.
+
+## 6. What is the earliest demonstrable ancestor of GSA-815?
+
+**GSA**, documented in June and preserved as `gsa.zip`.
+
+The exact artifact path from `gsa.zip` into GSA-815 is **U**, but GSA clearly precedes GSA-815.
+
+## 7. What is the earliest demonstrable ancestor of FORTRESS?
+
+**FORTRESS 2.0**, explicitly documented on June 10.
+
+This is substantially earlier than the August FORTRESS repository.
+
+## 8. Does Gemini_History establish a pre-July-2026 software ecosystem?
+
+**YES — decisively.**
+
+The June 10 artifact establishes it directly.
+
+## 9. If yes, what survives from it?
+
+Survivors include:
+
+- GALLM reference implementation
+- governance-kernel concepts
+- FORTRESS adapters and source
+- CITADEL adapter
+- DGK integration
+- OBSERVE/PERCEIVE code
+- GSA package
+- Sentinel packages
+- modular tests and architecture documents
+- consolidated governance artifacts.
+
+fileciteturn51file0turn52file0turn58file0turn53file0turn56file0turn59file0turn60file0
+
+## 10. Which current repository contains the surviving descendants?
+
+The strongest current destinations are:
+
+- `sentinel_os`
+- `GSA-815`
+- `GSA-GATEWAY`
+- `FORTRESS`
+
+with additional descendants in the broader OBSERVE/governance repository layer.
+
+## 11. Which apparent “old systems” turn out to be reconstruction-era names?
+
+The clear reconstruction-era exceptions remain:
+
+- TIE
+- GEMS
+- HERALD
+- Conservation_Kernel
+
+They are not part of this historical lineage.
+
+By contrast, **FORTRESS, GSA, DIT, URE, EDDP, CITADEL, OBSERVE, and the governance-kernel family are demonstrably older than the August reconstruction window.**
+
+## 12. What is the deepest provenance chain that can be proven?
+
+The deepest currently proven chain is:
+
+```text id="8v9j0g"
+Apr 14 2026
+CITADEL session/export evidence
+        │
+        ▼
+Jun 10 2026
+15-system integrated prototype ecosystem
+        │
+        ├── GALLM
+        ├── GOVERNANCE_KERNEL_V4
+        ├── FORTRESS 2.0
+        ├── GSA
+        ├── DIT
+        ├── URE
+        ├── EDDP
+        ├── OBSERVE
+        ├── CITADEL
+        └── orchestration / validation stack
+                │
+                ▼
+July specialization
+                │
+                ├── Sentinel
+                ├── GSA packages
+                └── modular clinical/governance stacks
+                │
+                ▼
+August consolidation / migration
+                │
+                ├── GSA-815
+                ├── FORTRESS
+                └── GSA-GATEWAY
+```
+
+---
+
+# FINAL HISTORICAL JUDGMENT
+
+**Pass 11 proves that the ecosystem's real history begins before July 2026.**
+
+The critical evidence is the dated **June 10, 2026** architectural consolidation record describing a 15-system software ecosystem that already included **FORTRESS 2.0, GSA, DIT, URE, EDDP, OBSERVE, CITADEL, GALLM, GOVERNANCE_KERNEL_V4 and others**. fileciteturn52file0
+
+That single artifact changes the interpretation of the later repositories.
+
+The July and August repositories are no longer best viewed as the birthplace of the ecosystem.
+
+They are better understood as **specialization, packaging, migration, consolidation, recovery, and in some cases reconstruction layers built on top of an older software ecosystem whose artifact record reaches at least to June 10 and whose project/session trail reaches at least to April 14**.
+
+The deepest remaining archaeological frontier is therefore not July.
+
+It is **April → June**.
+
+That is where the first genuine ancestor of the governance ecosystem is most likely to be found.
+:::

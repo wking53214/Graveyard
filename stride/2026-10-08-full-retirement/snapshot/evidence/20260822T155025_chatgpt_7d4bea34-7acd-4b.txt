@@ -1,0 +1,1088 @@
+:::writing{variant="document" id="48317" title="PASS 6 — Deep Artifact Recovery, Temporal Forensics, and Historical Runtime Verification"}
+# PASS 6 — DEEP ARTIFACT RECOVERY, TEMPORAL FORENSICS, AND HISTORICAL RUNTIME VERIFICATION
+
+**Audit date:** August 22, 2026  
+**Method:** independent primary-source recovery and temporal reconstruction  
+**Standard:** skeptical historian / software archaeologist  
+**Evidence rule:** architectural coherence is not historical evidence; reconstruction is not original; current integration is not historical runtime.
+
+## 1. Executive verdict
+
+Pass 6 materially strengthens the distinction between the **historical record** and the **current reconstructed stack**.
+
+The strongest direct finding is now explicit in the surviving repositories themselves: the current TIE implementation is a **new implementation from recovered specifications**, not recovered historical source. Its repository records that the original complete repository, exact `TIE_PACKAGE` schema, exact historical `EvidenceRecord` schema, persistence/runtime architecture, relationship vocabulary, and historical tests were **not recovered**. fileciteturn48file0
+
+The same boundary is independently explicit for GEMS. Its repository states that it is a reconstruction baseline, not the historical canonical repository, and that the canonical repository, production Gem implementations/prompts, universal schema, concrete transport/API, database/vector store, and deployment were not recovered. fileciteturn49file0 fileciteturn40file0
+
+The present TIE→GEMS connection is therefore real **as a current reconstructed integration**, but Pass 6 found no Tier-1 artifact demonstrating that this was an historical runtime connection. The GEMS adapter itself deliberately preserves an opaque TIE payload because the historical `TIE_PACKAGE` schema was not recovered. fileciteturn61file0
+
+For HERALD, the present repository is a substantial current implementation created on August 20, 2026, with extensive tests and a defined governance-facing handoff. But the current README explicitly says that no consuming project is wired in yet. No historical GEMS→HERALD runtime artifact was recovered, and searches of current GEMS and HERALD sources found no mutual reference establishing such a historical connection. fileciteturn30file0 fileciteturn50file0
+
+The most important positive historical recovery outside TIE/GEMS is **STRIDE salvage**: Sentinel's August 21 commit explicitly says `governance_loop_guard.py` was salvaged from the STRIDE repository before STRIDE was deleted. That proves that at least some actual STRIDE source survived and was migrated into Sentinel. fileciteturn60file0
+
+FORTRESS is also substantially clarified. The present FORTRESS repository is not one canonical uninterrupted codebase; it is a consolidation of multiple variants recovered from Sentinel, ARCHIVE, and Claude conversation attachments. Its README identifies those sources explicitly and distinguishes complete, incomplete, and independent variants. fileciteturn58file0
+
+**Final historical judgment:** the evidence does **not** support a continuously demonstrated historical runtime chain
+
+`HISTORY → TIE → GEMS → HERALD → GOVERNANCE → EXECUTION`.
+
+The first unsupported **runtime** arrow is:
+
+**TIE → GEMS.**
+
+Historical concepts/specifications for TIE and GEMS are supported by forensic material, and current reconstructed implementations now connect them, but the surviving primary record does not establish that the historical implementations executed together.
+
+---
+
+## 2. What Pass 6 newly recovered
+
+### 2.1 TIE reconstruction provenance became Tier-1 evidence
+
+The current TIE Git history establishes:
+
+- repository creation: **August 19, 2026, 20:44 UTC**;
+- initial commit: only `# TIE`;
+- reconstruction commit: **August 19, 2026, 21:09:42 UTC**;
+- reconstruction commit message explicitly says it was reconstructed from five user-supplied TIE forensic summaries and **not from a recovered original TIE repository**;
+- the same commit records nine passing tests. fileciteturn22file0 fileciteturn24file0 fileciteturn25file0
+
+This is direct Git evidence, not a later reconstruction narrative.
+
+### 2.2 TIE exact historical schema recovery is explicitly negative
+
+The TIE recovery record states that the exact historical `TIE_PACKAGE` schema and exact historical `EvidenceRecord` source schema were not recovered, alongside the original repository and historical test suite. The runtime code is explicitly classified as a **new implementation from recovered specification**. fileciteturn48file0
+
+### 2.3 GEMS canonical implementation recovery is explicitly negative
+
+The GEMS repository records the same historical boundary independently: it is the first executable baseline from the supplied GEMS-FER package, not the recovered canonical repository. fileciteturn49file0
+
+Its reconstruction-status file is even more explicit: the canonical repository, production code, exact APIs, transport, schemas, prompts, and deployment details were not recovered. fileciteturn40file0
+
+### 2.4 TIE→GEMS current integration is demonstrable but knowingly synthetic
+
+The current GEMS code contains a `TIEPackageAdapter`, but the adapter treats the incoming package as opaque because the historical schema was not recovered and labels the implementation `"reconstruction-baseline"`. fileciteturn61file0
+
+This proves current code integration. It does **not** prove historical runtime continuity.
+
+### 2.5 Raw-history infrastructure is real and structurally recoverable
+
+The Claude archive is a genuine exported archive containing **265 conversations and 10,721 messages**, with per-conversation raw JSON/JSONL, transcripts, summaries, and an index carrying conversation timestamps and message counts. fileciteturn18file0 fileciteturn17file0 fileciteturn20file0
+
+The corresponding ChatGPT, Gemini, and CoPilot history repositories also expose raw-history-style directory structures with data, indexes, summaries, and transcripts. fileciteturn62file0 fileciteturn63file0 fileciteturn64file0
+
+### 2.6 STRIDE historical source salvage is directly established
+
+Sentinel's August 21, 2026 commit states that `governance_loop_guard.py` was salvaged from the STRIDE repository **before its deletion from GitHub**. It further identifies the preserved portion as the loop-detection/bounded-retry half of a larger STRIDE component, while the queue-depth backpressure half remains unidentified. fileciteturn60file0
+
+This is substantially stronger than merely seeing STRIDE named in a report.
+
+### 2.7 FORTRESS lineage is now demonstrably plural
+
+The FORTRESS repository says it was assembled by content signature rather than filename and identifies at least four distinct variants:
+
+- a complete `fortress_kernel.py` copied from Sentinel;
+- `PredictiveStateController.py` from ARCHIVE;
+- `Fortress_orchestrator_incomplete.py` from ARCHIVE;
+- `PredictiveIntegrityController.py` from a Claude conversation attachment.
+
+It explicitly characterizes the latter as an independently written version rather than a renamed copy. fileciteturn58file0
+
+---
+
+## 3. What Pass 6 failed to recover
+
+The following artifacts were **not recovered as qualifying historical primary artifacts**:
+
+- original TIE source repository;
+- exact original `TIE_PACKAGE`;
+- exact historical `EvidenceRecord` schema;
+- canonical historical GEMS repository;
+- historical GEMS production code/prompts;
+- historical TIE→GEMS transport/API/log/test evidence;
+- historical HERALD implementation or demonstrably equivalent predecessor;
+- historical GEMS→HERALD runtime evidence;
+- historical HERALD→governance runtime evidence;
+- governance→execution evidence outside the presently reconstructed/current Sentinel environment;
+- external-user evidence for Sentinel;
+- sustained production telemetry;
+- complete STRIDE source;
+- canonical single-lineage FORTRESS repository.
+
+The negative result for TIE and GEMS is unusually strong because their own current repositories directly acknowledge the missing historical artifacts. fileciteturn48file0 fileciteturn40file0
+
+The raw-history negative result is weaker. The archives are present, but the available connector did not expose a reliable exhaustive full-text scan of every raw blob. Therefore the appropriate category is:
+
+**NOT FOUND IN SEARCHED CORPUS**
+
+—not **PROVEN ABSENT**.
+
+---
+
+## 4. Raw-history search results
+
+### Corpus located
+
+| Archive | Primary structure located | Result |
+|---|---|---|
+| Claude_History | raw export, per-conversation JSON/JSONL, transcripts, summaries, manifest | Deep structural recovery completed |
+| ChatGPT_History | data, index, transcripts, summaries | Corpus located; content search incomplete |
+| Gemini_History | Takeout, data, index, transcripts, summaries | Corpus located; content search incomplete |
+| CoPilot_History | data, index, transcripts, summaries | Corpus located; content search incomplete |
+
+Claude is the best-documented archive in this pass: its README states 265 conversations / 10,721 messages and identifies raw exports, flattened raw message storage, transcripts, and an index. fileciteturn18file0
+
+### Exact-term search
+
+The connected GitHub search facility returned no qualifying hits for targeted history-repository searches such as `TIE_PACKAGE` and `EvidenceRecord`.
+
+That result is **not equivalent to an exhaustive corpus-negative finding**, because the raw-history repositories are large collections of blobs and the connector does not provide a dependable archive-wide local grep equivalent.
+
+### Semantic search
+
+The present corpus contains strong evidence of the project vocabulary in current reconstructed repositories, but no independently recovered historical TIE/GEMS runtime source was located through the available history search path.
+
+### Generated vs supplied vs committed
+
+Pass 6 did recover direct examples showing why this distinction matters:
+
+- TIE current code: reconstruction from forensic summaries, explicitly not original. fileciteturn24file0
+- GEMS current code: reconstruction from GEMS-FER-1.0, explicitly not canonical historical source. fileciteturn27file0
+- Sentinel STRIDE fragment: explicitly salvaged from deleted historical source. fileciteturn60file0
+- FORTRESS variants: explicitly copied/extracted from several surviving source locations. fileciteturn58file0
+
+These cases demonstrate four distinct historical states: **reconstructed**, **specification-derived**, **salvaged source**, and **copied source**.
+
+---
+
+## 5. TIE forensic recovery
+
+### Historical status
+
+**Classification: RECONSTRUCTED**  
+**Historical implementation: HISTORICALLY INFERRED, not recovered**
+
+TIE's current Git history is exceptionally clear. The repository was created on August 19, 2026, began with a placeholder README, and then received a reconstruction baseline explicitly described as reconstructed from forensic summaries rather than recovered source. fileciteturn22file0 fileciteturn25file0
+
+The recovery-status artifact separately states:
+
+> original complete repository — not recovered exactly  
+> exact TIE_PACKAGE schema — not recovered exactly  
+> exact EvidenceRecord historical source schema — not recovered exactly  
+> runtime code — new implementation from recovered specification. fileciteturn48file0
+
+### Current source identity
+
+The current tree contains:
+
+- `schemas/tie_package.reconstructed.schema.json`;
+- evidence modules;
+- identity modules;
+- handoff modules;
+- recovery ledgers;
+- documentation explicitly describing reconstruction. fileciteturn26file0
+
+The filename itself is evidentiary: `tie_package.reconstructed.schema.json` is a present reconstruction artifact, not an identified recovered historical schema.
+
+### Conclusion
+
+The surviving record supports:
+
+**historical TIE concept/specification → current reconstruction**
+
+but not:
+
+**historical TIE source code → current source code by continuity.**
+
+---
+
+## 6. GEMS forensic recovery
+
+### Historical status
+
+**Classification: RECONSTRUCTED**
+
+GEMS was created as a GitHub repository on August 17, 2026; its executable reconstruction baseline was committed August 19. fileciteturn29file0 fileciteturn27file0
+
+The repository's reconstruction-status file states that the canonical historical repository and production implementation were not recovered. fileciteturn40file0
+
+The README independently says the historical Gem implementations/prompts, universal schema, transport/API, database/vector store, and deployment were not recovered. fileciteturn49file0
+
+### Canonical implementation
+
+**Not recovered.**
+
+The present code implements minimal deterministic contracts and adapters. The `TIEPackageAdapter` explicitly avoids assuming the missing historical schema. fileciteturn61file0
+
+### Fidelity
+
+**MODERATE for recovered conceptual architecture; UNKNOWN for source-code fidelity.**
+
+There is strong specification correspondence, but no direct historical source against which exact implementation identity can be checked.
+
+---
+
+## 7. HERALD / predecessor recovery
+
+### Current HERALD
+
+The HERALD repository was created August 20, 2026 and contains a substantial current implementation with source, tests, a constitution, handoff logic, binding, extraction, calibration, and governance boundaries. fileciteturn30file0 fileciteturn41file0
+
+The README describes the layer as a claim-extraction system that deliberately stops before consumer decision-making. It reports 296 tests passing, 25 skipped, and states:
+
+**“No consuming project is wired in yet.”** fileciteturn50file0
+
+### Historical predecessor
+
+Pass 6 did not recover a demonstrably equivalent predecessor under another name.
+
+Therefore:
+
+**Classification: CURRENT-ONLY**
+
+—not “historically absent.”
+
+The current repository's own creation date is not treated as the birth date of the underlying concept.
+
+---
+
+## 8. TIE → GEMS runtime analysis
+
+### Current integration
+
+Current GEMS contains an explicit `TIEPackageAdapter`. fileciteturn61file0
+
+### Historical runtime
+
+No Tier-1 artifact was recovered showing:
+
+- historical TIE import;
+- historical GEMS import;
+- common deployment;
+- API transport;
+- queue;
+- message envelope;
+- runtime log;
+- historical integration test;
+- deployment configuration connecting the historical implementations;
+- contemporaneous execution trace involving both.
+
+### Classification
+
+**CURRENT RECONSTRUCTION ONLY**
+
+This is the critical distinction.
+
+Current TIE and GEMS integration is demonstrable. Historical runtime continuity is not.
+
+### Temporal consistency
+
+The current repositories are temporally compatible because their reconstructed baselines were produced in the same reconstruction period. But temporal simultaneity of **current repositories** cannot be substituted for simultaneity of the **historical implementations**.
+
+---
+
+## 9. GEMS → HERALD runtime analysis
+
+Pass 6 found no current-code mutual references:
+
+- searching GEMS for `HERALD` returned no qualifying source result;
+- searching HERALD for `GEMS` returned no qualifying source result.
+
+The present GEMS repository describes its consumers and integrations without identifying HERALD. fileciteturn49file0
+
+The present HERALD repository says no consuming project is wired in. fileciteturn50file0
+
+### Historical runtime
+
+No historical API call, queue, adapter, test, deployment, or execution log connecting GEMS to HERALD was recovered.
+
+### Classification
+
+**UNKNOWN historically; CURRENT-ONLY for HERALD itself.**
+
+---
+
+## 10. HERALD → governance → execution analysis
+
+HERALD clearly contains a current governance boundary:
+
+- claims may be admitted for governance;
+- governed decisions remain outside HERALD;
+- human sign-off is modeled;
+- a consuming project is expected to own the actual decision. fileciteturn50file0
+
+But the current README explicitly says no consuming project is wired in. fileciteturn50file0
+
+Therefore there is no Tier-1 evidence in this pass establishing:
+
+`HERALD → actual historical governance consumer → execution`
+
+### Classification
+
+**CURRENT DESIGN: PROVEN.**  
+**HISTORICAL RUNTIME: NOT FOUND IN SEARCHED CORPUS.**  
+**Production execution: NOT DEMONSTRATED.**
+
+---
+
+## 11. Sentinel deployment forensics
+
+Sentinel has substantially stronger historical evidence than TIE/GEMS because its repository predates the current reconstruction period.
+
+Repository creation: **July 4, 2026**.  
+Initial upload commit: **July 3, 2026, 23:31 ET**. fileciteturn31file0 fileciteturn56file0
+
+### Implemented
+
+**PROVEN.**
+
+The repository is large and contains substantial executable code, tests, operational components, deployment manifests, and production-oriented modules. fileciteturn31file0
+
+### Tested
+
+**PROVEN.**
+
+The repository has extensive test evidence and later commits record specific test outcomes.
+
+### Operationally exercised
+
+**PROVEN at least in local/internal contexts.**
+
+The repository contains simulator, harness, queue, API, governance, and cassette infrastructure; the July 24 commit explicitly distinguishes simulator-only modules from the production governance path. fileciteturn56file0
+
+### Deployed
+
+**NOT PROVEN.**
+
+This is where the evidence breaks.
+
+The deployment documentation states:
+
+- production-style Docker Compose exists;
+- Kubernetes manifests exist;
+- one manifest set is flagged as likely dead;
+- neither Kubernetes manifest set has been deploy-tested;
+- live Claude API round-trip has not been verified end-to-end outside unit-level mocking. fileciteturn52file0
+
+The repository therefore contains **deployment capability/configuration**, not demonstrated deployment.
+
+### External users
+
+**NOT FOUND IN SEARCHED CORPUS.**
+
+No user-facing traffic, external request logs, real production telemetry, or customer activity was recovered.
+
+### Sustained production
+
+**NOT FOUND IN SEARCHED CORPUS.**
+
+There is no qualifying sustained-production evidence.
+
+### Sentinel conclusion
+
+**HISTORICALLY PARTIALLY PROVEN**
+
+because implementation, testing, and operational development are strongly established, while external deployment and sustained production operation are not.
+
+---
+
+## 12. STRIDE Git archaeology
+
+This is one of Pass 6's strongest historical recoveries.
+
+A current Sentinel commit explicitly states that `governance_loop_guard.py` was:
+
+**“salvaged from the STRIDE repo before its deletion from GitHub”**. fileciteturn60file0
+
+It also states:
+
+- only the loop-detection/bounded-retry half was salvaged;
+- the queue-depth backpressure half remained without an identified use site;
+- the salvaged code was integrated into Sentinel;
+- GSA-815 separately contains its own downstream copy of `production_harness.py`.
+
+### STRIDE repository itself
+
+Direct retrieval of `wking53214/STRIDE` now returns **Not Found**.
+
+Therefore:
+
+**repository deleted ≠ source unrecoverable.**
+
+Pass 6 has direct proof that at least one meaningful source fragment survived migration.
+
+### Classification
+
+**DELETED / PARTIALLY SALVAGED**
+
+Complete STRIDE recovery was not achieved.
+
+---
+
+## 13. FORTRESS continuity analysis
+
+The current FORTRESS repository was created August 19, 2026. fileciteturn32file0
+
+Its README is itself a useful forensic source because it records provenance of each extracted variant. fileciteturn58file0
+
+### Recovered lineages
+
+1. `fortress_kernel.py` — copied from Sentinel's `sage_k/kernel.py`.
+2. `PredictiveStateController.py` — extracted from ARCHIVE.
+3. `Fortress_orchestrator_incomplete.py` — extracted from ARCHIVE.
+4. `PredictiveIntegrityController.py` — recovered from a Claude_History conversation attachment.
+
+The repository says explicitly that the four are not one identical source tree and that at least one is independently written. fileciteturn58file0
+
+### Classification
+
+**PARTIAL CONTINUITY**
+
+There is demonstrable conceptual/code lineage across several artifacts, but no canonical uninterrupted FORTRESS repository history was recovered.
+
+---
+
+## 14. CCC / Triad-42 / Conservation Kernel chronology
+
+Current repository creation dates:
+
+| System | Current repo creation |
+|---|---|
+| CCC | August 13, 2026 |
+| Triad-42 | August 13, 2026 |
+| Conservation_Kernel | August 17, 2026 |
+
+fileciteturn34file0 fileciteturn33file0 fileciteturn35file0
+
+These dates prove current repositories, not project birth.
+
+Pass 6 did not recover earlier source versions sufficient to establish that the underlying concepts began earlier under alternate names.
+
+### Classification
+
+**NOT FOUND IN SEARCHED CORPUS**
+
+for demonstrably earlier versions.
+
+This is not proof that earlier versions never existed.
+
+---
+
+## 15. Cross-repository code lineage
+
+### STRIDE → Sentinel
+
+**PROVEN.**
+
+Direct commit statement documents salvaged source migration. fileciteturn60file0
+
+### Sentinel → FORTRESS
+
+**PROVEN at code-copy level.**
+
+FORTRESS explicitly says `fortress_kernel.py` was moved from Sentinel and remains in Sentinel. fileciteturn58file0
+
+### ARCHIVE → FORTRESS
+
+**PROVEN.**
+
+FORTRESS identifies two ARCHIVE-derived variants. fileciteturn58file0
+
+### Claude_History → FORTRESS
+
+**PROVEN.**
+
+FORTRESS identifies `PredictiveIntegrityController.py` as coming from a Claude_History conversation attachment. fileciteturn58file0
+
+### Historical TIE → current TIE
+
+**NOT PROVEN.**
+
+Current TIE is explicitly marked as new implementation from recovered specification. fileciteturn48file0
+
+### Historical GEMS → current GEMS
+
+**NOT PROVEN.**
+
+Current GEMS is explicitly a reconstruction baseline, not historical source. fileciteturn40file0
+
+### Current TIE → current GEMS
+
+**PROVEN**, but only for the reconstructed baseline.
+
+The integration is an explicitly reconstruction-scoped adapter. fileciteturn61file0
+
+---
+
+## 16. Renamed-system analysis
+
+Pass 6 found a clear, explicit example of lineage consolidation in **GSA-GATEWAY**.
+
+Its repository description calls the name a **provisional name** for consolidated content from:
+
+- SECURE;
+- UZTC;
+- WRAPPER;
+- governance-stack material from DGK/EDDP.
+
+It explicitly says “Rename freely.” fileciteturn37file0
+
+This confirms that repository naming is not a reliable proxy for historical system identity.
+
+However, Pass 6 did **not** recover similarly direct evidence proving that TIE, GEMS, or HERALD were formerly the same systems under different names.
+
+### Result
+
+- renamed/consolidated systems: **historically demonstrated in some cases**;
+- TIE predecessor name: **UNKNOWN**;
+- GEMS predecessor name: **UNKNOWN**;
+- HERALD predecessor name: **UNKNOWN**.
+
+---
+
+## 17. Human decision provenance
+
+Pass 6 recovered strong evidence of explicit human-directed repository decisions, but not a complete historical authorship chain.
+
+Examples include:
+
+- Sentinel commits documenting explicit decisions about retained deployment history and repo contents;
+- FORTRESS consolidation descriptions identifying source repositories;
+- TIE's reconstruction commit explicitly recording the provenance boundary;
+- HERALD commits documenting engineering decisions and test verification. fileciteturn24file0 fileciteturn52file0 fileciteturn58file0
+
+The HERALD history also records Claude-session provenance and direct verification of test outcomes. fileciteturn28file0
+
+### Authorship rule
+
+These artifacts establish:
+
+**decision provenance**
+
+more strongly than they establish:
+
+**human authorship of the underlying code.**
+
+The presence of a `Co-Authored-By: Claude ...` line is evidence that an AI-assisted development process occurred; it is not by itself evidence that a human personally authored every line.
+
+### Additional raw-history directives
+
+No additional raw-history directive was independently recovered in this pass at the evidentiary level required to overturn the existing uncertainty.
+
+Classification:
+
+**NOT FOUND IN SEARCHED CORPUS**
+
+with incomplete raw-archive full-text coverage.
+
+---
+
+## 18. Updated evidence ledger
+
+| ID | Source | Finding | Type | Status | Independence |
+|---|---|---|---|---|---|
+| E51 | Claude_History README | 265 conversations / 10,721 messages; raw export and transcripts retained | Tier 1 | PROVEN | Independent |
+| E52 | Claude manifest | conversation timestamps and message counts | Tier 1 | PROVEN | Independent of README but same archive |
+| E53 | TIE repo metadata | current TIE repo created Aug 19, 2026 | Tier 1 | PROVEN | Independent |
+| E54 | TIE Git history | current TIE is reconstruction from forensic summaries, not recovered repo | Tier 1 | PROVEN | Independent |
+| E55 | TIE RECOVERY_STATUS | exact TIE_PACKAGE and EvidenceRecord schemas not recovered | Tier 1 | PROVEN | Same TIE corpus as E54 |
+| E56 | GEMS repo metadata | current GEMS repo created Aug 17, 2026 | Tier 1 | PROVEN | Independent |
+| E57 | GEMS reconstruction status | canonical historical GEMS not recovered | Tier 1 | PROVEN | Independent |
+| E58 | GEMS tie adapter | current TIE integration is an opaque reconstruction adapter | Tier 1 | PROVEN | Same current GEMS tree as E57 |
+| E59 | HERALD repo metadata | current HERALD created Aug 20, 2026 | Tier 1 | PROVEN | Independent |
+| E60 | HERALD README | no consuming project wired in | Tier 1 | PROVEN | Independent |
+| E61 | GEMS/HERALD searches | no qualifying mutual GEMS↔HERALD reference found | Tier 1 search result | NOT FOUND | Search incomplete for historical runtime |
+| E62 | Sentinel initial commit | Sentinel source existed by July 3, 2026 | Tier 1 | PROVEN | Independent |
+| E63 | Sentinel deployment docs | Kubernetes paths not deploy-tested; live API path not verified | Tier 1 | PROVEN | Independent |
+| E64 | Sentinel STRIDE salvage commit | STRIDE source fragment salvaged before repo deletion | Tier 1 | PROVEN | Independent |
+| E65 | STRIDE retrieval | current STRIDE repo returns Not Found | Tier 1 | PROVEN current absence | Does not prove source absence |
+| E66 | FORTRESS README | four distinct variants with explicit source provenance | Tier 1 | PROVEN | Independent |
+| E67 | GSA-GATEWAY metadata | explicit provisional consolidation/renaming model | Tier 1 | PROVEN | Independent |
+| E68 | ChatGPT/Gemini/CoPilot archive structures | raw-history corpora exist | Tier 1 | PROVEN | Independent archives |
+
+Derivative artifacts within the same reconstructed repositories are **not** counted as independent confirmations merely because they repeat the same claim.
+
+---
+
+## 19. Updated UNKNOWN register
+
+### Still UNKNOWN / unsupported
+
+| Question | Status |
+|---|---|
+| Original TIE source code | NOT FOUND IN SEARCHED CORPUS |
+| Original `TIE_PACKAGE` | NOT FOUND IN SEARCHED CORPUS |
+| Original `EvidenceRecord` schema | NOT FOUND IN SEARCHED CORPUS |
+| Historical executable GEMS | NOT FOUND IN SEARCHED CORPUS |
+| Historical TIE→GEMS execution | UNKNOWN |
+| Historical HERALD predecessor | NOT FOUND IN SEARCHED CORPUS |
+| Historical GEMS→HERALD execution | UNKNOWN |
+| Historical HERALD→governance execution | UNKNOWN |
+| Governance→execution outside Sentinel | NOT FOUND IN SEARCHED CORPUS |
+| Sentinel external deployment | UNKNOWN |
+| Sentinel external users | NOT FOUND IN SEARCHED CORPUS |
+| Sustained production use | NOT FOUND IN SEARCHED CORPUS |
+| Complete STRIDE | PARTIALLY SALVAGED |
+| Canonical FORTRESS continuity | UNKNOWN / partial |
+| Earlier CCC versions | NOT FOUND IN SEARCHED CORPUS |
+| Earlier Triad-42 versions | NOT FOUND IN SEARCHED CORPUS |
+| Earlier Conservation Kernel versions | NOT FOUND IN SEARCHED CORPUS |
+| Additional raw-history decision records | NOT FOUND IN SEARCHED CORPUS |
+
+No “proven absent” label is assigned to the historical TIE/GEMS/HERALD artifacts because the raw archive search was not technically exhaustive.
+
+---
+
+## 20. Revised chronological timeline
+
+| Date | Event | Evidentiary character |
+|---|---|---|
+| July 3, 2026 | Sentinel initial upload | Tier 1 |
+| July 4, 2026 | Sentinel repository creation timestamp | Tier 1 metadata |
+| July 12, 2026 | Sentinel deployment documentation explicitly distinguishes local, production-shaped, and unverified Kubernetes paths | Tier 1 |
+| July 24, 2026 | Sentinel commit documents simulator-only modules and verifies actual import usage | Tier 1 |
+| Aug 13, 2026 | CCC current repository created | Tier 1 |
+| Aug 13, 2026 | Triad-42 current repository created | Tier 1 |
+| Aug 17, 2026 | GEMS current repository created | Tier 1 metadata |
+| Aug 17, 2026 | Conservation_Kernel current repository created | Tier 1 metadata |
+| Aug 19, 2026 | GSA-GATEWAY current repository created as provisional consolidation | Tier 1 |
+| Aug 19, 2026 | FORTRESS current consolidation repository created | Tier 1 |
+| Aug 19, 2026 | TIE current repository created | Tier 1 |
+| Aug 19, 2026 | TIE reconstruction baseline committed | Tier 1 |
+| Aug 19, 2026 | GEMS reconstruction baseline committed | Tier 1 |
+| Aug 20, 2026 | HERALD current repository created | Tier 1 |
+| Aug 20–21, 2026 | HERALD heavily developed/tested; current governance boundary established | Tier 1 |
+| Aug 21, 2026 | Sentinel commit explicitly records STRIDE source salvage before STRIDE deletion | Tier 1 |
+
+The key temporal observation is that the current TIE/GEMS/HERALD repositories all emerge during the **August 17–21 reconstruction/build window**, whereas Sentinel and its historical Git lineage substantially predate them.
+
+That chronology does not disprove older TIE/GEMS/HERALD systems, but it does prevent the current repository dates from being misread as proof of historical project birth.
+
+---
+
+## 21. Historical runtime graph
+
+### Evidence-supported historical graph
+
+```text
+Recovered forensic/specification material
+                │
+                ├──→ TIE concept/specification
+                │
+                └──→ GEMS concept/specification
+```
+
+This portion is supported at the forensic/specification level, not by recovered canonical source repositories.
+
+### Current reconstructed graph
+
+```text
+Current TIE reconstruction
+          │
+          │  explicit reconstruction adapter
+          ▼
+Current GEMS reconstruction
+```
+
+The GEMS adapter is real current code, but deliberately treats `TIE_PACKAGE` opaquely because the historical schema was not recovered. fileciteturn61file0
+
+### HERALD
+
+```text
+Current HERALD
+      │
+      └──→ candidate claims / handoff
+              │
+              └──→ consuming project's governance layer
+```
+
+But:
+
+```text
+GEMS ───────X──────→ HERALD
+HERALD ─────X──────→ historical governance consumer
+```
+
+No qualifying historical runtime artifact was recovered for either arrow.
+
+### Sentinel / STRIDE
+
+```text
+Historical STRIDE
+      │
+      │ surviving source fragment
+      ▼
+Sentinel
+```
+
+This is directly established by the Sentinel commit describing STRIDE salvage. fileciteturn60file0
+
+---
+
+## 22. Pass 3 → Pass 4 → Pass 5 → Pass 6 comparison
+
+A complete Pass 3/Pass 4 evidence-by-evidence comparison cannot be independently reconstructed from the material available in this turn, and Pass 6 does not manufacture prior findings from memory.
+
+The comparison that can be responsibly made is against the **Pass 5 leads explicitly supplied in the Pass 6 instructions**.
+
+### What Pass 5 left unresolved
+
+- original TIE/GEMS status;
+- FORTRESS lineage;
+- historical runtime continuity;
+- whether current repository dates reflected true project birth;
+- distinction between current integration and historical integration;
+- raw-history material.
+
+### What Pass 6 materially changes
+
+Pass 6 converts several of those unknowns into firmer evidentiary classifications:
+
+- **TIE current source is definitively reconstruction, not recovered original.**
+- **TIE exact historical schemas remain unrecovered.**
+- **GEMS canonical repository and production code remain unrecovered.**
+- **Current TIE→GEMS integration is explicitly a reconstruction adapter.**
+- **HERALD's current repository is demonstrably new/current, but no historical predecessor was recovered.**
+- **STRIDE partial source salvage is directly proven.**
+- **FORTRESS is demonstrably a multi-source consolidation rather than a single recovered lineage.**
+- **Sentinel's deployment boundary is more conservative than “production-shaped configuration” would suggest.**
+
+---
+
+## 23. What Pass 6 overturned
+
+Pass 6 overturns any interpretation that treats the following as historically established merely because the present repositories are coherent:
+
+### Overturned proposition 1
+
+**“The current TIE repository is probably the historical TIE source.”**
+
+Rejected.
+
+The Git history says the opposite: it is a new reconstruction from forensic summaries. fileciteturn24file0
+
+### Overturned proposition 2
+
+**“The current GEMS TIE adapter demonstrates historical TIE→GEMS runtime.”**
+
+Rejected.
+
+It demonstrates only the reconstructed integration, and the adapter itself is designed around the missing historical schema. fileciteturn61file0
+
+### Overturned proposition 3
+
+**“Current HERALD represents a historically continuous GEMS downstream component.”**
+
+Not established.
+
+No historical GEMS→HERALD runtime artifact was recovered.
+
+### Overturned proposition 4
+
+**“Production-shaped Sentinel manifests imply deployment.”**
+
+Rejected.
+
+The repository itself says the relevant Kubernetes paths were not deploy-tested and the live API path was not verified end-to-end. fileciteturn52file0
+
+---
+
+## 24. What Pass 6 strengthened
+
+Pass 6 strengthens the following conclusions:
+
+### STRIDE historical existence
+
+**Strengthened substantially.**
+
+A direct Sentinel commit identifies salvaged STRIDE code prior to repository deletion. fileciteturn60file0
+
+### FORTRESS lineage
+
+**Strengthened substantially.**
+
+Four distinct sources/variants are explicitly documented. fileciteturn58file0
+
+### Sentinel historical implementation
+
+**Strengthened substantially.**
+
+The repository has a July initial upload and a continuing sequence of development, test, and salvage activity. fileciteturn56file0
+
+### Reconstruction boundary for TIE/GEMS
+
+**Strengthened decisively.**
+
+The current repositories themselves provide direct statements that the historical source was not recovered. fileciteturn48file0 fileciteturn40file0
+
+### Historical naming caution
+
+**Strengthened.**
+
+GSA-GATEWAY directly demonstrates that repository consolidation and provisional renaming are real practices in this corpus. fileciteturn37file0
+
+---
+
+## 25. What remains unknowable
+
+Unless another independent artifact source becomes available, the following cannot currently be established to Tier-1 historical standards:
+
+1. the exact original TIE source tree;
+2. the exact historical `TIE_PACKAGE`;
+3. the exact historical `EvidenceRecord`;
+4. the historical executable GEMS repository;
+5. the exact transport used by historical TIE/GEMS;
+6. whether historical TIE and GEMS ever executed together;
+7. whether HERALD existed historically under another name;
+8. whether GEMS and HERALD ever executed together;
+9. whether HERALD ever had a real historical governance consumer;
+10. whether governance decisions reached execution outside Sentinel;
+11. whether Sentinel was ever externally deployed;
+12. whether Sentinel had external users;
+13. how long, if ever, Sentinel ran continuously in production.
+
+The proper status for these questions is **UNKNOWN** or **NOT FOUND IN SEARCHED CORPUS**, not “never happened.”
+
+---
+
+## 26. Final historical judgment
+
+### Major-system classifications
+
+| System | Final classification |
+|---|---|
+| TIE | **RECONSTRUCTED** |
+| Historical TIE implementation | **HISTORICALLY INFERRED, source unrecovered** |
+| TIE_PACKAGE | **NOT FOUND IN SEARCHED CORPUS** |
+| EvidenceRecord | **NOT FOUND IN SEARCHED CORPUS** |
+| GEMS | **RECONSTRUCTED** |
+| Historical canonical GEMS | **NOT FOUND IN SEARCHED CORPUS** |
+| HERALD | **CURRENT-ONLY** |
+| Sentinel | **HISTORICALLY PARTIALLY PROVEN** |
+| STRIDE | **DELETED / PARTIALLY SALVAGED** |
+| FORTRESS | **HISTORICALLY PARTIALLY PROVEN / partial continuity** |
+| CCC | **CURRENT-ONLY for presently recovered repo** |
+| Triad-42 | **CURRENT-ONLY for presently recovered repo** |
+| Conservation Kernel | **CURRENT-ONLY for presently recovered repo** |
+| GSA-GATEWAY | **RECONSTRUCTED / consolidated lineage artifact** |
+
+---
+
+# Required final questions
+
+### A. Was the original TIE implementation recovered?
+
+**No.**  
+The current TIE Git history explicitly says it was reconstructed from forensic summaries rather than the recovered original repository. fileciteturn24file0
+
+### B. Was the original TIE_PACKAGE recovered?
+
+**No.**  
+The exact historical schema was explicitly not recovered. fileciteturn48file0
+
+### C. Was the original EvidenceRecord schema recovered?
+
+**No.**  
+The exact historical source schema was explicitly not recovered. fileciteturn48file0
+
+### D. Was canonical historical GEMS recovered?
+
+**No.**  
+The GEMS repository explicitly states that the canonical historical repository was not recovered. fileciteturn40file0
+
+### E. Was historical TIE → GEMS runtime proven?
+
+**No.**
+
+**Classification: CURRENT RECONSTRUCTION ONLY.**
+
+### F. Was historical HERALD, or a demonstrably equivalent predecessor, recovered?
+
+**No qualifying predecessor was recovered.**
+
+**Classification: CURRENT-ONLY.**
+
+### G. Was historical GEMS → HERALD runtime proven?
+
+**No.**
+
+### H. Was historical HERALD → governance runtime proven?
+
+**No.**
+
+Current governance-boundary design is proven, but historical consuming-system execution is not. fileciteturn50file0
+
+### I. Was governance → execution historically demonstrated outside Sentinel?
+
+**No qualifying evidence found.**
+
+### J. Was Sentinel actually externally deployed?
+
+**Not demonstrated.**
+
+The deployment documentation states the Kubernetes manifests were not deploy-tested. fileciteturn52file0
+
+### K. Was Sentinel demonstrably used by external users?
+
+**No qualifying evidence recovered.**
+
+### L. Was sustained production operation demonstrated?
+
+**No.**
+
+### M. Was complete STRIDE recovered?
+
+**No.**
+
+A meaningful fragment was salvaged before deletion, but complete recovery was not achieved. fileciteturn60file0
+
+### N. Was canonical FORTRESS continuity recovered?
+
+**No.**
+
+**Partial continuity only.** Multiple variants were recovered from different sources. fileciteturn58file0
+
+### O. Were earlier versions of CCC, Triad-42, or Conservation Kernel recovered?
+
+**No qualifying earlier versions were recovered in the searched corpus.**
+
+### P. Were additional human decision records recovered?
+
+**No additional raw-history decision record was recovered at the required Tier-1 threshold.**
+
+### Q. Were any major current repositories shown to contain copied historical source rather than reconstruction?
+
+**Yes.**
+
+Strong examples are:
+
+- Sentinel ← STRIDE salvage;
+- FORTRESS ← Sentinel;
+- FORTRESS ← ARCHIVE;
+- FORTRESS ← Claude_History attachment. fileciteturn60file0 fileciteturn58file0
+
+This is materially different from TIE/GEMS, whose current source is explicitly reconstruction.
+
+### R. Did the raw conversation archives materially change any previous UNKNOWN?
+
+**Partially.**
+
+They materially strengthened provenance for FORTRESS by preserving a historical attachment lineage, and they confirm that a large raw Claude archive exists. But they did **not** recover the original TIE or canonical GEMS implementation.
+
+### S. Does the evidence now support a continuous historical HISTORY → TIE → GEMS → HERALD → GOVERNANCE → EXECUTION chain?
+
+**No.**
+
+The first unsupported **runtime** arrow is:
+
+**TIE → GEMS.**
+
+The surviving evidence supports historical concepts/specifications and current reconstructed connectivity, but not a demonstrated historical execution chain.
+
+---
+
+# Critical historical test
+
+## If all current TIE, GEMS, and HERALD repositories were deleted today, what independent primary evidence would remain?
+
+### TIE
+
+Independent evidence remaining:
+
+- TIE-related forensic/specification material referenced by the current recovery record;
+- raw-history archives that exist as independent repositories;
+- current Git metadata would disappear with the current repository, but the surviving raw archive could still preserve historical conversations if the relevant raw conversations were located.
+
+What would **not** remain:
+
+- original TIE source;
+- exact historical schema;
+- historical runtime trace.
+
+### GEMS
+
+Independent evidence remaining:
+
+- GEMS-FER-derived forensic material referenced by the reconstruction record;
+- raw-history archives.
+
+What would **not** remain:
+
+- canonical historical repository;
+- production Gem implementation;
+- historical API/transport;
+- deployment record.
+
+### HERALD
+
+Independent evidence remaining:
+
+- essentially only raw-history or other contemporaneous records, if the relevant historical conversations can be located.
+
+No independent historical repository/source artifact establishing an earlier HERALD system was recovered in this pass.
+
+### TIE → GEMS
+
+Independent proof remaining:
+
+**None at Tier 1 sufficient to establish historical runtime.**
+
+The current adapter would be gone, and it cannot be used as its own historical witness.
+
+### GEMS → HERALD
+
+Independent proof remaining:
+
+**None recovered.**
+
+### HERALD → governance
+
+Independent proof remaining:
+
+The current design specification might survive in raw-history material, but no independent historical execution artifact was recovered.
+
+---
+
+# Bottom line
+
+Pass 6 does **not** prove the master historical architecture.
+
+It proves something more limited and more defensible:
+
+**There was a substantial body of forensic/specification material from which TIE and GEMS were reconstructed; current TIE and GEMS now integrate; HERALD is a substantial current implementation; Sentinel has genuine historical Git continuity and demonstrable STRIDE-source salvage; FORTRESS has multiple surviving source lineages.**
+
+What it does **not** prove is that:
+
+**the original TIE implementation → the original GEMS implementation → a historical HERALD predecessor → a real governance consumer → execution**
+
+ever existed as one continuously operating runtime system.
+
+The evidentiary boundary therefore remains:
+
+```text
+HISTORICAL FORENSIC / SPECIFICATION RECORD
+                │
+        ┌───────┴────────┐
+        ▼                ▼
+  TIE concept       GEMS concept
+        │                │
+        └──── current reconstruction ────┐
+                                         ▼
+                                current TIE → GEMS
+                                         │
+                                         X
+                                  historical runtime
+                                         │
+                                         X
+                                    GEMS → HERALD
+                                         │
+                                         X
+                               HERALD → governance
+                                         │
+                                         X
+                                  governance → execution
+```
+
+The surviving primary record therefore ends at **reconstruction-era integration**, not at a demonstrated historical end-to-end runtime.
+
+That is the principal Pass 6 result.
+:::

@@ -1,0 +1,1 @@
+[tool_use Bash] {"command": "for r in ATS STRIDE CITADEL DEMO_OUTPUT OTLP SAGE-K EDDP UZTC WRAPPER SECURE FACTS DGK AC-HCCSE Data_files VSA DIT synapsis observe GSA-GATEWAY GRAPH sentinel_os; do\n  echo \"=== $r ===\"\n  ls /home/wking53214/$r 2>/dev/null | grep -v \"^\\.git$\" \ndone"}

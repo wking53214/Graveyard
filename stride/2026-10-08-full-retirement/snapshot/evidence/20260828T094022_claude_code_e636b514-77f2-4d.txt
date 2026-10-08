@@ -1,0 +1,49 @@
+Decision 2 is done and folded into the same deliverable.
+
+## Wrapper + sketch archival: complete
+
+`~/Downloads/apply_sovereign_kernel_to_gsa_gateway_v2.sh` (v1 deleted). Re-tested green on the full three-script chain, repo reverted clean. It now:
+
+- fixes the `agent-factory` import (one line)
+- adds the working `sovereign_kernel.py` wrapper (3 of 4 layers live; linguistic step is the labelled hook)
+- moves **all three** wrapper sketches into `governance-stack/archive/` with a README that records what each added, notably the SRE stability pre-check that the v1/v2 sketches place before the perimeter and that the working wrapper does not yet have (the SRE modules here are still flattened, so it isn't buildable)
+
+Same precondition as before: the two earlier scripts applied first. README.md is left untouched and now needs updating on commit (it names one of the archived sketches by path).
+
+---
+
+## Decision 3 of 4: `citadel-processor-router-flattened.py`
+
+I compared this file against the CITADEL repo (fetched fresh, canonical file is `citadel_v1.2.py`).
+
+**The README's claim that it's "a duplicate of CITADEL's real regex-enforcement logic" is an overstatement.** They share common ancestry (the same table of five detection patterns, the same causal-trigger word list, the same four profile names), but the engine wrapped around that table is a different design:
+
+- **CITADEL's engine** is deterministic and self-contained: it detects violations with regexes, scores them with a penalty model, and rewrites the text in-process. No external services. It runs today. It also has two constraints this file lacks: em-dash / punctuation control, and a prohibited-verbs check salvaged from the STRIDE lineage.
+
+- **This file** is an LLM-orchestration retry loop: it calls a language-model "generator", scores the result with an external scorer, and if the score is below the profile threshold it re-prompts the model with a list of rule violations, up to three times, detecting when the model loops and forcing a rephrase. It also carries a corporate-jargon synonym map (methodology to approach, facilitate to help, and so on) and aggregate telemetry. It depends on a scoring module (`simplicity_logic`) that **exists nowhere** in either repo, and it's flattened, so it cannot run even after reformatting.
+
+So this isn't a straight duplicate to delete. It's a diverged variant with a heavier mechanism and a few genuinely distinct ideas, none of which are captured in CITADEL.
+
+This connects to decision 4-and-the-wrapper: the wrapper's dead linguistic step needs a linguistic-neutrality engine. CITADEL's deterministic standalone engine is a far better fit for that hook than this LLM-retry variant.
+
+### Options
+
+**A. Archive it** into `governance-stack/archive/` alongside the sketches, with a note that it's a diverged LLM-rewrite variant sharing CITADEL's detection table, that CITADEL holds the canonical deterministic engine, and that the wrapper's linguistic hook should be filled from CITADEL's logic.
+- *Advantages:* removes a flattened, un-runnable file with a missing dependency from the working folder; keeps its distinct ideas (the jargon synonym map, the anti-loop rephrase rule, the aggregate telemetry) on the record; points future work at the real engine.
+- *Disadvantages:* those distinct ideas then live only in an archive; nobody is tasked with folding them anywhere.
+
+**B. Reconstruct it into working code** in `governance-stack/` as a separate "model-driven" enforcement module, distinct from CITADEL's deterministic one.
+- *Advantages:* gives GSA-GATEWAY its own working linguistic-enforcement path.
+- *Disadvantages:* needs a language-model generator wired in and the missing scorer either rebuilt or stubbed; it's a real build; it duplicates CITADEL's purpose with a heavier, non-deterministic mechanism; nothing indicates this variant is actually wanted.
+
+**C. Carry its unique pieces into the CITADEL repo** as a proposed v1.3 (the synonym map as a new transform, the anti-loop rule), then archive this copy.
+- *Advantages:* consolidates into the canonical engine; CITADEL gains a normalization transform it doesn't have.
+- *Disadvantages:* the retry-loop architecture doesn't fit CITADEL's deterministic model, so only fragments transfer; it means editing a second repo in the middle of this pass, and CITADEL has its own provenance discipline and its own pending cleanup.
+
+**D. Delete it.**
+- *Advantages:* cleanest.
+- *Disadvantages:* the synonym map, the anti-loop rule, and the telemetry idea exist nowhere else and are gone.
+
+### Recommendation: **A, archive it.**
+
+It can't run, it's not the duplicate the README says it is, and CITADEL already holds the better version of the shared core. Archiving clears it out of the working folder while keeping its few real contributions legible, and it doesn't commit us to either building a second enforcement engine (B) or reaching into the CITADEL repo mid-pass (C). When the wrapper's linguistic hook gets filled, it should draw on CITADEL's deterministic engine, not this file. CITADEL's own internal mess (two differing v1.1 copies, a stray artifact file) is real but belongs to that repo's housekeeping pass, not this one.

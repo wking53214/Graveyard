@@ -1,0 +1,523 @@
+# PASS 11 — GEMINI_HISTORY TEMPORAL ARCHAEOLOGY
+## Deep historical recovery, date-range excavation, and graveyard-system reconstruction
+
+Audit date: August 22, 2026
+Method: primary-source temporal archaeology
+Standard: skeptical historian / software archaeologist
+Priority: chronology > naming > repository structure
+
+==================================================
+CRITICAL CONTEXT
+==================================================
+
+TIE, GEMS, HERALD, and Conservation_Kernel are BRAND-NEW systems created during the August 2026 build/reconstruction period.
+
+DO NOT attempt to establish historical ancestry for them.
+
+They are irrelevant to the historical-origin investigation.
+
+The purpose of this pass is to go BACKWARD through Gemini history, potentially into APRIL 2026 and earlier, to identify the actual evolution of the older ecosystem.
+
+This history may contain systems that:
+
+- no longer exist;
+- were renamed;
+- were deleted;
+- were merged;
+- were replaced;
+- only existed temporarily;
+- survive only as conversation-generated code;
+- survive only as attachments;
+- later contributed artifacts to Sentinel, GSA-815, GSA-GATEWAY, FORTRESS, or other systems.
+
+This may be the deepest temporal layer in the entire investigation.
+
+==================================================
+1. DO NOT PERFORM ONLY A GLOBAL KEYWORD SEARCH
+==================================================
+
+The history must be analyzed by DATE RANGE.
+
+At minimum divide the investigation into:
+
+APRIL 2026
+MAY 2026
+JUNE 2026
+JULY 1–15, 2026
+JULY 16–31, 2026
+AUGUST 1–7, 2026
+AUGUST 8–14, 2026
+AUGUST 15–21, 2026
+AUGUST 22, 2026 if data exists
+
+If the archive extends earlier than April, create additional ranges.
+
+For EACH range, determine:
+
+systems being discussed
+systems being built
+systems being abandoned
+artifacts being created
+artifacts being copied
+architectural concepts emerging
+repositories mentioned
+predecessor names
+successor names
+
+==================================================
+2. BUILD A TEMPORAL DEVELOPMENT MAP
+==================================================
+
+Do not begin with current system names.
+
+Instead ask:
+
+"What systems existed at this point in time?"
+
+For each date range create a snapshot:
+
+DATE
+SYSTEMS ACTIVE
+SYSTEMS NEW
+SYSTEMS RETIRED
+ARTIFACTS CREATED
+ARTIFACTS MIGRATED
+ARCHITECTURAL CONCEPTS
+KNOWN DESTINATIONS
+
+Then compare snapshots.
+
+This should reveal evolution that repository-name searches miss.
+
+==================================================
+3. FIND THE GRAVEYARD
+==================================================
+
+Search specifically for systems that later disappeared.
+
+Keywords:
+
+deleted
+abandoned
+deprecated
+retired
+graveyard
+dead
+obsolete
+superseded
+replaced
+renamed
+merged
+consolidated
+archived
+moved
+scrapped
+discarded
+old
+legacy
+previous
+former
+successor
+replacement
+
+For every graveyard system, recover:
+
+NAME
+FIRST KNOWN DATE
+LAST KNOWN DATE
+PURPOSE
+ARTIFACTS
+PREDECESSOR
+SUCCESSOR
+SURVIVING CODE
+SURVIVING REPOSITORY
+SURVIVING ATTACHMENT
+CURRENT DESCENDANTS
+
+==================================================
+4. START WITH THE KNOWN JULY/AUGUST ANCHORS
+==================================================
+
+Use these as forward/backward probes:
+
+Sentinel
+GSA-815
+GSA-GATEWAY
+FORTRESS
+STRIDE
+SAGE-K
+DGK
+DIT
+RADAR
+GSA
+gsa-governance-core
+SECURE
+UZTC
+WRAPPER
+EDDP
+URE
+ARCHIVE
+
+But do NOT assume these names existed in April.
+
+For each name, search backward for:
+
+alternate spelling
+abbreviation
+working title
+previous name
+prototype name
+component name
+individual artifact that later acquired the system name
+
+==================================================
+5. SEARCH BY DISTINCTIVE ARTIFACT
+==================================================
+
+Where possible, search for:
+
+governance_loop_guard.py
+fortress_kernel.py
+PredictiveStateController
+PredictiveIntegrityController
+Fortress_orchestrator
+api_server.py
+GSA governance core
+universal interlock wrapper
+cryptographic interlock
+SRE evaluator
+resilience configuration
+kernel
+governance decider
+integrity
+bounded retry
+loop detection
+audit ledger
+provenance
+interlock
+orchestration
+
+Also search distinctive class names, function names, code fragments, and unusual terminology discovered during the investigation.
+
+Artifact names may reveal ancestry where system names do not.
+
+==================================================
+6. DISTINGUISH "FIRST MENTION" FROM "FIRST EXISTENCE"
+==================================================
+
+For every system/artifact:
+
+FIRST MENTION
+FIRST SPECIFICATION
+FIRST CODE
+FIRST ATTACHMENT
+FIRST TEST
+FIRST REPOSITORY
+FIRST MIGRATION
+
+These are separate dates.
+
+Do not call the first mention the birth date.
+
+Do not call the first repository the birth date unless the evidence supports it.
+
+==================================================
+7. IDENTIFY DEVELOPMENT PHASES
+==================================================
+
+Determine whether the history reveals phases such as:
+
+prototype
+research
+experiment
+architecture
+implementation
+testing
+renaming
+fork
+migration
+consolidation
+deployment
+retirement
+
+For each system, create a lifecycle.
+
+Example:
+
+Prototype
+  ↓
+working name
+  ↓
+code
+  ↓
+fork
+  ├── branch A
+  └── branch B
+       ↓
+consolidation
+       ↓
+current repository
+
+==================================================
+8. LOOK FOR CODE-LEVEL PROVENANCE
+==================================================
+
+Whenever the history contains actual code or attachments, determine whether later repositories contain the same artifact.
+
+Strong evidence includes:
+
+identical filename
+identical class
+identical function structure
+distinctive comments
+provenance block
+explicit copy statement
+explicit migration statement
+byte-identical content
+human statement identifying source
+
+Do NOT claim lineage from conceptual similarity alone.
+
+==================================================
+9. SEARCH FOR CROSSOVER EVENTS
+==================================================
+
+Build edges such as:
+
+System A → artifact → System B
+
+Examples already proven:
+
+STRIDE → governance_loop_guard.py → Sentinel
+
+Sentinel → api_server.py → GSA-815
+
+DGK → governance artifacts → GSA-815
+
+ARCHIVE → FORTRESS variants → FORTRESS
+
+But search for earlier edges.
+
+The most valuable discoveries will be edges that predate July 4.
+
+==================================================
+10. FIND THE EARLIEST REAL SOFTWARE
+==================================================
+
+This is the central question.
+
+What is the earliest evidence in Gemini_History of:
+
+actual executable code
+actual source artifact
+actual test
+actual working implementation
+
+Do not count:
+
+ideas
+brainstorming
+architecture diagrams
+future plans
+fictional examples
+hypothetical code
+generated pseudocode
+
+unless the artifact was actually preserved and demonstrably became real code.
+
+==================================================
+11. SPECIAL ATTENTION TO APRIL–JUNE
+==================================================
+
+Because Gemini_History may reach April, devote explicit effort to:
+
+APRIL
+MAY
+JUNE
+
+Do not allow the much denser July/August material to overwhelm the earlier record.
+
+For each early month provide:
+
+systems
+artifacts
+developers/projects
+crossovers
+deletions
+renames
+surviving descendants
+
+If there is a dramatic transition from one early system to a July system, document it.
+
+==================================================
+12. SYSTEMS THAT ARE NOW DEAD
+==================================================
+
+Create a separate "GRAVEYARD REGISTER":
+
+System
+First date
+Last date
+What it did
+Why/when it disappeared
+What survived
+Where survivors went
+
+Pay particular attention to systems whose artifacts later appear in:
+
+Sentinel
+GSA-815
+GSA-GATEWAY
+FORTRESS
+
+==================================================
+13. HUMAN / AI DEVELOPMENT FORENSICS
+==================================================
+
+Determine:
+
+human-directed creation
+human-directed deletion
+AI-generated implementation
+human modification
+human naming decisions
+migration instructions
+repository instructions
+
+Separate:
+
+"AI generated this code"
+
+from:
+
+"human decided this system should exist"
+
+Both are historically valuable but different.
+
+==================================================
+14. TEMPORAL CONFLICT ANALYSIS
+==================================================
+
+If Gemini history contradicts Git timestamps, DO NOT immediately resolve the contradiction.
+
+Record:
+
+Git says X
+Gemini says Y
+
+Then determine whether:
+
+- the repository was created later;
+- code existed before repository creation;
+- a conversation referred to a prototype;
+- the name was reused;
+- the artifact was reconstructed;
+- the timestamp reflects export timing;
+- the system was renamed.
+
+Temporal conflicts are evidence, not errors to be erased.
+
+==================================================
+15. OUTPUT
+==================================================
+
+Produce:
+
+1. Executive verdict
+
+2. Gemini corpus coverage
+
+3. Date-range methodology
+
+4. APRIL findings
+
+5. MAY findings
+
+6. JUNE findings
+
+7. JULY findings
+
+8. AUGUST findings
+
+9. Earliest actual code/artifact recovered
+
+10. Earliest system lifecycle
+
+11. Graveyard register
+
+12. System-by-system provenance
+
+13. Artifact-by-artifact provenance
+
+14. Predecessor/alternate-name discoveries
+
+15. Cross-system migration graph
+
+16. Temporal conflict register
+
+17. Human/AI development provenance
+
+18. Evidence ledger
+
+19. UNKNOWN / NOT FOUND register
+
+20. Revised Pass 7 findings
+
+21. Earliest defensible historical boundary
+
+22. Strongest historical lineage discovered
+
+23. What remains unresolved
+
+==================================================
+EVIDENCE LABELS
+==================================================
+
+A = directly proven primary evidence
+B = strongly supported
+C = plausible
+N = not found in searched corpus
+U = unresolved
+X = contradicted
+
+==================================================
+FINAL HISTORICAL TEST
+==================================================
+
+Answer these explicitly:
+
+1. What is the earliest date at which a real software artifact is demonstrably present?
+
+2. What is the earliest system that can be proven to have actually existed?
+
+3. What systems existed before Sentinel?
+
+4. Which dead systems contributed artifacts to surviving systems?
+
+5. What is the earliest demonstrable ancestor of Sentinel?
+
+6. What is the earliest demonstrable ancestor of GSA-815?
+
+7. What is the earliest demonstrable ancestor of FORTRESS?
+
+8. Does Gemini_History establish a pre-July-2026 software ecosystem?
+
+9. If yes, what survives from it?
+
+10. Which current repository contains the surviving descendants?
+
+11. Which apparent "old systems" turn out to be reconstruction-era names?
+
+12. What is the deepest provenance chain that can be proven?
+
+THE MOST IMPORTANT RULE:
+
+DO NOT STOP AT THE FIRST SYSTEM NAME.
+
+UNWIND THE SPAGHETTI BACKWARD UNTIL YOU HIT:
+
+A genuinely earlier artifact,
+a genuinely earlier system,
+or a hard evidentiary boundary.
+
+The purpose of Pass 11 is to discover whether the ecosystem's real history begins before July 2026 and, if so, to reconstruct that history from the graveyard forward.

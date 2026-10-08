@@ -1,0 +1,538 @@
+```text
+# GSA-GATEWAY
+
+## GSA-Lineage Gateway and Interlock Architecture
+
+GSA-GATEWAY is a consolidated repository containing gateway, interlock, security, zero-trust, governance, and enforcement components developed across multiple GSA-lineage systems.
+
+The repository exists as a common working home for related architectural material that was previously distributed across separate repositories.
+
+Its current purpose is to preserve, organize, and expose those components for architectural evaluation, consolidation, testing, and future integration.
+
+GSA-GATEWAY should therefore be understood as a **gateway and enforcement architecture corpus**, rather than as a single finished gateway implementation.
+
+---
+
+## Core Concept
+
+The systems represented in this repository share a common architectural concern:
+
+> Establish a controlled boundary through which software components, data, and transformations must pass before they are permitted to participate in a governed system.
+
+The underlying mechanisms explore several complementary enforcement dimensions:
+
+- capability declaration;
+- connector registration;
+- schema validation;
+- payload sanitization;
+- side-effect detection;
+- execution control;
+- retry and failure handling;
+- circuit breaking;
+- audit recording;
+- anomaly detection;
+- cryptographic state signatures;
+- provenance-oriented interlocks;
+- zero-trust boundaries;
+- governance gates;
+- and composable module interfaces.
+
+These mechanisms address different layers of the same broader problem:
+
+    UNTRUSTED OR EXTERNAL COMPONENT
+                  │
+                  ▼
+           GOVERNANCE / GATE
+                  │
+                  ▼
+           SECURITY / INTERLOCK
+                  │
+                  ▼
+           VALIDATED EXECUTION
+                  │
+                  ▼
+           AUDITED SYSTEM STATE
+
+---
+
+## Repository Role
+
+GSA-GATEWAY currently serves as a consolidation and integration baseline.
+
+It brings together material originating from multiple earlier repositories so that related mechanisms can be evaluated in one architectural context.
+
+The repository currently contains:
+
+    secure/
+        Security and GSA-adapter kernel material
+
+    uztc/
+        Universal Zero-Trust Construct material
+
+    wrapper/
+        GSA Universal Interlock Wrapper and sandbox-kernel material
+
+    governance-stack/
+        Governance-stack components consolidated from related systems
+
+The presence of these components does not imply that they have already been fully unified into one coherent production system.
+
+Some components remain historically distinct and require further architectural rationalization.
+
+---
+
+## Security and Connector Enforcement
+
+The security-oriented material includes an explicit connector model.
+
+Connectors declare capabilities such as:
+
+- pure
+- transform
+- view
+- io
+- network
+- privileged
+- math
+
+Connector declarations are validated before registration.
+
+Conflicting capability combinations can be rejected.
+
+For example, a connector cannot simultaneously declare itself `pure` while also declaring side-effect capabilities such as I/O, networking, or privileged access.
+
+This creates an explicit relationship between:
+
+    DECLARED CAPABILITY
+            │
+            ▼
+    AUTHORIZED BEHAVIOR
+            │
+            ▼
+    OBSERVED EXECUTION
+
+The objective is to make a component's declared operating boundary testable rather than relying solely on documentation.
+
+---
+
+## Schema and Payload Controls
+
+The gateway material includes explicit payload handling.
+
+Inputs can be:
+
+1. sanitized;
+2. checked against an expected schema;
+3. passed to the connector;
+4. sanitized again;
+5. validated against the output schema;
+6. checked against declared post-execution behavior.
+
+This creates an execution boundary around the connector.
+
+Conceptually:
+
+    INPUT
+      │
+      ▼
+    SANITIZE
+      │
+      ▼
+    SCHEMA VALIDATION
+      │
+      ▼
+    CONNECTOR
+      │
+      ▼
+    OUTPUT SANITIZATION
+      │
+      ▼
+    OUTPUT VALIDATION
+      │
+      ▼
+    POST-EXECUTION ENFORCEMENT
+
+---
+
+## Side-Effect Enforcement
+
+The security kernel includes mechanisms for detecting certain unauthorized side effects.
+
+The current implementation explicitly tracks operations such as:
+
+- file I/O;
+- network activity;
+- global mutation.
+
+The observed behavior is compared against the connector's declared capabilities.
+
+This establishes an important enforcement principle:
+
+> A component should not be able to obtain broader operational authority simply by performing an operation outside its declared capability boundary.
+
+---
+
+## Execution Resilience
+
+The gateway material also includes operational resilience mechanisms.
+
+These include:
+
+- retry handling for designated retryable failures;
+- exponential backoff;
+- circuit-breaker state;
+- failure counting;
+- recovery timing;
+- anomaly detection;
+- latency baselines;
+- and execution tracing.
+
+The circuit breaker provides a basic state model:
+
+    CLOSED
+       │
+       │ repeated failures
+       ▼
+     OPEN
+       │
+       │ recovery interval
+       ▼
+    HALF_OPEN
+       │
+       ├── success ──► CLOSED
+       │
+       └── failure ──► OPEN
+
+These mechanisms provide operational containment around failing or unstable components.
+
+---
+
+## Audit and Traceability
+
+Execution produces structured events containing information such as:
+
+- connector identity;
+- execution status;
+- duration;
+- payload type;
+- detected anomalies;
+- and trace identifier.
+
+This allows execution to be observed as a governed event rather than simply returning an opaque result.
+
+The architecture therefore distinguishes:
+
+    EXECUTION RESULT
+
+from:
+
+    EXECUTION RECORD
+
+That distinction becomes important when a gateway is responsible for governing behavior rather than merely routing calls.
+
+---
+
+## GSA Interlock
+
+The repository also contains a distinct GSA interlock architecture.
+
+The interlock introduces a governed context envelope containing:
+
+- payload data;
+- headers;
+- session state;
+- and execution status.
+
+Modules operate against the envelope through a composable interface.
+
+The interlock then updates the envelope with continuity information including:
+
+- iteration;
+- upstream state;
+- last actor;
+- and a cryptographically derived state signature.
+
+Conceptually:
+
+    UPSTREAM STATE
+          │
+          ▼
+    CONTEXT ENVELOPE
+          │
+          ▼
+    GOVERNED MODULE
+          │
+          ▼
+    UPDATED ENVELOPE
+          │
+          ▼
+    STATE SIGNATURE
+          │
+          ▼
+    NEXT SYSTEM BOUNDARY
+
+This provides a mechanism for carrying continuity information across successive processing stages.
+
+---
+
+## State Signatures
+
+The interlock material includes SHA-256 state signatures derived from information including:
+
+- upstream hash;
+- iteration;
+- payload;
+- session state;
+- and optional anchors.
+
+The resulting signature can be carried forward as part of the interlock header.
+
+This creates a chain-like relationship between successive processing states.
+
+The mechanism should be understood as a **state-integrity mechanism**, not automatically as proof that the underlying information is truthful.
+
+---
+
+## Cryptographic Audit Material
+
+The consolidated interlock material also contains a cryptographic audit mechanism using HMAC-SHA256.
+
+Audit entries can include:
+
+- event type;
+- metrics;
+- timestamp;
+- and a generated signature.
+
+The signing secret is supplied through configuration.
+
+This provides a mechanism for detecting modification of signed audit records when the appropriate secret is protected.
+
+It should not be interpreted as equivalent to a fully external, immutable, independently verified audit ledger.
+
+---
+
+## Zero-Trust Architecture
+
+The `uztc/` material represents a Universal Zero-Trust Construct organized around explicit architectural layers, including a named provenance layer.
+
+Its inclusion reflects the repository's broader architectural concern with establishing trust boundaries explicitly rather than assuming trust based on system location or component identity.
+
+The zero-trust material remains distinguishable from the other gateway components.
+
+It is part of the consolidated corpus, not evidence that all components have already been unified under a single runtime.
+
+---
+
+## Universal Interlock Wrapper
+
+The `wrapper/` material contains the GSA Universal Interlock Wrapper and associated sandbox-kernel material.
+
+The wrapper provides a compositional boundary around modules.
+
+A module can be executed through a common envelope and interlock mechanism while the wrapper carries continuity information between processing stages.
+
+This supports an architectural model in which independently developed components can participate in a common governed execution protocol without requiring their internal implementation to be identical.
+
+---
+
+## Governance Stack
+
+The `governance-stack/` directory contains additional governance-oriented material consolidated from related repositories.
+
+These components include mechanisms associated with:
+
+- governance gates;
+- boundary enforcement;
+- invariant enforcement;
+- sovereign governance architecture;
+- processor routing;
+- stability governance;
+- quorum state;
+- and related integration concepts.
+
+Some of this material originated in other systems and remains identifiable as such.
+
+The repository therefore preserves lineage rather than pretending that all components originated as one unified implementation.
+
+---
+
+## Related Systems
+
+GSA-GATEWAY is part of a larger ecosystem of independently developed components.
+
+Some related systems remain intentionally separate because their functionality is substantial enough to warrant independent repositories.
+
+In particular:
+
+    CITADEL
+        Deterministic LLM output enforcement
+
+    STRIDE
+        Gateway architecture consuming related enforcement mechanisms
+
+These systems are related to GSA-GATEWAY but are not simply subsystems of it.
+
+---
+
+## Repository Lineage
+
+The repository was created through a content-consolidation process.
+
+Material was moved from earlier repositories into this repository without attempting to rewrite the underlying architecture during the consolidation pass.
+
+That distinction is important.
+
+The repository should not be interpreted as evidence that:
+
+    historically separate code
+            =
+    already integrated system
+
+Instead:
+
+    RELATED HISTORICAL COMPONENTS
+                 │
+                 ▼
+           CONSOLIDATED HOME
+                 │
+                 ▼
+         ARCHITECTURAL REVIEW
+                 │
+                 ▼
+           FUTURE INTEGRATION
+
+This preserves the ability to determine which mechanisms should ultimately remain, merge, be replaced, or be retired.
+
+---
+
+## Current Architectural State
+
+GSA-GATEWAY is currently best understood as a **consolidated architectural baseline**.
+
+It contains multiple working and partially integrated mechanisms rather than a single clean production gateway.
+
+The immediate architectural value of the repository is therefore its ability to provide a common location for examining:
+
+- gateway boundaries;
+- capability enforcement;
+- zero-trust controls;
+- interlocks;
+- governance gates;
+- execution containment;
+- auditability;
+- state continuity;
+- and integration seams.
+
+---
+
+## What GSA-GATEWAY Is Not
+
+GSA-GATEWAY is not currently presented as:
+
+- a complete production gateway;
+- a single unified runtime;
+- a universal security solution;
+- a complete zero-trust implementation;
+- a cryptographically immutable audit system;
+- or a finished governance platform.
+
+Those would be stronger claims than the current repository supports.
+
+The repository instead provides the architectural and implementation material from which those capabilities can be evaluated and developed.
+
+---
+
+## Architectural Direction
+
+The long-term architectural question is not simply:
+
+> "Which gateway implementation should be used?"
+
+The more important question is:
+
+> "What minimum enforcement boundary must every governed component cross?"
+
+A mature gateway architecture should make the following relationship explicit:
+
+    COMPONENT
+        │
+        ▼
+    IDENTITY / CAPABILITY
+        │
+        ▼
+    INPUT VALIDATION
+        │
+        ▼
+    GOVERNANCE / POLICY
+        │
+        ▼
+    EXECUTION INTERLOCK
+        │
+        ▼
+    OUTPUT VALIDATION
+        │
+        ▼
+    AUDIT / CONTINUITY
+        │
+        ▼
+    NEXT BOUNDARY
+
+GSA-GATEWAY provides multiple implementations and architectural experiments relevant to those layers.
+
+The repository's next stage is therefore architectural consolidation and validation rather than simply adding more gateway code.
+
+---
+
+## Design Principles
+
+### Explicit Boundaries
+
+Security and governance should be enforced at identifiable boundaries.
+
+### Declared Capabilities
+
+Components should explicitly declare what they are permitted to do.
+
+### Observed Behavior
+
+Declared capabilities should be compared against actual execution.
+
+### Fail Closed
+
+Invalid, unauthorized, or unsafe operations should be rejected rather than silently permitted.
+
+### Traceability
+
+Important execution events should remain observable.
+
+### Continuity
+
+Successive processing stages should retain sufficient state to establish their relationship to preceding stages.
+
+### Composability
+
+Governed components should be able to participate in the architecture without requiring identical internal implementations.
+
+### Lineage Preservation
+
+Historical component origins should remain visible during consolidation.
+
+### Architectural Honesty
+
+A collection of related components should not be represented as a unified production system until it has actually been integrated and validated as one.
+
+---
+
+## Current Status
+
+GSA-GATEWAY is a consolidated GSA-lineage gateway and enforcement architecture baseline.
+
+It contains multiple security, zero-trust, interlock, governance, and execution-control mechanisms brought together for common evaluation and future integration.
+
+The repository's present role is to preserve those mechanisms, expose their architectural relationships, and provide a foundation for determining which components should form the eventual gateway architecture.
+
+The central architectural proposition is:
+
+> Governed systems require explicit enforcement boundaries between components, and those boundaries should control not only what enters a system, but what a component is permitted to do, what it actually does, what state it produces, and how that state is carried forward.
+```

@@ -1,0 +1,1 @@
+Pushed — commit `5cbae46`. `README.md` now mentions `citadel_v1.2.py`, what it adds over v1.1 (`prohibited_verbs`, salvaged from STRIDE), and confirms it's otherwise unchanged — consistent with the diff work done earlier.

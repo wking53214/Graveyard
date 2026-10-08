@@ -1,0 +1,37 @@
+# ASYNCHRONOUS PIPELINE: CITADEL PROCESSOR & ROUTER
+class CitadelProcessor: 
+    def __init__(self, generator, max_retries=5): 
+        self.generator = generator 
+        self.max_retries = max_retries 
+        self.normalizer = StructureNormalizer() 
+        
+    async def run(self, prompt: str):
+        working_prompt = prompt 
+        seen_outputs = set() 
+        
+        for _ in range(self.max_retries):
+            rules = set()
+            output = await self.generator(working_prompt) 
+            
+            if output in seen_outputs:
+                rules.add(Constraint.DENSITY.value) 
+            seen_outputs.add(output)
+            
+            # Asynchronous validation & telemetry logging
+            score, reasons = self.scorer.score(output)
+            bypass = score >= self.threshold
+            self.telemetry.record(output, score, reasons, bypass, path=prompt[:20])
+            
+            if bypass:
+                return self.normalizer.rewrite(output)
+            return await self.citadel.run(prompt)
+
+async def mock_generator(prompt: str) -> str:
+    if "STRICT REQUIREMENTS" in prompt:
+        return "System latency increased by 20% because legacy code used inefficient buffers."
+    return "I think the methodology is suboptimal."
+
+async def main():
+    router = CitadelRouter(mock_generator, profile="exec")
+    result = await router.run("Check system health")
+    print(result)

@@ -1,0 +1,128 @@
+[tool_result] === HERALD ===
+# HERALD
+
+**The natural language interpretation layer.**
+
+A herald carries a message. A herald does not decide what the message means,
+and a herald has no authority over what happens next. That is the whole
+design, and the name is the shortest statement of it.
+
+---
+
+## What problem this solves
+
+Free text is the choke point. Every project in the stack that touches
+unstructured language currently handles it ad hoc, unsupervised, and
+differently. HERALD is the one place that work happens, so it can be done
+once and reviewed once.
+
+## What it will not do
+
+It will not decide anything. HERALD turns text into **candidate claims** and
+hands them to the consuming project's own governance layer. It cannot be the
+final arbiter of a legal conclusion, an eligibility call, an adverse action,
+a protected-class inference, a compliance verdict, a risk score, or an
+authorization. Those are decisions. This layer does not decide.
+
+That is not a convention. It is enforced in code: a claim whose kind names a
+governed determination raises `BoundaryViolation` at construction. See
+[CONSTITUTION.md](CONSTITUTION.md).
+
+---
+
+
+=== ATS ===
+# ATS GOVERNOR v2.0 - HIRING BIAS DETECTION SYSTEM
+
+## Complete Package Contents
+
+### 📋 Documentation (8 files, ~163KB)
+
+1. **ats_governor_package.md** ⭐ START HERE
+   - Overview of entire system
+   - Quick start guide (3 steps)
+   - Key metrics and outcomes
+   - Next steps
+
+2. **ats_red_team_analysis.md**
+   - How adversarial systems hide bias
+   - Counter-attack strategies
+   - Comparative analysis
+
+3. **ats_governor_operations_toolkit.md**
+   - Step-by-step audit procedures
+   - Statistical analysis methods
+   - Verification checklists
+   - Quick-start scripts
+
+4. **ats_governor_integration_guide.md**
+   - Production deployment guide
+   - Real-time monitoring setup
+   - Daily/weekly/monthly procedures
+   - Case study execution
+
+5. **ats_bias_decision_framework.md**
+
+ats_counter_system.py
+ats_embeddings.py
+ats_governance_kernel_bridge.py
+ats_governor_fixed.py
+ats_gsa_core.py
+ats_statistics.py
+gov4_kernel.py
+
+=== OBSERVE ===
+No README
+
+clinical_capacity_orchestration_adapter.py
+clinical_capacity_orchestration_source.py
+clinical_governance_ledger_adapter.py
+clinical_governance_ledger_source.py
+clinical_signal_validator_adapter.py
+observe_clinical_risk_adapter.py
+observe_clinical_risk_source.py
+perceive_policy_enforcement_adapter.py
+perceive_policy_enforcement_source.py
+
+=== CITADEL ===
+# CITADEL
+
+CITADEL v1.1 is a deterministic LLM output enforcement engine — regex-based
+detection of first-person pronouns, hedging language, passive voice, and
+em-dashes, with a scoring/rewriting pipeline (`CitadelDetector`,
+`CitadelTransformer`, `CitadelScorer`, `Citadel`). See `PROVENANCE.md` for
+the full source history and `TRANSCRIPT.md` for the original audit
+conversation.
+
+`citadel_v1.2.py` adds one further check on top of v1.1: `prohibited_verbs`,
+salvaged from the STRIDE repo before its deletion, flagging vague
+corporate-speak verbs (`improve`, `optimize`, `enhance`, `leverage`, etc.).
+Nothing else changes from v1.1 — same classes, same profiles, same scoring
+model — the new constraint is wired consistently into `Constraint`,
+`PROFILES` (enabled for `ops`, off elsewhere), `PENALTY`, `detect()`, and
+`rewrite()`.
+
+## Related repo
+
+[STRIDE](https://github.com/wking53214/STRIDE) is a gateway system whose
+source explicitly includes "Zero-Trust Citadel Linguistic Interceptors" as
+a component — STRIDE's gateway appears to consume this repo's enforcement
+logic as a sub-component.
+
+artifact_1.py
+citadel_v1.1_copy1.py
+citadel_v1.1_copy2.py
+citadel_v1.2.py
+
+=== FORTRESS ===
+# FORTRESS
+
+Consolidated FORTRESS content, pulled from across this week's repo sweep
+by content signature (`class Fortress`, `PredictiveStateController`,
+`FortressStateTransition`), not by filename.
+
+## Contents
+
+- **`fortress_kernel.py`** — the one genuinely complete, working,
+  tested implementation. Moved here from
+  [sentinel_os](https://github.com/wking

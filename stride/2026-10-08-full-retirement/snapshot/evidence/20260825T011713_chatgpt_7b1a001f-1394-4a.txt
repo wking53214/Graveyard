@@ -1,0 +1,30 @@
+Yes — **GSA-GATEWAY** is the next repository, and this one needs a different treatment from the clean kernels.
+
+I pulled the actual README. It explicitly says the repository is a **consolidation of GSA-lineage material previously scattered across multiple repositories**, including SECURE, UZTC, WRAPPER, DGK, and EDDP/Data_files. fileciteturn142file0L1-L2
+
+So the important architectural distinction is:
+
+```text
+GSA-GATEWAY
+│
+├── SECURE
+│   └── sandbox + GSA adapter kernel
+│
+├── UZTC
+│   └── 7-layer Universal Zero-Trust Construct
+│
+├── WRAPPER
+│   └── GSA Universal Interlock Wrapper
+│
+└── governance-stack
+    ├── DGK lineage
+    └── EDDP lineage
+```
+
+It also explicitly keeps **CITADEL** and **STRIDE** outside the repository because they are substantial systems in their own right, while GSA-GATEWAY contains components that consume or integrate with their enforcement logic. fileciteturn142file0L2-L2
+
+And there is an important caveat: the current repository README says this was a **pure content move**, not a code-cleanup or architectural-refactoring pass. fileciteturn142file0L2-L2
+
+So for the README, I would describe **GSA-GATEWAY as the consolidation/integration layer for GSA-lineage gateway and governance mechanisms**, rather than pretending the current repository is already one unified kernel.
+
+I can give you the complete README next in the same text-box format.

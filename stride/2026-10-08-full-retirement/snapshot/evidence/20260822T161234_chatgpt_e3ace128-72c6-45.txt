@@ -1,0 +1,1558 @@
+Absolutely. I think **separating the four histories is the right move**. It prevents one archive from contaminating the interpretation of another and gives Pass 12 four independently reconstructed provenance maps to cross-reference.
+
+The prompts should also be deliberately **cumulative**: each one should use the findings already established, but treat its own history corpus as an independent primary evidence source.
+
+Below are the four prompts and then the cross-reference prompt.
+
+---
+
+# PASS 8 — CLAUDE HISTORY PROVENANCE UNWIND
+
+```text
+# PASS 8 — CLAUDE_HISTORY PROVENANCE UNWIND
+## Recursive Artifact Provenance, Temporal Archaeology, and Predecessor Discovery
+
+Audit date: August 22, 2026
+Method: independent forensic archaeology of the Claude_History corpus
+Standard: skeptical historian / software archaeologist
+Evidence priority: raw conversation records, raw messages, attachments, timestamps, manifests, Git-linked artifacts, then summaries/derived indexes
+Objective: reconstruct the deepest surviving provenance of the systems and artifacts that eventually converged into the older 2026 ecosystem.
+
+IMPORTANT CONTEXT
+
+TIE, GEMS, HERALD, and Conservation_Kernel are known to be brand-new systems developed during the week of August 17–21, 2026.
+
+DO NOT investigate them as historical predecessor systems.
+
+They are reconstruction/current-era systems and should be treated only as downstream context where useful.
+
+The historical investigation should instead work backward from:
+
+- Sentinel / sentinel_os
+- GSA-815
+- GSA-GATEWAY
+- ARCHIVE
+- FORTRESS
+- STRIDE
+- SAGE-K
+- DGK
+- DIT
+- RADAR
+- GSA
+- gsa-governance-core
+- SECURE
+- UZTC
+- WRAPPER
+- EDDP
+- URE
+- and every other materially connected older repository discovered during the investigation.
+
+CENTRAL QUESTION
+
+What independent historical evidence exists inside Claude_History showing where the artifacts, code, concepts, names, architectures, and systems found in the older ecosystem actually came from?
+
+Do NOT merely search for repository names.
+
+Perform an artifact-level provenance unwind.
+
+The investigation must recursively follow:
+
+artifact
+→ conversation
+→ attachment
+→ earlier conversation
+→ earlier artifact
+→ predecessor system
+→ earlier artifact
+→ earliest surviving occurrence.
+
+The goal is to determine the earliest surviving evidence, not merely the earliest repository creation date.
+
+==================================================
+1. CORPUS INVENTORY
+==================================================
+
+First establish exactly what Claude_History contains.
+
+Identify:
+
+- archive root structure;
+- raw conversation files;
+- raw JSON / JSONL;
+- transcripts;
+- summaries;
+- manifest/index files;
+- attachment records;
+- attachment text;
+- conversation timestamps;
+- message timestamps;
+- message counts;
+- conversation IDs;
+- any metadata connecting attachments to conversations.
+
+Determine the actual searchable corpus available.
+
+Do not claim exhaustive search unless technically demonstrated.
+
+Clearly distinguish:
+
+- corpus located;
+- corpus readable;
+- corpus searchable;
+- corpus exhaustively searched.
+
+==================================================
+2. BUILD THE INITIAL TARGET ARTIFACT SET
+==================================================
+
+Start with known high-value artifacts and components from Pass 7.
+
+At minimum investigate:
+
+STRIDE:
+- governance_loop_guard.py
+- stride-formatted-audited.py
+- loop detection
+- bounded retry
+- queue-depth/backpressure logic
+- EngineState
+- PipelineStateEngine
+- evaluate_integrity
+- check_loop_condition
+- record_state
+- check_retry_capacity
+- increment_retry
+- clear_retry_state
+- process_lifecycle
+
+SAGE-K:
+- kernel.py
+- sage_k
+- Fortress kernel
+- GSA adapter
+- AST extractor
+- every distinctive component in the reconstructed package
+
+FORTRESS:
+- fortress_kernel.py
+- PredictiveStateController.py
+- Fortress_orchestrator_incomplete.py
+- PredictiveIntegrityController.py
+- Fortress terminology
+- distinctive class/function names
+
+GSA / GSA-815:
+- GSA.py
+- GSA governance core
+- GSA master kernel
+- universal interlock wrappers
+- cryptographic interlock
+- api_server.py
+- IVR/kernel split
+- governance operating core
+
+DGK:
+- gsa-master-kernel-base-flattened.py
+- gsa-universal-interlock-wrapper-v7.py
+- SRE evaluator
+- governance stack
+
+DIT:
+- cryptographic interlock wrapper
+- distinctive DIT artifacts
+
+RADAR:
+- universal interlock wrapper
+- distinctive RADAR artifacts
+
+GSA-GATEWAY:
+- SECURE
+- UZTC
+- WRAPPER
+- DGK governance stack
+- EDDP governance stack
+- URE/SRE components
+
+ARCHIVE:
+- report_2
+- report_8
+- report_9
+- every extracted artifact explicitly connected to older repositories
+
+Also search for artifacts discovered during the investigation itself.
+
+==================================================
+3. SEARCH BY ARTIFACT, NOT ONLY NAME
+==================================================
+
+For every important artifact, search Claude_History using multiple evidence dimensions:
+
+A. exact filename
+
+B. distinctive class names
+
+C. distinctive function names
+
+D. distinctive method combinations
+
+E. distinctive strings/constants
+
+F. unusual comments
+
+G. architecture terminology
+
+H. repository names
+
+I. commit hashes where present
+
+J. recognizable code fragments
+
+K. provenance language:
+   - copied from
+   - moved from
+   - extracted from
+   - reconstructed from
+   - salvaged from
+   - adapted from
+   - renamed from
+   - derived from
+   - based on
+   - forked from
+   - merged from
+   - consolidated from
+   - recovered from
+
+The objective is to locate earlier representations even when names changed.
+
+==================================================
+4. RECURSIVE PROVENANCE
+==================================================
+
+When an artifact is found in Claude_History:
+
+DO NOT STOP.
+
+For every recovered artifact:
+
+1. identify the conversation;
+2. identify the exact timestamp;
+3. identify whether it was authored in the conversation or supplied as an attachment;
+4. identify the earliest occurrence within that conversation;
+5. search earlier conversations for the same artifact;
+6. search for predecessor names;
+7. search for distinctive code;
+8. search for earlier versions;
+9. identify the source claimed by the conversation;
+10. recursively investigate that source.
+
+Continue until one of these conditions occurs:
+
+- earliest surviving artifact found;
+- corpus boundary reached;
+- evidence becomes speculative;
+- artifact becomes independently reimplemented;
+- source is external/unavailable.
+
+==================================================
+5. DISTINGUISH FOUR DIFFERENT HISTORICAL STATES
+==================================================
+
+Every recovered item must be classified as one of:
+
+1. ORIGINAL / SURVIVING SOURCE
+2. COPIED / MIGRATED SOURCE
+3. SALVAGED SOURCE
+4. RECONSTRUCTED / REIMPLEMENTED
+5. SPECIFICATION / CONCEPT ONLY
+6. UNKNOWN
+
+Do not treat reconstructed code as historical source.
+
+Do not treat a conversation describing an old system as proof that the implementation existed unless actual source/artifact evidence supports it.
+
+==================================================
+6. TEMPORAL FORENSICS
+==================================================
+
+For every significant artifact determine, where possible:
+
+- earliest conversation timestamp;
+- earliest attachment timestamp;
+- earliest message containing it;
+- earliest code occurrence;
+- earliest named-system occurrence;
+- earliest repository occurrence;
+- earliest known predecessor;
+- latest known predecessor;
+- migration date;
+- consolidation date.
+
+Construct temporal chains.
+
+Example:
+
+Claude conversation
+→ attachment
+→ ARCHIVE artifact
+→ Sentinel reconstruction
+→ FORTRESS copy
+
+Do not collapse those dates.
+
+==================================================
+7. PREDECESSOR DISCOVERY
+==================================================
+
+For every older system ask:
+
+“What did this artifact come from?”
+
+Then:
+
+“What did THAT artifact come from?”
+
+Specifically investigate:
+
+STRIDE → pre-STRIDE
+
+SAGE-K → pre-SAGE-K
+
+DGK → pre-DGK
+
+DIT → pre-DIT
+
+RADAR → pre-RADAR
+
+GSA → pre-GSA
+
+FORTRESS variants → earlier implementations
+
+GSA governance core → predecessor governance artifacts
+
+SECURE / UZTC / WRAPPER / EDDP / URE → predecessors
+
+Do not assume every system has a predecessor.
+
+A valid conclusion may be:
+
+“Earliest surviving evidence found; no predecessor recovered.”
+
+==================================================
+8. CROSS-CONVERSATION EVOLUTION
+==================================================
+
+Look for cases where an idea evolves across conversations.
+
+Track:
+
+- terminology changes;
+- renamed components;
+- architectural restructuring;
+- abandoned designs;
+- forks;
+- rewritten implementations;
+- consolidation decisions;
+- explicit deletion decisions;
+- migration decisions;
+- replacement decisions.
+
+Identify whether two differently named systems are:
+
+A. same artifact renamed;
+B. modified descendant;
+C. independent implementation;
+D. conceptual predecessor only;
+E. unrelated.
+
+==================================================
+9. HUMAN / AI DEVELOPMENT PROVENANCE
+==================================================
+
+Identify evidence of:
+
+- human directives;
+- Claude-generated implementation;
+- human edits;
+- AI-assisted refactoring;
+- repository migration instructions;
+- explicit architectural decisions;
+- requests to preserve or delete code;
+- conversations referring to earlier repositories.
+
+Separate:
+
+human decision provenance
+
+from:
+
+code authorship.
+
+Do not infer authorship merely from AI-generated text.
+
+==================================================
+10. NEGATIVE EVIDENCE DISCIPLINE
+==================================================
+
+Never state:
+
+“Claude_History proves X did not exist”
+
+unless exhaustive corpus coverage supports that statement.
+
+Use:
+
+- FOUND
+- NOT FOUND IN SEARCHED CORPUS
+- CORPUS INCOMPLETE
+- UNKNOWN
+- PROVEN ABSENT
+
+Only use PROVEN ABSENT when technically justified.
+
+==================================================
+11. PRODUCE AN ARTIFACT PROVENANCE LEDGER
+==================================================
+
+Create a table containing:
+
+Artifact
+Current location
+Claude_History occurrence
+Earliest timestamp
+Conversation ID
+Attachment?
+Claimed origin
+Earlier occurrence?
+Predecessor
+Destination
+Evidence type
+Historical status
+Confidence
+
+==================================================
+12. PRODUCE A TEMPORAL GRAPH
+==================================================
+
+Construct a graph showing:
+
+Claude conversation
+→ artifact
+→ repository
+→ migration
+→ destination
+→ later artifact.
+
+Mark each edge:
+
+A = direct primary evidence
+B = strongly supported
+C = plausible
+N = not established
+
+==================================================
+13. IDENTIFY THE EARLIEST HISTORICAL BOUNDARY
+==================================================
+
+Determine:
+
+What is the earliest timestamp in Claude_History containing actual system/code evidence relevant to this ecosystem?
+
+Then determine:
+
+What is the earliest timestamp containing actual source code rather than discussion?
+
+Then:
+
+What is the earliest timestamp containing an identifiable predecessor artifact?
+
+These are three different boundaries.
+
+==================================================
+14. FINAL QUESTIONS
+==================================================
+
+Answer explicitly:
+
+A. What is the earliest surviving Claude_History evidence of Sentinel-related development?
+
+B. What is the earliest surviving evidence of STRIDE?
+
+C. What is the earliest surviving evidence of SAGE-K?
+
+D. What is the earliest surviving evidence of FORTRESS code?
+
+E. What is the earliest surviving evidence of DGK/DIT/RADAR/GSA?
+
+F. What artifacts predate Sentinel's July 4 Git history?
+
+G. Which systems are proven predecessors versus merely conceptual relatives?
+
+H. Which code was copied, migrated, salvaged, reconstructed, or independently rewritten?
+
+I. What predecessor systems can be recursively established?
+
+J. What remains unresolved?
+
+K. What is the earliest genuinely primary artifact recovered?
+
+L. What evidence would be required to go further backward?
+
+==================================================
+15. FINAL JUDGMENT
+==================================================
+
+Do NOT force a single family tree.
+
+Produce the most defensible provenance graph.
+
+The desired output is:
+
+EARLIEST SURVIVING ARTIFACTS
+        ↓
+PREDECESSOR SYSTEMS
+        ↓
+PARALLEL BRANCHES
+        ↓
+MIGRATIONS / SALVAGE
+        ↓
+SENTINEL / GSA / GSA-815 / GSA-GATEWAY / FORTRESS
+        ↓
+LATER RECONSTRUCTION ERA
+
+The objective is not to make the ecosystem look coherent.
+
+The objective is to determine what actually survived.
+```
+
+---
+
+# PASS 9 — CHATGPT HISTORY PROVENANCE UNWIND
+
+Use the same forensic architecture, but make the corpus-specific objective explicit:
+
+```text
+# PASS 9 — CHATGPT_HISTORY PROVENANCE UNWIND
+## Independent Temporal and Artifact Archaeology of the ChatGPT History Corpus
+
+Audit date: August 22, 2026
+Standard: skeptical historian / software archaeologist
+Evidence rule: raw ChatGPT history is an independent primary-source corpus.
+
+IMPORTANT:
+TIE, GEMS, HERALD, and Conservation_Kernel are known new systems from August 17–21, 2026. Do not investigate them as historical predecessor systems.
+
+The mission is to work backward from the older ecosystem:
+
+Sentinel
+GSA-815
+GSA-GATEWAY
+ARCHIVE
+FORTRESS
+STRIDE
+SAGE-K
+DGK
+DIT
+RADAR
+GSA
+gsa-governance-core
+SECURE
+UZTC
+WRAPPER
+EDDP
+URE
+and every other older repository discovered.
+
+DO NOT perform a repository-name-only search.
+
+Perform recursive artifact archaeology.
+
+[Then apply the complete methodology from Pass 8:
+corpus inventory → artifact targets → exact/code/semantic searches → recursive provenance → copied/salvaged/reconstructed classification → temporal dating → predecessor discovery → cross-conversation evolution → human/AI provenance → negative evidence → artifact ledger → temporal graph → earliest boundary → final questions.]
+
+SPECIAL CHATGPT OBJECTIVE:
+
+Determine whether ChatGPT conversations contain:
+- earlier versions of artifacts later found in Sentinel;
+- earlier versions of artifacts later found in GSA-815;
+- descriptions preceding repository creation;
+- source-code attachments;
+- architecture drafts that later became implementations;
+- predecessor names;
+- migration/consolidation instructions;
+- references to deleted repositories;
+- artifacts subsequently placed in ARCHIVE;
+- evidence that any “old” repository was itself reconstructed from an earlier ChatGPT artifact.
+
+For every discovery, trace backward until the earliest surviving ChatGPT evidence is reached.
+
+Do not assume a ChatGPT conversation is the origin merely because it contains the earliest occurrence you found.
+
+Final output must include:
+1. corpus inventory;
+2. artifact provenance ledger;
+3. recursive predecessor chains;
+4. temporal timeline;
+5. artifact migration graph;
+6. earliest surviving ChatGPT evidence;
+7. proven vs inferred vs unknown relationships;
+8. explicit negative findings with corpus limitations;
+9. comparison of ChatGPT evidence against the Pass 7 Git findings;
+10. final historical judgment.
+```
+
+---
+
+# PASS 10 — COPILOT HISTORY PROVENANCE UNWIND
+
+```text
+# PASS 10 — COPILOT_HISTORY PROVENANCE UNWIND
+## Independent Artifact Provenance and Temporal Reconstruction
+
+Audit date: August 22, 2026
+Standard: skeptical historian / software archaeologist
+
+TIE, GEMS, HERALD, and Conservation_Kernel are known August 2026 creations. Ignore them as historical ancestors.
+
+Investigate only the older ecosystem and recursively trace its artifacts.
+
+Primary targets:
+
+Sentinel
+GSA-815
+GSA-GATEWAY
+ARCHIVE
+FORTRESS
+STRIDE
+SAGE-K
+DGK
+DIT
+RADAR
+GSA
+gsa-governance-core
+SECURE
+UZTC
+WRAPPER
+EDDP
+URE
+and all additional older systems discovered.
+
+SEARCH THE COPILOT HISTORY CORPUS AT ARTIFACT LEVEL.
+
+For each target search:
+
+- repository names;
+- filenames;
+- class names;
+- function names;
+- distinctive code;
+- comments;
+- architecture terms;
+- commit hashes;
+- migration language;
+- predecessor names;
+- attachment metadata;
+- timestamps.
+
+Then recursively follow:
+
+artifact → conversation → attachment → earlier artifact → predecessor → earlier predecessor.
+
+Classify each relationship:
+
+A — direct source migration
+B — strong provenance
+C — plausible
+N — unsupported
+X — contradicted
+
+Classify artifact state:
+
+ORIGINAL
+COPIED
+MIGRATED
+SALVAGED
+RECONSTRUCTED
+SPECIFICATION-ONLY
+UNKNOWN
+
+CRITICAL OBJECTIVE:
+
+Determine whether Copilot history contains evidence predating the Git repositories.
+
+Pay particular attention to:
+
+- DGK
+- DIT
+- RADAR
+- GSA
+- GSA-815
+- GSA-GATEWAY
+- Sentinel
+- STRIDE
+- SAGE-K
+- FORTRESS
+- governance-core
+- resilience/SRE artifacts.
+
+Investigate every “copied from,” “moved from,” “consolidated from,” “reconstructed from,” and “based on” statement.
+
+Do not mistake AI-generated code for historical source merely because it appears in a conversation.
+
+Distinguish:
+- conversation discussion;
+- generated code;
+- user-supplied code;
+- uploaded attachment;
+- copied repository source;
+- reconstructed implementation.
+
+Produce:
+
+1. complete Copilot corpus inventory;
+2. artifact-level provenance ledger;
+3. earliest occurrence for every significant artifact;
+4. recursive predecessor chains;
+5. temporal graph;
+6. repository migration graph;
+7. evidence of human-directed architectural decisions;
+8. AI-development provenance;
+9. negative findings and search limitations;
+10. earliest surviving Copilot evidence;
+11. comparison against Pass 7 Git evidence;
+12. final judgment about what Copilot history adds to the historical record.
+
+Do not force a family tree.
+
+The purpose is to recover provenance.
+```
+
+---
+
+# PASS 11 — GEMINI HISTORY PROVENANCE UNWIND
+
+```text
+# PASS 11 — GEMINI_HISTORY PROVENANCE UNWIND
+## Independent Recursive Provenance Archaeology of the Gemini History Corpus
+
+Audit date: August 22, 2026
+Standard: skeptical historian / software archaeologist
+
+TIE, GEMS, HERALD, and Conservation_Kernel are known to be new systems from August 17–21, 2026.
+
+Do not attempt to prove historical ancestry for those systems.
+
+Instead investigate the older ecosystem:
+
+Sentinel
+GSA-815
+GSA-GATEWAY
+ARCHIVE
+FORTRESS
+STRIDE
+SAGE-K
+DGK
+DIT
+RADAR
+GSA
+gsa-governance-core
+SECURE
+UZTC
+WRAPPER
+EDDP
+URE
+and every other older system encountered.
+
+The central question:
+
+Does Gemini_History preserve earlier artifacts, conversations, attachments, specifications, code, names, or architectural decisions that can establish provenance deeper than the surviving Git repositories?
+
+Perform a true recursive unwind.
+
+For every artifact:
+
+1. Find the artifact.
+2. Identify the conversation.
+3. Identify the timestamp.
+4. Determine whether it was generated, supplied, uploaded, or quoted.
+5. Search earlier Gemini conversations.
+6. Search predecessor terminology.
+7. Search distinctive source code.
+8. Search renamed versions.
+9. Search for the artifact's claimed origin.
+10. Repeat recursively.
+
+Search using:
+
+- exact repository names;
+- filenames;
+- classes;
+- functions;
+- distinctive strings;
+- comments;
+- architecture terminology;
+- commit hashes;
+- migration language;
+- copied/moved/extracted/reconstructed/salvaged language.
+
+Pay special attention to artifacts that Pass 7 has identified as provenance-critical:
+
+governance_loop_guard.py
+fortress_kernel.py
+PredictiveStateController.py
+Fortress_orchestrator_incomplete.py
+PredictiveIntegrityController.py
+api_server.py
+GSA.py
+GSA kernel artifacts
+universal interlock wrappers
+cryptographic interlock
+SRE evaluator
+governance operating core
+SAGE-K components.
+
+Classify every artifact:
+
+ORIGINAL / COPIED / MIGRATED / SALVAGED / RECONSTRUCTED / SPECIFICATION / UNKNOWN.
+
+Classify every relationship:
+
+A / B / C / N / X.
+
+Do not use conceptual similarity as lineage.
+
+Do not use repository creation date as invention date.
+
+Do not use AI-generated code as proof of historical source.
+
+Determine separately:
+
+- earliest discussion;
+- earliest supplied artifact;
+- earliest actual source code;
+- earliest identifiable system name;
+- earliest predecessor;
+- earliest repository;
+- earliest migration;
+- earliest surviving historical implementation.
+
+Produce:
+
+1. Gemini corpus inventory;
+2. searchable-coverage assessment;
+3. artifact provenance ledger;
+4. recursive predecessor graph;
+5. temporal chronology;
+6. migration/consolidation graph;
+7. AI/human decision provenance;
+8. earliest surviving Gemini evidence;
+9. negative findings with appropriate uncertainty;
+10. comparison with Pass 7;
+11. unresolved predecessor questions;
+12. final historical judgment.
+
+The goal is not to produce a coherent story.
+
+The goal is to determine the deepest provenance actually supported by Gemini_History.
+```
+
+---
+
+# PASS 12 — FOUR-HISTORY CROSS-REFERENCE
+
+This one should be **substantially more rigorous** than simply merging the four reports.
+
+The four histories need to act as **independent witnesses**.
+
+```text
+# PASS 12 — FOUR-HISTORY CROSS-REFERENCE
+## Multi-Corpus Provenance Correlation, Independent Witness Validation, and Deep Historical Reconstruction
+
+Audit date: August 22, 2026
+
+CORPORA:
+
+1. Claude_History — Pass 8
+2. ChatGPT_History — Pass 9
+3. CoPilot_History — Pass 10
+4. Gemini_History — Pass 11
+
+PRIMARY STANDARD:
+
+skeptical historian / software archaeologist
+
+CORE RULE:
+
+Do not merge the four histories into one narrative merely because they contain similar claims.
+
+Treat each history as an independent evidentiary witness.
+
+The purpose of Pass 12 is to determine:
+
+- where the four histories independently corroborate each other;
+- where one history contains unique evidence;
+- where apparently identical artifacts came from different sources;
+- where timestamps establish temporal precedence;
+- where one corpus contradicts another;
+- where the four corpora reveal a deeper common predecessor;
+- where apparent common ancestry is actually reconstruction/consolidation.
+
+==================================================
+1. IMPORTANT SCOPE EXCLUSION
+==================================================
+
+TIE, GEMS, HERALD, and Conservation_Kernel are known new systems created during August 17–21, 2026.
+
+Do not search for their “historical origins.”
+
+They are not part of the historical predecessor problem.
+
+They may be referenced only when necessary to distinguish current reconstruction from historical artifacts.
+
+The historical target is the older ecosystem:
+
+Sentinel
+GSA-815
+GSA-GATEWAY
+ARCHIVE
+FORTRESS
+STRIDE
+SAGE-K
+DGK
+DIT
+RADAR
+GSA
+gsa-governance-core
+SECURE
+UZTC
+WRAPPER
+EDDP
+URE
+and all other materially connected older systems.
+
+==================================================
+2. IMPORT THE FOUR INDIVIDUAL RESULTS
+==================================================
+
+For each Pass 8–11 report extract:
+
+- corpus coverage;
+- artifact discoveries;
+- conversation IDs;
+- timestamps;
+- attachments;
+- code artifacts;
+- claimed origins;
+- predecessor systems;
+- migration events;
+- reconstruction events;
+- deletion events;
+- human decisions;
+- AI provenance;
+- confidence levels;
+- negative findings;
+- unresolved questions.
+
+Do not discard corpus-specific uncertainty.
+
+==================================================
+3. BUILD A UNIFIED ARTIFACT IDENTITY TABLE
+==================================================
+
+For every significant artifact establish:
+
+Canonical artifact ID
+Known filenames
+Known aliases
+Known classes
+Known functions
+Known distinctive strings
+Known repositories
+Claude occurrence
+ChatGPT occurrence
+Copilot occurrence
+Gemini occurrence
+Earliest timestamp
+Earliest source
+Claimed origin
+Confirmed origin
+Destination(s)
+Status
+Confidence
+
+This is the central data structure of Pass 12.
+
+==================================================
+4. FIND CROSS-CORPUS MATCHES
+==================================================
+
+For every artifact determine whether it appears in:
+
+- all four histories;
+- three;
+- two;
+- only one.
+
+Do not automatically interpret multi-corpus occurrence as common ancestry.
+
+An artifact can appear in multiple histories because:
+
+A. the same source was copied between users/sessions;
+
+B. one AI system quoted another;
+
+C. the same artifact was uploaded repeatedly;
+
+D. a later repository was reconstructed from it;
+
+E. independent implementations happened to use the same concept.
+
+Determine which explanation is supported.
+
+==================================================
+5. CORRELATE TIMESTAMPS
+==================================================
+
+For every important artifact construct:
+
+Earliest Claude timestamp
+Earliest ChatGPT timestamp
+Earliest Copilot timestamp
+Earliest Gemini timestamp
+Earliest Git timestamp
+Earliest ARCHIVE timestamp
+Earliest repository timestamp
+
+Then determine:
+
+Which source is earliest?
+
+Which sources are contemporaneous?
+
+Which sources are downstream copies?
+
+Which source appears to be reconstructing another?
+
+Do not confuse timestamp order with causal order unless artifact identity supports it.
+
+==================================================
+6. IDENTIFY TRUE MULTI-WITNESS CORROBORATION
+==================================================
+
+Create a separate category:
+
+MULTI-WITNESS PRIMARY CORROBORATION
+
+An event qualifies only when two or more genuinely independent histories contain evidence that can be linked without circular dependence.
+
+Examples:
+
+Claude contains an artifact.
+
+ChatGPT independently contains the same artifact earlier.
+
+Git later contains the artifact.
+
+This is much stronger than:
+
+Claude conversation says “Sentinel had X”
+and Sentinel README later says “Sentinel had X.”
+
+Those are not independent if the README was generated from the conversation.
+
+==================================================
+7. IDENTIFY UNIQUE EVIDENCE
+==================================================
+
+Create a list of facts recoverable only from:
+
+Claude
+ChatGPT
+Copilot
+Gemini
+
+Unique evidence can be extremely valuable.
+
+Especially identify:
+
+- earliest code;
+- deleted repository references;
+- predecessor names;
+- attachments;
+- architectural decisions;
+- migration instructions;
+- human directives;
+- explicit source provenance.
+
+==================================================
+8. RECURSIVELY UNWIND COMMON PREDECESSORS
+==================================================
+
+For every apparent shared lineage ask:
+
+Did both systems actually descend from the same artifact?
+
+For example:
+
+DGK
+   │
+   ├── artifact A → GSA-815
+   │
+   └── artifact B → GSA-GATEWAY
+
+If both histories contain earlier versions of artifact A and B, determine whether they share an earlier ancestor.
+
+Do this recursively for:
+
+STRIDE
+SAGE-K
+FORTRESS
+DGK
+DIT
+RADAR
+GSA
+governance-core
+SECURE
+UZTC
+WRAPPER
+EDDP
+URE.
+
+The desired endpoint is:
+
+earliest shared artifact
+
+not merely:
+
+same architectural idea.
+
+==================================================
+9. DETECT FALSE LINEAGES
+==================================================
+
+Explicitly search for cases where the evidence initially appears to show ancestry but does not.
+
+Examples:
+
+- copied license only;
+- common README language;
+- common architecture vocabulary;
+- independent reimplementation;
+- AI-generated reconstruction;
+- archive extraction;
+- renamed but independently rewritten system;
+- current repository importing reconstructed code.
+
+Mark these as FALSE / UNSUPPORTED LINEAGE.
+
+==================================================
+10. RECONSTRUCT THE SPIDERWEB
+==================================================
+
+Produce the best evidence-derived graph.
+
+Do NOT force a tree.
+
+The graph should support:
+
+        EARLIEST ARTIFACTS
+          /    |     \
+         /     |      \
+     branch  branch   branch
+       |       |        |
+      STRIDE SAGE-K    DGK
+        |       |        |
+        ▼       ▼        ▼
+     Sentinel FORTRESS  GSA/GSA-815
+        │         │       │
+        └────┐    │       │
+             ▼    ▼       ▼
+             later consolidation
+
+Add GSA-GATEWAY and all other confirmed branches.
+
+Every edge must carry:
+
+Evidence source
+Timestamp
+Artifact
+Relationship type
+Confidence
+
+==================================================
+11. DETERMINE THE TRUE HISTORICAL BOUNDARY
+==================================================
+
+Answer four separate questions:
+
+A. Earliest surviving conversation evidence.
+
+B. Earliest surviving actual source artifact.
+
+C. Earliest surviving identifiable software system.
+
+D. Earliest independently corroborated historical system.
+
+These may be different dates.
+
+Do not collapse them.
+
+==================================================
+12. DETERMINE WHETHER ANYTHING PREDATES SENTINEL
+==================================================
+
+Sentinel's current Git history begins July 4, 2026.
+
+Determine whether the four histories contain:
+
+- actual source code;
+- attachments;
+- commits;
+- architecture artifacts;
+- system implementations
+
+that clearly predate July 4.
+
+If so:
+
+Identify them exactly.
+
+If not:
+
+State:
+
+“No qualifying pre-Sentinel artifact recovered from the four-history corpus.”
+
+Do not interpret that as proof that none existed.
+
+==================================================
+13. SYSTEM-BY-SYSTEM HISTORICAL STATUS
+==================================================
+
+For each:
+
+Sentinel
+GSA-815
+GSA-GATEWAY
+FORTRESS
+STRIDE
+SAGE-K
+DGK
+DIT
+RADAR
+GSA
+gsa-governance-core
+SECURE
+UZTC
+WRAPPER
+EDDP
+URE
+
+provide:
+
+Earliest evidence
+Earliest actual source
+Proven predecessor
+Possible predecessor
+Known descendants
+Migration events
+Reconstruction events
+Independent corroboration
+Contradictions
+Final status
+
+Use:
+
+PROVEN
+PARTIALLY PROVEN
+RECONSTRUCTED
+MIGRATED
+SALVAGED
+CURRENT-ONLY
+UNKNOWN
+NOT FOUND IN SEARCHED CORPUS
+
+==================================================
+14. IDENTIFY THE MAJOR CONVERGENCE POINTS
+==================================================
+
+Determine which repositories acted as:
+
+- source repositories;
+- temporary reservoirs;
+- archive repositories;
+- reconstruction points;
+- consolidation hubs;
+- branch/specialization hubs;
+- convergence points.
+
+Pass 7 already suggests:
+
+ARCHIVE = evidence reservoir
+Sentinel = convergence hub
+GSA-815 = multi-source consolidation
+GSA-GATEWAY = multi-source consolidation
+FORTRESS = multi-variant consolidation
+
+Confirm, refine, or overturn these findings.
+
+==================================================
+15. HUMAN / AI PROVENANCE
+==================================================
+
+Correlate:
+
+Claude
+ChatGPT
+Copilot
+Gemini
+
+with Git evidence.
+
+Determine:
+
+- which AI system appears to have contributed which artifact;
+- where human instructions initiated migrations;
+- where AI-generated code was later committed;
+- where artifacts crossed AI environments;
+- whether an attachment moved between systems;
+- whether the same source appears independently in multiple histories.
+
+Do not attribute authorship without evidence.
+
+==================================================
+16. CONTRADICTION MATRIX
+==================================================
+
+Create a table:
+
+Claim
+Claude evidence
+ChatGPT evidence
+Copilot evidence
+Gemini evidence
+Git evidence
+Agreement
+Contradiction
+Resolution
+
+Important contradictions should be investigated rather than averaged away.
+
+==================================================
+17. INDEPENDENCE ANALYSIS
+==================================================
+
+For every apparent corroboration classify:
+
+INDEPENDENT
+
+DERIVED FROM SAME SOURCE
+
+LIKELY COPIED
+
+UNKNOWN DEPENDENCE
+
+This is critical.
+
+Four histories repeating the same reconstruction does not equal four independent witnesses.
+
+==================================================
+18. FINAL ARTIFACT PROVENANCE LEDGER
+==================================================
+
+Produce a master table:
+
+Artifact
+Aliases
+Earliest known evidence
+Earliest corpus
+Earliest actual source
+Origin
+Intermediate locations
+Destinations
+Claude
+ChatGPT
+Copilot
+Gemini
+Git
+ARCHIVE
+Relationship
+Historical status
+Confidence
+Notes
+
+==================================================
+19. FINAL TEMPORAL TIMELINE
+==================================================
+
+Construct a single chronology showing:
+
+earliest recovered artifact
+↓
+earliest predecessor
+↓
+parallel branches
+↓
+ARCHIVE
+↓
+Sentinel
+↓
+STRIDE salvage
+↓
+GSA-815 decomposition/consolidation
+↓
+GSA-GATEWAY consolidation
+↓
+FORTRESS consolidation
+↓
+August reconstruction wave
+
+But only include events supported by evidence.
+
+==================================================
+20. ANSWER THE BIG QUESTIONS
+==================================================
+
+A. What is the earliest actual software artifact recovered?
+
+B. What is the earliest independently corroborated artifact?
+
+C. What is the earliest identifiable system?
+
+D. What demonstrably predates Sentinel?
+
+E. What is the true origin of STRIDE?
+
+F. What is the true origin of SAGE-K?
+
+G. What is the true origin of the FORTRESS variants?
+
+H. Where do DGK, DIT, RADAR, and GSA actually converge?
+
+I. Are any of them demonstrably descendants of a common predecessor?
+
+J. Which systems were genuinely independent?
+
+K. Which systems were merely names applied during later consolidation?
+
+L. Which artifacts were reconstructed rather than historically recovered?
+
+M. What repositories are convergence hubs?
+
+N. What repositories are source reservoirs?
+
+O. What historical relationships are now proven by multiple independent witnesses?
+
+P. What remains unknown?
+
+==================================================
+21. FINAL HISTORICAL JUDGMENT
+==================================================
+
+The final judgment must explicitly distinguish:
+
+HISTORICAL FACT
+
+STRONGLY SUPPORTED RECONSTRUCTION
+
+PLAUSIBLE
+
+UNKNOWN
+
+NOT FOUND IN SEARCHED CORPUS
+
+CONTRADICTED
+
+Do not create a clean historical narrative unless the evidence supports one.
+
+The desired conclusion is the most accurate representation of the surviving evidence, even if it remains messy.
+
+The objective of Pass 12 is:
+
+NOT to make the history coherent.
+
+It is to determine whether the surviving evidence allows the spaghetti to be unwound into a defensible temporal/provenance graph.
+
+==================================================
+12A. FINAL “DELETE THE CURRENT REPOS” TEST
+==================================================
+
+After reconstructing the graph, ask:
+
+If Sentinel, GSA-815, GSA-GATEWAY, FORTRESS, and all current repositories disappeared today, what independent historical evidence would remain in:
+
+Claude_History
+ChatGPT_History
+CoPilot_History
+Gemini_History
+ARCHIVE
+
+Could the historical graph still be reconstructed?
+
+If yes, identify exactly which edges survive.
+
+If no, identify which edges depend entirely upon current repositories.
+
+==================================================
+12B. FINAL DEPTH TEST
+==================================================
+
+Determine how far backward the evidence can actually be pushed.
+
+Report:
+
+Git boundary:
+Archive boundary:
+Claude boundary:
+ChatGPT boundary:
+Copilot boundary:
+Gemini boundary:
+Independent-corroboration boundary:
+
+Then state the deepest defensible historical boundary.
+
+That date is more important than any repository creation date.
+
+==================================================
+FINAL OUTPUT
+==================================================
+
+Produce:
+
+1. Executive verdict
+2. Four-corpus comparison
+3. Corpus independence assessment
+4. Master artifact provenance ledger
+5. Recursive predecessor chains
+6. Cross-corpus corroboration matrix
+7. Contradiction matrix
+8. Artifact migration graph
+9. System lineage graph
+10. Temporal chronology
+11. Earliest surviving artifacts
+12. Earliest independently corroborated artifacts
+13. Major convergence hubs
+14. False-lineage findings
+15. Human/AI provenance
+16. Unknown register
+17. What Passes 8–11 changed
+18. What Pass 12 overturned
+19. What remains unknowable
+20. Delete-the-current-repositories test
+21. Final historical judgment
+
+The final sentence should answer:
+
+“How far back does the surviving primary evidence allow us to reconstruct the real history of this ecosystem?”
+```
+
+### The architecture of the five passes is now exactly right
+
+**Pass 8:** Claude is its own witness.  
+**Pass 9:** ChatGPT is its own witness.  
+**Pass 10:** Copilot is its own witness.  
+**Pass 11:** Gemini is its own witness.  
+**Pass 12:** forensic comparison of the four witnesses + Git/ARCHIVE.
+
+That last distinction matters enormously. **Pass 12 should not simply concatenate the four reports.** It should actively look for *independence, corroboration, contradiction, and common upstream artifacts*. That is what can turn the "spaghetti" into an actual historical reconstruction rather than four mutually reinforcing versions of the same reconstruction.
+
+And I would make **the earliest actual artifact**, rather than the earliest repository, the ultimate prize of Pass 12.

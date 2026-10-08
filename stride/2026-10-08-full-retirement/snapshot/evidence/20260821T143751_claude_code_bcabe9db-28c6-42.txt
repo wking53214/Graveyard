@@ -1,0 +1,1 @@
+`~/STRIDE` hits are the expected origin. But there's a real, independent hit: `log_rotation_v1.py` (appearing identically in `observe`, `sentinel_os`, and `sentinel_repo`) matched on `high_watermark`. Checking whether that's a coincidence or a genuine overlapping concept.

@@ -1,0 +1,518 @@
+PASS 8 — CLAUDE_HISTORY PROVENANCE UNWIND
+Audit date: August 22, 2026 Method: independent primary-source archaeology of the public wking53214/Claude_History corpus, supplemented by current GitHub repository metadata only for chronology comparison. Evidence standard: skeptical historian / software archaeologist. Evidence labels: A directly proven primary evidence; B strongly supported; C plausible; N not found in the searched/accessed corpus; X contradicted; U unresolved.
+ 
+⸻
+ 
+1. Executive verdict
+The strongest conclusion from this pass is that Claude_History does preserve a layer of system history that predates several surviving repositories, but the accessible evidence does not yet permit a complete artifact-by-artifact unwind of the entire Pass 7 spiderweb.
+The clearest case is Sentinel. A Claude checkpoint preserved in the July 2, 2026 conversation "Beta checkpoint handoff priorities" explicitly described Sentinel and GSA as existing systems among five separate systems. That conversation predates the public sentinel_os repository, which GitHub records as created July 4, 2026. This is genuine evidence that the concept/system identity existed in conversation before the surviving Sentinel repository existed. It is not evidence that the Sentinel codebase existed before July 4.
+A second important finding is GSA ambiguity. Claude_History contains July 2 material explicitly naming GSA, and a July 4 conversation contains an actual human-supplied, code-bearing artifact called Synapsis GSA, with a complete baseline implementation and verified execution. That is direct evidence of a real GSA-named software artifact in Claude_History. It is not yet evidence that SynapsisGSA is the same historical branch as the Pass 7 GSA repository. The identity remains U.
+The current GitHub metadata also reveals a very late consolidation layer. GSA-GATEWAY, created August 19, 2026, describes itself as a provisional name for consolidated GSA-lineage content comprising SECURE, UZTC, WRAPPER, plus governance-stack material from DGK/EDDP. That is useful corroboration of the present consolidation intent, but by itself it is not historical proof of when any of those predecessor systems first existed.
+The result is therefore not a single ancestral tree. It is a temporal provenance graph with at least three distinct strata:
+CONVERSATIONAL CONCEPT / SYSTEM IDENTITY
+        │
+        ├── Sentinel ───────────────→ sentinel_os repository
+        │
+        └── GSA ──?──→ SynapsisGSA artifact
+                         │
+                         └──?──→ later GSA-family repositories
+
+CURRENT CONSOLIDATION METADATA
+        │
+        └── GSA-GATEWAY
+              ├── SECURE
+              ├── UZTC
+              ├── WRAPPER
+              └── DGK / EDDP governance material
+The evidence does not yet justify collapsing those ? edges into proven code lineage.
+Most importantly, Claude_History’s historical boundary is older than several current repositories, but the presently accessible evidence is insufficient to establish a single “first ancestor” for Sentinel/GSA-815/FORTRESS/etc. The strongest defensible historical boundary reached in this pass is therefore the earliest direct conversation-level system references in Claude_History, not a proven prehistoric source repository.
+ 
+⸻
+ 
+2. Claude_History corpus actually examined
+The public Claude_History repository explicitly identifies itself as an archive generated from a Claude.ai account export. Its README states:
+* 265 conversations
+* 10,721 messages
+* original Claude export split into one JSON file per conversation
+* transcripts/{uuid}.md containing full message-by-message transcripts
+* attachment text included where the export captured it
+* index/manifest.json containing conversation timestamps and paths
+* summaries/{uuid}_ai.md derived from Claude’s own export summary fields
+* data/raw.jsonl intended as a flattened one-message-per-line corpus.
+The current repository tree independently confirms the existence of the transcripts, index, summaries, data, and Data_sets areas.
+The Data_sets/claude_export/conversations/ tree also contains the split raw conversation JSON files, so the primary export is not merely represented by summaries.
+Important corpus-access limitation
+The README says data/raw.jsonl exists, but the current GitHub API route for that path returned 404 Not Found during this audit, and the direct raw URL was not retrievable through the available public-fetch interface. Consequently, I did not pretend to have performed a literal full-text grep of all 10,721 flattened messages.
+The primary corpus was therefore examined through:
+1. the repository manifest,
+2. the split raw conversation JSON files,
+3. the transcript corpus structure,
+4. selected raw conversations containing real artifacts and attachments,
+5. current GitHub repository metadata for chronology comparison.
+This limitation matters. A negative result below means “not recovered from the directly accessible primary material in this pass”, not “definitively absent from all 265 conversations.”
+ 
+⸻
+ 
+3. Earliest temporal evidence recovered
+The manifest records conversations reaching back at least to May 29, 2026. For example, conversation 021e48ac-51c4-428a-8b51-cce371629f22 runs from May 29, 2026 10:48:40Z to 11:49:43Z, while 013b18f9-206f-4981-8e22-b862b310a9dd runs June 23–26. The manifest itself was generated August 19.
+The earliest relevant system evidence recovered is later:
+July 2, 2026 — Sentinel and GSA are already named systems
+Conversation:
+0ae535da-8f17-40a5-bcaa-411553764eb7
+Title:
+“Beta checkpoint handoff priorities”
+Created:
+July 2, 2026 02:05:52Z
+The attached checkpoint explicitly describes five systems:
+“Iceberg, Sentinel, GSA, ATS Governor, OBSERVE/PERCEIVE”
+and states that there were “five separate systems” without a single answer to what the overall product identity was. This is direct Claude_History evidence that those system names were already in active conceptual use by July 2.
+However, this evidence is a checkpoint attachment summarizing earlier discussion, not a preserved source-code payload for Sentinel or GSA. Under the requested taxonomy, it therefore belongs in D — conceptual/descriptive evidence, not A — surviving source.
+July 4, 2026 — actual GSA-named code artifact
+Conversation:
+0b8182b1-4b24-475d-9db9-b4e822fc7174
+Title:
+“Handoff”
+Created:
+July 4, 2026 16:07:46Z
+This conversation contains a human-supplied attachment containing a full baseline implementation for a project explicitly described as Synapsis GSA, including an actual SynapsisGSA class, instantiated production engine, detailed module implementation, and a report of direct execution and verified bugs. This is not merely descriptive text: it is an actual preserved software payload inside the conversation.
+The artifact therefore qualifies as A — ORIGINAL/SURVIVING SOURCE within Claude_History, in the narrower sense that the historical archive preserves the actual supplied code. It is still U whether it is the same lineage later represented by the Pass 7 GSA repository.
+ 
+⸻
+ 
+4. System-by-system provenance
+Sentinel
+Earliest Claude_History appearance recovered: July 2, 2026 Earliest explicit system name: July 2 Earliest explicit code: not recovered Current repository: wking53214/sentinel_os Repository created: July 4, 2026 03:34:06Z.
+Classification:
+* conceptual existence in Claude_History: A/D
+* surviving repository: A
+* pre-repository code lineage: U
+* predecessor system: U
+Historical judgment: Claude_History establishes that Sentinel existed as a named system before the current Sentinel repository was created. It does not establish that Sentinel code existed before July 4.
+This is the cleanest demonstration in the entire pass of:
+conversation-level existence
+        ↓
+repository creation
+rather than:
+repository creation
+        =
+system birth
+GSA
+Earliest recovered system-level mention: July 2, 2026 Earliest preserved code artifact: July 4, 2026 Artifact: SynapsisGSA baseline implementation Current exact repository identity: unresolved.
+Classification:
+* GSA as a conversation concept: A
+* SynapsisGSA source artifact: A
+* SynapsisGSA = Pass 7 GSA: U
+* predecessor: U
+The evidence is strong enough to say a real GSA-named software branch existed in Claude_History by July 4. It is not strong enough to say the current GSA repository is that branch without an explicit linking artifact.
+GSA-815
+Current repository created: July 31, 2026 13:23:46Z.
+No directly preserved Claude_History source artifact tying the name GSA-815 to an earlier conversation was recovered from the primary material actually accessible during this pass.
+Classification: U
+Pass 7’s reported migrations into GSA-815 remain important prior-pass findings, but they were not independently re-proven from Claude_History in this run.
+GSA-GATEWAY
+Current repository created: August 19, 2026 09:47:01Z.
+Its current description is unusually explicit:
+“Provisional name for consolidated GSA-lineage content (SECURE, UZTC, WRAPPER, plus governance-stack material from DGK/EDDP). Rename freely.”
+This gives B-level evidence for present consolidation intent.
+It does not give A-level evidence for the historical existence dates of SECURE, UZTC, WRAPPER, DGK, or EDDP.
+FORTRESS
+Current repository created: August 19, 2026 14:35:17Z.
+The repository creation date is plainly late relative to the older conceptual system web. Under the user’s evidence rule, this date does not establish FORTRESS’s birth.
+Pass 7’s claims that FORTRESS contains ARCHIVE material, Sentinel/sage_k material, and Claude_History attachment material remain prior-pass migration assertions. In this pass, those edges are U unless tied to raw conversation evidence.
+STRIDE
+No direct raw Claude_History artifact establishing an earlier STRIDE source was recovered in the accessible material.
+Classification: U
+Pass 7’s STRIDE → Sentinel edge is therefore not overturned, but neither is it independently upgraded here.
+SAGE-K
+No direct raw Claude_History artifact establishing the earliest Sage-K source was recovered.
+Classification: U
+DGK
+No direct raw Claude_History source artifact establishing DGK’s original code was recovered.
+Current GSA-GATEWAY metadata explicitly places “governance-stack material from DGK/EDDP” in the present consolidation. That corroborates a current declared migration/consolidation relationship, not original code chronology.
+Classification: current relationship B; original historical source U.
+DIT
+No direct Claude_History source artifact recovered.
+Classification: U
+RADAR
+No direct Claude_History source artifact recovered.
+Classification: U
+SECURE
+No direct Claude_History source artifact recovered in the accessible primary material.
+Current GSA-GATEWAY metadata identifies SECURE as consolidated predecessor material.
+Classification: current relationship B; historical origin U.
+UZTC
+Same status as SECURE.
+Classification: current relationship B; historical origin U.
+WRAPPER
+Same status.
+Classification: current relationship B; historical origin U.
+EDDP
+Current GSA-GATEWAY metadata names EDDP as a source of governance-stack material.
+Classification: current relationship B; historical original artifact U.
+URE
+No direct Claude_History artifact recovered.
+Classification: U
+ARCHIVE
+Current GitHub repository exists and was created August 13, 2026 16:44:30Z.
+Pass 7’s ARCHIVE → FORTRESS migration remains a prior-pass claim not independently established from the currently accessible raw conversations.
+Classification: repository existence A; migration ancestry U in this pass.
+ 
+⸻
+ 
+5. Artifact-by-artifact provenance
+The requested artifacts divide into four evidentiary classes.
+Artifact	Earliest recovered state	Classification	Provenance judgment
+SynapsisGSA baseline implementation	July 4, 2026 conversation attachment	A — surviving source	Actual code payload preserved in Claude_History
+Sentinel system identity	July 2, 2026 checkpoint	D — conceptual/descriptive	Name and system identity preserved before repo creation
+GSA system identity	July 2 checkpoint	D, then A for related SynapsisGSA code	Identity continuity to current GSA unresolved
+governance_loop_guard.py	no raw historical artifact recovered	N/U	Filename alone would not justify lineage
+fortress_kernel.py	no raw historical artifact recovered	N/U	Current FORTRESS does not prove historical source
+PredictiveStateController.py	no raw historical artifact recovered	N/U	No pre-repo source trail established
+Fortress_orchestrator_incomplete.py	no raw historical artifact recovered	N/U	Reconstruction/source status unresolved
+PredictiveIntegrityController.py	no raw historical artifact recovered	N/U	Same limitation
+api_server.py	no raw historical artifact recovered	N/U	Generic filename, no lineage on filename alone
+GSA_Governance_Operating_Core_Enterprise.py	no raw historical artifact recovered	N/U	Distinctive name still needs explicit raw-source link
+gsa-master-kernel-base-flattened.py	no raw historical artifact recovered	N/U	No provenance proof recovered
+gsa-universal-interlock-wrapper-v7.py	no raw historical artifact recovered	N/U	No provenance proof recovered
+gsa-cryptographic-interlock-wrapper.py	no raw historical artifact recovered	N/U	No provenance proof recovered
+GSA.py	no raw historical artifact recovered	N/U	Cannot assume relation to SynapsisGSA
+gsa_universal_interlock_wrapper.py	no raw historical artifact recovered	N/U	Filename similarity is insufficient
+SRE evaluator	no raw historical artifact recovered	N/U	No explicit artifact source
+resilience-config-dataclass.py	no raw historical artifact recovered	N/U	No source-chain evidence
+This is a central finding: the surviving filenames are not enough to reconstruct the lineage. The pass cannot legitimately upgrade these artifacts from “known to exist in a repository” to “historically derived from X” without the conversational source statement or preserved source payload.
+ 
+⸻
+ 
+6. Predecessor-name discoveries
+The strongest predecessor/naming evidence recovered in this pass is actually negative evidence against assuming the current names are the original names.
+The current GSA-GATEWAY repository calls itself a “Provisional name” and says “Rename freely.” That establishes that the current repository name is explicitly not intended as a canonical historical label.
+That is significant because it means the repository name:
+GSA-GATEWAY
+must not be used retrospectively as evidence that the consolidated system historically existed under that name.
+Likewise, the July 2 checkpoint’s use of generic system names such as GSA and Sentinel precedes later repository-specific naming. This is a genuine name-layer separation.
+No explicit raw-conversation evidence was recovered in this pass proving that:
+* STRIDE was formerly another named project,
+* SAGE-K had an earlier codename,
+* FORTRESS was previously called something else,
+* Sentinel was renamed from a predecessor,
+* GSA-815 was formerly another project name.
+Those remain U.
+ 
+⸻
+ 
+7. Graveyard / deleted-system discoveries
+No direct raw Claude_History evidence sufficient to establish a deleted or retired predecessor was recovered in the accessible material for:
+* STRIDE
+* SAGE-K
+* DGK
+* DIT
+* RADAR
+* SECURE
+* UZTC
+* WRAPPER
+* EDDP
+* URE
+There are therefore no A-level graveyard discoveries in this pass.
+The current archive contains enough structure to support a future dedicated graveyard pass, but the present audit cannot honestly convert words such as “archive,” “obsolete,” or “previous” from secondary descriptions into proof of a deleted repository without locating the underlying conversation and timestamp.
+ 
+⸻
+ 
+8. Cross-system migration events
+Migration events supported by current evidence
+Source	Artifact/system	Destination	Date	Type	Evidence
+SECURE	GSA-lineage material	GSA-GATEWAY	Aug 19 current repo creation	consolidation	B
+UZTC	GSA-lineage material	GSA-GATEWAY	Aug 19	consolidation	B
+WRAPPER	GSA-lineage material	GSA-GATEWAY	Aug 19	consolidation	B
+DGK	governance-stack material	GSA-GATEWAY	Aug 19	partial consolidation	B
+EDDP	governance-stack material	GSA-GATEWAY	Aug 19	partial consolidation	B
+All five rows come from the current repository description. They therefore establish declared destination lineage, not necessarily historical code-copy events.
+Pass 7 migration events not independently re-proven here
+The following remain prior-pass evidence:
+STRIDE → Sentinel
+Sentinel → GSA-815
+DGK → GSA-815
+DIT → GSA-815
+GSA → GSA-815
+RADAR → GSA-815
+gsa-governance-core → GSA-815
+ARCHIVE → FORTRESS
+Sentinel/sage_k → FORTRESS
+Claude_History attachment → FORTRESS
+They should therefore be represented in the historical graph with prior-pass provenance markers, not silently upgraded to A-level Claude_History provenance.
+ 
+⸻
+ 
+9. Human / AI decision provenance
+Claude_History is especially valuable here because its raw conversation structure preserves sender roles, timestamps, attachment payloads, and conversation identity.
+The July 4 SynapsisGSA conversation is an excellent example. It contains a human-supplied attachment with an actual software baseline, after which Claude performed a build/review sequence. The distinction is therefore:
+Human supplied:
+    baseline code/specification
+
+Claude performed:
+    analysis, build, testing, red/blue review
+
+Historical fact:
+    the artifact was present in the conversation
+That does not prove who originally wrote the code before it entered the Claude conversation.
+This distinction matters enormously. A conversation artifact can establish:
+“this code existed and was supplied into this conversation by this date”
+without establishing:
+“this human authored the first version of this system on this date.”
+The July 4 record therefore supports artifact-presence provenance, not necessarily original authorship provenance.
+ 
+⸻
+ 
+10. Temporal provenance graph
+The strongest graph currently defensible is:
+                         ┌────────────────────────────┐
+                         │  Earlier conversation(s)   │
+                         │  not yet recovered         │
+                         └─────────────┬──────────────┘
+                                       │
+                                       ▼
+                         ┌────────────────────────────┐
+                         │ July 2 2026 checkpoint     │
+                         │ Sentinel                   │
+                         │ GSA                        │
+                         │ Five-system ecosystem      │
+                         └─────────────┬──────────────┘
+                                       │
+                   ┌───────────────────┴───────────────────┐
+                   │                                       │
+                   ▼                                       ▼
+        Sentinel system identity                  GSA system identity
+              D/A                                             D
+                   │                                           │
+                   ▼                                           ▼
+        sentinel_os repository                       SynapsisGSA code
+        created Jul 4 2026                           preserved Jul 4 2026
+                   │                                           │
+                   │                                           │
+                   ▼                                           ▼
+        later Sentinel work                            ? current GSA
+                   │                                           │
+                   └────────────────┐             ┌────────────┘
+                                    ▼             ▼
+                                  GSA-815      other GSA lineage
+                                    │
+                                    ▼
+                              later ecosystem
+Current consolidation layer:
+SECURE ───┐
+UZTC ─────┤
+WRAPPER ──┤
+DGK ──────┼────→ GSA-GATEWAY
+EDDP ─────┘       provisional consolidation
+That second diagram is strongly supported by current repository metadata, but should not be projected backward as if GSA-GATEWAY were the historical origin.
+ 
+⸻
+ 
+11. Provenance table
+System	Earliest Claude_History evidence recovered	Earliest code evidence	Current repo date	Status
+Sentinel	Jul 2 checkpoint	Not recovered	Jul 4	B/U
+GSA	Jul 2 checkpoint	Jul 4 SynapsisGSA artifact	exact current branch unresolved	B/U
+GSA-815	Not recovered	Not recovered	Jul 31	U
+GSA-GATEWAY	Not recovered	Current repo only	Aug 19	B current-consolidation only
+FORTRESS	Not recovered	Not recovered	Aug 19	U
+STRIDE	Not recovered	Not recovered	no exact repo recovered	U
+SAGE-K	Not recovered	Not recovered	no exact repo recovered	U
+DGK	Not recovered	Not recovered	no exact repo recovered	B only for current GATEWAY consolidation
+DIT	Not recovered	Not recovered	no exact repo recovered	U
+RADAR	Not recovered	Not recovered	no exact repo recovered	U
+SECURE	Not recovered	Not recovered	no exact repo recovered	B only for current GATEWAY consolidation
+UZTC	Not recovered	Not recovered	no exact repo recovered	B only for current GATEWAY consolidation
+WRAPPER	Not recovered	Not recovered	no exact repo recovered	B only for current GATEWAY consolidation
+EDDP	Not recovered	Not recovered	no exact repo recovered	B only for current GATEWAY consolidation
+URE	Not recovered	Not recovered	no exact repo recovered	U
+ARCHIVE	Not recovered	Not recovered	Aug 13	U
+ 
+⸻
+ 
+12. Evidence ledger
+ID	Evidence	Label	Why it matters
+E01	Claude_History README identifies a 265-conversation, 10,721-message Claude export archive	A	Establishes primary-corpus nature
+E02	Split raw per-conversation JSON exists in Data_sets/claude_export/conversations/	A	Confirms primary export preservation
+E03	Manifest contains exact conversation timestamps and paths	A	Establishes reliable conversation chronology
+E04	Jul 2 checkpoint explicitly names Sentinel and GSA among existing systems	A/D	Earliest recovered conversational existence
+E05	sentinel_os repository created Jul 4	A	Demonstrates repository creation after at least one conversational reference
+E06	Jul 4 SynapsisGSA conversation contains full supplied baseline code	A	First directly preserved GSA-named source artifact recovered
+E07	GSA-GATEWAY repo created Aug 19 and describes itself as provisional consolidation of SECURE/UZTC/WRAPPER/DGK/EDDP	A/B	Current consolidation evidence
+E08	FORTRESS repo created Aug 19	A	Current chronology anchor only
+E09	ARCHIVE repo created Aug 13	A	Current chronology anchor only
+E10	GSA-815 repo created Jul 31	A	Current chronology anchor only
+E11	data/raw.jsonl described by README but inaccessible via current fetch path	A	Establishes audit coverage limitation
+E12	No direct raw-source linkage recovered for most Pass 7 migration edges	N/U	Prevents overclaiming ancestry
+ 
+⸻
+ 
+13. Unknown register
+U1 — Sentinel’s code predecessor
+Unknown whether Sentinel had a codebase, another name, or simply a conceptual specification before July 4.
+U2 — GSA identity continuity
+Unknown whether the July 4 SynapsisGSA artifact is the exact source branch later called GSA, or a parallel GSA-named project.
+U3 — GSA-815’s immediate predecessor
+Unknown which raw artifact first became GSA-815.
+U4 — STRIDE’s first existence
+Unknown whether STRIDE originated before Claude_History coverage, inside an earlier Claude conversation not yet retrieved, or outside Claude entirely.
+U5 — SAGE-K naming lineage
+Unknown whether SAGE-K is an original name, renamed name, or branch designation.
+U6 — FORTRESS source code ancestry
+Unknown which precise files were copied, salvaged, or reconstructed.
+U7 — ARCHIVE → FORTRESS transition
+Prior Pass 7 says this occurred; raw source proof was not recovered here.
+U8 — Sentinel → FORTRESS
+Same.
+U9 — Claude_History attachment → FORTRESS
+Same.
+U10 — DGK/DIT/RADAR/GSA → GSA-815
+Prior-pass claims remain unresolved from raw Claude material in this pass.
+U11 — earliest genuine software artifact in the entire ecosystem
+Not established. The earliest direct software artifact recovered in this pass is the July 4 SynapsisGSA baseline, but identity with the canonical Pass 7 GSA is unresolved.
+ 
+⸻
+ 
+14. What Pass 7 got right
+Pass 7’s central structural intuition is supported.
+It is correct to describe the ecosystem as a provenance spiderweb rather than a simple family tree.
+The current GSA-GATEWAY repository itself validates the idea of convergence: it explicitly describes a consolidation of multiple predecessor streams rather than a single predecessor.
+It is also correct that repository creation dates must not be equated with system birth. Sentinel is the clearest empirical example from this pass: system identity appears in Claude_History before the sentinel_os repository creation date.
+Pass 7 is also directionally correct to distinguish migration destinations from conceptual ancestry. The evidence recovered here reinforces the need to preserve separate edges for:
+concept inheritance
+code migration
+repository consolidation
+naming change
+reconstruction
+rather than treating all five as “descended from.”
+ 
+⸻
+ 
+15. What Pass 7 must now be revised
+Pass 7 should not present every migration edge as an equally evidenced historical fact.
+A more accurate notation is:
+A = primary historical artifact evidence
+B = strong current/declarative corroboration
+U = prior-pass migration claim awaiting primary Claude_History linkage
+In particular, these should remain provisional until the raw conversations are tied to the relevant source artifacts:
+STRIDE → Sentinel
+Sentinel → GSA-815
+DGK → GSA-815
+DIT → GSA-815
+GSA → GSA-815
+RADAR → GSA-815
+gsa-governance-core → GSA-815
+ARCHIVE → FORTRESS
+Sentinel/sage_k → FORTRESS
+Claude_History attachment → FORTRESS
+The revision is not that these edges are false. The revision is that their evidence class is lower than the wording “established provenance” may imply until a source artifact, conversation, and timestamp are attached.
+ 
+⸻
+ 
+16. Earliest defensible historical boundary
+The earliest defensible historical boundary for the older named ecosystem recovered in this pass is:
+July 2, 2026, 02:05:52Z — conversational system identity.
+At that point Claude_History preserves explicit references to:
+* Sentinel
+* GSA
+* the broader five-system ecosystem.
+That is earlier than the July 4 Sentinel repository creation.
+The earliest directly preserved software artifact recovered is later:
+July 4, 2026, 16:07:46Z — SynapsisGSA baseline code in a conversation attachment.
+Those are two different historical boundaries and should remain separate.
+ 
+⸻
+ 
+17. Strongest newly recovered lineage
+The strongest newly recovered lineage is:
+July 2, 2026
+Claude checkpoint
+      │
+      ├── Sentinel identified as an existing system
+      │
+      └── GSA identified as an existing system
+              │
+              ▼
+July 4, 2026
+SynapsisGSA software artifact
+      │
+      └── exact relationship to current GSA = unresolved
+For Sentinel, the evidence is even cleaner:
+Jul 2 conversation identity
+        ↓
+Jul 4 repository creation
+        ↓
+later Sentinel repository state
+This is the strongest new demonstration that Claude_History preserves historical state prior to the surviving repository.
+ 
+⸻
+ 
+18. Remaining unresolved ancestry
+The major unresolved region is the pre-July-2 layer.
+That is the point where the historical chain still breaks:
+?????????????????????????????????????
+earlier system / artifact / conversation
+                ↓
+      July 2 Sentinel / GSA
+                ↓
+       July 4 surviving artifacts
+                ↓
+      late-July / August migrations
+                ↓
+       GSA-815 / FORTRESS / GSA-GATEWAY
+The critical missing objects are not more current repository descriptions. They are:
+* the conversation where Sentinel was first defined,
+* the conversation or attachment where GSA-815 was introduced,
+* the first source artifact for STRIDE,
+* the first source artifact for SAGE-K,
+* the raw source material for DGK / DIT / RADAR,
+* the actual source file relationships behind FORTRESS,
+* the exact attachment later migrated into FORTRESS.
+Until those are recovered, the graph should contain explicit breaks rather than invented ancestry.
+ 
+⸻
+ 
+19. Final historical judgment
+Claude_History is not merely a commentary archive. It is demonstrably a provenance-bearing historical layer.
+It preserves exact conversation identifiers, conversation dates, message timestamps, attachments, and raw supplied software artifacts.
+The most important result of Pass 8 is therefore methodological:
+The surviving repository is not the earliest trustworthy historical boundary.
+For Sentinel, Claude_History proves a system identity existed before the current repository was created. For GSA, Claude_History additionally preserves an actual GSA-named code artifact, though the identity of that branch relative to the current GSA repository remains unresolved.
+At the same time, Claude_History does not yet justify a complete historical family tree for the entire Pass 7 ecosystem. Most of the STRIDE/SAGE-K/DGK/DIT/RADAR/GSA-815/FORTRESS edges still require raw conversation-level linkage.
+The current evidence therefore supports this final model:
+             CONVERSATIONAL HISTORY
+                     │
+          ┌──────────┴──────────┐
+          ▼                     ▼
+       Sentinel                 GSA
+          │                     │
+          │                     ├────→ SynapsisGSA artifact
+          │                     │
+          ▼                     └────→ unresolved current GSA branch
+   sentinel_os
+          │
+          └──────────────┐
+                         ▼
+                     later ecosystem
+                         │
+          ┌──────────────┴──────────────┐
+          ▼                             ▼
+       GSA-815                       FORTRESS
+          │                             │
+          │                             │
+          └──────────────┬──────────────┘
+                         ▼
+                 later consolidation
+                         │
+                         ▼
+                    GSA-GATEWAY
+                  /    /    \     \
+              SECURE UZTC WRAPPER DGK/EDDP
+The graph is intentionally broken at unresolved edges.
+That is the historically honest result.
+Final answer to the “all current repositories disappear tomorrow” test
+If every current August repository vanished tomorrow, Claude_History would still independently preserve:
+Sentinel: a named system identity by July 2, 2026, before the current repository existed. GSA: a named system identity by July 2 and an actual GSA-named software artifact by July 4. GSA-815: no independently established historical origin from the directly recovered material in this pass. GSA-GATEWAY: no historical birth evidence, but current consolidation intent is separately preserved in GitHub metadata. FORTRESS: current repository existence is independently known, but its historical source chain is not yet established from recovered Claude material. STRIDE: not enough primary-source evidence recovered in this pass to establish its first existence. SAGE-K: same. DGK: same for original existence; later GSA-GATEWAY consolidation relationship is corroborated. DIT: unresolved. RADAR: unresolved. Predecessors: the archive currently proves that the historical layer extends behind at least the current Sentinel repository, but it does not yet expose the complete earliest ancestor.
+Bottom line
+Pass 8 establishes a real “conversation → artifact/system identity → repository” historical layer, but it does not yet establish the ultimate ancestor of the ecosystem.
+The strongest defensible stopping point is therefore:
+July 2, 2026 conversational system history → July 4, 2026 preserved GSA software artifact / Sentinel repository → late-July/August repository consolidation.
+Everything before July 2 remains the principal archaeological frontier. Everything after that point must be represented as a network of independently evidenced, partially unresolved migrations rather than as a single inherited codebase.

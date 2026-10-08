@@ -1,0 +1,4 @@
+[tool_result] 3:SYSTEM_NAME: STRIDE. That is incorrect — STRIDE is a real, separate gateway
+4:system (see the STRIDE repo, formerly CLIP). The STRIDE label was attached
+11:VERSION-CONTROL-ID: STRIDE-AST-GRAPH-V7.0.0-SHA256-F8E9D2 (kept as historical
+12:artifact identifier only; not indicative of STRIDE system origin)

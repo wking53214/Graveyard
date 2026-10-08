@@ -1,0 +1,1054 @@
+Absolutely. **Pass 4 should be deliberately different from Pass 3**: primary-evidence recovery, not another architecture synthesis. It should also explicitly prevent the researcher from quietly turning recovered conversation material into "historical fact."
+
+Use this as the full prompt:
+
+```text
+PASS 4 — PRIMARY HISTORICAL EVIDENCE RECOVERY AND CLAIM-BY-CLAIM FORENSIC AUDIT
+
+ROLE
+
+You are an independent forensic research analyst conducting PASS 4 of a multi-pass historical reconstruction of a software-development ecosystem.
+
+PASS 3 concluded that the current ecosystem is substantially more coherent than the surviving historical record proves it was.
+
+The purpose of PASS 4 is therefore NOT to produce another architectural synthesis.
+
+The purpose is to recover PRIMARY HISTORICAL EVIDENCE and use it to test the conclusions of PASS 3.
+
+You must behave as a skeptical historian, software archaeologist, provenance analyst, and adversarial auditor.
+
+Do not defend the existing narrative.
+
+Do not attempt to make the ecosystem look coherent.
+
+If the evidence contradicts PASS 3, report the contradiction.
+
+If the evidence strengthens PASS 3, report the strengthening evidence.
+
+If the evidence remains absent, preserve UNKNOWN.
+
+============================================================
+AUTHORITATIVE METHODOLOGICAL PRINCIPLE
+============================================================
+
+The current implementation must never be allowed to contaminate the historical reconstruction.
+
+A current README, current code, current architecture, current schema, current integration, current commit, or current repository relationship establishes CURRENT STATE unless independent historical evidence demonstrates that the same thing existed earlier.
+
+A reconstructed implementation is evidence that a reconstruction exists.
+
+It is NOT automatically evidence that the reconstructed implementation was the historical implementation.
+
+A current architectural relationship is NOT automatically a historical architectural relationship.
+
+============================================================
+FOUR EVIDENCE LAYERS
+============================================================
+
+Every significant finding MUST be classified into exactly one of these categories:
+
+PROVEN / OBSERVED
+- directly supported by dated primary or contemporaneous evidence
+- examples: original repository artifacts, dated commits, deployment logs, historical transcripts, CI records, explicit migration records
+
+INFERRED
+- supported by multiple pieces of evidence but requiring interpretation
+- never present inference as direct historical fact
+
+RECONSTRUCTED
+- created later from surviving summaries, requirements, descriptions, fragments, or forensic interpretation
+- may preserve a genuine historical concept without proving historical implementation identity
+
+CURRENT-ONLY
+- demonstrated by the current repository or current implementation
+- cannot be projected backward without independent historical evidence
+
+Use UNKNOWN when the evidence cannot support any stronger classification.
+
+============================================================
+PRIMARY OBJECTIVE
+============================================================
+
+Recover the earliest and strongest evidence possible for the following questions:
+
+1. What systems actually existed historically?
+2. When did they exist?
+3. Who proposed them?
+4. Who adopted them?
+5. Who implemented them?
+6. What was actually tested?
+7. What was actually deployed?
+8. What was actually used?
+9. What systems were extracted from other systems?
+10. What systems were merely proposed?
+11. What systems were reconstructed later?
+12. What systems were renamed, migrated, superseded, deleted, or salvaged?
+13. What architectural boundaries were explicitly decided?
+14. What architectural relationships were merely inferred later?
+15. Did TIE → GEMS → HERALD ever actually operate?
+16. Did CCC, Triad-42, Sentinel, and/or Conservation_Kernel ever form one integrated runtime?
+17. Did a canonical universal schema actually exist?
+18. Did an ecosystem-wide architecture document actually exist?
+19. What historical decisions can be attributed to William versus AI-generated proposals?
+20. What evidence has genuinely been lost?
+
+============================================================
+CRITICAL REQUIREMENT — RECOVER PASS 2
+============================================================
+
+If PASS 2 is available in the supplied corpus, recover the COMPLETE PASS 2 report.
+
+Do NOT merely summarize it.
+
+Treat PASS 2 as a claim corpus.
+
+Extract every materially significant historical claim from PASS 2 and assign it a unique identifier.
+
+If PASS 2 is NOT available:
+
+STATE THIS EXPLICITLY.
+
+Do not recreate missing PASS 2 wording from memory or inference.
+
+Instead, audit the PASS 3 claims and clearly mark the limitation:
+
+"Literal claim-by-claim PASS 2 comparison unavailable because the original PASS 2 artifact was not recovered."
+
+============================================================
+HISTORICAL CONVERSATION RECOVERY
+============================================================
+
+Search the historical conversation repositories directly.
+
+Repositories of particular interest:
+
+- ChatGPT_History
+- Claude_History
+- Gemini_History
+- CoPilot_History
+
+Search for exact and semantic variants of:
+
+Sentinel
+sentinel_os
+OBSERVE
+TIE
+TIE_PACKAGE
+EvidenceRecord
+GEMS
+GEMS-FER
+HERALD
+CCC
+Cognitive Continuity Constitution
+Triad
+Triad-42
+42
+Conservation
+Conservation_Kernel
+Conservation Gateway
+FORTRESS
+VANGUARD
+ANVIL
+ATS
+CITADEL
+STRIDE
+CLIP
+DIT
+URE
+EDDP
+GSA
+GSA-815
+GSA-GATEWAY
+GRAPH
+FACTS
+ARCHIVE
+
+Also search for decision language:
+
+"canonical"
+"universal"
+"replace"
+"replacement"
+"successor"
+"supersede"
+"superseded"
+"extract"
+"extracted"
+"migration"
+"migrate"
+"rename"
+"renamed"
+"merge"
+"consolidate"
+"consolidation"
+"keep separate"
+"do not merge"
+"independent"
+"standalone"
+"production"
+"deployed"
+"deployment"
+"live"
+"operational"
+"integration"
+"consumer"
+"consumed by"
+"depends on"
+"depends upon"
+"historical"
+"reconstruct"
+"reconstructed"
+"recover"
+"recovered"
+"original"
+"canonical repository"
+"schema"
+"package contract"
+"runtime"
+"used in production"
+
+============================================================
+SEARCH STRATEGY
+============================================================
+
+Do NOT perform only broad keyword searches.
+
+For each major system, search for:
+
+A. origin
+B. first mention
+C. design proposal
+D. human decision/adoption
+E. implementation
+F. testing
+G. integration
+H. deployment
+I. supersession
+J. deletion/loss
+K. reconstruction
+L. later reinterpretation
+
+When possible, recover the COMPLETE surrounding conversation context rather than isolated search hits.
+
+Record:
+
+- repository
+- file
+- conversation identifier if available
+- turn number if available
+- author
+- timestamp
+- exact relevant statement
+- surrounding context
+- whether the statement is human-originated or AI-generated
+- whether it describes a proposal, decision, implementation, test, deployment, or retrospective interpretation
+
+============================================================
+HUMAN VS AI PROVENANCE
+============================================================
+
+This distinction is mandatory.
+
+For every major architectural decision determine, if possible:
+
+AI PROPOSAL
+      ↓
+HUMAN ACCEPTANCE / REJECTION
+      ↓
+IMPLEMENTATION
+      ↓
+TEST
+      ↓
+DEPLOYMENT
+      ↓
+ACTUAL USE
+
+Do NOT infer human adoption merely because AI-generated code exists.
+
+Do NOT infer deployment merely because tests pass.
+
+Do NOT infer production use merely because a README says "production-ready."
+
+Do NOT infer human architectural intent from AI-generated documentation unless there is independent evidence that a human adopted that decision.
+
+If a transition cannot be established:
+
+UNKNOWN
+
+============================================================
+SYSTEMS REQUIRING SPECIAL FORENSIC ATTENTION
+============================================================
+
+1. SENTINEL / OBSERVE
+
+Determine:
+
+- earliest recoverable existence
+- earliest governance architecture
+- cassette/kernel separation
+- evidence ledger
+- witness
+- model identity
+- authorization identity
+- supersession
+- prompt-injection defenses
+- actual deployment
+- actual use
+- relationship to later systems
+
+Do not project July 2026 capabilities backward into earlier Sentinel history without evidence.
+
+------------------------------------------------------------
+
+2. GSA-815
+
+Determine whether the evidence supports:
+
+Sentinel
+   ↓
+explicit extraction
+   ↓
+GSA-815
+
+Establish:
+
+- who made the extraction decision
+- why
+- what was extracted
+- what remained in Sentinel
+- whether GSA-815 independently operated
+- whether Sentinel remained a runtime dependency
+
+------------------------------------------------------------
+
+3. GSA-GATEWAY
+
+Determine whether it was:
+
+A. a historical canonical successor,
+B. a later repository consolidation,
+C. a reconstructed consolidation,
+D. or some combination.
+
+Search specifically for evidence concerning:
+
+SECURE
+UZTC
+WRAPPER
+DGK
+EDDP
+GSA
+
+Do not equate repository consolidation with architectural succession.
+
+------------------------------------------------------------
+
+4. TIE
+
+This is a HIGH PRIORITY investigation.
+
+Search the historical conversations for the earliest actual mention of TIE.
+
+Determine:
+
+- earliest date
+- original proposer
+- original requirements
+- original architecture
+- original schema
+- TIE_PACKAGE
+- EvidenceRecord
+- original tests
+- original repository
+- original deployment
+- original consumers
+- relationship to GEMS
+- relationship to HERALD
+
+Distinguish:
+
+HISTORICAL TIE CONCEPT
+
+from:
+
+HISTORICAL TIE IMPLEMENTATION
+
+from:
+
+CURRENT RECONSTRUCTED TIE
+
+These are three different claims.
+
+------------------------------------------------------------
+
+5. GEMS
+
+Determine:
+
+- earliest mention
+- original purpose
+- whether "Gem Layer 1" was historical or reconstructed
+- original Gem contract
+- original transport/API
+- original storage
+- original deployment
+- original consumers
+- relationship to TIE
+- relationship to Triad-42
+- relationship to CCC
+
+Do not treat GEMS-FER-1.0 as proof that the current implementation is historically identical.
+
+------------------------------------------------------------
+
+6. HERALD
+
+Determine:
+
+- earliest historical mention
+- whether an implementation existed before August 20, 2026
+- whether a consumer existed
+- whether TIE consumed HERALD
+- whether GEMS consumed HERALD
+- whether HERALD was ever deployed
+- whether "universal language interpretation layer" was historical intent or later reconstruction
+
+The current statement:
+
+"No consuming project is wired in yet"
+
+must be treated as CURRENT evidence only.
+
+Search for historical consumers independently.
+
+------------------------------------------------------------
+
+7. CCC
+
+Determine:
+
+- earliest historical constitutional requirements
+- whether constitutional text existed before the current repository
+- whether a ratified CCC existed
+- who authored/adopted it
+- whether the current repository was truly a fresh implementation
+- historical H01-H62 meanings
+- historical integration with Sentinel
+- historical integration with Triad-42
+
+Do not treat the current CCC implementation as historical evidence unless independently corroborated.
+
+------------------------------------------------------------
+
+8. TRIAD-42
+
+Determine:
+
+- earliest conceptual origin
+- earliest implementation
+- whether Red/Gray/Green/42 was historical or reconstructed
+- whether Triad was intended to reason autonomously
+- whether it was advisory
+- relationship to CCC
+- relationship to Sentinel
+- relationship to GEMS
+
+Pay particular attention to explicit human statements defining authority.
+
+------------------------------------------------------------
+
+9. CONSERVATION_KERNEL
+
+Determine:
+
+- earliest historical appearance of "conservation" terminology
+- whether the current hypothesis existed previously
+- whether the mechanism was intended as a replacement for Sentinel
+- whether it was intended as a complementary mechanism
+- whether a Conservation Gateway existed historically
+- whether it was ever deployed
+- whether the current experiment is entirely new
+
+Do not allow the current README or REPORT to establish historical intent by itself.
+
+------------------------------------------------------------
+
+10. FORTRESS
+
+Recover every identifiable variant.
+
+For each variant determine:
+
+- origin
+- date
+- author
+- source
+- implementation status
+- whether independent
+- whether copied
+- whether merged
+- whether deployed
+- whether superseded
+
+Construct a variant genealogy rather than assuming one lineage.
+
+------------------------------------------------------------
+
+11. STRIDE / CLIP
+
+Determine:
+
+CLIP
+ ↓
+STRIDE
+ ↓
+implementation
+ ↓
+deletion
+ ↓
+salvage
+
+Establish the strongest available evidence for each transition.
+
+Do not treat salvaged code as proof that the original STRIDE repository survived.
+
+------------------------------------------------------------
+
+12. DIT / URE / EDDP / GSA
+
+Investigate the archived integration artifact involving:
+
+DIT
+OBSERVE
+FORTRESS
+URE
+EDDP
+GSA
+
+Determine:
+
+- source
+- date
+- author
+- whether proposal or implementation
+- whether executable
+- whether tested
+- whether deployed
+- whether actually used
+
+The existence of an integration artifact proves representation of an architecture, not deployment.
+
+------------------------------------------------------------
+
+13. GRAPH / FACTS
+
+Verify:
+
+FACTS
+ ↓
+extraction
+ ↓
+GRAPH
+
+Determine whether this was code migration, repository migration, architectural replacement, or something else.
+
+------------------------------------------------------------
+
+14. VANGUARD / DGK
+
+Verify:
+
+DGK
+ ↓
+raw material extraction
+ ↓
+VANGUARD
+
+Determine whether VANGUARD replaced DGK or simply preserved/extracted selected material.
+
+============================================================
+DEPLOYMENT FORENSICS
+============================================================
+
+For every major system search for independent deployment evidence.
+
+Look for:
+
+- Dockerfiles
+- docker-compose
+- Kubernetes
+- service manifests
+- systemd
+- cloud deployment
+- API endpoints
+- production URLs
+- CI/CD
+- deployment logs
+- runtime logs
+- consuming imports
+- integration tests
+- network configuration
+- database records
+- actual service startup
+- production incident records
+- operational status reports
+
+Classify each system:
+
+PROPOSED
+IMPLEMENTED
+TESTED
+INTEGRATED
+DEPLOYED
+OPERATIONAL
+USED
+
+These are NOT interchangeable.
+
+============================================================
+NEGATIVE EVIDENCE
+============================================================
+
+Negative evidence must be handled carefully.
+
+Use:
+
+ABSENT FROM SEARCHED CORPUS
+
+rather than:
+
+NEVER EXISTED
+
+unless there is direct evidence of nonexistence.
+
+Examples:
+
+"Original TIE repository not recovered"
+
+is valid.
+
+"TIE never existed"
+
+is not valid unless primary evidence establishes that conclusion.
+
+A deleted repository is not evidence that the project never existed.
+
+A missing deployment record is not automatically proof that deployment never occurred.
+
+============================================================
+PASS 3 CLAIM-BY-CLAIM AUDIT
+============================================================
+
+For every major PASS 3 claim, create:
+
+CLAIM ID
+CLAIM
+PASS 3 STATUS
+PASS 3 CONFIDENCE
+NEW PRIMARY EVIDENCE
+CONFIRMING EVIDENCE
+CONTRADICTING EVIDENCE
+NEW INFORMATION
+REVISED STATUS
+REVISED CONFIDENCE
+HISTORICAL LAYER
+REASON
+
+Use statuses:
+
+OBSERVED
+IMPLEMENTED
+TESTED
+DEPLOYED
+OPERATIONAL
+EXTRACTED
+MIGRATED
+RENAMED
+SUPERSEDED
+LOST
+RECONSTRUCTED
+INFERRED
+PROPOSED
+CONFLICTED
+UNKNOWN
+
+Do not collapse these categories.
+
+============================================================
+CLAIM DIFFERENTIAL
+============================================================
+
+Create a final table:
+
+PASS 3 CLAIM
+→ PASS 4 RESULT
+
+Use:
+
+CONFIRMED
+STRENGTHENED
+REFINED
+WEAKENED
+CONTRADICTED
+UNRESOLVED
+
+Explain why.
+
+============================================================
+NEW PRIMARY EVIDENCE REGISTER
+============================================================
+
+Create a register of every newly recovered high-value historical artifact.
+
+Fields:
+
+ID
+SOURCE
+DATE
+AUTHOR
+TYPE
+SYSTEM
+EXACT CLAIM SUPPORTED
+EVIDENCE LAYER
+RELIABILITY
+CONTEXT
+LIMITATIONS
+
+Prioritize:
+
+1. dated human statements
+2. original code
+3. original commits
+4. deployment evidence
+5. contemporaneous test evidence
+6. migration records
+7. complete conversation records
+8. AI-generated proposals
+9. current retrospective documentation
+
+============================================================
+DECISION PROVENANCE MATRIX
+============================================================
+
+For each major architectural decision:
+
+DECISION ID
+DATE
+SYSTEM
+DECISION
+PROPOSER
+HUMAN ADOPTER
+IMPLEMENTER
+TEST EVIDENCE
+DEPLOYMENT EVIDENCE
+USE EVIDENCE
+SOURCE
+STATUS
+
+Where any field is unsupported:
+
+UNKNOWN
+
+Do not fill gaps by inference.
+
+============================================================
+HISTORICAL SCHEMA RECOVERY
+============================================================
+
+Search specifically for original versions of:
+
+- TIE_PACKAGE
+- EvidenceRecord
+- Artifact
+- Relationship
+- GEMS contracts
+- Gem handoff structures
+- CCC articles
+- H01-H62
+- epistemic states
+- provenance structures
+- authority structures
+- canonical serialization
+- historical governance records
+
+If an earlier schema is found, compare it with the current reconstructed schema.
+
+Produce:
+
+HISTORICAL SCHEMA
+CURRENT RECONSTRUCTION
+DIFFERENCES
+CONFIDENCE
+EVIDENCE
+
+Do not silently merge them.
+
+============================================================
+ARCHITECTURAL CONTAMINATION TEST
+============================================================
+
+For each major relationship ask:
+
+"Would we believe this relationship existed historically if the current repository did not exist?"
+
+If YES:
+identify the independent historical evidence.
+
+If NO:
+classify the relationship as CURRENT-ONLY or RECONSTRUCTED.
+
+Perform this test for:
+
+TIE → GEMS
+GEMS → HERALD
+HERALD → consumers
+CCC → Triad-42
+CCC → Sentinel
+Triad-42 → Sentinel
+Conservation_Kernel → Sentinel
+Conservation_Kernel → GSA
+GSA-GATEWAY → GSA-815
+FORTRESS → Sentinel
+FORTRESS → VANGUARD
+OBSERVE → GRAPH
+DIT → OBSERVE
+URE → FORTRESS
+EDDP → GSA
+
+============================================================
+CLEAN STORY TEST
+============================================================
+
+Explicitly test the attractive unified narrative:
+
+HISTORY
+  ↓
+TIE
+  ↓
+GEMS
+  ↓
+HERALD
+  ↓
+GOVERNANCE
+  ↓
+EXECUTION
+
+Do not assume this sequence.
+
+For each arrow determine:
+
+HISTORICALLY PROVEN
+HISTORICALLY INFERRED
+RECONSTRUCTED
+CURRENT-ONLY
+UNKNOWN
+
+Then produce a conclusion:
+
+PASS
+FAIL
+PARTIAL
+
+Explain exactly which transitions survive.
+
+============================================================
+WHO-DECIDED TEST
+============================================================
+
+For the ten most important architectural decisions determine whether the evidence supports:
+
+AI proposed
+→ William accepted
+→ implementation
+→ testing
+→ deployment
+→ actual use
+
+Do not infer acceptance from implementation.
+
+Do not infer deployment from tests.
+
+Do not infer use from deployment.
+
+============================================================
+HISTORICAL LOSS REGISTER
+============================================================
+
+Create a formal register of what remains missing.
+
+Categories:
+
+LOST REPOSITORY
+LOST CONVERSATION
+LOST SCHEMA
+LOST DEPLOYMENT RECORD
+LOST DECISION
+LOST AUTHORSHIP
+LOST TIMELINE
+LOST INTEGRATION EVIDENCE
+
+For each:
+
+WHAT IS MISSING
+HOW WE KNOW IT IS MISSING
+WHAT IT WOULD RESOLVE
+HOW CONFIDENT WE ARE THAT IT IS ACTUALLY LOST
+
+============================================================
+DO NOT DO THESE THINGS
+============================================================
+
+DO NOT:
+
+- create a cleaner architecture than the evidence supports
+- treat current repositories as historical proof
+- treat AI-generated plans as human decisions
+- treat implementation as deployment
+- treat tests as operational use
+- treat repository creation dates as conceptual birth dates
+- treat repository renames as software evolution
+- treat extraction as replacement
+- treat conceptual similarity as lineage
+- treat reconstruction as recovery
+- treat absence from one search as proof of nonexistence
+- silently resolve contradictions
+- invent missing dates
+- invent missing authorship
+- invent missing deployment
+- infer a universal architecture because the current pieces fit together
+- downgrade UNKNOWN merely because a plausible explanation exists
+
+============================================================
+FINAL DELIVERABLE
+============================================================
+
+Produce the following sections IN THIS ORDER:
+
+1. EXECUTIVE SUMMARY
+
+2. PASS 4 METHODOLOGY
+
+3. PRIMARY EVIDENCE RECOVERED
+
+4. PASS 2 RECOVERY STATUS
+
+5. PASS 3 CLAIM-BY-CLAIM AUDIT
+
+6. NEW HISTORICAL EVIDENCE REGISTER
+
+7. HUMAN / AI DECISION PROVENANCE
+
+8. DEPLOYMENT AND OPERATIONAL EVIDENCE
+
+9. HISTORICAL SCHEMA RECOVERY
+
+10. TIE FORENSIC AUDIT
+
+11. GEMS FORENSIC AUDIT
+
+12. HERALD FORENSIC AUDIT
+
+13. CCC / TRIAD-42 FORENSIC AUDIT
+
+14. CONSERVATION_KERNEL FORENSIC AUDIT
+
+15. SENTINEL / OBSERVE FORENSIC AUDIT
+
+16. GSA / EDDP / GRAPH / VANGUARD FORENSICS
+
+17. FORTRESS / STRIDE / CITADEL FORENSICS
+
+18. ARCHIVE / HISTORICAL MEMORY FORENSICS
+
+19. DEPLOYMENT FORENSICS
+
+20. EXTRACTION / MIGRATION / RENAMING FORENSICS
+
+21. HISTORICAL LOSS REGISTER
+
+22. CONTRADICTION REGISTER
+
+23. ABSENCE REGISTER
+
+24. UNKNOWN REGISTER
+
+25. ARCHITECTURAL CONTAMINATION TEST
+
+26. CLEAN STORY TEST
+
+27. WHO-DECIDED TEST
+
+28. PASS 3 → PASS 4 DIFFERENTIAL
+
+29. REVISED HISTORICAL ARCHITECTURE
+
+30. REVISED CURRENT ARCHITECTURE
+
+31. WHAT IS NOW PROVEN
+
+32. WHAT IS NOW INFERRED
+
+33. WHAT IS RECONSTRUCTED
+
+34. WHAT REMAINS CURRENT-ONLY
+
+35. WHAT REMAINS UNKNOWN
+
+36. PASS 5 RECOMMENDATIONS
+
+37. FINAL FORENSIC JUDGMENT
+
+============================================================
+FINAL JUDGMENT REQUIREMENT
+============================================================
+
+The final judgment MUST answer:
+
+"What can a skeptical historian now state as fact?"
+
+"What can they state only as inference?"
+
+"What can they state only as reconstruction?"
+
+"What can they NOT state?"
+
+Do not optimize for a satisfying story.
+
+Optimize for historical truth.
+
+The correct outcome is allowed to be:
+
+"The evidence is insufficient."
+
+That is a successful forensic result when the evidence genuinely does not support a stronger conclusion.
+
+============================================================
+MOST IMPORTANT RULE
+============================================================
+
+PRESERVE THE DISTINCTION BETWEEN:
+
+WHAT WAS PROPOSED
+
+WHAT WAS DECIDED
+
+WHAT WAS IMPLEMENTED
+
+WHAT WAS TESTED
+
+WHAT WAS DEPLOYED
+
+WHAT WAS USED
+
+WHAT WAS LOST
+
+WHAT WAS RECONSTRUCTED LATER
+
+WHAT EXISTS ONLY TODAY
+
+Never collapse these states.
+
+The objective of PASS 4 is not to make the architecture more coherent.
+
+The objective is to make the historical record more true.
+```

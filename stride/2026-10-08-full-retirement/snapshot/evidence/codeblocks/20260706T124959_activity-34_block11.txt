@@ -1,0 +1,237 @@
+"""
+SYSTEM: GSA-UNIFIED-REFACTOR (Governance-State Architecture Core)
+VERSION: v2.3_PRODUCTION
+DESCRIPTION: Unified, hardened framework integrating Zero Trust Stack (ZTS) Fail-Fast Cache,
+Deterministic Integrity Tower (DIT), and Governance, Routing, and Anchor Processing Hierarchy (GRAPH)
+under single controller orchestration and immutable state preservation.
+"""
+
+from __future__ import annotations
+from dataclasses import dataclass, replace
+from typing import Any, Dict, List, Optional, Callable, Set
+from enum import Enum
+from types import MappingProxyType
+import re
+import asyncio
+import hashlib
+import functools
+import msgpack
+
+# ============================================================
+# GSA MODULE: PERSISTENT REGISTRY CONTROLLER
+# ============================================================
+
+MODULE_REGISTRY: Dict[str, Any] = {}
+
+def register_as_module(registry_name: str):
+    """
+    Decorator for system authentication and governance handshake 
+    validation within the GSA Universal Adapter and Core Controller.
+    """
+    def decorator(cls):
+        cls.__gsa_module_registry_name__ = registry_name
+        cls.__gsa_authenticated__ = True
+        MODULE_REGISTRY[registry_name] = cls
+        return cls
+    return decorator
+
+# ============================================================
+# GSA MODULE 01: ZERO TRUST STACK (ZTS) FAIL-FAST CACHE
+# ============================================================
+
+LEXICAL_GOVERNANCE_REGEX = { 
+    "identity": re.compile(r"\b(i|me|my|mine|myself|we|us|our|ours|ourselves)\b", re.I), 
+    "hedge": re.compile(r"\b(may|might|could|seems|generally|potentially|likely|perhaps)\b", re.I), 
+    "passive": re.compile(r"\b(is|was|were|are)\s+\w+ed\b", re.I), 
+    "metric": re.compile(r"\b\d+(\.\d+)?%|\b\d+\b"), 
+    "causal": re.compile(r"\b(because|due to|driven by|resulting from|caused by)\b", re.I), 
+    "simple_verbs": re.compile(r"\b(is|are|was|were|increased|decreased|remained|processed|completed|dropped|rose|use|show)\b", re.I), 
+    "abstract_verbs": re.compile(r"\b(improve|optimize|enhance|enable|support|strengthen|utilize|leverage)\b", re.I) 
+}
+
+class Constraint(Enum):
+    DENSITY = 1
+    CLINICAL = 2
+    OBJECTIVE = 3
+
+@register_as_module("ZTS_Sanitization_Module")
+class GeminiSanitizer:
+    def __init__(self, junk_terms: Optional[List[str]] = None):
+        self.junk_terms = [t.lower() for t in junk_terms] if junk_terms else []
+
+    def sanitize(self, chat_data: List[str]) -> List[str]:
+        return [msg for msg in chat_data if not any(j in msg.lower() for j in self.junk_terms)]
+
+# ============================================================
+# GSA MODULE 02: DETERMINISTIC INTEGRITY TOWER (DIT)
+# ============================================================
+
+@register_as_module("DIT_Citadel_Diamond")
+class CitadelDiamond: 
+    """ 
+    The Adamantium-Grade Core.  
+    Survives 150%+ Entropy via ghp/sp/wam synchronization. 
+    """ 
+    def __init__(self): 
+        self.state = "Structural_Zero" 
+        self.nodes = { 
+            "ghp": "Integrity_Verified", 
+            "sp": "Validation_Active", 
+            "wam": "Audit_Logging", 
+            "gsa": "Citadel_Status_Green" 
+        } 
+        
+    def process_onslaught(self, vector: str) -> str: 
+        """ Filters incoming noise via Semantic Contamination Filter (G2). """ 
+        if "paradox" in vector or "recursion" in vector:
+            return "REJECTED_BY_SP_VALIDATION"
+        return "CLEAN_VECTOR"
+
+# ============================================================
+# GSA MODULE 03: CORE DATA STRUCTURES & PROTOCOLS
+# ============================================================
+
+@dataclass(frozen=True)
+class ContextEnvelope:
+    __slots__ = ('header_mapping', 'payload_data', 'session_state_mapping', 'status_string')
+    header_mapping: MappingProxyType[str, Any]
+    payload_data: Dict[str, Any]
+    session_state_mapping: Dict[str, Any]
+    status_string: str = "INITIALIZED"
+
+@functools.lru_cache(maxsize=1024)
+def _cached_signature_provider(upstream_hash: str, iteration: int, payload_bytes: bytes) -> str:
+    buffer_source = f"parent:{upstream_hash}||iter:{iteration}||payload:{payload_bytes.hex()}"
+    return hashlib.sha256(buffer_source.encode("utf-8")).hexdigest()
+
+# ============================================================
+# GSA MODULE 04: ASYNCHRONOUS KINETIC GOVERNOR & ROUTER
+# ============================================================
+
+class CitadelProcessor: 
+    def __init__(self, generator: Callable[[str], Any], max_retries: int = 5): 
+        self.generator = generator 
+        self.max_retries = max_retries 
+        self.seen_outputs: Set[str] = set()
+        
+    async def thread_alpha_fast_track(self, query: str) -> bool:
+        """ Syntactic Breach Filter (G3) & Pronominal Purge Array (G6). """
+        if LEXICAL_GOVERNANCE_REGEX["identity"].search(query) or LEXICAL_GOVERNANCE_REGEX["hedge"].search(query):
+            return False
+        return True
+
+    async def run(self, prompt: str) -> str: 
+        working_prompt = prompt 
+        for _ in range(self.max_retries): 
+            output = await self.generator(working_prompt) 
+            
+            if output in self.seen_outputs:
+                continue
+            self.seen_outputs.add(output)
+            
+            is_clean = await self.thread_alpha_fast_track(output)
+            if not is_clean:
+                continue
+                
+            return output
+            
+        return "SYSTEM_HALT: 1.0000 PARITY FAILED. UTILITY DENSITY COMPROMISED."
+
+# ============================================================
+# GSA MODULE 05: UNIVERSAL ADAPTER & KERNEL CONTROLLER
+# ============================================================
+
+@register_as_module("GSA_Universal_Adapter")
+class GsaUniversalAdapter:
+    def __init__(self, underlying_module: Any, module_version: str, sanitizer: Optional[GeminiSanitizer] = None) -> None:
+        self.module = underlying_module
+        self.module_version = module_version
+        self.sanitizer = sanitizer
+
+    async def process_payload(self, context_envelope: ContextEnvelope) -> ContextEnvelope:
+        headers = dict(context_envelope.header_mapping)
+        
+        if self.sanitizer and "raw_text" in context_envelope.payload_data:
+            sanitized = self.sanitizer.sanitize([context_envelope.payload_data["raw_text"]])
+            context_envelope.payload_data["sanitized_text"] = sanitized[0] if sanitized else ""
+
+        if hasattr(self.module, "execute_governance_logic"):
+            output_envelope = await self.module.execute_governance_logic(context_envelope)
+        elif hasattr(self.module, "run"):
+            raw_query = context_envelope.payload_data.get("raw_text", "")
+            execution_output = await self.module.run(raw_query)
+            context_envelope.payload_data["execution_output"] = execution_output
+            output_envelope = replace(context_envelope, status_string="EXECUTION_SUCCESS")
+        else:
+            output_envelope = context_envelope
+        
+        next_iteration = headers.get("gsa_loop_iteration", 0) + 1
+        upstream = headers.get("gsa_interlock_hash", "GENESIS")
+        
+        serialized_payload = msgpack.packb(output_envelope.payload_data, sort_keys=True)
+        outbound_hash = _cached_signature_provider(upstream, next_iteration, serialized_payload)
+        
+        final_headers = dict(output_envelope.header_mapping)
+        final_headers.update({"gsa_interlock_hash": outbound_hash, "gsa_loop_iteration": next_iteration})
+        
+        return replace(output_envelope, header_mapping=MappingProxyType(final_headers))
+
+@register_as_module("GSA_User_Input_Module")
+class UserInputModule:
+    async def execute_governance_logic(self, envelope: ContextEnvelope) -> ContextEnvelope:
+        return replace(envelope, status_string="SUCCESS_INPUT_SECURED_V1.1")
+
+@register_as_module("GSA_Core_Controller")
+class GsaCoreController:
+    def __init__(self, mock_generator: Callable[[str], Any]):
+        self.diamond = CitadelDiamond()
+        self.processor = CitadelProcessor(mock_generator)
+        self.sanitizer = GeminiSanitizer(junk_terms=["paradox", "recursion"])
+        self.router_adapter = GsaUniversalAdapter(self.processor, "v2.3_proc", self.sanitizer)
+        
+    async def handle_request(self, raw_input: str) -> ContextEnvelope:
+        # Step 1: Pre-execution Vector Validation via Core Tower
+        vector_status = self.diamond.process_onslaught(raw_input)
+        if vector_status != "CLEAN_VECTOR":
+            initial_envelope = ContextEnvelope(
+                header_mapping=MappingProxyType({"gsa_status": "REJECTED"}),
+                payload_data={"raw_text": raw_input, "error": vector_status},
+                session_state_mapping={},
+                status_string="SECURITY_VIOLATION"
+            )
+            return initial_envelope
+
+        # Step 2: Initialize Context Envelope
+        initial_envelope = ContextEnvelope(
+            header_mapping=MappingProxyType({"gsa_loop_iteration": 0, "gsa_interlock_hash": "GENESIS"}),
+            payload_data={"raw_text": raw_input},
+            session_state_mapping={},
+            status_string="INITIALIZED"
+        )
+        
+        # Step 3: Run pipeline processing via validated adapter routing
+        return await self.router_adapter.process_payload(initial_envelope)
+
+# ============================================================
+# EXECUTION PETRI DISH (STANDALONE TESTING)
+# ============================================================
+
+async def mock_generator(prompt: str) -> str:
+    return "Execution processed. System state stabilized."
+
+async def main(): 
+    controller = GsaCoreController(mock_generator)
+    
+    # Secure Vector Run
+    secure_output = await controller.handle_request("Check system health matrix") 
+    print(f"GSA_SECURE_STATUS: {secure_output.status_string}")
+    print(f"GSA_HASH: {secure_output.header_mapping.get('gsa_interlock_hash')}")
+    print(f"GSA_PAYLOAD: {secure_output.payload_data}\n")
+
+    # Contaminated Vector Run
+    malicious_output = await controller.handle_request("Trigger recursion paradox loop")
+    print(f"GSA_VIOLATION_STATUS: {malicious_output.status_string}")
+    print(f"GSA_VIOLATION_PAYLOAD: {malicious_output.payload_data}")
+
+if __name__ == "__main__": 
+    asyncio.run(main())

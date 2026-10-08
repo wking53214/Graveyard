@@ -1,0 +1,18 @@
+[tool_result] 29:   - GSA-GATEWAY (consolidated from SECURE, UZTC, WRAPPER + DGK governance-stack)
+74:| **GSA-GATEWAY** | 2026-08-19 | 2026-08-19 | Consolidation | COMPLETE | GSA lineage consolidation (SECURE+UZTC+WRAPPER+DGK) |
+93:- SECURE (consolidated into GSA-GATEWAY)
+94:- UZTC (consolidated into GSA-GATEWAY)
+95:- WRAPPER (consolidated into GSA-GATEWAY)
+96:- DGK (governance-stack material moved to GSA-GATEWAY/VANGUARD)
+229:**Unresolved Dependency:** gov4_kernel (unclear if in GSA-GATEWAY or elsewhere)
+376:- STRIDE (gateway system)
+435:#### 11. GSA-GATEWAY — Lineage Consolidation
+453:- STRIDE (renamed from CLIP, substantial gateway system)
+518:- Conservation gateway (submits artifacts to Conservation Kernel)
+624:- GSA-GATEWAY consolidated (SECURE+UZTC+WRAPPER+DGK)
+982:ATS has a bridge to gov4_kernel. GSA-GATEWAY notes uncertainty about whether quorum_state_governance is the missing piece.
+984:**Hypothesis:** gov4_kernel is a governance kernel implementation (possibly in EDDP material, possibly in GSA-GATEWAY governance-stack, possibly missing entirely).
+992:GSA-GATEWAY consolidated FROM DGK (VANGUARD, SovereignGovernanceStack, citadel-processor-router).  
+997:**Evidence:** DGK material is now in GSA-GATEWAY, VANGUARD, and distributed across repos.
+1003:ATS is a hiring bias detection system with gov4_kernel bridge. GSA-GATEWAY contains governance patterns.
+1043:✗ SECURE, UZTC, WRAPPER (consolidated into GSA-GATEWAY, repos emptied)

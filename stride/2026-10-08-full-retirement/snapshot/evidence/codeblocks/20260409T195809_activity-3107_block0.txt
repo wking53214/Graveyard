@@ -1,0 +1,55 @@
+# Modified Section: STRUCTURAL CONSTRAINTS
+class Constraint(Enum):
+    NO_IDENTITY = "Remove personal or analytical perspective."
+    ACTIVE_VOICE = "Use active voice and name the actor."
+    CAUSALITY = "Include a clear cause or measurable evidence."
+    DECLARATIVE = "Deliver a single declarative sentence."
+    DENSITY = "Minimize filler words; maximize information density." # New constraint
+
+# Modified Section: CITADEL PROCESSOR (with Backoff & Recursive Integrity)
+class CitadelProcessor:
+    def __init__(self, generator, max_retries=5):
+        self.generator = generator
+        self.max_retries = max_retries
+        self.identity = IdentityGate()
+        self.hedge = HedgingGate()
+        self.passive = PassiveGate()
+        self.causal = CausalityGate()
+        self.normalize = StructureNormalizer()
+
+    def run(self, prompt: str):
+        retry = RetryDirectiveBuilder()
+        working_prompt = prompt
+        
+        # GHP-01 Integrity Check: Track state to prevent oscillation
+        seen_outputs = set()
+
+        for attempt in range(self.max_retries):
+            output = self.generator(working_prompt)
+            
+            # Anti-Stall: If the model repeats itself, force higher density
+            if output in seen_outputs:
+                retry.add(Constraint.DENSITY)
+            seen_outputs.add(output)
+
+            if not self.identity.validate(output):
+                retry.add(Constraint.NO_IDENTITY)
+                working_prompt = retry.apply(prompt)
+                continue
+
+            output = self.hedge.rewrite(output)
+
+            if not self.passive.validate(output):
+                retry.add(Constraint.ACTIVE_VOICE)
+                working_prompt = retry.apply(prompt)
+                continue
+
+            if not self.causal.validate(output):
+                retry.add(Constraint.CAUSALITY)
+                working_prompt = retry.apply(prompt)
+                continue
+
+            return self.normalize.rewrite(output)
+
+        # Fallback to last known 'best' if max_retries reached
+        return self.normalize.rewrite(output)

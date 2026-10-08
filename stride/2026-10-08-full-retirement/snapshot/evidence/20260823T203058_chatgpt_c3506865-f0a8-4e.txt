@@ -1,0 +1,725 @@
+This audit is **extremely useful**, and it changes the next move.
+
+The biggest thing it proved is that **we should not integrate anything yet**.
+
+It also uncovered something even more important: Claude's audit is internally strong, but its statement that **HERALD, ATS, and CCC do not exist** should *not* yet be accepted as a global historical conclusion. It only proves they weren't found in the corpus Claude inspected. We already have a broader repository universe to reconcile.
+
+And there is another major correction:
+
+> **Do not implement the proposed `TIE → PERCEIVE → GEMS → FORTRESS → Conservation` chain yet.**
+
+That is a *hypothesis*, not a proven architecture.
+
+The next task should be **global repository identity + historical lineage reconciliation**, especially around **PERCEIVE / OBSERVE / ATS / HERALD / CCC / GEMS / TIE**.
+
+I would send Claude this next:
+
+:::writing{variant="document" id="74126" title="PASS 2 — Global Repository Lineage, Identity, and Architectural Graph Reconciliation"}
+# PASS 2 — GLOBAL REPOSITORY LINEAGE, IDENTITY, AND ARCHITECTURAL GRAPH RECONCILIATION
+
+**Date:** August 23, 2026
+
+## STATUS
+
+The previous ARCHITECTURAL IDENTITY AND CONNECTION RECONCILIATION audit is accepted as a **CURRENT-CODE AUDIT**.
+
+Its findings about the currently deployed three-system conservation boundary are valuable:
+
+```text
+Sentinel OS
+    ↕
+Conservation Kernel
+    ↕
+GSA-815
+```
+
+However, DO NOT yet accept its conclusions about the GLOBAL ARCHITECTURE.
+
+In particular:
+
+- Do NOT assume HERALD does not exist historically.
+- Do NOT assume ATS does not exist historically.
+- Do NOT assume CCC does not exist historically.
+- Do NOT assume PERCEIVE is fundamentally a governance kernel.
+- Do NOT assume OBSERVE is fundamentally only a clinical application.
+- Do NOT assume GEMS means Governance Execution Monitoring System.
+- Do NOT assume TIE → PERCEIVE is the correct connection.
+- Do NOT implement the proposed seven-layer stack yet.
+
+The next objective is to determine the **actual repository lineage and architectural graph**.
+
+---
+
+# PRIMARY QUESTION
+
+We need to answer:
+
+> **What is the actual global architecture represented by the complete repository corpus, and how did the current three-system conservation boundary evolve from it?**
+
+This is a forensic architecture problem, not an implementation problem.
+
+Do not modify production code.
+
+Do not create new repositories.
+
+Do not wire new integrations.
+
+Do not delete dead code.
+
+Do not rename repositories.
+
+---
+
+# STEP 1 — BUILD THE AUTHORITATIVE REPOSITORY INVENTORY
+
+Start by obtaining the actual GitHub repository inventory for the user's account/organization.
+
+Do NOT rely only on `/tmp` directories.
+
+Do NOT conclude that a repository does not exist merely because it is absent from the local workspace.
+
+Search for at least:
+
+```text
+sentinel_os
+Conservation_Kernel
+GSA-GATEWAY
+GSA-815
+Triad-42
+CCC
+innovation_os
+synapsis
+EDDP
+Ecology
+STRIDE
+CODE
+GLCM
+GRAPH
+DIT
+ATS
+CITADEL
+OBSERVE
+GEMS
+VANGUARD
+FORTRESS
+ANVIL
+ARCHIVE
+Resume_OS
+TBCA
+ChatGPT_History
+Claude_History
+Gemini_History
+CoPilot_History
+HERALD
+PERCEIVE
+TIE
+```
+
+Also identify repositories whose names have changed.
+
+For every repository record:
+
+- current name
+- URL
+- existence
+- visibility
+- default branch
+- creation date
+- first commit
+- latest commit
+- archived status
+- language
+- README purpose
+- primary package/module
+- obvious predecessor/successor
+- related repositories
+
+---
+
+# STEP 2 — DISTINGUISH FOUR DIFFERENT STATES
+
+For every named system, classify it as exactly one of:
+
+```text
+A. CURRENT REPOSITORY
+B. HISTORICAL REPOSITORY
+C. SYSTEM/CONCEPT IMPLEMENTED INSIDE ANOTHER REPOSITORY
+D. CONVERSATIONAL / ARCHITECTURAL CONCEPT WITH NO IMPLEMENTATION
+```
+
+This is critical.
+
+For example:
+
+A repository named HERALD not existing today does NOT prove HERALD never existed.
+
+Likewise, a system implemented inside another repository does NOT necessarily deserve to be treated as a separate repository.
+
+---
+
+# STEP 3 — TRACE HISTORICAL IDENTITY
+
+For each of:
+
+```text
+HERALD
+PERCEIVE
+OBSERVE
+ATS
+CCC
+GEMS
+TIE
+```
+
+search:
+
+- repository names
+- directory names
+- package names
+- Python imports
+- class names
+- function names
+- README references
+- commit messages
+- branches
+- tags
+- archived repositories
+- renamed repositories
+- copied files
+- duplicated implementations
+- documentation
+- integration adapters
+- historical commit contents
+
+Determine whether each identity is:
+
+```text
+ORIGINAL
+RENAMED
+EXTRACTED
+MERGED
+COPIED
+ABANDONED
+REIMPLEMENTED
+EMBEDDED
+CONCEPTUAL ONLY
+```
+
+---
+
+# STEP 4 — PERCEIVE / OBSERVE FORENSICS
+
+This is now a critical investigation.
+
+Determine whether the relationship is:
+
+```text
+OBSERVE
+   ↓
+PERCEIVE
+```
+
+or:
+
+```text
+PERCEIVE
+   ↓
+OBSERVE
+```
+
+or:
+
+```text
+OBSERVE ─────┐
+             ├──► common perception architecture
+PERCEIVE ────┘
+```
+
+or something else.
+
+Use code lineage, not naming.
+
+Specifically determine:
+
+1. Which system originally introduced the perception concepts?
+2. Which system introduced the governance concepts?
+3. Which code was copied/extracted from which?
+4. Whether clinical OBSERVE is a domain-specific implementation of a generalized perception architecture.
+5. Whether PERCEIVE is a governance system that independently adopted perception terminology.
+6. Whether the two systems merely share terminology.
+
+Produce a commit/file lineage where possible.
+
+---
+
+# STEP 5 — ATS FORENSICS
+
+ATS must receive a dedicated investigation.
+
+Search the entire repository corpus and historical GitHub data for:
+
+```text
+ATS
+Analysis
+Assessment
+Transformation
+State
+State Transition
+```
+
+But do NOT assume ATS is an acronym expansion.
+
+Look for:
+
+- files
+- classes
+- modules
+- commit messages
+- architecture documents
+- references from other repositories
+- historical AI conversations if available
+
+Determine whether ATS was ever:
+
+- a repository
+- a package
+- an internal subsystem
+- an architectural concept
+- a predecessor to another system
+- an adapter/interface
+- abandoned
+
+If ATS truly cannot be found anywhere, report:
+
+```text
+NOT FOUND IN CURRENT OR HISTORICAL CORPUS
+```
+
+not simply:
+
+```text
+DOES NOT EXIST
+```
+
+---
+
+# STEP 6 — HERALD FORENSICS
+
+Repeat the same process for HERALD.
+
+The current audit found only:
+
+```text
+adversarial_audit_harness.py
+```
+
+That is evidence of an adversarial testing methodology.
+
+It is NOT sufficient to establish that the HERALD concept was only that harness.
+
+Search historical repositories and documentation for:
+
+```text
+HERALD
+claim.py
+gate.py
+handoff.py
+source.py
+extract.py
+ambiguity.py
+calibration.py
+binding.py
+boundary.py
+authorization continuity
+authorization authenticity
+authorized_content_hash
+authorization_mac
+```
+
+Determine whether these components belong to a genuine NL interpretation architecture.
+
+If they do, reconstruct its actual role.
+
+Do NOT relabel that system as an adversarial discovery engine merely because it contains adversarial verification.
+
+---
+
+# STEP 7 — CCC FORENSICS
+
+Search for:
+
+```text
+CCC
+Cognitive Continuity Constitution
+Human Sovereignty
+Right of Change
+provenance
+epistemic state
+lineage
+authority
+```
+
+Determine whether CCC is:
+
+- a repository
+- a document
+- a package
+- embedded governance logic
+- a historical architecture
+- a conceptual constitution
+
+Do not conclude “does not exist” from repository absence.
+
+---
+
+# STEP 8 — GEMS IDENTITY
+
+The current audit has established that GEMS actually contains:
+
+- WorkflowCoordinator
+- Router
+- Handoff validation
+- Triad42
+- HumanAuthorityGuard
+- GovernanceValidator
+- TIE integration
+
+This is strong evidence that GEMS is broader than “Governance Execution Monitoring System.”
+
+Determine its actual architectural role.
+
+In particular determine whether GEMS is:
+
+```text
+REASONING
+WORKFLOW ORCHESTRATION
+SYNTHESIS
+GOVERNANCE
+COGNITIVE CONTINUITY
+or a combination of these
+```
+
+Then determine where it belongs relative to:
+
+TIE
+PERCEIVE
+CCC
+Triad-42
+GSA
+Sentinel
+
+---
+
+# STEP 9 — TIE IDENTITY
+
+Confirm TIE's actual role and lineage.
+
+Determine whether TIE is:
+
+```text
+upstream evidence substrate
+```
+
+or:
+
+```text
+downstream evidence grounding
+```
+
+or:
+
+```text
+parallel evidence branch
+```
+
+or:
+
+```text
+memory/evidence layer serving multiple systems
+```
+
+Do NOT automatically implement:
+
+```text
+TIE → PERCEIVE
+```
+
+until the historical and interface evidence supports it.
+
+---
+
+# STEP 10 — CURRENT THREE-SYSTEM STACK
+
+Preserve the current verified architecture:
+
+```text
+Sentinel OS
+     ↕
+Conservation Kernel
+     ↕
+GSA-815
+```
+
+Do not break this.
+
+Treat it as the **currently proven execution/conservation boundary**.
+
+Then determine how the other systems could eventually interface with it.
+
+---
+
+# STEP 11 — CONSTRUCT TWO GRAPHS
+
+Produce two separate graphs.
+
+## GRAPH A — CURRENT IMPLEMENTED GRAPH
+
+Only include connections proven by executable code.
+
+No conceptual edges.
+
+No planned edges.
+
+No inferred edges.
+
+Example:
+
+```text
+Sentinel
+    ↓
+Conservation
+    ↓
+GSA-815
+    ↓
+Conservation
+    ↓
+Sentinel
+```
+
+## GRAPH B — HISTORICAL / TARGET ARCHITECTURE
+
+Include:
+
+- confirmed historical edges
+- strongly supported edges
+- plausible edges
+- unknown edges
+
+Every edge must be labeled.
+
+Example:
+
+```text
+HERALD ──[STRONGLY SUPPORTED]──► PERCEIVE
+```
+
+Do not present a plausible edge as fact.
+
+---
+
+# STEP 12 — ARTIFACT FLOW
+
+For every proposed edge, identify the actual artifact crossing the boundary.
+
+Use:
+
+```text
+SOURCE
+↓
+OBSERVATION
+↓
+INTERPRETATION
+↓
+EVIDENCE
+↓
+SEMANTIC STATE
+↓
+PROPOSAL
+↓
+DECISION
+↓
+AUTHORIZED DECISION
+↓
+EXECUTION
+↓
+OUTCOME
+```
+
+Determine which repository owns each transition.
+
+This is more important than repository names.
+
+---
+
+# STEP 13 — FIND THE TRUE TRUNK
+
+The ultimate goal is to identify the architectural trunk.
+
+Determine whether the system is fundamentally organized around:
+
+```text
+PERCEPTION
+```
+
+or:
+
+```text
+EVIDENCE
+```
+
+or:
+
+```text
+GOVERNANCE
+```
+
+or:
+
+```text
+CONSERVATION
+```
+
+or:
+
+```text
+EXECUTION
+```
+
+or a layered combination.
+
+Specifically answer:
+
+> What is the earliest common architectural primitive shared by the largest number of systems?
+
+This may reveal the true trunk from which HERALD, OBSERVE, PERCEIVE, TIE, GEMS, and the governance systems branch.
+
+---
+
+# STEP 14 — DO NOT FORCE A LINEAR PIPELINE
+
+The final architecture may NOT be:
+
+```text
+TIE
+ ↓
+PERCEIVE
+ ↓
+GEMS
+ ↓
+FORTRESS
+ ↓
+Conservation
+ ↓
+GSA
+ ↓
+OBSERVE
+```
+
+It may instead be a graph with parallel branches:
+
+```text
+                  INPUT
+                    │
+        ┌───────────┼────────────┐
+        ▼           ▼            ▼
+     HERALD      OBSERVE       OTHER
+        │           │            │
+        └──────┬────┴────────────┘
+               ▼
+          PERCEPTION
+               │
+        ┌──────┴──────┐
+        ▼             ▼
+       TIE           GEMS
+        │             │
+        └──────┬──────┘
+               ▼
+           GOVERNANCE
+               │
+        ┌──────┴──────┐
+        ▼             ▼
+     FORTRESS     CONSERVATION
+        │             │
+        └──────┬──────┘
+               ▼
+            GSA-815
+               │
+               ▼
+            SENTINEL
+               │
+               ▼
+            OUTCOME
+               │
+               └──────► OBSERVE
+```
+
+This is only an example.
+
+Determine the actual graph from evidence.
+
+---
+
+# FINAL DELIVERABLE
+
+Produce:
+
+## GLOBAL ARCHITECTURAL RECONCILIATION REPORT
+
+With:
+
+1. Complete repository inventory
+2. Historical repository inventory
+3. System identity map
+4. Rename/extraction/merge lineage
+5. HERALD forensic reconstruction
+6. PERCEIVE forensic reconstruction
+7. OBSERVE forensic reconstruction
+8. ATS forensic reconstruction
+9. CCC forensic reconstruction
+10. TIE role reconstruction
+11. GEMS role reconstruction
+12. FORTRESS/SAGE-K duplication analysis
+13. Current executable graph
+14. Historical graph
+15. Target architecture hypothesis
+16. Artifact-flow graph
+17. Interface ownership map
+18. Contradictions
+19. Unknowns
+20. Confidence ratings
+21. Recommended next integration point
+
+## MOST IMPORTANT OUTPUT
+
+End with exactly these four conclusions:
+
+### A. WHAT IS THE TRUE CURRENT SYSTEM?
+
+### B. WHAT IS THE TRUE HISTORICAL ARCHITECTURE?
+
+### C. WHAT IS THE MOST LIKELY TARGET ARCHITECTURE?
+
+### D. WHAT SINGLE CONNECTION SHOULD BE IMPLEMENTED NEXT?
+
+Do not implement that connection yet.
+
+Only identify it.
+
+---
+
+## STOP CONDITION
+
+When this report is complete:
+
+STOP.
+
+Do not modify code.
+
+Do not create adapters.
+
+Do not integrate systems.
+
+Do not deploy.
+
+Return the evidence and wait for direction.
+:::

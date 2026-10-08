@@ -1,0 +1,15 @@
+[tool_result] # CITADEL
+
+CITADEL v1.1 is a deterministic LLM output enforcement engine — regex-based
+detection of first-person pronouns, hedging language, passive voice, and
+em-dashes, with a scoring/rewriting pipeline (`CitadelDetector`,
+`CitadelTransformer`, `CitadelScorer`, `Citadel`). See `PROVENANCE.md` for
+the full source history and `TRANSCRIPT.md` for the original audit
+conversation.
+
+## Related repo
+
+[STRIDE](https://github.com/wking53214/STRIDE) is a gateway system whose
+source explicitly includes "Zero-Trust Citadel Linguistic Interceptors" as
+a component — STRIDE's gateway appears to consume this repo's enforcement
+logic as a sub-component.

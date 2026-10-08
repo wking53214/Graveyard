@@ -1,0 +1,242 @@
+Yes — **that changes the interpretation of Pass 6 materially.**
+
+If **TIE, GEMS, and HERALD were intentionally created brand-new during the past week**, then searching for an older historical implementation of those three systems is the wrong forensic question.
+
+Their August 2026 repository dates are not suspicious evidence of missing history. **They are the expected history.**
+
+### The corrected interpretation
+
+| System | Historical status |
+|---|---|
+| **TIE** | **NEW — created during the current build period** |
+| **GEMS** | **NEW — created during the current build period** |
+| **HERALD** | **NEW — created during the current build period** |
+| **Sentinel** | Older system with genuine prior Git history |
+| **STRIDE** | Older/deleted system with partial source salvage |
+| **FORTRESS** | Older lineage evidenced through multiple recovered sources |
+
+So I would **remove the entire line of inquiry asking whether an “original historical TIE,” “canonical historical GEMS,” or “historical HERALD predecessor” existed.**
+
+There doesn't need to be one.
+
+---
+
+## What Pass 6 actually established
+
+The important question isn't:
+
+> “Did old TIE/GEMS/HERALD source exist?”
+
+It is:
+
+> **“Were TIE, GEMS, and HERALD created as new systems from an earlier body of specifications/forensic material, and does the current implementation accurately reflect that provenance?”**
+
+Based on the Pass 6 material you supplied:
+
+### TIE
+
+**New implementation.**
+
+Its Git history explicitly says it was reconstructed from supplied forensic summaries rather than recovered from an older repository.
+
+That's not a weakness. **That's its provenance.**
+
+### GEMS
+
+**New implementation.**
+
+Likewise, GEMS was built from the recovered/specification material and is explicitly described as a reconstruction baseline.
+
+Again, that's expected.
+
+### HERALD
+
+**New implementation.**
+
+Its August 20–21 development history is exactly what we'd expect for a system created this week.
+
+---
+
+# The real historical question changes
+
+The interesting question becomes:
+
+### **Did the specifications/designs from the earlier record actually lead to the new TIE → GEMS → HERALD implementations?**
+
+And separately:
+
+### **Was the newly created TIE → GEMS → HERALD stack actually integrated and exercised?**
+
+Those are completely different questions from historical continuity.
+
+And Pass 6 already gives us an important answer:
+
+**Current TIE → GEMS integration is proven.**
+
+The GEMS repository contains the adapter.
+
+The remaining issue is simply whether **HERALD is actually wired downstream**, because its README says:
+
+> no consuming project is wired in yet.
+
+So the current-state graph appears to be closer to:
+
+```text
+EARLIER FORENSIC / SPECIFICATION MATERIAL
+                  │
+          ┌───────┴───────┐
+          ▼               ▼
+      NEW TIE          NEW GEMS
+          │               ▲
+          └───────►───────┘
+             current
+           integration
+                          
+                    NEW HERALD
+                         │
+                         X
+                  not yet wired
+                   to consumer
+```
+
+That is a **development-history question**, not a historical-archaeology question.
+
+---
+
+# Therefore: I would change my Pass 7 recommendation
+
+I **would still do a Pass 7**, but **not** the Pass 7 I just described.
+
+The previous proposed objective — *“recover the original TIE/GEMS/HERALD”* — should be discarded.
+
+Instead:
+
+# PASS 7 — BUILD-PROVENANCE AND CURRENT RUNTIME VERIFICATION
+
+The objective should be:
+
+> **Establish exactly how the brand-new TIE, GEMS, and HERALD systems were created from the prior forensic/specification record, verify their development chronology, and determine the actual current integration/runtime state without imposing a false historical-continuity requirement.**
+
+That would be much more powerful.
+
+### Pass 7 should investigate:
+
+**1. Specification → implementation provenance**
+
+Can we trace:
+
+`forensic material → TIE implementation`
+
+`forensic material → GEMS implementation`
+
+`forensic material → HERALD implementation`
+
+with actual commits, files, attachments, prompts, design documents, and timestamps?
+
+**2. Creation chronology**
+
+Establish the precise sequence:
+
+```text
+Aug 17 — GEMS repository
+Aug 19 — TIE repository / reconstruction
+Aug 19 — GEMS executable reconstruction
+Aug 20 — HERALD repository
+Aug 20–21 — HERALD implementation/testing
+Aug 21 — STRIDE salvage
+Aug 22 — present forensic state
+```
+
+**3. Current TIE → GEMS integration**
+
+Verify exactly what works:
+
+- adapter;
+- schema handling;
+- tests;
+- invocation path;
+- data flow;
+- failures;
+- mocks vs real execution.
+
+**4. Current GEMS → HERALD status**
+
+This becomes a **current development question**, not a historical one:
+
+> Is GEMS actually connected to HERALD yet?
+
+If not, identify precisely what remains.
+
+**5. Current HERALD → governance**
+
+Same question:
+
+> Is HERALD currently connected to an actual governance consumer, or is that still an interface boundary?
+
+**6. Human/AI development provenance**
+
+Determine which artifacts were:
+
+- supplied historical material;
+- newly authored;
+- generated from specifications;
+- copied from older repositories;
+- salvaged;
+- modified;
+- tested;
+- committed.
+
+That distinction is now extremely important.
+
+---
+
+## And this actually makes your overall forensic picture cleaner
+
+You have **two different temporal layers**:
+
+### Layer 1 — Older historical systems
+
+```text
+STRIDE ──► Sentinel
+             │
+             └──► FORTRESS lineage
+```
+
+These require **historical continuity analysis**.
+
+### Layer 2 — New systems created this week
+
+```text
+Historical forensic/specification record
+                  │
+        ┌─────────┼─────────┐
+        ▼         ▼         ▼
+       TIE       GEMS     HERALD
+        │         │         │
+        └────►────┘         │
+          current           │
+        integration         │
+                            X
+                     current consumer
+                     not yet wired
+```
+
+These require **build provenance and runtime verification**, not archaeological recovery of nonexistent older repositories.
+
+That distinction should probably become an explicit principle in the final audit.
+
+### Bottom line
+
+**Your clarification means Pass 6 was overly conservative in one particular dimension.**
+
+“Original TIE not recovered” is technically true in the narrow sense, but **misleading if interpreted as evidence of a missing historical TIE**.
+
+The correct statement is:
+
+> **TIE was intentionally created as a new implementation during the current development period; therefore no pre-August-2026 TIE source history is expected. The forensic question is provenance from the earlier specifications, not recovery of an older TIE repository.**
+
+Same for GEMS and HERALD.
+
+And with that correction, **Pass 7 should focus on proving the birth, provenance, integration, and actual execution state of these new systems.**
+
+That is absolutely worth doing.

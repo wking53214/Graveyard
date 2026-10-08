@@ -1,0 +1,73 @@
+[tool_result] ---
+name: user-wking53214-repo-archival
+description: "William archives AI-chat-export code artifacts into per-topic GitHub repos with a standard PROVENANCE.md + TRANSCRIPT.md pattern; each repo's own PROVENANCE.md is the authoritative source for what a file actually is, more reliable than a filename guess."
+metadata: 
+  node_type: memory
+  type: user
+  originSessionId: 5cc9da2a-0812-496d-86f8-560930c0ff94
+  modified: 2026-08-19T09:04:38.277Z
+---
+
+William (wking53214@gmail.com) has been systematically archiving code
+artifacts pasted into AI chats (mostly Google Gemini, some Copilot) into
+individual GitHub repos, one repo per source transcript/topic. Each repo
+typically has:
+
+- `PROVENANCE.md` — a detailed writeup of the source transcript (AI tool
+  URL, turn-by-turn table of what was extracted, whether the code
+  executes, line/file counts, naming discrepancies, things noticed but
+  not fixed). This is the most reliable ground truth for what a file is
+  and where it came from — more reliable than the repo or file name alone.
+- `TRANSCRIPT.md` — the full conversation text.
+- Artifact files named either by system role (extracted from the AI's own
+  `SYSTEM_NAME:` header) or `artifact_N.py` by transcript-turn order when
+  no self-declared name exists.
+
+Repo names sometimes reflect only the *first* AI-suggested name for a
+system, not what the code actually self-identifies as internally (e.g.
+CLIP repo held code that all self-identified as `STRIDE`). When a repo
+name and internal `SYSTEM_NAME:` disagree, trust the internal name as
+what was actually built — see [[project-repo-cleanup-concurrent-agents]]
+for how this played out in an August 2026 cleanup pass.
+
+William is running a large-scale cleanup/deduplication pass across 40+
+such repos, partly via Claude Code sessions following a written
+instructions file, partly via a separate Copilot-driven automated process
+acting on the same repos concurrently.
+=====CONCURRENT=====
+---
+name: project-repo-cleanup-concurrent-agents
+description: "William's 40+ GitHub repos are being reorganized by multiple concurrent automated agents (at least one Copilot-driven), not just this session — always fetch origin before trusting local repo state or a written cleanup instruction file."
+metadata: 
+  node_type: memory
+  type: project
+  originSessionId: 5cc9da2a-0812-496d-86f8-560930c0ff94
+  modified: 2026-08-19T09:04:27.771Z
+---
+
+William (github.com/wking53214) has 40+ repos that accumulated from dumping
+AI conversation exports and pasted code. He's running a cleanup effort
+using a written instructions file (sectioned: ready-to-execute / needs
+verification / informational-only / out-of-scope), executed by Claude Code.
+
+**Discovered 2026-08-19:** a separate automated process, co-authored by
+"Copilot" in commit messages, is concurrently reorganizing the *same*
+repos (ATS, CLIP, EDDP, Data_files, observe, DIT) — sometimes just ahead
+of a Claude Code session picking up the instructions file. Evidence: local
+clones of ATS and CLIP were 2 commits behind origin at session start; the
+EDDP repo (described in the instructions as "completely empty") was
+actually full of content because Data_files had been forked from EDDP's
+history and repopulated under the Data_files name. Section 3 items the
+instructions explicitly said "do not move or delete yet" (perceive_policy_
+enforcement, quorum_state_governance, solvar_stability_governance, etc.)
+had already been touched by this other process.
+
+**Why:** Multiple agents/processes are acting on this repo set without a
+shared lock or coordination point, so any static snapshot (including a
+written instructions file) can be stale by the time it's executed.
+
+**How to apply:** Before executing any cross-repo move/rename instruction
+from a written plan, `git fetch origin` and diff against local HEAD for
+every repo involved — do not trust "repo X is empty" or "file Y is at
+path Z" claims without verifying live state first. If live state
+contradicts the plan's premises (e.g., a "mis

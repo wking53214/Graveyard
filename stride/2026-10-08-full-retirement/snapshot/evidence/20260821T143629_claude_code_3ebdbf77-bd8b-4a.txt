@@ -1,0 +1,40 @@
+[tool_result] """
+Salvaged from the STRIDE repo (stride-formatted-audited.py) before its
+deletion, 2026-08-20. This is NOT CITADEL-related logic - it doesn't belong
+merged into citadel.py. Kept separate because it doesn't yet have a
+confirmed home in any existing repo (checked: not present in ANVIL,
+Conservation_Kernel, GSA-GATEWAY, or sentinel_os's own resilience code as
+of this sweep). Flagging that gap rather than guessing a destination.
+
+Everything else in STRIDE (the linguistic gates, the DOIS/anomaly scoring
+stack, the GsaUniversalAdapter hash wrapper) was judged not salvageable:
+either strictly inferior to CITADEL's own recovered source, uncalibrated
+duplicate territory sentinel_os/GSA-815 already cover with real tests, or
+in GsaUniversalAdapter's case, actively misrepresenting what it does
+(claims cryptographic tamper-evidence via HMAC while never using the hmac
+import it declares).
+
+Two pieces held up under scrutiny and are reproduced here verbatim from
+the original (renamed only where the original names were STRIDE-specific
+branding with no functional meaning):
+"""
+
+import hashlib
+import time
+from collections import deque
+from dataclasses import dataclass, field
+from typing import Deque, Optional
+
+
+# =====================================================================
+# 1. OUTPUT LOOP DETECTION / RETRY LIFECYCLE
+# Real, self-contained, working. Detects an LLM repeating itself and
+# manages a bounded retry budget before failing closed.
+# =====================================================================
+
+@dataclass
+class EngineState:
+    seen_outputs: Deque[str] = field(default_factory=lambda: deque(maxlen=1000))
+    last_output_hash: Optional[str] = None
+    last_timestamp: Optional[float] = None
+    retry_counter: int = 0

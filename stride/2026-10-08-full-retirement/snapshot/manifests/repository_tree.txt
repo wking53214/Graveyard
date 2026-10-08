@@ -1,0 +1,36 @@
+STRIDE — RECOVERED REPOSITORY TREE
+
+origin (final) : https://github.com/wking53214/STRIDE.git   [REMOTE DELETED — gh 404 by 2026-08-21]
+origin (prior) : https://github.com/wking53214/CLIP.git     [same repository, renamed]
+branch         : main
+commits        : 4
+entries (final): 7
+
+COMMIT HISTORY (3 of 4 hashes recovered)
+  919a740  "Archive of pre-existing artifact. Preserved verbatim, unmodified."
+  56dd695  "Rename CLIP artifacts to reflect system functions"        2026-08-17T22:02:46Z
+  a9aef1b  "Move AST-named files to AST central repository"           2026-08-17T23:19:40Z
+  UNKNOWN  "Add README documenting rename from CLIP, cross-link to CITADEL"  2026-08-19 04:59:31 -0400
+
+STRIDE/
+├── PROVENANCE.md                          DIRECTLY RECOVERED (81 of 82 lines) — from a viewer
+│                                          render captured 2026-08-17T22:02:06Z, i.e. the
+│                                          commit-919a740 state, BEFORE the rename. Whether it
+│                                          was updated in a later commit is UNKNOWN.
+├── README.md                              NOT RECOVERED — added in commit 4 (2026-08-19),
+│                                          after every surviving observation of this repo.
+├── TRANSCRIPT.md                          DIRECTLY RECOVERED (as its verbatim source)
+│                                          = ~/Downloads/CLIP.txt, 1,894 CRLF lines — exactly the
+│                                          line count PROVENANCE.md states for TRANSCRIPT.md.
+│                                          staged as TRANSCRIPT.md.SOURCE_CLIP_TXT
+├── clip-original-multi-module-source.py   DIRECTLY RECOVERED  (was artifact_1.py)
+├── stride-formatted-audited.py            DIRECTLY RECOVERED  (was artifact_3.py)
+├── stride-synthesized-unified.py          DIRECTLY RECOVERED  (was artifact_2.py)
+└── stride-wrapped-final.py                DIRECTLY RECOVERED  (was artifact_4.py)
+
+REMOVED FROM THE REPO IN COMMIT a9aef1b (recovered anyway, kept here):
+    ast-graph-extractor-source.py          DIRECTLY RECOVERED  (was artifact_5.py)
+    stride-ast-extractor-wrapped.py        DIRECTLY RECOVERED  (was artifact_6.py)
+
+Directories: NONE. Flat repository root. No src/, tests/, docs/ or config/ — and
+PROVENANCE.md states explicitly that no tests exist for any artifact.

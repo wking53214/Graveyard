@@ -1,0 +1,3 @@
+Found it: `/mnt/chromeos/MyFiles/Downloads/citadel_v1.2.py` — 226 lines, "CITADEL v1.2 — Deterministic LLM Output Enforcement Engine," reconstructed from a flattened source artifact on 2026-08-20. Its own header notes v1.2 adds a `prohibited_verbs` check salvaged from the STRIDE repo, explicitly confirmed *not* present in the original v1.1 pull — so this is genuinely the v1.2 successor, not a mislabeled v1.1.
+
+There's also a near-duplicate, `citadel_v1.2-1.py`, in the same folder (likely "copy 1 of 2," per the comment in this file). Want me to diff the two, or is finding this one enough for now?

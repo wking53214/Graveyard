@@ -1,0 +1,68 @@
+[tool_result] === ALL cross-repo imports GSA-815 expects from sentinel_os (governance.*, cassette_*, episode, etc.) ===
+10:from cassette_capabilities import (
+10:from governance.friction_core import compute_friction
+10:from governance.self_heal_v1 import heal, HealBand, InMemoryParameterStore
+11:from governance.drift_core_v1 import DriftPolicy, detect_drift, baseline_from_holds  # noqa: E402
+11:from governance.log_rotation_v1 import LogRotationManager, LocalDiskAdapter
+12:from governance.drift_core_v1 import DriftPolicy, detect_drift
+12:from governance.self_heal_v1 import heal, HealBand, InMemoryParameterStore  # noqa: E402
+12:from operational_resilience import setup_logging
+13:from governance.log_rotation_v1 import LogRotationManager, LocalDiskAdapter  # noqa: E402
+13:from governance.self_heal_v1 import heal, HealBand, InMemoryParameterStore
+14:from governance_contracts import ExecutionApproval, GovernanceApproval
+14:from governance.log_rotation_v1 import LogRotationManager, LocalDiskAdapter
+14:from operational_resilience import setup_logging
+14:from operational_resilience import setup_logging, export_alert_rules
+15:from governance.friction_core import compute_friction
+16:from cassette_loader import CassetteLoader
+16:from event_v1 import PROVENANCE_ESTIMATED, PROVENANCE_VERIFIED
+17:from cassette_schema import validate_cassette
+17:from event_v1 import PROVENANCE_ESTIMATED, PROVENANCE_VERIFIED
+18:from governance.ledger_postgres import PostgreSQLLedger
+19:from canonical_fields import NODE_ROLE_QUEUE
+20:from episode import Episode
+21:from governance.drift_core_v1 import DriftPolicy, detect_drift, baseline_from_holds
+22:from cassette_loader import CassetteLoader
+22:from governance.self_heal_v1 import heal, HealBand, InMemoryParameterStore
+23:from cassette_schema import validate_cassette
+23:from governance.log_rotation_v1 import LogRotationManager, LocalDiskAdapter
+24:from cassette_loader import CassetteLoader
+25:from cassette_schema import validate_cassette
+25:from governance.ledger_postgres import GovernanceDecisionRecord
+26:from governance.friction_core import compute_friction
+27:from episode import EpisodeIntegrityError, judge_episode
+28:from event_v1 import (EventIntegrityError, PROVENANCE_ESTIMATED,
+31:from cassette_capabilities import CAPABILITY_OUTCOME_OBLIGATION
+35:from operational_resilience import setup_logging
+37:from governance_loop_guard import PipelineStateEngine
+38:from cassette_forensics import (
+5:from cassette_loader import CassetteLoader
+5:from operational_resilience import CircuitBreaker, HealthChecker, setup_logging
+69:from cassette_schema import validate_cassette
+6:from cassette_schema import validate_cassette
+70:from event_v1 import PROVENANCE_VERIFIED, PROVENANCE_ESTIMATED
+71:from canonical_fields import NODE_ROLE_QUEUE
+7:from cassette_loader import CassetteLoader  # noqa: E402
+8:from cassette_loader import CassetteLoader
+8:from cassette_schema import validate_cassette  # noqa: E402
+8:from conservation_kernel import (
+8:from operational_resilience import (
+9:from cassette_interface import Cassette, CassetteConfig, QualityResult
+9:from cassette_schema import validate_cassette
+9:from governance.drift_core_v1 import DriftPolicy, detect_drift, baseline_from_holds
+
+=== which of those modules does GSA-815 itself NOT carry (⇒ must come from sentinel_os PYTHONPATH) ===
+  MISSING (needs sentinel_os): governance/friction_core.py
+  MISSING (needs sentinel_os): governance_loop_guard.py
+  MISSING (needs sentinel_os): governance_decider.py
+  MISSING (needs sentinel_os): governance_harness.py
+  MISSING (needs sentinel_os): episode.py
+  MISSING (needs sentinel_os): outcome_v1.py
+  MISSING (needs sentinel_os): event_v1.py
+  MISSING (needs sentinel_os): canonical_fields.py
+  MISSING (needs sentinel_os): operational_resilience.py
+  MISSING (needs sentinel_os): telemetry_pipeline.py
+  MISSING (needs sentinel_os): perceive_integration.py
+
+=== perceive_integration / telemetry_pipeline / SentinelPerceiveIntegration anywhere in GSA-815? ===
+  (

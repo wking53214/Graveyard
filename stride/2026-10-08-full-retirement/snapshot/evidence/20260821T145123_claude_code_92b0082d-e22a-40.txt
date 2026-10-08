@@ -1,0 +1,11 @@
+Pushed — commit `91755be` to `github.com/wking53214/sentinel_os`.
+
+**What changed:**
+- **New file:** `governance_loop_guard.py` — the loop-detection/bounded-retry half of the STRIDE salvage only (backpressure left out; no use site for it yet).
+- **`production_harness.py`:** added `self.claude_loop_guard`, checked right after each successful `claude_breaker.call()`. If Claude's `reasoning` text exactly matches a prior call's, it's now blocked and replaced with a fail-closed decision — a genuinely different failure mode than what `claude_breaker` already catches (that one only sees raised exceptions or explicit `transport_error:` flags, never a "successful but stuck" response).
+
+**One correctness detail worth flagging explicitly:** every fail-closed path in `claude_governance_api.py` (no client configured, JSON parse failure, transport error) returns identical, fixed reasoning text with `model_identity: None`. Without gating on that field, the loop guard would have false-tripped on *every single call* through those paths, not just genuine repeats from a live model. I checked this by reading every branch of `safety_check()` before writing the integration, not after.
+
+**Verification, given the constraints:** this environment can't fully import `production_harness.py` (pre-existing missing dependency, confirmed unrelated to this change) or run its real-infra test file (needs live Postgres + a real Anthropic key by that test's own explicit "no mocks" design). I verified what's actually checkable: `governance_loop_guard.py` runs correctly standalone, both files are syntactically valid and ruff-clean, and the import-failure signature is byte-identical before and after my edit.
+
+`GSA-815`'s copy was left untouched, per your earlier decision.

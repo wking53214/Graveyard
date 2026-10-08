@@ -1,0 +1,38 @@
+[tool_result] <system-reminder>This memory is 8 days old. Memories are point-in-time observations, not live state — claims about code behavior or file:line citations may be outdated. Verify against current code before asserting as fact.</system-reminder>
+1	---
+2	name: user-wking53214-repo-archival
+3	description: "William archives AI-chat-export code artifacts into per-topic GitHub repos with a standard PROVENANCE.md + TRANSCRIPT.md pattern; each repo's own PROVENANCE.md is the authoritative source for what a file actually is, more reliable than a filename guess."
+4	metadata: 
+5	  node_type: memory
+6	  type: user
+7	  originSessionId: 5cc9da2a-0812-496d-86f8-560930c0ff94
+8	  modified: 2026-08-19T09:04:38.277Z
+9	---
+10	
+11	William (wking53214@gmail.com) has been systematically archiving code
+12	artifacts pasted into AI chats (mostly Google Gemini, some Copilot) into
+13	individual GitHub repos, one repo per source transcript/topic. Each repo
+14	typically has:
+15	
+16	- `PROVENANCE.md` — a detailed writeup of the source transcript (AI tool
+17	  URL, turn-by-turn table of what was extracted, whether the code
+18	  executes, line/file counts, naming discrepancies, things noticed but
+19	  not fixed). This is the most reliable ground truth for what a file is
+20	  and where it came from — more reliable than the repo or file name alone.
+21	- `TRANSCRIPT.md` — the full conversation text.
+22	- Artifact files named either by system role (extracted from the AI's own
+23	  `SYSTEM_NAME:` header) or `artifact_N.py` by transcript-turn order when
+24	  no self-declared name exists.
+25	
+26	Repo names sometimes reflect only the *first* AI-suggested name for a
+27	system, not what the code actually self-identifies as internally (e.g.
+28	CLIP repo held code that all self-identified as `STRIDE`). When a repo
+29	name and internal `SYSTEM_NAME:` disagree, trust the internal name as
+30	what was actually built — see [[project-repo-cleanup-concurrent-agents]]
+31	for how this played out in an August 2026 cleanup pass.
+32	
+33	William is running a large-scale cleanup/deduplication pass across 40+
+34	such repos, partly via Claude Code sessions following a written
+35	instructions file, partly via a separate Copilot-driven automated process
+36	acting on the same repos concurrently.
+37	

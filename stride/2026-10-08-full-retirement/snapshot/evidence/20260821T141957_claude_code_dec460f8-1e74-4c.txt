@@ -1,0 +1,42 @@
+[tool_result] 226 /mnt/chromeos/MyFiles/Downloads/citadel_v1.2.py
+---
+import re 
+import time 
+from enum import Enum 
+from typing import Dict, List, Any # ============================================================ # CITADEL v1.2 # Deterministic LLM Output Enforcement Engine # Reconstructed from flattened source (artifact_1.py, copy 1 of 2) 2026-08-20; # v1.2 adds the prohibited_verbs check salvaged from the STRIDE repo before its deletion. 
+# ============================================================ 
+# ============================================================ # REGEX DETECTION LAYERS 
+# ============================================================ 
+REGEX = {
+    "identity": re.compile(
+        r"\b(i|me|my|mine|myself|we|us|our|ours|ourselves)\b",
+        re.I
+    ),
+    "hedging": re.compile(
+        r"\b(may|might|could|seems|generally|potentially|likely|perhaps|probably|i think)\b",
+        re.I
+    ),
+    "passive": re.compile(
+        r"\b(am|is|are|was|were|be|been|being)\b\s+\w+(ed|en)\b",
+        re.I
+    ),
+    "metric": re.compile(
+        r"\b\d+(\.\d+)?%|\b\d+\b"
+    ),
+    "causal": re.compile(
+        r"\b(because|due to|driven by|resulting from|caused by|therefore|consequently)\b",
+        re.I
+    ),
+    # PUNCTUATION CONTROL LAYER
+    "emdash": re.compile(r"—"),
+    # VAGUE-VERB CONTROL LAYER (salvaged from STRIDE/CLIP's PROHIBITED_VERBS,
+    # confirmed not present in the original v1.1 pull; added v1.2)
+    "prohibited_verbs": re.compile(
+        r"\b(improve|optimize|enhance|enable|support|strengthen|utilize|leverage)\b",
+        re.I
+    )
+} # ============================================================ # ENFORCEMENT PROFILES 
+# ============================================================ 
+PROFILES = {
+    "default": {
+        "identity": True,

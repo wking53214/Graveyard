@@ -1,0 +1,212 @@
+This session is being continued from a previous conversation that ran out of context. The summary below covers the earlier portion of the conversation.
+
+Summary:
+1. Primary Request and Intent:
+
+   The overarching session is a systematic forensic housekeeping pass across all ~36 of William King's (wking53214) GitHub repos, tracked in persistent memory. For each repo: `git fetch origin` first, check for concurrent-Copilot README damage, verify prior work by running code/tests, restore/fix docs, add LICENSE + pyproject metadata where missing, ALWAYS fix the GitHub description to match reality, land via branch → PR → squash-merge → delete branch.
+
+   **The user's MOST RECENT explicit request (verbatim):** "let's tackle the beast. i want a complete run through of sentinel_os with your cleanup process as well as ghost_buster. I also want to confirm that anything IVR related has been scrubbed completely. if anything remains, confirm if it exists already in GSA-815 and if not, get rid of it. If it does NOT exist in GSA-815, then integrate it there. please repeat back to me what I have asked."
+
+   I repeated it back as 4 tasks: (1) full housekeeping pass on sentinel_os; (2) ghost_buster run + finding review + baseline refresh; (3) confirm the IVR/Iceberg scrub (PR #30) is total — no IVR code/cassettes/refs remain; (4) for any IVR remnant: if it's already in GSA-815 → delete from sentinel_os; if NOT in GSA-815 → integrate into GSA-815 first, then remove from sentinel_os. I flagged that the user's two sentences conflicted on the "not in GSA-815" case and stated I was going with integrate-then-remove. User replied "proceed".
+
+   Earlier explicit requests this session (all completed): finish GEMS/CK "version B" salvage; proceed through repo housekeeping ("next"/"next repo"); clean scratchpad; C1 in separate PR + refresh test counts (HERALD); "I just made private. Skip to next repo" (Resume_OS); "Fix them delete the dup" (Gemini_Extraction); "Go ahead and archive Gemini-history"; "Rebuild the pipeline now" (CoPilot_History); "Make private now, decide cleanup after" (ChatGPT_History); "Skip both" (sentinel_os + GSA-815, at that time); "Light housekeeping only" then later "Let's tackle GSA-gateway" (ran the 3 prepared apply-scripts); "Check observe-perceive to see if it can go there, it's a hunch" (resilience-config home); "Replace its substitute in GSA-815" then investigated and it had no substitute; run ghost_buster survey on all repos; "commit the baselines per-repo"; "Add the venv-exclude to ghost_buster"; "Re-run --accept on the vendored repos"; "Delete the vendored trees from OBSERVE"; "Leave sentinel_os as the test bed" (OBSERVE); "ANVIL dead-code review" then "Delete the 9 trivial ones"; "GSA-GATEWAY's ~17 flattened-paste dead classes" then "Update the GSA-GATEWAY memory note and move on"; "Fix the archived repo descriptions"; "Give me a status of everything left"; "Also, give me a prompt to start a new chat" (GSA-GATEWAY continuation prompt).
+
+2. Key Technical Concepts:
+   - **sentinel_os**: domain-blind governance kernel — `episode`/`event_v1`/`outcome_v1` (observation + judgment), Postgres hash-chained ledger (`governance/ledger_postgres.py`), twin witness (`twin_custody.py`/`twin_shipper.py`), keyed HMAC `authorized_by` attestation with key rotation, cassette framework (capability-gated), `GovernanceHarness` (the one governed door), transmission-queue workers (`queue_schema.py`, `sentinel_worker.py`, `api_server_v2.py`, `lua/` Redis scripts), SAGE-K interpretation layer, Conservation Kernel fail-closed boundary.
+   - **IVR/Iceberg island**: the contact-centre application layer — `Domain/` (CallerState, Emotion, Intent, QueueState), `Sim/` (Simulator, cluster_runner), `Engines/` (simple_rl_trainer), `Latent/` (LatentPayload), `Model/` (Build_Graph), `Training/`, `observe/` (IngestAdapter, TwilioSyntheticLogGenerator) — for the standalone `iceberg_complete_simulator.py`, which PR #30 (bc6211fc, 2026-08-28) moved to GSA-815 along with the telephony harness, Twilio ingestion, Claude governor client, queue/staffing/Bayes layer, resilient API server.
+   - **cassettes**: domain plug-ins declaring `CAPABILITIES` (e.g. `telephony_ingest`, `RoutingTopology`). The kernel harness REFUSES a cassette declaring a capability it doesn't provide. `IvrCassette` is the full-capability example (declares telephony) — kept in sentinel_os as the negative fixture. `MortgageCassette`/`BankingCassette` are kernel-only reference cassettes.
+   - **ghost_buster** (in `~/ghost_tools`): mechanical AST detectors (`dead_code`, `long_function`, `near_duplicate_function`, `intra_function_duplicate_block`, `doc_test_count_drift`) + semantic Claude-API layer (`parallel_implementation`, `doc_drift`). `python3 -m ghost_buster.cli <path> [--accept|--json|--exclude DIRNAME]`. `--accept` writes `.ghost_baseline.json` (SUPPRESSED, noise-control not review-record). Content-hash finding IDs. v0.3.1 (PR #2, `3454c4a`) added `_EXCLUDED_DIRS` frozenset (`site-packages`, `.venv`, `venv`, `node_modules`, `.git`, tool caches) + `--exclude` flag.
+   - **Standard workflow**: branch → `git push -u origin <branch>` → `gh pr create` → `gh pr merge --squash --delete-branch`. Commit trailer: `Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>` / `Claude-Session: https://claude.ai/code/session_01G5nLNvE4Gf4XXutEW89pRC`. PR body ends `🤖 Generated with [Claude Code](https://claude.com/claude-code)`.
+   - **Archived repos**: `gh repo edit` → HTTP 403. Fix = `gh repo unarchive <r> --yes` → `gh repo edit` → `gh repo archive <r> --yes`.
+   - Scratchpad: `/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/` (session UUID changed from 155dfbf6 to f7f86960). `$SURVEY` = `.../scratchpad/ghost_survey`; `$SURVEY/clones/` = 18 fresh clones; `$SURVEY/sos_full` = sentinel_os working clone; `$SURVEY/gsa815` = GSA-815 clone.
+
+3. Files and Code Sections:
+
+   **sentinel_os cleanup (branch `scrub-ivr-island` in `$SURVEY/sos_full`, 4 commits, NOT pushed):**
+
+   - **Commit f974ed2 "Remove the orphaned IVR/Iceberg simulator support island"**:
+     - `git rm -rq Domain Sim Engines Latent Model Training observe` (18 files: CallerState.py, Emotion.py, Intent.py, QueueState.py, Domain/README.md, Sim/{README.md,Simulator.py,cluster_runner.py}, Engines/{README.md,simple_rl_trainer.py}, Latent/LatentPayload.py, Model/{Build_Graph.py,README.md}, Training/curriculum.md, observe/{IngestAdapter.py,README.md,TwilioSyntheticLogGenerator.py})
+     - `git rm Tests/test_rl_learning.py Tests/test_rl_governance_integration.py Tests/test_graph_integrity.py` (RL tests already in GSA-815/Tests/; graph test tested removed Domain.build_graph)
+     - `git rm Tests/test_all_suites.py` (legacy manual runner script, no pytest tests, referenced 3 already-deleted files + removed Simulator/SimpleRLTrainer + stale "942K calls/sec")
+     - `git rm structure.txt` (stale — first entry `adaptive_config.py` removed by PR #30, listed nonexistent `Admin/` tree)
+     - `Tests/conftest.py`: stripped the `DomainFinder` meta_path import shim (Python code that mapped `Domain.*` imports to island files + nonexistent `SDK/` and `Telemetry/` paths). Removed from `# Map old 'Domain' imports` comment through `sys.meta_path.insert(0, DomainFinder())`.
+     - **KEPT**: `cassettes/ivr_cassette.py` — it's `class IvrCassette(Cassette, TelephonyIngest, RoutingTopology, ...)`, the kernel's full-capability example and the negative fixture for `test_governance_harness.py` tests that prove the domain-blind harness REFUSES a telephony cassette (`test_refuses_telephony_cassette_at_construction`, `test_swap_refuses_telephony_and_keeps_current_cassette` — both `pytest.raises(CapabilityError, match="telephony_ingest")`). Also drives `test_episode.py`'s kernel-judge-vs-domain-score equivalence.
+     - Collection: 706 → 698 tests, 0 errors.
+
+   - **Commit 5009763 "Docs: reframe the package README, banner the July-2026 snapshots"**:
+     - `sentinel_os/README.md` — was `# Iceberg: Self-Healing IVR Platform` (pre-extraction IVR-product marketing README with a bolted-on note; pointed at removed `k8s/`, removed grafana service, `iceberg_complete_simulator.py`, claimed "no license" — repo is Apache-2.0). Rewrote as a short package-level orientation ("The canonical project README is at the repository root") with a "Where things are" table and a "The IVR / Iceberg application is not here" section pointing to GSA-815.
+     - Bannered 5 dated docs with a point-in-time-snapshot warning + list of PRs #28-30 changes: `docs/architecture/SENTINEL_OS_DIRECTORY_MAP_v1.md`, `..._QUICK_REFERENCE_v1.md`, `..._REPOSITORY_INVENTORY_v1.md`, `..._TECHNICAL_ARCHITECTURE_MAP_v1.md`, `docs/sentinel-os-status-v1.md`.
+     - `docs/CHANGELOG.md` — added missing entries: `## 2026-09-03` (island removal), `## 2026-08-28` (PR #30 IVR extraction, PR #29 observed-event layer), `## 2026-08-27` (PR #28 keyed HMAC attestation).
+
+   - **Commit 569b8df "Housekeeping: root .gitignore venv patterns, README license section"**:
+     - Root `.gitignore` — added `venv/ .venv/ env/ .pytest_cache/ .ruff_cache/ .mypy_cache/` (root had only `__pycache__/`; the package `sentinel_os/.gitignore` had venv coverage).
+     - Root `README.md` — added `## License` section: "Apache-2.0 — see [LICENSE](LICENSE)."
+
+   - **Commit 30ebcdf "Docs: banner the pass3 v3 doc set; repoint simulator recipes to GSA-815"**:
+     - Bannered all 9 `docs/pass3/SENTINEL_OS_0[1-9]_*_v3.md` (baseline `68cadfb` July 29 2026; the "670 tests" claim is in #05, #07, #09 — now bannered as stale, real count ~893 test_* functions).
+     - `CONTRIBUTING.md` — "### Run the Simulator" section repointed to GSA-815.
+     - `TROUBLESHOOTING.md` — top note that simulator recipes + test counts predate the IVR extraction.
+     - Refreshed `.ghost_baseline.json` (426 → 401 findings).
+
+   **IVR verification facts (`$SURVEY/sos_full/sentinel_os` vs `$SURVEY/gsa815`):**
+   - GSA-815 HAS all island files: Domain/CallerState.py, Emotion.py, Intent.py, QueueState.py, Sim/Simulator.py, cluster_runner.py, Engines/simple_rl_trainer.py, Latent/LatentPayload.py, Model/Build_Graph.py, Training/curriculum.md, observe/IngestAdapter.py, TwilioSyntheticLogGenerator.py, cassettes/ivr_cassette.py.
+   - Per-file diff: all IDENTICAL except `Engines/simple_rl_trainer.py` (GSA-815 has the newer F3 softmax-sampling fix; sentinel's was PRE-fix / older — commit `9bbd6e2` "F3: sample from the softmax") and `cassettes/ivr_cassette.py` (1-line: sentinel `version="2.0.3"` vs GSA-815 `version="2.0.2"`).
+   - **Conclusion for items 3/4: NOTHING needs integrating into GSA-815** — it already has everything, and where they diverge GSA-815's copy is newer. Just delete from sentinel_os (done in f974ed2).
+
+   **ghost_buster on cleaned sentinel_os (401 findings, was 426):**
+   - by detector: `dead_code` 28, `long_function` 43, `near_duplicate_function` 51, `intra_function_duplicate_block` 266, `doc_test_count_drift` 13
+   - dead_code non-test items to review: `api_server_v2.py` (`_body_size_guard`, `submit_call`, `submit_mortgage_decision`, `job_status`, `health`, `queue_stats` — FastAPI route decorators, FALSE POSITIVES), `conftest.py` (`_ensure_default_ledger_runtime_role`, `_default_ledger_runtime_user` — pytest fixtures likely), `conservation/artifact_store.py` (`init_artifact_store`), `conservation/gateway.py` (`submit_for_conservation`), `governance/friction_core.py` (`compute_friction` — actually IS imported by governance_harness.py, false positive), `governance/perceive_integration.py` (`SentinelPerceiveIntegration` — 76-line file with `sys.path.insert` to `observe-perceive` repo, genuinely orphaned candidate), `governance_loop_guard.py` (`PipelineStateEngine`), `operational_resilience.py` (`retry_with_backoff`, `HealthChecker`, `GracefulDegradation`, `export_alert_rules` — file IS imported by api_server_v2/circuit_breaker/rate_limiter_v2/sentinel_worker, but some classes unused).
+   - doc_test_count_drift: CONTRIBUTING.md (110), README.md (270), CHANGELOG.md (22), pass3 #05/#07/#09 (670), sentinel-os-status-v1.md (270), COMPLIANCE.md (161), roadster_breakers_verification_report_v1.md (7/16/6/4) — all now bannered.
+
+   **Earlier this session — key repos completed:**
+   - GEMS PR #2 `5dbfeb7` (transport/ salvage), Conservation_Kernel PR #2 `feaf660` (docs/GATEWAY.md)
+   - HERALD PR #2 `f003707` (housekeeping) + PR #3 `f2a8fd2` (C1 boundary revalidation, 303→312 tests)
+   - Governance_Gateway PR #1 `56dd21f` (LICENSE)
+   - fortress-kernel PR #1 `650eb1e` (pyproject) + PR #3 (.gitignore)
+   - observe-perceive PR #1 `9eb7a39` (import fix)
+   - TIE PR #1 `9792921` (LICENSE, pyproject, dup schema removed)
+   - ghost_tools PR #1 `be20b27` (README restore) + PR #2 `3454c4a` (v0.3.1 venv-exclude)
+   - Gemini_Extraction PR #1 `a3f01fe` (dup jsonl, .gitattributes)
+   - Gemini_History PR #1 `ee87c6f` + **ARCHIVED**
+   - CoPilot_History PR #1 `691de87` (pipeline rebuild — new `scripts/process.py`, 369 convos/4242 msgs)
+   - Claude_History PR #1 `3eab2b9` (README file-list fix)
+   - ARCHIVE PR #1 `bf55631` (LICENSE, PROVENANCE file count)
+   - GSA-GATEWAY PR #2 `8caf0e6` (LICENSE) + PR #3 `ce1d873` (governance-stack step 1: GsaCoreController/GsaTemporalDoorwayGate + VANGUARD kernel + sovereign_kernel.py + archive 5 files); PRs #4/#5 done by a CONCURRENT session 2026-09-03
+   - KAGGLE PR #1 `80da53d` (README, LICENSE)
+   - TBCA PR #1 `ca98c17` (archival convention) + PR #2 `2fb37da` (code decomposition into `src/` modules)
+   - content-polish-pipeline (description only)
+   - ANVIL PR #3 `prune-dead-scaffolding` (deleted 9 unused utils; kept StateLineage/GovernanceGraph/PolicyDecision/ExampleModule; ANVIL.py 2921→2794 lines; harness 27/0)
+   - synapsis/EDDP/Data_files descriptions fixed via unarchive→edit→re-archive; Data_files PR #1 README
+   - 18 active repos got committed `.ghost_baseline.json` via per-repo PRs
+   - OBSERVE PR #5 (baseline refresh 732→43) + PR #6 (`drop-import-residue` — deleted `imports/` 20 files 11k lines; KEPT `sentinel_os/` 397 files as CI test bed per user)
+
+   **Memory files:**
+   - `project_resume_os_pii_deferred.md` — Resume_OS was public with 3rd-party PII (Nationwide customer address/phone/financial-hardship, 18 named coworkers), owner health/ADHD/address data, live Gemini share link — all in git history. William made private 2026-09-02. DEFERRED: end-state decision, content redaction, README repair.
+   - `project_chatgpt_history_public_pii_deferred.md` — was public, 863 personal conversations (2023-26), only credential-level redaction. Sweep: 58 unique emails incl. `murrayreganlaw.com`×16 (law firm), phones, 2 SSN-format. William made private 2026-09-02. DEFERRED: end-state decision, content redaction pass (extend process.py + git filter-repo + force-push), README "the repo is private" line fix.
+   - `project_ghost_buster_baselines.md` — baselines committed to all 18 active repos; ANVIL cleanup done (PR #3); fortress-kernel .gitignore; OBSERVE `imports/` deleted (PR #6), scan OBSERVE with `--exclude sentinel_os`.
+   - `project_gsa_gateway_cleanup_pending.md` — step 1 PR #3 (this session); steps 2+ PRs #4/#5 (2026-09-03 concurrent session did SRE+CITADEL wiring, VANGUARD fold-in/retire, 2 bugs, _source.py check). Only clearly-open: quorum vs ATS gov4_kernel. "git fetch before editing."
+   - `project_archived_repo_description_fixes.md` — DONE 2026-09-03.
+   - `project_repo_housekeeping_checklist.md` and `MEMORY.md` — updated throughout; 33+ repos done.
+
+4. Errors and fixes:
+   - **HERALD PR merge conflicts**: origin/main carried the damaged `55c0970` "Update README.md" commit; `gh pr merge` failed "not mergeable / merge commit cannot be cleanly created"; a plain `git pull` fast-forwarded to the damaged README. Fix: closed PR #1, `git reset --hard 0f13f78`, force-pushed a fresh `housekeeping-v2` branch, created PR #2, resolved the merge conflict with `git checkout --ours README.md`.
+   - **HERALD reset wiped my earlier README + LICENSE + pyproject edits** — had to recreate them after `git reset --hard`.
+   - **ghost_buster survey `innovation_os` = 3789 findings** — 3702 were inside `.venv/lib/python3.11/site-packages/` (pytest's own source). Fix: v0.3.1 `_EXCLUDED_DIRS` with `site-packages` as the load-bearing entry. Re-run → 87 findings.
+   - **`gh pr create` "aborted: you must first push the current branch"** during the 18-repo baseline batch — the loop's heredoc commit-message subshell broke branch tracking. Fix: separated push from PR creation, used `gh pr create --head <branch> --base main` (falling back to `--base master`).
+   - **`--accept` MERGES into existing baseline** — must `rm -f .ghost_baseline.json` first for a clean re-snapshot. Documented in memory.
+   - **Python heredoc `SyntaxError: unexpected character after line continuation character`** — `\"` inside a `<<'EOF'` python block; fixed by using `"` directly.
+   - **OBSERVE: I wrongly characterized `sentinel_os/` as pure vendored duplication.** User correction implied by "Leave sentinel_os as the test bed" — it's actually OBSERVE's PRIMARY CI target (`.github/workflows/tests.yml` runs `working-directory: sentinel_os` with Redis + Postgres + TLS). Only deleted `imports/` (the real residue). Recorded that OBSERVE scans need `--exclude sentinel_os`.
+   - **User's IVR instruction internal contradiction** — "get rid of it" vs "integrate it there" for the not-in-GSA-815 case. I flagged it, chose integrate-then-remove, user said "proceed". Moot in practice (everything already in GSA-815).
+   - **sentinel_os: 2 pre-existing test failures** (`test_governance_harness.py::test_every_governed_decision_has_cassette_version_and_snapshot`, `::test_ai_cost_disclosed_when_decider_reports_it`) — `No module named 'conservation_kernel'`. Confirmed pre-existing by running on stashed clean tree. CI provides `conservation_kernel` on PYTHONPATH.
+   - **`git rm structure.txt` initially "pathspec did not match"** — it had already been staged/removed; re-ran the 3 island-test removals individually.
+
+5. Problem Solving:
+   - Completed GEMS/CK version-B salvage; determined GEMS gets working code (`transport/`, unwired), CK gets docs only (its investigation already ruled gateway-in-core out of scope).
+   - Found and contained 2 PII exposures (Resume_OS, ChatGPT_History) — user made both private, cleanup deferred.
+   - ghost_buster ecosystem survey: found GSA-815 carries 3-4 copies of its ~5000-line core, OBSERVE/sentinel_os cross-vendoring, sentinel_os "670 tests" claim in investor docs.
+   - Shipped ghost_buster v0.3.1 with venv/vendor exclude.
+   - GSA-GATEWAY: ran the 3 prepared apply-scripts; then discovered a concurrent session had continued the work (PRs #4/#5).
+   - sentinel_os IVR scrub: confirmed the island support tree was orphaned by PR #30, verified all files exist (identical or newer) in GSA-815, removed the island + shims + stale docs.
+   - **Ongoing**: sentinel_os branch `scrub-ivr-island` has 4 commits, NOT YET pushed. Still need: push, PR, merge; complete ghost_buster finding review + commit refreshed baseline; final IVR-scrub confirmation; memory update.
+
+6. All user messages:
+   - "proceed" (finish CK docs PR)
+   - "/model" command output (switched to Haiku 4.5), then "anything else need done here?"
+   - "You say you're running sonnet but my screen says haiku 4.5"
+   - "So what does the promotion 50% more Claude code mean then?"
+   - "proceed with the next repo"
+   - "clean"
+   - "next"
+   - "next" (skip sentinel_os), "skip sentinel_os, move to the next"
+   - "skip gsa-815 also"
+   - "that's fine" (skip to HERALD)
+   - "proceed" (HERALD)
+   - (AskUserQuestion answers: "Separate PR, after housekeeping" / "Restore + refresh counts")
+   - "Next"
+   - "Next"
+   - "Next"
+   - "Next" (OBSERVE — already done)
+   - "proceed" (innovation_os)
+   - "Next"
+   - "Next" (Resume_OS)
+   - (AskUserQuestion answer: "I just made private. Skip to next repo")
+   - "clean"
+   - "Next" (ghost_tools)
+   - "Next"
+   - "Fix them delete the dup" (Gemini_Extraction)
+   - "Next"
+   - "What do you mean superseded" (Gemini_History)
+   - "Go ahead and archive Gemini-history"
+   - "Next"
+   - (AskUserQuestion answer: "Rebuild the pipeline now" — CoPilot_History)
+   - "Next"
+   - "Next" (Claude_History)
+   - "Next"
+   - (AskUserQuestion answer: "Make private now, decide cleanup after" — ChatGPT_History)
+   - "Next"
+   - "No need. Next repo" (re: token access)
+   - "Next"
+   - "Well, give me a prompt to start a new chat and get it up and running!" (GSA-GATEWAY)
+   - "Pull the ghost_buster tool out of ghost tools. I need to know what it does differently than what you've been doing thus far in this chat"
+   - "Would it be beneficial to now take a pass on all my repos with it?"
+   - "Yes"
+   - "commit the baselines per-repo"
+   - "Add the venv-exclude to ghost_buster"
+   - "Re-run --accept on the vendored repos: OBSERVE, sentinel_os, GSA-815"
+   - "Delete the vendored trees from OBSERVE"
+   - "Leave sentinel_os as the test bed"
+   - "proceed"
+   - "ANVIL dead-code review"
+   - "Delete the 9 trivial ones"
+   - "GSA-GATEWAY's ~17 flattened-paste dead classes"
+   - "Update the GSA-GATEWAY memory note and move on"
+   - "Fix the archived repo descriptions"
+   - "Give me a status of everything left"
+   - "let's tackle the beast. i want a complete run through of sentinel_os with your cleanup process as well as ghost_buster. I also want to confirm that anything IVR related has been scrubbed completely. if anything remains, confirm if it exists already in GSA-815 and if not, get rid of it. If it does NOT exist in GSA-815, then integrate it there. please repeat back to me what I have asked."
+   - "proceed"
+   - Also earlier standalone: "do both salvages into GEMS & CK (which btw, I find hilarious that you decided to abreviate it)", "Curious, how are you able to access my private repos? I'm glad you are, but how?", "Now, you know all my repos, what is it?", "So, it's like white paper v0.0001", "Ok. Next repo to clean up", "Let's tackle GSA-gateway", "Explain in sophomore terms" (resilience-config), "Replace its substitute in GSA-815", "Check observe-perceive to see if it can go there, it's a hunch"
+
+   **Security-relevant constraints (preserve verbatim):**
+   - "I just made private. Skip to next repo" (Resume_OS — do NOT re-publish or do content redaction without explicit instruction; cleanup DEFERRED)
+   - "Make private now, decide cleanup after" (ChatGPT_History — same; DEFERRED)
+   - "Leave sentinel_os as the test bed" (OBSERVE — do not delete `OBSERVE/sentinel_os/`)
+
+7. Pending Tasks:
+   - **sentinel_os cleanup (IN PROGRESS)**: push branch `scrub-ivr-island`, create PR, squash-merge. Complete the ghost_buster finding review (decide which dead_code is genuine vs FastAPI-route/fixture false positives — candidate: delete `governance/perceive_integration.py` which imports from a sibling `observe-perceive` repo via sys.path). Commit the refreshed `.ghost_baseline.json`. Final confirmation that IVR scrub is 100% complete and update `project_repo_housekeeping_checklist.md` + `MEMORY.md`.
+   - Item 4 (IVR integration into GSA-815): CONFIRMED not needed — GSA-815 already has everything; where divergent, GSA-815 is newer.
+   - **Deferred (blocked on user)**: Resume_OS + ChatGPT_History end-state decisions + content redaction.
+   - **Concurrent-session territory**: GSA-GATEWAY governance-stack (`quorum` vs ATS `gov4_kernel` still open) — do NOT edit without `git fetch`.
+   - **Parked (user said skip)**: GSA-815 core de-dup (3-4 copies of GSA.py).
+   - Low-priority: ANVIL's 3 kept classes (StateLineage/GovernanceGraph/PolicyDecision) decision; FORTRESS merge of ResilienceConfig fields; ghost_buster `--min-severity` flag.
+
+8. Current Work:
+   Immediately before this summary request, I was executing the user's "tackle the beast" request — a full sentinel_os housekeeping + ghost_buster pass + IVR scrub confirmation. I had just committed the 4th commit on branch `scrub-ivr-island` (in the working clone `$SURVEY/sos_full`):
+   
+   ```
+   30ebcdf Docs: banner the pass3 v3 doc set; repoint simulator recipes to GSA-815
+   569b8df Housekeeping: root .gitignore venv patterns, README license section
+   5009763 Docs: reframe the package README, banner the July-2026 snapshots
+   f974ed2 Remove the orphaned IVR/Iceberg simulator support island
+   ```
+   
+   The last command output was:
+   ```
+   TROUBLESHOOTING.md: top note added
+   accepted 401 finding(s) into .../sos_full/.ghost_baseline.json
+   30ebcdf Docs: banner the pass3 v3 doc set; repoint simulator recipes to GSA-815
+   569b8df Housekeeping: root .gitignore venv patterns, README license section
+   5009763 Docs: reframe the package README, banner the July-2026 snapshots
+   f974ed2 Remove the orphaned IVR/Iceberg simulator support island
+   ```
+   
+   Verified facts established: `git fetch origin` shows NO concurrent commits (branch is clean vs origin/main); test collection is 698 (down from 706), 0 errors; the 2 `test_governance_harness` failures are pre-existing (`No module named 'conservation_kernel'`); all island files verified present in GSA-815 (identical or GSA-815 newer), so nothing to integrate; `cassettes/ivr_cassette.py` correctly KEPT in sentinel_os as the capability-gate negative fixture.
+   
+   The branch is NOT pushed. No PR created yet.
+
+9. Optional Next Step:
+   Push the `scrub-ivr-island` branch and open the PR, per the user's request ("i want a complete run through of sentinel_os with your cleanup process as well as ghost_buster... please repeat back to me what I have asked" → I repeated it as 4 tasks and user said "proceed").
+   
+   Specifically: `cd $SURVEY/sos_full && git push -u origin scrub-ivr-island`, then `gh pr create` with a body covering all 4 commits (IVR island removal + doc reframing + gitignore/license + pass3 banners + baseline refresh), then `gh pr merge --squash --delete-branch`. Then finish the ghost_buster finding review — the main remaining decision is whether to delete `governance/perceive_integration.py` (76 lines, `sys.path.insert(0, ...'observe-perceive')`, class `SentinelPerceiveIntegration` unreferenced anywhere, not in GSA-815) and any other genuinely-dead non-test items, distinguishing them from the FastAPI-route decorators in `api_server_v2.py` (false positives). Then update `project_repo_housekeeping_checklist.md` moving sentinel_os to "Done" and confirm in memory that the IVR scrub is complete (island removed from sentinel_os; GSA-815 already had all of it; nothing integrated because nothing was missing).
+
+If you need specific details from before compaction (like exact code snippets, error messages, or content you generated), read the full transcript at: /home/wking53214/.claude/projects/-home-wking53214/155dfbf6-237e-4462-8792-ec79a1b79354.jsonl
+Continue the conversation from where it left off without asking the user any further questions. Resume directly — do not acknowledge the summary, do not recap what was happening, do not preface with "I'll continue" or similar. Pick up the last task as if the break never happened.

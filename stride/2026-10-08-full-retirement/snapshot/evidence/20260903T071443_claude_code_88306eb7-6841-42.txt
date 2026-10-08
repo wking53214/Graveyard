@@ -1,0 +1,72 @@
+[tool_result] === PR #4 + #5 summaries ===
+governance-stack cleanup, step 2: SRE/CITADEL wiring, VANGUARD fold-in
+## Summary
+
+Continues the `governance-stack/` reconciliation from PR #3 (items 1–4 of the
+remaining-work list, plus one item done along the way):
+
+- **Items 1–2** (`116c66b`): fixed two pre-existing bugs in
+  `code-repo-governance-and-gsa-core.py` (undefined `logger`; `PipelineCycleManager`
+  writing into an immutable `MappingProxyType` default) — a third gap
+  (`SYSTEM_GLOBALS`, undefined) is documented, not fixed, out of scope. Reconstructed
+  SRE (`sre_system_resilience_evaluator_adapter.py`) from its flattened source,
+  built a shared `resilience_stability_kernel.py` after finding SOLVAR and SRE
+  independently implement the identical weighted-deviation energy formula with
+  identical thresholds. Archived URE as evidence-only (unreferenced, hardcoded
+  regime classifier).
+- **Item 3** (`d5cf60c`): wired the SRE precheck into `sovereign_kernel.py` as
+  step 0, before the perimeter. Verification found `EvaluationVerdict.CRITICAL`
+  is mathematically unreachable as SRE was originally designed (proven by
+  exhaustive search) — documented rather than silently worked around; the
+  kernel rejects on `DEGRADED` or `CRITICAL` instead, a wiring-layer decision
+  that doesn't touch SRE's own reconstructed logic or thresholds.
+- **Item 4** (`494796c`): vendored `citadel_v1.2.py` verbatim from the CITADEL
+  repo and wired it into `_linguistic_scrub`, replacing the pass-through
+  placeholder. Also found and flagged (not silently fixed) two stale claims in
+  this README: an unverified "Zero-Trust Citadel Linguistic Interceptors"
+  claim about `wrapper/`, and a stale "STRIDE is still separate" claim — CITADEL's
+  own README confirms STRIDE has been deleted.
+- **VANGUARD fold-in** (`2232a97`): folded both VANGUARD files into
+  `governance-stack/archive/` and retired that repo (its README now points
+  here). Unlike CITADEL (kept separate deliberately — general-purpose, not
+  GSA-specific), nothing argued for VANGUARD staying its own repo, and nothing
+  outside GSA-GATEWAY referenced it.
+
+Every reconstruction was verified by actually running it, not just parsing it —
+see each file's own `__main__` for regression checks, property-based tests, and
+exhaustive-search proofs where a claim needed more than a single example.
+
+## Test plan
+
+- [x] `code-repo-governance-and-gsa-core.py`: ran every affected class/method
+...
+
+=== README governance-stack section now ===
+### governance-stack cleanup, step 1 (2026-09-02)
+
+The first reconciliation pass over `governance-stack/` — no longer "a
+separate, later pass":
+
+- **`code-repo-governance-and-gsa-core.py`** — added `GsaCoreController` +
+  `GsaTemporalDoorwayGate` (reconstructed from CODE's flattened paste) and
+  the registry/decorator, `gsa_deep_freeze`, and `@dataclass` the file
+  needed to import at all.
+- **`vanguard-behavioral-simulation.py`** (new) — VANGUARD's behavioral
+  kernel, reconstructed from its flattened source. Its
+  `PipelineCycleManager` is renamed `VanguardBehavioralPipeline` here (name
+  clash with the unrelated one in the GSA core file).
+- **`sovereign_kernel.py`** (new) — a working `UnifiedSovereignKernel` that
+  wires perimeter (VANGUARD) → linguistic (a labelled pass-through hook, not
+  yet built) → master (GSA doorway handshake) → execution (quorum
+  consensus). The running version of what the archived sketches described.
+- **`agent-factory-tactical-agents.py`** — one-line import fix (`Any`).
+- **`governance-stack/archive/`** (new) — 5 files moved out with a README:
+  the three `sovereign-governance-stack*` / `unified-sovereign-kernel-wrapper`
+  sketches, the diverged `citadel-processor-router-flattened.py` variant, and
+  the unreferenced `resilience-config-dataclass.py`.
+
+Still not done: the linguistic scrub (needs CITADEL's engine), the
+`_source.py` reconstructions, and reconciling `quorum_state_governance`
+against ATS's `gov4_kernel`.
+
+The original three repos (`SECURE`, `UZTC`, `

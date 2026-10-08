@@ -1,0 +1,945 @@
+TESTING
+
+Repository history records repeated live adversarial campaigns and remediation. Latest observed merge reports 303 passed/25 skipped.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+Strong implementation correspondence. A notable current discrepancy is the README’s earlier 296-test count versus later 303-test reality, which history records as corrected.
+
+DEPENDENCIES
+
+Standard-library posture.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+Direct consuming-project integration is described conceptually; however, no current package dependency on another repository was established.
+
+MATURITY
+
+FUNCTIONAL / ACTIVE DEVELOPMENT.
+
+NEGATIVE FINDINGS
+
+The README states that no consuming project is currently wired in.
+
+UNKNOWN
+
+Whether HERALD will become the universal text interpretation layer for all current repositories.
+
+---
+
+TIE
+
+URL: https://github.com/wking53214/TIE
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Reconstructed Transcript Intelligence Engine.
+
+OBSERVED IMPLEMENTATION
+
+Source, coverage, evidence, artifacts, identity references, relationships, reconstruction, validation, knowledge views, typed handoff and routing are represented in a reconstructed runtime.
+
+INFERRED FUNCTION
+
+Evidence-preserving historical/transcript processing and typed handoff.
+
+ARCHITECTURE
+
+Evidence graph plus reconstruction and routing layers.
+
+DATA / ARTIFACTS
+
+Transcript-derived records, evidence packages, relationships and reconstruction structures.
+
+INTERFACES
+
+Python package.
+
+TESTING
+
+Repository history reports 9 passing tests at reconstruction baseline.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+Critical limitation is explicit: the original complete repository and exact historical schemas were not recovered.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "GEMS → TIE" — OBSERVED
+- "TIE ↔ historical corpora" — INFERRED
+
+MATURITY
+
+PROTOTYPE / RECONSTRUCTION.
+
+NEGATIVE FINDINGS
+
+Historical canonical implementation unavailable.
+
+UNKNOWN
+
+How closely the reconstructed API matches the historical system.
+
+---
+
+KAGGLE
+
+URL: https://github.com/wking53214/KAGGLE
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+
+PURPOSE
+
+UNKNOWN from the inspected evidence.
+
+OBSERVED
+
+Current repository identity is the same repository ID to which GLCM redirects.
+
+MATURITY
+
+UNKNOWN.
+
+NEGATIVE FINDINGS
+
+No reliable functional interpretation was established without over-reading the name.
+
+UNKNOWN
+
+Pass 2 should resolve the historical GLCM/KAGGLE transition and inspect what the repository actually contains.
+
+---
+
+ghost_tools
+
+URL: https://github.com/wking53214/ghost_tools
+STATUS: Current
+VISIBILITY: Public
+DEFAULT BRANCH: "main"
+PRIMARY LANGUAGE: Python
+
+PURPOSE
+
+OBSERVED: Tooling for detecting “ghosts” in code repositories: dead code, duplication, documentation drift and related structural problems.
+
+OBSERVED IMPLEMENTATION
+
+Repository history describes:
+
+- mechanical AST detectors,
+- semantic detector with Anthropic-backed and stub clients,
+- baselines,
+- stable content-hash finding IDs,
+- CLI,
+- report generation,
+- correction proposals.
+
+INFERRED FUNCTION
+
+Repository-quality/archaeology tool that detects structural divergence between code and documentation.
+
+TESTING
+
+Version 0.3 history reports 47 passed / 0 failed and live checks against HERALD, ANVIL and CITADEL.
+
+DOCUMENTATION VS IMPLEMENTATION
+
+Strong: the tool explicitly separates discovery from human disposition, and correction generation does not write files automatically.
+
+CROSS-REPOSITORY RELATIONSHIPS
+
+- "ghost_tools → DOGFOODS → HERALD" — OBSERVED
+- "ghost_tools → DOGFOODS → ANVIL" — OBSERVED
+- "ghost_tools → REGRESSION-CHECKS → CITADEL" — OBSERVED
+
+MATURITY
+
+FUNCTIONAL / ACTIVE DEVELOPMENT.
+
+NEGATIVE FINDINGS
+
+No evidence that ghost_tools is itself a governance component; it is a developer/archaeology tool.
+
+---
+
+4. CROSS-REPOSITORY ARCHITECTURE
+
+OBSERVED RELATIONSHIPS
+
+Direct extraction / migration graph
+
+CODE
+ ├──→ EDDP
+ └──→ GSA-GATEWAY
+
+EDDP
+ ├──→ GRAPH
+ ├──→ GSA-GATEWAY
+ └──→ OBSERVE
+
+GSA-815
+ └──→ OBSERVE
+
+ARCHIVE
+ ├──→ FORTRESS
+ ├──→ OBSERVE
+ ├──→ synapsis
+ └──→ historical evidence for multiple other systems
+
+ATS
+ ├──→ synapsis
+ └──→ historical DIT
+
+sentinel_os
+ └──→ FORTRESS
+
+DGK
+ ├──→ GSA-GATEWAY
+ └──→ VANGUARD
+
+Claude_History
+ ├──→ ATS
+ └──→ FORTRESS
+
+Gemini_History
+ └──→ OBSERVE
+
+innovation_os
+ └──→ OBSERVE memory imports
+
+These are OBSERVED because the repository histories explicitly state the moves.
+
+Direct dependency
+
+"GSA-815 → DEPENDS ON → sentinel_os" — OBSERVED
+
+This is the strongest formal runtime dependency established in the census. "GSA-815" explicitly says that its kernel modules are deliberately not copied and that it is not meant to run standalone.
+
+---
+
+INFERRED RELATIONSHIPS
+
+Shared governance/evidence family
+
+The following repositories independently implement some combination of provenance, verification, human authority, epistemic state, evidence or deterministic validation:
+
+- sentinel_os
+- Conservation_Kernel
+- HERALD
+- Triad-42
+- CCC
+- Resume_OS
+- TIE
+- GEMS
+- ANVIL
+- ATS
+- GSA-GATEWAY
+- OBSERVE
+
+This is INFERRED conceptual overlap, not proof of one shared implementation.
+
+Possible layered architecture
+
+A plausible evidence-based interpretation is:
+
+Historical / source material
+        ↓
+   TIE / ARCHIVE / History repos
+        ↓
+Interpretation / extraction
+        ↓
+       HERALD
+        ↓
+Review / epistemic controls
+        ↓
+Triad-42 / CCC / GEMS
+        ↓
+Governance / decision enforcement
+        ↓
+Sentinel / Conservation / GSA / ATS / ANVIL / OBSERVE
+        ↓
+Domain-specific systems / adapters
+
+This is INFERRED, not an observed runtime graph.
+
+The codebase does not currently prove that these layers are wired into one execution path.
+
+---
+
+CONFLICTED RELATIONSHIPS
+
+“Canonical” implementations
+
+Several repositories contain a source that is called canonical in one context while copies remain elsewhere.
+
+Example:
+
+- FORTRESS calls a copied "fortress_kernel.py" the canonical reference copy.
+- sentinel_os still contains and actively wires the same kernel into its tested package.
+
+This is CONFLICTED terminology, not necessarily conflicting code.
+
+Historical schemas
+
+GEMS and TIE explicitly state that historical canonical schemas were not recovered. Their current schemas therefore cannot be treated as historical originals.
+
+Documentation vs current test counts
+
+HERALD’s README historically stated 296 tests while subsequent commits report 303. Repository history explicitly corrected this. The conflict is historical documentation drift, not evidence of two runtimes.
+
+---
+
+UNKNOWN RELATIONSHIPS
+
+Several repositories look related by vocabulary but lack direct-import evidence:
+
+- Conservation_Kernel ↔ Sentinel OS
+- Conservation_Kernel ↔ HERALD
+- CCC ↔ Sentinel OS
+- TIE ↔ Sentinel OS
+- GEMS ↔ Sentinel OS
+- FORTRESS ↔ Conservation_Kernel
+- VANGUARD ↔ Sentinel OS
+
+These should not be promoted to observed relationships without additional evidence.
+
+---
+
+5. FUNCTIONAL CLUSTERS
+
+Cluster A — Governance / Evidence Kernels
+
+Primary members:
+
+- sentinel_os
+- Conservation_Kernel
+- ANVIL
+- CCC
+- HERALD
+
+Evidence
+
+All have executable code dealing with integrity, provenance, governance boundaries, validation or evidence preservation.
+
+Interpretation
+
+This is the most mature architectural family, but it is fragmented across multiple kernels.
+
+---
+
+Cluster B — Review / Epistemic / Human-Authorization Systems
+
+Primary members:
+
+- Triad-42
+- CCC
+- HERALD
+- GEMS
+- TIE
+- Resume_OS
+- innovation_os
+
+Evidence
+
+Repeated use of:
+
+- explicit epistemic labels,
+- human authorization,
+- provenance,
+- review gates,
+- historical records,
+- “unknown” as an explicit state,
+- refusal over silent acceptance.
+
+Interpretation
+
+These systems appear conceptually compatible, but no common runtime protocol was established.
+
+---
+
+Cluster C — GSA / Governance-Stack Consolidation
+
+Primary members:
+
+- GSA-GATEWAY
+- GSA-815
+- GRAPH
+- EDDP
+- CODE
+- OBSERVE
+
+Evidence
+
+Actual code movement between the repositories is heavily documented in Git history.
+
+Interpretation
+
+This is the clearest repository lineage cluster in the census.
+
+---
+
+Cluster D — Domain-Specialized Governance
+
+Primary members:
+
+- ATS
+- OBSERVE
+- CITADEL
+- GSA-815
+- VANGUARD
+- FORTRESS
+
+Interpretation
+
+These are specialized systems rather than one general kernel.
+
+---
+
+Cluster E — Code Intelligence / Archaeology
+
+Primary members:
+
+- synapsis
+- ghost_tools
+
+Interpretation
+
+These are development-support systems used to inspect and improve the larger ecosystem itself.
+
+---
+
+Cluster F — Historical / Forensic Corpus
+
+Primary members:
+
+- ARCHIVE
+- Ecology
+- ChatGPT_History
+- Claude_History
+- Gemini_History
+- CoPilot_History
+- TIE
+- GEMS
+
+Interpretation
+
+This cluster is not peripheral. It is a source-of-truth layer for reconstruction work, though not all historical material is itself trustworthy or complete.
+
+---
+
+6. DUPLICATION / FRAGMENTATION MAP
+
+Capability| Repositories| Evidence| Likely explanation| Confidence
+Provenance / evidence lineage| sentinel_os, Conservation_Kernel, HERALD, CCC, Triad-42, TIE, GEMS, Resume_OS| Real source/docs/tests in each| Intentional specialization + repeated evolution| High
+Hashing / tamper evidence| sentinel_os, Conservation_Kernel, ANVIL, HERALD, Resume_OS, CITADEL-related systems| Hash/chained/sealed records or validation mechanisms| Shared design pressure, not one shared library| High
+Human authorization gates| HERALD, Triad-42, CCC, Resume_OS, GEMS, innovation_os| Explicit human-review/promotion logic| Intentional governance principle| High
+Governance kernels| sentinel_os, Conservation_Kernel, ATS, GSA-GATEWAY, ANVIL| Multiple independent kernel-like modules| Evolution / experimentation / domain specialization| High
+AST / graph extraction| synapsis, ATS history, GRAPH history, ARCHIVE/EDDP variants| Explicit file moves and duplicate elimination| Consolidation| High
+Natural-language filtering| CITADEL, CODE historical material, HERALD| Actual filter/extraction systems| Partial overlap, different stages| Medium
+Historical memory| ARCHIVE, History repos, Ecology, TIE, innovation_os| Corpus and provenance structures| Intentional continuity strategy| High
+Predictive control / state governance| FORTRESS variants, Sentinel/SAGE-K material| Multiple real variants| Experimentation and extraction| High
+Clinical observation/governance| OBSERVE, ARCHIVE snapshots, EDDP sources| Copy/migration history| Domain consolidation| High
+Governance wrappers/adapters| GSA-GATEWAY, GSA-815, CODE, OBSERVE, EDDP| Explicit extraction history| Architectural decomposition| High
+
+Likely causes of duplication
+
+Intentional specialization — HIGH
+
+Many duplicate capabilities are in genuinely different semantic roles.
+
+Example:
+
+- HERALD extracts claims,
+- Triad-42 reviews,
+- Sentinel governs,
+- Resume_OS generates from approved evidence.
+
+These are not necessarily competing implementations.
+
+Evolution — HIGH
+
+A large amount of duplication is plainly historical. Repositories retain old variants while newer versions are moved elsewhere.
+
+Extraction/consolidation — HIGH
+
+This is directly established by commit history for GSA-GATEWAY, EDDP, GRAPH, OBSERVE, synapsis and FORTRESS.
+
+Accidental duplication — MEDIUM
+
+Some duplicate AST extractors and governance modules existed in repositories where they were not actually needed. The ecosystem has actively pruned some of these, which suggests at least some duplication was accidental or opportunistic.
+
+---
+
+7. ARCHITECTURAL EVOLUTION
+
+Generation 1 — Large mixed source reservoirs
+
+Repositories such as:
+
+- CODE
+- ARCHIVE
+- EDDP
+- FACTS historically
+- DGK historically
+
+contain heterogeneous material with multiple systems mixed together.
+
+OBSERVED: repository histories show later extraction of components from these reservoirs.
+
+---
+
+Generation 2 — Named destination repositories
+
+The next stage creates dedicated homes:
+
+- GSA-GATEWAY
+- GRAPH
+- OBSERVE
+- FORTRESS
+- synapsis
+- VANGUARD
+- GEMS
+- TIE
+
+This is not merely conceptual restructuring. Git history records the physical moves.
+
+---
+
+Generation 3 — Integrity and boundary hardening
+
+Repositories such as:
+
+- HERALD
+- Conservation_Kernel
+- ANVIL
+- CCC
+- Sentinel OS
+
+show stronger emphasis on adversarial testing, explicit refusal, sealing, provenance and fail-closed behavior.
+
+HERALD’s HMAX campaign is particularly clear evidence of a transition from “implement the mechanism” to “attack the mechanism, isolate failure primitives, then encode them as regression tests.”
+
+---
+
+Generation 4 — Archaeological self-observation
+
+"ghost_tools" and "synapsis" represent an additional layer: tooling that inspects codebases and detects structural ghosts, stale documentation, duplication and code archaeology signals.
+
+This is qualitatively different from ordinary application tooling.
+
+INFERRED evolution
+
+The ecosystem appears to be developing tools for maintaining the ecosystem’s own historical and architectural integrity.
+
+That is a significant architectural pattern, but it remains an inference rather than a declared system-level design.
+
+---
+
+8. ORPHANS / STRAYS / INCOMPLETE SYSTEMS
+
+Clearly orphaned or historical
+
+STRIDE
+
+Current repository unavailable. Its functionality survives partially through salvaged components.
+
+DIT
+
+Current repository unavailable. Some deterministic material was moved into it historically, but its current contents are gone.
+
+GLCM
+
+Current name resolves to KAGGLE repository identity.
+
+---
+
+Incomplete systems
+
+GRAPH
+
+Known runtime failure involving unhashable mapping structures and caching.
+
+FORTRESS
+
+Several variants are incomplete or corrupted, despite one clean implementation.
+
+GSA-GATEWAY
+
+Some modules are stubs or consolidation remnants rather than complete production components.
+
+EDDP
+
+Multiple historical versions and no unified tested package.
+
+synapsis
+
+Broad CLI/architecture claims coexist with many very small or skeletal modules.
+
+OBSERVE
+
+Large imported corpus plus current adapters, but no clearly packaged unified runtime.
+
+TIE
+
+Functional reconstruction, but historical canonical implementation absent.
+
+GEMS
+
+Functional reconstruction, not recovered original.
+
+Resume_OS
+
+Executable and tested, but its own state says production MOB contains zero promoted artifacts.
+
+TBCA
+
+Insufficient evidence.
+
+---
+
+9. MISSING ARCHITECTURE
+
+9.1 Shared package boundary between Sentinel and GSA-815
+
+NOT FOUND: A published/installable package interface that replaces the current “put Sentinel on PYTHONPATH” arrangement.
+
+This is not speculation. GSA-815 explicitly documents that it is not standalone and lists Sentinel-local kernel modules as external dependencies.
+
+---
+
+9.2 Unified ecosystem-wide schema
+
+NOT FOUND: One canonical schema shared by:
+
+- Sentinel,
+- HERALD,
+- Triad-42,
+- CCC,
+- TIE,
+- GEMS,
+- Resume_OS,
+- Conservation_Kernel.
+
+Instead, each repository defines its own evidence/provenance/claim/artifact structures.
+
+This does not make the systems incompatible; it means compatibility is not currently established by a common schema.
+
+---
+
+9.3 Unified package/dependency graph
+
+NOT FOUND: A current repository that acts as a canonical ecosystem manifest.
+
+The account has multiple direct copies and extracted modules, but no central package metadata establishing the whole graph.
+
+---
+
+9.4 Current canonical home for some historical components
+
+NOT FOUND / UNKNOWN:
+
+- STRIDE gateway implementation
+- DIT repository contents
+- historical FACTS/DGK/SAGE-K source boundaries
+- original TIE source
+- original GEMS source
+
+Some components were recovered or reconstructed, but their historical source systems are gone.
+
+---
+
+9.5 Full runtime interface across major subsystems
+
+NOT FOUND: A verified end-to-end path such as:
+
+"historical transcript → TIE → HERALD → Triad/CCC → Sentinel → domain adapter"
+
+Parts exist independently, but the current repositories do not prove that this full path runs as one system.
+
+---
+
+9.6 Independent deployment evidence
+
+UNKNOWN: There is deployment material in Sentinel, but no evidence in this pass of a fully deployed ecosystem integrating all major repositories.
+
+---
+
+10. THE EMERGENT SYSTEM
+
+Only after examining the repository evidence, the following system emerges.
+
+The system is not one application
+
+OBSERVED: There are multiple independent executable systems.
+
+They do not share one package boundary, one schema, one test suite, or one deployment mechanism.
+
+Therefore the ecosystem should not be described as a single current software product.
+
+What does emerge is a layered ecosystem
+
+Layer 1 — Historical source and memory
+
+"ChatGPT_History", "Claude_History", "Gemini_History", "CoPilot_History", "ARCHIVE", "Ecology"
+
+These preserve conversation records, extracted artifacts, source snapshots and provenance.
+
+Layer 2 — Reconstruction and historical intelligence
+
+"TIE", "GEMS", "synapsis"
+
+These turn historical material and software structure into reusable representations.
+
+Layer 3 — Interpretation and review
+
+"HERALD", "Triad-42", "CCC", "innovation_os"
+
+These enforce boundaries around claims, epistemic states, provenance, review and human authorization.
+
+Layer 4 — Governance and integrity kernels
+
+"sentinel_os", "Conservation_Kernel", "ANVIL"
+
+These implement deterministic enforcement, sealing, ledgering, verification and integrity.
+
+Layer 5 — Domain/specialized implementations
+
+"GSA-815", "GSA-GATEWAY", "ATS", "OBSERVE", "CITADEL", "FORTRESS", "VANGUARD", "GRAPH", "EDDP", "CODE"
+
+These hold domain-specific or extracted mechanisms.
+
+Layer 6 — Meta-tooling
+
+"ghost_tools"
+
+This inspects the code ecosystem itself for duplication, dead code and documentation drift.
+
+---
+
+The most defensible architectural interpretation
+
+INFERRED: The ecosystem is an evolving evidence-governed software ecology, not a single application.
+
+Its recurring invariant is:
+
+«a claim, action, artifact or decision should preserve enough provenance and structure that a later reviewer can determine where it came from, what changed, what authority was involved, and what is still uncertain.»
+
+That invariant appears in multiple independent implementations.
+
+The repositories differ in implementation:
+
+- HERALD focuses on language-derived claims,
+- Triad-42 on staged review,
+- CCC on constitutional continuity,
+- Resume_OS on evidence-backed artifact generation,
+- Conservation_Kernel on state conservation,
+- Sentinel on governance/evidence,
+- ATS on hiring governance,
+- CITADEL on output filtering,
+- TIE on historical/transcript evidence,
+- GEMS on reconstructed cognitive handoffs,
+- synapsis/ghost_tools on code archaeology.
+
+So the commonality is real, but it is architectural and methodological more than runtime-integrational.
+
+The ecosystem’s strongest unusual property
+
+The repository history shows the system being repeatedly reconstructed from its own historical artifacts, with explicit preservation of uncertainty.
+
+ARCHIVE, GEMS and TIE do not pretend that missing historical code exists.
+
+ATS records where a component was reconstructed from Claude history.
+
+FORTRESS preserves multiple variants rather than flattening them into one invented “canonical” implementation.
+
+GRAPH records known broken behavior rather than silently repairing it.
+
+HERALD preserves adversarial findings as executable regression knowledge.
+
+That means the ecosystem contains not just software, but a growing archaeological record of software evolution.
+
+---
+
+11. QUESTIONS FOR PASS 2
+
+Historical AI conversation records should now be used to answer the questions the repositories alone cannot settle.
+
+Highest-priority unexplained repositories
+
+1. TBCA
+   
+   - What was it created for?
+   - Was it an experiment, archive, or missing component?
+   - What source artifacts preceded its current state?
+
+2. KAGGLE / GLCM
+   
+   - What was GLCM before the rename?
+   - What does the current KAGGLE repository represent?
+   - Was the rename semantic, administrative, or an architectural migration?
+
+3. STRIDE
+   
+   - What was the complete gateway architecture before deletion?
+   - What components survived elsewhere?
+   - Which components were lost permanently?
+
+4. DIT
+   
+   - What did the central repository contain?
+   - Why did it disappear?
+   - Where were its intended canonical artifacts moved?
+
+Missing architectural transitions
+
+5. Why did the ecosystem move from large mixed reservoirs such as CODE/EDDP/ARCHIVE toward dedicated repositories?
+
+6. When did "sentinel_os" become the canonical kernel home?
+
+7. Why was GSA-815 deliberately split out of Sentinel instead of remaining an internal module?
+
+8. Why do multiple governance kernels coexist:
+   
+   - Sentinel,
+   - Conservation Kernel,
+   - ANVIL,
+   - GSA governance kernels,
+   - ATS governance kernels?
+
+9. Was there ever an explicit decision to maintain multiple kernels for different trust domains, or did they emerge independently?
+
+Conflicting or overlapping implementations
+
+10. How were the boundaries between:
+    - Sentinel,
+    - Conservation Kernel,
+    - CCC,
+    - HERALD,
+    - TIE,
+    - Triad-42,
+    - GEMS
+
+actually decided?
+
+11. Which repository was intended to own provenance semantics?
+
+12. Which repository was intended to own epistemic-state semantics?
+
+13. Which repository was intended to own the final evidence/handoff schema?
+
+14. Why do several repositories independently encode “human authority must not silently become machine authority”?
+
+Missing historical components
+
+15. Did a canonical GEMS implementation ever exist?
+
+16. Did a canonical TIE repository ever exist?
+
+17. Did the original FORTRESS repository ever exist before reconstruction?
+
+18. What exactly was SAGE-K, and which parts were genuinely production code versus historical experiments?
+
+19. What happened to FACTS and DGK beyond the extracted material now visible elsewhere?
+
+20. What was the original URE architecture, and what components remain external?
+
+Architecture decisions that shaped the current state
+
+21. Why was code intentionally copied between repositories rather than packaged as shared libraries?
+
+22. When was the decision made to preserve duplicate historical artifacts rather than delete them?
+
+23. Why are some “canonical” source copies left in older repositories after extraction?
+
+24. Why was the principle “preserve before interpret” elevated across several systems?
+
+25. Why were explicit UNKNOWN/UNRESOLVED states repeatedly introduced rather than simple booleans?
+
+Lost or abandoned work
+
+26. Which repositories were deleted because they were obsolete, and which were deleted because they were superseded?
+
+27. Which incomplete systems had planned successors that never materialized?
+
+28. Which components mentioned in historical documents cannot be found in any current repository?
+
+29. Were any major architectures abandoned after successful prototype implementation?
+
+30. Which parts of the current ecosystem are deliberate end states versus temporary archaeological staging areas?
+
+Questions about the emergent architecture
+
+31. Was there ever an explicit plan for:
+
+"history → reconstruction → interpretation → review → governance → domain execution"
+
+or did that structure emerge accidentally?
+
+32. Was HERALD intended to become the universal language boundary for the ecosystem?
+
+33. Was TIE intended to become a universal historical evidence substrate?
+
+34. Was Sentinel intended to become the universal governance substrate, or only one domain of governance?
+
+35. Was Conservation Kernel intended to replace, complement or remain independent from Sentinel?
+
+36. Why do GEMS and TIE reconstruct historical architectures rather than recover exact source?
+
+37. Which repository was supposed to be the authoritative system-of-record for cross-project provenance?
+
+38. Was the repeated use of hash binding, provenance, human authorization and fail-closed behavior driven by one explicit design decision or independent discoveries?
+
+39. Which current repository boundaries were created because of technical architecture, and which were created simply because material needed somewhere to live?
+
+40. What important architecture existed historically but is now absent from the current GitHub inventory?
+
+---
+
+PASS 1 EVIDENCE DISCIPLINE SUMMARY
+
+OBSERVED
+
+- 30 current public repositories are present under the account.
+- No current public repositories outside the user-supplied list were discovered.
+- STRIDE and DIT are not currently available at their supplied URLs.
+- GLCM resolves to the current KAGGLE repository identity.
+- Multiple direct code migrations between repositories are documented in Git history.
+- Several repositories contain real executable implementations and tests.
+- Several repositories are explicitly reconstructions rather than historical originals.
+- Several repositories contain known incomplete or broken paths.
+- Multiple independent systems implement provenance, epistemic state, human authorization, hashing, and evidence-preservation mechanisms.
+
+INFERRED
+
+- The ecosystem is an evolving software ecology centered on governance, evidence, interpretation and continuity.
+- Dedicated repositories increasingly represent specialized or extracted components.
+- Historical records are part of the architectural substrate, not merely documentation.
+- Duplication largely reflects evolution, migration and specialization, although some accidental duplication existed.
+
+UNKNOWN
+
+- Whether all repositories were ever intended to become one deployable runtime.
+- Whether one kernel was ever intended to supersede all others.
+- Exact historical architectures of deleted repositories.
+- Exact historical canonical schemas for TIE and GEMS.
+- Intended long-term role of several small repositories, especially TBCA and KAGGLE.
+
+CONFLICTED
+
+- Multiple repositories use “canonical” language while leaving copies in other repositories.
+- Current README claims sometimes lag behind actual test counts or current source state.
+- Reconstructed repositories intentionally coexist with historical-source terminology that cannot be fully verified.
+
+ABSENT
+
+- A current unified ecosystem package.
+- A confirmed universal cross-repository schema.
+- A verified end-to-end runtime connecting the history, interpretation, review, governance and domain layers.
+- Current implementations for STRIDE and DIT.
+- A current, independently verifiable historical canonical TIE/GEMS source tree.PASS 1 COMPLETE: This reconstruction is based on repository evidence only. Historical conversational context and prior architectural descriptions were intentionally excluded.

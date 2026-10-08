@@ -1,0 +1,36 @@
+[tool_result] === ATS ===
+## main...origin/main
+?? ATS/
+=== synapsis ===
+## master...origin/master
+ M .venv/pyvenv.cfg
+ M README.md
+=== CITADEL ===
+## main...origin/main
+=== STRIDE ===
+## main...origin/main
+=== DEMO_OUTPUT ===
+## main...origin/main
+=== sentinel_os ===
+## main...origin/main
+?? sentinel_os/synthetic_ivr_collar_population_10000.csv
+=== EDDP ===
+## main...origin/main
+=== OTLP ===
+## main...origin/main
+=== SAGE-K ===
+## main...origin/main
+=== UZTC ===
+## main...origin/main
+=== WRAPPER ===
+## main...origin/main
+=== SECURE ===
+## main...origin/main
+?? __pycache__/
+?? vanguard_audit.log
+=== AC-HCCSE ===
+## main...origin/main
+=== FACTS ===
+## main...origin/main
+=== DGK ===
+## main...origin/main

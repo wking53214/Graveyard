@@ -1,0 +1,1 @@
+1b done. Now onto 1c — rename CLIP repo to STRIDE and cross-link with CITADEL.

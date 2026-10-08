@@ -1,0 +1,11 @@
+This is a follow-up to the STRIDE-salvage work already reflected in the CITADEL repo — the docstring explicitly says it's genuinely orphaned, checked against ANVIL/Conservation_Kernel/GSA-GATEWAY/sentinel_os and confirmed to have no existing home yet.
+
+Found it. Summary:
+
+- **File:** `/mnt/chromeos/MyFiles/Downloads/stride_salvage_loop_and_backpressure.py` (127 lines)
+- **What it is:** Two pieces salvaged from STRIDE before its deletion — output-loop detection/retry lifecycle, and (per the truncated header) presumably a backpressure mechanism — judged worth keeping while the rest of STRIDE was deemed either inferior duplicates or actively misleading (e.g. `GsaUniversalAdapter` claims HMAC tamper-evidence but never uses its own `hmac` import).
+- **Explicitly not CITADEL-related** — the docstring says so directly, so it doesn't belong in the CITADEL repo alongside `citadel_v1.2.py`.
+- **No confirmed home yet** — checked against ANVIL, Conservation_Kernel, GSA-GATEWAY, and sentinel_os's own resilience code; not present in any of them.
+- `-1.py` variant is a byte-identical duplicate.
+
+Since this one has no known destination repo (unlike the last two), do you want it pushed somewhere, or were you just confirming it exists?

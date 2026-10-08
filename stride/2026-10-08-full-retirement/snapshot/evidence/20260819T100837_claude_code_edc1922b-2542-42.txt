@@ -1,0 +1,143 @@
+# Repo Consolidation — Follow-Up Move Instructions (v4)
+
+Continuation of v3. v3's moves were verified complete for ATS, synapsis,
+STRIDE, GSA-GATEWAY (secure/uztc/wrapper), GRAPH, and sentinel_os
+(SAGE-K's package). This file covers what v3 missed: CODE, URE, DGK's
+remaining files, and cleaning up EDDP (which received the entirety of
+Data_files, not just its own content).
+
+Same rules as v3: move-only, no code edits, no renaming classes.
+
+---
+
+## E1. CODE repo — was never touched by v3, needs full sorting
+
+`CODE/content-pipeline-modularized.py` and `content-pipeline-user-source.py`
+contain several genuinely different things bundled together:
+
+- **IVR content** (`BaseIVR`, `HomeSecurityIVR`, `process_ivr`): no clean
+  destination repo currently exists for this domain content specifically.
+  Leave in CODE for now — don't force it into GSA-GATEWAY or anywhere
+  else. Flag for William to decide (possibly ties to Iceberg/GSA-815,
+  but that's his call, not an automatic move).
+- **GSA wrapper content** (`GsaContextEnvelope`, `GsaUniversalAdapter`,
+  `GsaStaticAnchorManager`, `PipelineCycleManager`, `ComplianceFiltrationFilter`,
+  `SystemicTrajectoryRegistry`, `TelemetryDispatchBus`,
+  `EvolutionaryRecursionEngine`, `ConstitutionalGovernorLayer`,
+  `Fortress`): move to `GSA-GATEWAY/governance-stack/` — same lineage as
+  what's already there.
+- **AST extractor content** (`GraphExtractor`, `Node`, `Edge`, `Graph`,
+  `extract_graph`, `graph_to_dict`, `DeterministicGraphExtractor`): move
+  to `synapsis/archive/imported-variants/`, same as every other copy.
+- **EDDP pipeline content** (`SecureDataIngestionPipeline`,
+  `CoreDataPipelineOrchestrator`): move to `EDDP` — same
+  `boundary_filter`/`evaluation_engine`/`metrics_scorer` pattern as the
+  `metric_assessment_telemetry_dispatch_*` files already there.
+- **PULSEARM clinical content** (`PULSEARMPipeline`, `RiskSignal`,
+  `AuditEntry`): connects to the OBSERVE Clinical Engine material — leave
+  in CODE for now, don't auto-file into OBSERVE without William comparing
+  against what's already there first (same caution as the earlier
+  `perceive_policy_enforcement_*` move).
+- **Omega-prefixed content**: do not move anywhere — confirmed narrative
+  flourish, not design, same as everywhere else it's appeared.
+- **The business-strategy conversation** (turns 2-6 of `TRANSCRIPT.md`):
+  extract into a plain text file (`business-strategy-notes.md` or
+  similar) and leave it in CODE, or hand it to William directly — don't
+  bury it in a code repo's transcript. Not a "move to a code repo" task.
+
+## E2. URE repo — also never touched by v3
+
+- `resilience-config-dataclass.py`: move to `GSA-GATEWAY/governance-stack/`.
+  This is the one with intact formatting and the real "Orchestrator,
+  Fortress, and Iceberg" safety-envelope connection — worth a clear
+  commit message noting the Iceberg tie, since that's a real cross-project
+  link worth being able to find again later.
+- `ure-universal-resilience-engine-flattened.py`: move to
+  `GSA-GATEWAY/governance-stack/` as well.
+- `sre-system-resilience-evaluator-flattened.py`: **duplicate-check
+  needed.** This file used to also exist in DGK (byte-identical, MD5
+  confirmed) but DGK's copy is no longer present after the v3 move and
+  it doesn't appear in `GSA-GATEWAY/governance-stack/` either — it may
+  have been silently dropped rather than moved. Before moving URE's
+  copy, search all of GSA-GATEWAY for it; if it's genuinely missing
+  everywhere else, move URE's copy in as the canonical one. If it turns
+  up somewhere, just confirm URE's copy is a true duplicate and leave a
+  note rather than moving a second copy in.
+
+## E3. DGK — remaining files after v3's partial move
+
+v3 successfully moved `sovereign-governance-stack-v2-expanded.py` and
+`citadel-processor-router-flattened.py`. Still present in DGK:
+
+- `sovereign-governance-stack-v1.py` → move to
+  `GSA-GATEWAY/governance-stack/` (predecessor to the v2 file already
+  there — keep them together).
+- `unified-sovereign-kernel-wrapper.py` → move to
+  `GSA-GATEWAY/governance-stack/`. This file explicitly names itself
+  `GSA-DIT-GOV4-DGK UNIFIED WRAPPER` — direct textual confirmation that
+  **GOV4** is a real, named component in this lineage, not something
+  inferred. This significantly strengthens the still-open question of
+  whether `GSA-GATEWAY/governance-stack/quorum_state_governance_source.py`
+  is the actual missing `gov4_kernel` dependency `ATS/ats_governance_kernel_bridge.py`
+  imports (flagged back in the very first cleanup pass, never confirmed).
+  **Worth actually running that verification now** — diff the import
+  list at the top of `ats_governance_kernel_bridge.py` against
+  `quorum_state_governance_source.py`'s class names — before doing
+  anything else in this section, since it may change how this file
+  and its neighbors get organized.
+- `functional-modules-extraction.json` → move to
+  `synapsis/archive/imported-variants/`, not governance-stack. It
+  contains the `GraphExtractor`/`Node`/`Edge` source as JSON — it's
+  AST-extractor-adjacent reference data, not architecture.
+- `agent-factory-tactical-agents.py` → move to
+  `GSA-GATEWAY/governance-stack/` for completeness, but flag it as
+  low-value: the "100+ tactical agents" registry pattern is real, but
+  every individual agent's `execute()` method just returns a label
+  string — no actual logic underneath. Worth keeping the pattern, not
+  worth treating as functional.
+- `vanguard-behavioral-simulation-flattened.py` and
+  `vanguard-unified-governance-wrapper.py` → **leave in DGK**, don't
+  move. These are raw VANGUARD material that pairs with SAGE-K's still-
+  present raw archive (`SAGE-K/TRANSCRIPT.md`/`PROVENANCE.md`) — the real
+  architectural contribution of VANGUARD is already captured inside the
+  `SovereignGovernanceStack` code now sitting in GSA-GATEWAY. These two
+  files are duplicative raw material, not something that needs its own
+  destination.
+
+After E3's moves, DGK will contain only its own `TRANSCRIPT.md`,
+`PROVENANCE.md`, and the two VANGUARD files kept intentionally — that's
+a legitimate end state, not something to delete.
+
+## E4. EDDP cleanup — currently has all of former Data_files mixed in
+
+Real EDDP content (leave in place): `eddp-*.py` files,
+`metric_assessment_telemetry_dispatch_*`.
+
+Everything else needs to leave:
+
+- `data/`, `generated/`, `notebooks/`, `queries/`, `scripts/`, `index/`,
+  `README.query.md`: this is the old prototype conversation-history
+  database (6 conversations, 8,546 messages) — confirmed superseded by
+  the real `dev_history.db` William already has in hand (1,451
+  conversations, ~6.9M words). Safe to delete outright rather than
+  relocate; the real version already exists elsewhere. If William wants
+  to keep a copy for reference rather than delete, that's a one-line
+  change to this instruction — but don't leave it inside EDDP either
+  way, since it has nothing to do with EDDP's actual content.
+- `ws3_telemetry_guardrail_source.py` / `_adapter.py`: genuinely no
+  confirmed destination yet — this is a "Deadman Switch" telemetry
+  guardrail with no clear overlap found anywhere else in the sweep.
+  Move to a clearly-labeled `EDDP/_unsorted/` subfolder (or pull it out
+  to its own small holding spot) so it's visibly not actual EDDP content
+  while still not lost. Needs William's direct decision, not an
+  automatic placement.
+
+---
+
+## After these moves: re-check emptiness
+
+Once E1-E4 are done, DGK, URE, and CODE will all be in a defensible end
+state (either genuinely empty of migrated content, or containing only
+what's intentionally left behind) — worth a final status check the same
+way the last sweep did, so William can see the true end state of
+everything touched across both passes.

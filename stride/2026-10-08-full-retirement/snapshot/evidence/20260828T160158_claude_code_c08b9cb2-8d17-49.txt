@@ -1,0 +1,17 @@
+[tool_result] citadel_v1.1_copy1       runs OK
+citadel_v1.1_copy2       FAIL: TypeError: sub() missing 1 required positional argument: 'string'
+citadel_v1.2             runs OK
+
+grep STRIDE in current + old README:
+11:salvaged from the STRIDE repo before its deletion, flagging vague
+20:[STRIDE](https://github.com/wking53214/STRIDE) is a gateway system whose
+22:a component — STRIDE's gateway appears to consume this repo's enforcement
+---head of copy1---
+"""
+CITADEL v1.1 -- copy 1 of 2
+
+One of two non-identical drafts of the CITADEL v1.1 enforcement engine
+that were pasted concatenated together in a single prompt and preserved,
+unedited, as artifact_1.py (see PROVENANCE.md's "Duplication" section).
+artifact_1.py itself was NOT modified to produce this file -- it remains
+the canonical, flattened, single-line archival copy of both drafts

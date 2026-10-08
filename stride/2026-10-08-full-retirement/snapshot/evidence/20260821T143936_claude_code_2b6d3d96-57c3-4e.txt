@@ -1,0 +1,1 @@
+One more thing worth checking, since the docstring says STRIDE was deleted but `~/STRIDE` still exists locally — confirming what state it's actually in.

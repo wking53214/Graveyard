@@ -1,0 +1,84 @@
+#!/usr/bin/env python3
+"""Pull STRIDE file contents out of Claude Code session transcripts.
+
+Looks for Read tool_use (which carries file_path) and the tool_result that
+follows it, and for Write tool_use (which carries file_path + content).
+Content is written verbatim. Read results carry Claude Code's line-number
+gutter; that is recorded as a transformation, not stripped silently here --
+a stripped copy is written alongside with an explicit suffix.
+"""
+import json, os, re, hashlib, glob, sys
+
+OUT = "/home/wking53214/STRIDE_RECONSTRUCTION/evidence/from_sessions"
+os.makedirs(OUT, exist_ok=True)
+
+MARK = re.compile(
+    r"SYSTEM_NAME:\s*STRIDE|class PipelineStateEngine|class InputNormalizer"
+    r"|COMPLIANCE_PATTERNS|def check_loop_condition|stride-formatted-audited"
+    r"|clip-original-multi-module-source|stride-synthesized-unified|stride-wrapped-final")
+
+GUTTER = re.compile(r"^\s*\d+\t", re.M)
+
+man = []
+for path in glob.glob("/home/wking53214/.claude/projects/*/*.jsonl"):
+    sess = os.path.basename(path)[:-6]
+    pending = {}   # tool_use_id -> file_path
+    for line in open(path, encoding="utf-8", errors="replace"):
+        try:
+            d = json.loads(line)
+        except Exception:
+            continue
+        msg = d.get("message") or {}
+        content = msg.get("content")
+        if not isinstance(content, list):
+            continue
+        for b in content:
+            if not isinstance(b, dict):
+                continue
+            if b.get("type") == "tool_use":
+                inp = b.get("input") or {}
+                fp = inp.get("file_path")
+                if b.get("name") == "Read" and fp:
+                    pending[b.get("id")] = fp
+                elif b.get("name") in ("Write", "Edit") and fp:
+                    txt = inp.get("content") or inp.get("new_string") or ""
+                    if txt and MARK.search(txt):
+                        man.append(dict(kind=b.get("name"), file_path=fp, sess=sess,
+                                        ts=d.get("timestamp", ""), text=txt))
+            elif b.get("type") == "tool_result":
+                fp = pending.pop(b.get("tool_use_id"), None)
+                if not fp:
+                    continue
+                c = b.get("content")
+                if isinstance(c, list):
+                    c = " ".join(x.get("text", "") for x in c if isinstance(x, dict))
+                if isinstance(c, str) and MARK.search(c):
+                    man.append(dict(kind="Read", file_path=fp, sess=sess,
+                                    ts=d.get("timestamp", ""), text=c))
+
+rows = []
+for i, m in enumerate(man):
+    base = os.path.basename(m["file_path"])
+    stamp = (m["ts"] or "").replace(":", "").replace("-", "")[:15]
+    fn = f"{stamp}_{m['kind']}_{m['sess'][:8]}_{i:03d}_{base}.txt"
+    p = os.path.join(OUT, fn)
+    with open(p, "w", encoding="utf-8", newline="") as fh:
+        fh.write(m["text"])
+    stripped = None
+    if m["kind"] == "Read" and GUTTER.search(m["text"]):
+        body = "\n".join(re.sub(r"^\s*\d+\t", "", l)
+                         for l in m["text"].split("\n"))
+        sp = p[:-4] + ".GUTTER_STRIPPED.txt"
+        with open(sp, "w", encoding="utf-8", newline="") as fh:
+            fh.write(body)
+        stripped = os.path.basename(sp)
+    rows.append(dict(file=fn, gutter_stripped=stripped, kind=m["kind"],
+                     original_path=m["file_path"], session=m["sess"],
+                     timestamp=m["ts"], bytes=len(m["text"].encode()),
+                     sha256=hashlib.sha256(m["text"].encode()).hexdigest()))
+
+rows.sort(key=lambda r: (r["timestamp"], r["file"]))
+json.dump(rows, open(os.path.join(OUT, "_sessions_manifest.json"), "w"), indent=1)
+print(f"{len(rows)} content-bearing session artifacts")
+for r in rows:
+    print(f"{r['timestamp'][:19]:20} {r['kind']:6} {r['bytes']:7}b {r['sha256'][:12]}  {r['original_path']}")

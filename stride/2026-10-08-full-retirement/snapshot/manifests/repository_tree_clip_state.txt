@@ -1,0 +1,29 @@
+CLIP — RECOVERED REPOSITORY TREE (state at commit 919a740, pre-rename)
+
+IDENTITY: CLIP and STRIDE are the SAME repository at two points in time.
+          Named CLIP on GitHub; later renamed to STRIDE.
+          github.com/wking53214/CLIP -> 404 (deleted)
+
+origin (then) : https://github.com/wking53214/CLIP.git
+branch        : main
+state shown   : commit 919a740 "Archive of pre-existing artifact. Preserved verbatim, unmodified."
+listing taken : 2026-08-17T22:02:06Z, immediately before the rename
+
+KNOWN COMMITS (none recovered as commits; hashes only)
+  919a740  Archive of pre-existing artifact. Preserved verbatim, unmodified.
+  56dd695  Rename CLIP artifacts to reflect system functions          2026-08-17T22:02:46Z
+  a9aef1b  Move AST-named files to AST central repository             2026-08-17T23:19:40Z
+  UNKNOWN  Add README documenting rename from CLIP, cross-link to CITADEL   2026-08-19
+
+CLIP/
+├── PROVENANCE.md      DIRECTLY RECOVERED (81 of 82 lines) — describes artifact_N naming
+├── TRANSCRIPT.md      DIRECTLY RECOVERED as verbatim source (~/Downloads/CLIP.txt)
+├── artifact_1.py      DIRECTLY RECOVERED  117,211 b  flattened, does not parse
+├── artifact_2.py      DIRECTLY RECOVERED   25,106 b  705 lines
+├── artifact_3.py      DIRECTLY RECOVERED   31,970 b  746 lines
+├── artifact_4.py      DIRECTLY RECOVERED    6,994 b  151 lines
+├── artifact_5.py      DIRECTLY RECOVERED    5,376 b  flattened, does not parse
+└── artifact_6.py      DIRECTLY RECOVERED    6,579 b  187 lines
+
+8 of 8 entries present. No directories. Flat root. No README.md at this state
+(one was added later, in the fourth commit, and is NOT recovered).

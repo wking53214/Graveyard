@@ -1,0 +1,16 @@
+Checked all 31 repos currently on your GitHub against actual file contents (not just filenames). Here's what's empty or has nothing left worth keeping:
+
+**Fully empty (no files at all):**
+- **GEMS** — always been empty; matches the "GEM Collection" concept by name but has no content
+
+**Docs-only, no code left:**
+- **URE** — just `PROVENANCE.md`/`TRANSCRIPT.md`
+- **SAGE-K** — just `PROVENANCE.md`/`README.md`/`TRANSCRIPT.md`/`pyproject.toml`/`requirements.txt`; its actual code all moved to `sentinel_os`
+- **DEMO_OUTPUT** *(already archived)* — just `PROVENANCE.md`
+
+**Near-empty — one broken/unused file plus docs:**
+- **OTLP** *(already archived)* — `PROVENANCE.md`/`TRANSCRIPT.md` plus `otlp-http-exporter-spillover.py`, a partial snippet that's never run (missing imports, was already broken in the source)
+
+Everything else (DGK, CODE, EDDP, ATS, synapsis, GSA-GATEWAY, GRAPH, OBSERVE, sentinel_os, DIT, STRIDE, CITADEL, and the untouched repos like ARCHIVE, GLCM, Triad-42, CCC, innovation_os, GSA-815, Resume_OS, ANVIL, Ecology, TBCA, Conservation_Kernel, ChatGPT_History, CoPilot_History, Gemini_History, and archived `Data_files`) has real content.
+
+Also worth noting: **WRAPPER, SECURE, UZTC, FACTS, AC-HCCSE, and VSA are already gone** — 404 on all of them, so it looks like you already deleted those yourself since my last report.

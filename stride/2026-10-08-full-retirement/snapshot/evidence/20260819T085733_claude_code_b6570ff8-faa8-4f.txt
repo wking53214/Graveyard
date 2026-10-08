@@ -1,0 +1,1 @@
+[tool_use Bash] {"command": "grep -n \"STRIDE\" stride-ast-extractor-wrapped.py"}

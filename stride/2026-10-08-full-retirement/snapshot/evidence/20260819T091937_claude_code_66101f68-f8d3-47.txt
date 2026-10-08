@@ -1,0 +1,1 @@
+[tool_use Bash] {"command": "for r in UZTC WRAPPER SECURE CITADEL STRIDE; do\n  echo \"=== $r ===\"\n  ls /home/wking53214/$r/README.md 2>&1\ndone"}

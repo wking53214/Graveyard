@@ -1,0 +1,177 @@
+import re
+import asyncio
+import time
+import hmac
+import hashlib
+from typing import Dict, Any, Set, Callable, Awaitable
+
+# ============================================================
+# REGEX GOVERNANCE CACHE (LAYER 0 & LAYER 1 CENTRALIZED ENGINE)
+# ============================================================
+GSA_REGEX: Dict[str, re.Pattern] = {
+    "pronominal_purge": re.compile(
+        r"\b(i|me|my|mine|myself|we|us|our|ours|ourselves)\b",
+        re.IGNORECASE
+    ),
+    "syntactic_breach": re.compile(
+        r"\b(may|might|could|seems|generally|potentially|likely|perhaps|maybe)\b",
+        re.IGNORECASE
+    ),
+    "prohibited_abstract_verbs": re.compile(
+        r"\b(improve|optimize|enhance|enable|support|strengthen|utilize|leverage)\b",
+        re.IGNORECASE
+    ),
+    "causal_link": re.compile(
+        r"\b(because|due to|driven by|resulting from|caused by)\b",
+        re.IGNORECASE
+    ),
+    "metric_verification": re.compile(
+        r"\b\d+(\.\d+)?%|\b\d+\b"
+    )
+}
+
+# ============================================================
+# ZERO-TRUST VALIDATION GATES
+# ============================================================
+class IdentityGate:
+    """G6: First-person elimination gate."""
+    def validate(self, text: str) -> bool:
+        return not bool(GSA_REGEX["pronominal_purge"].search(text))
+
+
+class HedgingGate:
+    """G3: Subjective hedging elimination gate."""
+    def validate(self, text: str) -> bool:
+        return not bool(GSA_REGEX["syntactic_breach"].search(text))
+
+
+class CausalityGate:
+    """Objective validation gate. Requires quantitative metrics or explicit causal links."""
+    def validate(self, text: str) -> bool:
+        return (
+            bool(GSA_REGEX["causal_link"].search(text))
+            or bool(GSA_REGEX["metric_verification"].search(text))
+        )
+
+
+class StructureNormalizer:
+    """Corporate filler reduction engine. Dampens loose abstract syntax."""
+    def normalize(self, text: str) -> str:
+        return GSA_REGEX["prohibited_abstract_verbs"].sub("use", text)
+
+
+# ============================================================
+# KINETIC GOVERNOR (TEMPORAL CONTROL LAYER)
+# ============================================================
+class KineticGovernor:
+    """
+    Output pacing mechanism. Calculates and imposes temporal budgets based on 
+    token payload density to hide generation variance and enforce compliance pacing.
+    """
+    def __init__(self, target_latency_ms: float = 15.0):
+        self.target_latency = target_latency_ms / 1000.0
+        self.constant_coefficient = 0.815
+
+    async def calculate_temporal_budget(self, token_payload: str) -> float:
+        density = len(token_payload.split())
+        delay = (density * 0.002) * self.constant_coefficient
+        return max(self.target_latency, min(delay, 0.200))
+
+    async def apply_liturgical_pause(self, delay: float) -> None:
+        await asyncio.sleep(delay)
+
+
+# ============================================================
+# CITADEL PROCESSOR CORE ENGINE
+# ============================================================
+class CitadelProcessor:
+    """
+    Deterministic Integrity Tower Core orchestration engine.
+    Manages the verification gates loop, duplicate pattern mapping, 
+    and out-of-band audit signatures.
+    """
+    def __init__(
+        self,
+        generator_fn: Callable[[str], Awaitable[str]],
+        max_retries: int = 5
+    ):
+        self.generator = generator_fn
+        self.max_retries = max_retries
+
+        self.identity_gate = IdentityGate()
+        self.hedging_gate = HedgingGate()
+        self.causality_gate = CausalityGate()
+        self.normalizer = StructureNormalizer()
+        self.governor = KineticGovernor()
+
+        self.seen_outputs: Set[str] = set()
+        self._secret_key = b"GSA_ADAMANTIUM_CORE_STASIS_SIGNATURE_815"
+
+    def _checksum(self, data: str) -> str:
+        """Generates hardware-bound HMAC-SHA384 audit trails."""
+        return hmac.new(
+            self._secret_key,
+            data.encode("utf-8"),
+            hashlib.sha384
+        ).hexdigest()
+
+    async def run(self, prompt: str) -> Dict[str, Any]:
+        start = time.time()
+
+        for attempt in range(1, self.max_retries + 1):
+            raw = await self.generator(prompt)
+            clean = self.normalizer.normalize(raw)
+
+            id_ok = self.identity_gate.validate(clean)
+            hedge_ok = self.hedging_gate.validate(clean)
+            causal_ok = self.causality_gate.validate(clean)
+
+            h = hashlib.md5(clean.encode("utf-8")).hexdigest()
+            loop = h in self.seen_outputs
+
+            if id_ok and hedge_ok and causal_ok and not loop:
+                self.seen_outputs.add(h)
+
+                delay = await self.governor.calculate_temporal_budget(clean)
+                await self.governor.apply_liturgical_pause(delay)
+
+                return {
+                    "status": "PASS",
+                    "parity": 1.0000,
+                    "attempts": attempt,
+                    "latency_ms": round((time.time() - start) * 1000, 2),
+                    "checksum": self._checksum(clean),
+                    "payload": clean
+                }
+
+            self.seen_outputs.add(h)
+
+        raise SystemError("CITADEL_FAILURE: 1.0000 Parity unachievable. Convergence not achieved.")
+
+
+# ============================================================
+# SIMULATION SANDBOX RUNTIME
+# ============================================================
+async def mock_inference_gateway(prompt: str) -> str:
+    if "compliant" in prompt.lower():
+        return "System performance remains steady because token consumption decreased by 22%."
+    return "I think pipeline optimization may improve results."
+
+
+async def main():
+    engine = CitadelProcessor(mock_inference_gateway)
+
+    print("--- Executing Unaligned Ingestion ---")
+    try:
+        r1 = await engine.run("Process infrastructure analysis matrix.")
+        print(r1)
+    except SystemError as e:
+        print(f"Intercepted Expected Failure: {e}")
+
+    print("\n--- Executing Compliant Ingestion ---")
+    r2 = await engine.run("Generate compliant status report metrics profile.")
+    print(r2)
+
+
+if __name__ == "__main__":
+    asyncio.run(main())

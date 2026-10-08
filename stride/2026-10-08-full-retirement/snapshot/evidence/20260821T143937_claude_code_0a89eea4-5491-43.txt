@@ -1,0 +1,1 @@
+[tool_use Bash] {"command": "cd ~/STRIDE && git remote -v && echo \"---\" && git log --oneline -3 && echo \"---\" && git status --short && echo \"--- does the github remote still exist? ---\" && git ls-remote origin 2>&1 | head -5", "description": "Check STRIDE repo's current state and whether its remote is actually deleted"}

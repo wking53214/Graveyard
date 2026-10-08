@@ -1,0 +1,1458 @@
+Absolutely. **This is where Pass 7 should go.** The objective should no longer be “prove whether TIE/GEMS/HERALD existed historically” — you've now established that they **didn't**. Instead, Pass 7 should reconstruct the **actual evolutionary history of the older system family**, working backward from the strongest anchors and following the spiderweb of code, concepts, names, commits, copied files, abandoned repos, renamed systems, and AI-history artifacts.
+ 
+Here is the prompt I would use.
+  
+# PASS 7 — THE SPAGHETTI UNWIND
+ 
+## DEEP HISTORICAL SYSTEM EVOLUTION, CROSS-REPOSITORY LINEAGE, AND FOUR-ARCHIVE TEMPORAL FORENSICS
+ 
+**Audit date:** August 22, 2026 **Method:** independent primary-source archaeology, Git commit forensics, cross-repository lineage analysis, temporal reconstruction, and raw-history correlation **Standard:** skeptical historian / software archaeologist **Objective:** reconstruct the actual evolutionary history of the older system family by working backward from the strongest surviving anchors and unwinding crossovers between repositories, names, codebases, concepts, and development sessions.
+  
+# 0. PURPOSE OF PASS 7
+ 
+Pass 7 is fundamentally different from Passes 1–6.
+ 
+Do **not** spend significant effort attempting to establish historical origins for:
+ 
+ 
+- GEMS
+ 
+- TIE
+ 
+- HERALD
+ 
+- Conservation_Kernel
+ 
+
+ 
+These are now established as **new systems developed during the August 2026 reconstruction/build period**. Their recent creation is not evidence of historical ancestry, and they should not be treated as candidates for older historical continuity.
+ 
+Instead, Pass 7 must investigate the **older system ecosystem** from which the current architecture evolved.
+ 
+The central question is:
+ 
+ 
+**What actually happened before the current reconstruction-era systems appeared?**
+ 
+ 
+The investigation should begin with the strongest known historical anchors:
+ 
+ all repos are located at GitHub.com/wking53214
+1. **Sentinel / sentinel_os**
+ 
+2. **GSA-815**
+ 
+3. the complete Git commit histories of those systems
+ 
+4. the four available historical archives: 
+ 
+  - Claude_History
+ 
+  - ChatGPT_History
+ 
+  - Gemini_History
+ 
+  - CoPilot_History
+ 
+
+ 
+ 
+
+ 
+From those anchors, work **backward in time** and **sideways across repositories**.
+ 
+The expected structure is not a clean lineage.
+ 
+It is likely a **spiderweb**.
+ 
+The purpose of this pass is to unwind that spiderweb without forcing it into a false linear architecture.
+  
+# 1. CENTRAL HISTORICAL QUESTION
+ 
+Determine whether the older repositories reveal a coherent evolutionary process in which:
+ 
+ 
+- systems were created;
+ 
+- components were copied;
+ 
+- components were renamed;
+ 
+- repositories were abandoned;
+ 
+- repositories were consolidated;
+ 
+- concepts migrated between projects;
+ 
+- AI development sessions generated or modified artifacts;
+ 
+- code was salvaged after repositories disappeared;
+ 
+- multiple systems independently converged on the same architectural ideas;
+ 
+- one system became the substrate for another;
+ 
+- names changed while functionality persisted;
+ 
+- functionality changed while names persisted;
+ 
+- parallel implementations subsequently converged;
+ 
+- incomplete experiments became production-oriented components;
+ 
+- governance, execution, forecasting, integrity, memory, orchestration, and control mechanisms migrated between projects.
+ 
+
+ 
+Do **not** assume any particular answer.
+ 
+The purpose is to discover the historical structure from evidence.
+  
+# 2. STARTING ANCHORS
+ 
+## 2.1 Sentinel / sentinel_os
+ 
+Treat Sentinel as the primary historical anchor because its repository predates the August reconstruction wave.
+ 
+Perform a **full Git archaeological analysis**.
+ 
+Do not merely inspect the current tree.
+ 
+Recover:
+ 
+ 
+- repository creation evidence;
+ 
+- earliest commits;
+ 
+- every major architectural commit;
+ 
+- branch history where available;
+ 
+- deleted-file history;
+ 
+- renamed-file history;
+ 
+- commit messages;
+ 
+- commit timestamps;
+ 
+- author/co-author information;
+ 
+- file introduction dates;
+ 
+- file deletion dates;
+ 
+- file resurrection;
+ 
+- copied code;
+ 
+- imports;
+ 
+- references to other repositories;
+ 
+- references to predecessor systems;
+ 
+- references to successor systems;
+ 
+- references to experimental systems;
+ 
+- references to archived material;
+ 
+- references to STRIDE;
+ 
+- references to GSA-815;
+ 
+- references to FORTRESS;
+ 
+- references to governance systems;
+ 
+- references to execution systems;
+ 
+- references to memory/state systems;
+ 
+- references to predictive/integrity/control systems.
+ 
+
+ 
+Construct a chronological Sentinel evolution map.
+  
+# 3. GSA-815 AS SECOND ANCHOR
+ 
+Perform the same archaeological treatment against **GSA-815**.
+ 
+The objective is not merely to understand what GSA-815 does.
+ 
+Determine:
+ 
+ 
+**Where did its components come from, and where did they subsequently go?**
+ 
+ 
+Trace:
+ 
+ 
+- earliest repository state;
+ 
+- commit chronology;
+ 
+- renamed files;
+ 
+- copied files;
+ 
+- imported modules;
+ 
+- deleted modules;
+ 
+- references to Sentinel;
+ 
+- references to STRIDE;
+ 
+- references to FORTRESS;
+ 
+- references to other older repositories;
+ 
+- references to governance;
+ 
+- references to production harnesses;
+ 
+- references to queue/control systems;
+ 
+- references to Claude or other AI-assisted development;
+ 
+- components subsequently appearing elsewhere.
+ 
+
+ 
+Pay particular attention to:
+ 
+ 
+- `production_harness.py`;
+ 
+- governance infrastructure;
+ 
+- control loops;
+ 
+- retry logic;
+ 
+- queue mechanisms;
+ 
+- operational components;
+ 
+- execution interfaces.
+ 
+
+ 
+If a component appears in both GSA-815 and another repository, determine **which appeared first**.
+  
+# 4. THE FOUR HISTORICAL ARCHIVES
+ 
+Treat the four history repositories as **independent historical evidence sources**, not as supplementary documentation.
+ 
+Investigate:
+ 
+### Claude_History
+ 
+### ChatGPT_History
+ 
+### Gemini_History
+ 
+### CoPilot_History
+ 
+For each archive determine:
+ 
+ 
+- earliest relevant conversations;
+ 
+- conversation timestamps;
+ 
+- project/system names;
+ 
+- code artifacts;
+ 
+- attached files;
+ 
+- design discussions;
+ 
+- repository creation discussions;
+ 
+- migration discussions;
+ 
+- rename discussions;
+ 
+- deletion discussions;
+ 
+- consolidation discussions;
+ 
+- explicit statements of system ancestry;
+ 
+- statements such as “this came from…”
+ 
+- statements such as “move this to…”
+ 
+- statements such as “replace…”
+ 
+- statements such as “rename…”
+ 
+- statements such as “this is based on…”
+ 
+- statements such as “salvage…”
+ 
+- statements such as “copy…”
+ 
+- statements such as “port…”
+ 
+- statements such as “merge…”
+ 
+- statements identifying earlier versions.
+ 
+
+ 
+Where possible, correlate conversation timestamps with Git commit timestamps.
+  
+# 5. SEARCH STRATEGY
+ 
+Do **not** search only for repository names.
+ 
+That will miss the spiderweb.
+ 
+Search for:
+ 
+## System names
+ 
+All known older repositories and systems.
+ 
+## File names
+ 
+Especially files that recur across repositories.
+ 
+## Class names
+ 
+Repeated class/function names can be stronger lineage indicators than repository names.
+ 
+## Module names
+ 
+Look for modules migrating between systems.
+ 
+## Architectural vocabulary
+ 
+Examples:
+ 
+ 
+- governance
+ 
+- integrity
+ 
+- predictive
+ 
+- state
+ 
+- controller
+ 
+- orchestrator
+ 
+- kernel
+ 
+- harness
+ 
+- queue
+ 
+- retry
+ 
+- loop
+ 
+- backpressure
+ 
+- memory
+ 
+- evidence
+ 
+- provenance
+ 
+- conservation
+ 
+- execution
+ 
+- decision
+ 
+- sentinel
+ 
+- fortress
+ 
+- stride
+ 
+- gateway
+ 
+- wrapper
+ 
+- secure
+ 
+- archive
+ 
+- triad
+ 
+- GSA
+ 
+- EDDP
+ 
+- DGK
+ 
+
+ 
+Expand the vocabulary dynamically as new terms are discovered.
+  
+# 6. THE MOST IMPORTANT RULE: FOLLOW ARTIFACTS, NOT NAMES
+ 
+A repository name is weak evidence.
+ 
+A file lineage is stronger.
+ 
+A matching implementation fragment is stronger still.
+ 
+A commit explicitly saying:
+ 
+ 
+“salvaged from X”
+ 
+ 
+is extremely strong.
+ 
+A historical conversation saying:
+ 
+ 
+“move this from X to Y”
+ 
+ 
+is extremely strong.
+ 
+Therefore construct lineage in this priority order:
+ 
+### Tier A — explicit provenance
+ 
+Examples:
+ 
+ 
+- “copied from”
+ 
+- “salvaged from”
+ 
+- “ported from”
+ 
+- “moved from”
+ 
+- “renamed from”
+ 
+- “derived from”
+ 
+- “forked from”
+ 
+
+ 
+### Tier B — Git-level continuity
+ 
+Examples:
+ 
+ 
+- identical file history;
+ 
+- Git rename detection;
+ 
+- matching blobs;
+ 
+- identical commit ancestry;
+ 
+- file introduced in one repository and subsequently appearing elsewhere.
+ 
+
+ 
+### Tier C — structural/code similarity
+ 
+Examples:
+ 
+ 
+- distinctive function names;
+ 
+- identical algorithms;
+ 
+- unusual constants;
+ 
+- matching comments;
+ 
+- matching class structure;
+ 
+- unique error strings;
+ 
+- identical configuration structures.
+ 
+
+ 
+### Tier D — conceptual similarity
+ 
+Use only as supporting evidence.
+ 
+Never elevate conceptual similarity into code lineage without stronger evidence.
+  
+# 7. BUILD A CODE-LINEAGE GRAPH
+ 
+Construct a graph of:
+ 
+**Repository → File → Class/Function → Destination Repository**
+ 
+For every meaningful migration, record:
+ 
+ 
+- source repository;
+ 
+- source path;
+ 
+- destination repository;
+ 
+- destination path;
+ 
+- earliest source timestamp;
+ 
+- earliest destination timestamp;
+ 
+- commit IDs;
+ 
+- exact or approximate similarity;
+ 
+- provenance statement;
+ 
+- confidence;
+ 
+- whether the destination is copied, modified, rewritten, or merely conceptually similar.
+ 
+
+ 
+Example:
+ `STRIDE   │   └── governance_loop_guard.py           │           │ salvaged before STRIDE deletion           ▼        SENTINEL           │           ├── modified           │           └── referenced by downstream systems ` 
+Build as many of these as the evidence supports.
+  
+# 8. BUILD A SYSTEM-ANCESTRY GRAPH
+ 
+Separately construct:
+ `SYSTEM A    │    ├── concept migrated → SYSTEM B    │    ├── code copied → SYSTEM C    │    ├── component renamed → SYSTEM D    │    └── repository abandoned ` 
+Do **not** collapse this into one linear family tree.
+ 
+If the evidence indicates branching, preserve the branching.
+ 
+If two systems independently developed similar functionality, mark them as **parallel/convergent**, not ancestral.
+  
+# 9. IDENTIFY THE MAJOR CROSSOVERS
+ 
+Pass 7 should specifically seek crossover points.
+ 
+A crossover occurs when:
+ 
+ 
+- code from System A appears in System B;
+ 
+- a developer conversation shifts from A to B;
+ 
+- a component is renamed;
+ 
+- an abandoned repository contributes code to another;
+ 
+- a design concept migrates;
+ 
+- a subsystem becomes a component of another system;
+ 
+- two independently developed systems merge;
+ 
+- an archive attachment later appears in a repository;
+ 
+- a repository explicitly consolidates several predecessors.
+ 
+
+ 
+For every crossover answer:
+ 
+ 
+1. **What moved?**
+ 
+2. **Where did it originate?**
+ 
+3. **When did it move?**
+ 
+4. **Why did it move, if documented?**
+ 
+5. **Was it copied or rewritten?**
+ 
+6. **What happened to the source system?**
+ 
+7. **Where did the component go afterward?**
+ 
+
+  
+# 10. DELETED REPOSITORY ARCHAEOLOGY
+ 
+Deleted repositories are especially important.
+ 
+Do not interpret:
+ 
+ 
+repository unavailable
+ 
+ 
+as:
+ 
+ 
+system never existed.
+ 
+ 
+Search the surviving ecosystem for evidence of deleted systems.
+ 
+Look for:
+ 
+ 
+- copied files;
+ 
+- references;
+ 
+- commit messages;
+ 
+- README descriptions;
+ 
+- archive attachments;
+ 
+- conversation discussions;
+ 
+- imports;
+ 
+- renamed versions;
+ 
+- surviving fragments;
+ 
+- downstream forks;
+ 
+- code embedded in other repositories.
+ 
+
+ 
+For every deleted system determine:
+ 
+**DELETED / SOURCE SURVIVES**
+ 
+or
+ 
+**DELETED / PARTIALLY SALVAGED**
+ 
+or
+ 
+**DELETED / REFERENCES ONLY**
+ 
+or
+ 
+**NO SURVIVING TRACE LOCATED**
+ 
+Do not claim absence merely because GitHub retrieval fails.
+  
+# 11. REPOSITORY RENAMING AND CONSOLIDATION
+ 
+Investigate whether older repositories were:
+ 
+ 
+- renamed;
+ 
+- merged;
+ 
+- consolidated;
+ 
+- repackaged;
+ 
+- extracted;
+ 
+- archived;
+ 
+- partially copied;
+ 
+- abandoned while their components survived elsewhere.
+ 
+
+ 
+Pay particular attention to systems analogous to **GSA-GATEWAY**, where the repository itself explicitly documents consolidation.
+ 
+Determine whether other older repositories exhibit the same pattern.
+  
+# 12. TEMPORAL FORENSICS
+ 
+Construct a precise chronology.
+ 
+For every important artifact record:
+ 
+  
+ 
+Date
+ 
+Time
+ 
+Repository
+ 
+Artifact
+ 
+Event
+ 
+Evidence
+ 
+  
+ 
+Use exact timestamps whenever available.
+ 
+Normalize timestamps carefully.
+ 
+Do not infer causality merely because two repositories were created close together.
+ 
+Instead ask:
+ 
+ 
+Did the artifact exist before the destination system?
+ 
+ 
+ 
+Did the conversation occur before the commit?
+ 
+ 
+ 
+Did the source repository exist before the supposed migration?
+ 
+ 
+ 
+Was the destination implementation actually copied from the source?
+ 
+ 
+Temporal ordering is one of the primary tools for distinguishing:
+ 
+**ancestor → descendant**
+ 
+from:
+ 
+**parallel reconstruction**.
+  
+# 13. FOUR-ARCHIVE TEMPORAL CORRELATION
+ 
+This is a major objective.
+ 
+When a Git commit introduces a distinctive component, search the four archives for the component or its terminology.
+ 
+Then construct:
+ `Conversation      │      ▼ Design decision      │      ▼ Code artifact      │      ▼ Git commit      │      ▼ Migration      │      ▼ Later repository ` 
+Where the evidence supports it, reconstruct the chain.
+ 
+Do not assume the conversation caused the commit merely because it occurred earlier.
+ 
+Classify causality as:
+ 
+ 
+- explicit;
+ 
+- strongly supported;
+ 
+- plausible;
+ 
+- unknown.
+ 
+
+  
+# 14. AI-ASSISTED DEVELOPMENT FORENSICS
+ 
+Determine where the archives show AI-assisted development affecting repository evolution.
+ 
+Look for:
+ 
+ 
+- generated code;
+ 
+- requested rewrites;
+ 
+- repository creation instructions;
+ 
+- migration instructions;
+ 
+- debugging sessions;
+ 
+- architecture discussions;
+ 
+- explicit provenance;
+ 
+- copied code;
+ 
+- file attachments.
+ 
+
+ 
+Distinguish carefully between:
+ 
+**AI-generated**
+ 
+**AI-modified**
+ 
+**AI-assisted**
+ 
+**human-authored**
+ 
+**unknown**
+ 
+A `Co-Authored-By` line is evidence of AI involvement, not proof of authorship of every line.
+  
+# 15. SYSTEM EVOLUTION, NOT JUST CODE EVOLUTION
+ 
+Track the evolution of architectural ideas.
+ 
+For example:
+ `early control concept        ↓ experimental implementation        ↓ governance mechanism        ↓ production harness        ↓ Sentinel integration        ↓ later reconstruction ` 
+Identify when concepts such as:
+ 
+ 
+- governance;
+ 
+- bounded retry;
+ 
+- loop detection;
+ 
+- queue backpressure;
+ 
+- predictive state;
+ 
+- integrity;
+ 
+- conservation;
+ 
+- evidence;
+ 
+- provenance;
+ 
+- orchestration;
+ 
+- execution control;
+ 
+- memory/state;
+ 
+
+ 
+first appear in the surviving record.
+ 
+But distinguish:
+ 
+**first recovered appearance**
+ 
+from:
+ 
+**true invention date**.
+ 
+The former can often be proven.
+ 
+The latter usually cannot.
+  
+# 16. FIND THE "MISSING MIDDLE"
+ 
+One of Pass 7's most important objectives is identifying artifacts between:
+ 
+**early experimental systems**
+ 
+and
+ 
+**Sentinel / GSA-815**
+ 
+If the evidence shows:
+ `SYSTEM A → SYSTEM B → SYSTEM C → SENTINEL ` 
+but only A and C are currently obvious, search aggressively for B.
+ 
+The missing middle may exist as:
+ 
+ 
+- deleted repository;
+ 
+- archive attachment;
+ 
+- abandoned branch;
+ 
+- copied file;
+ 
+- conversation-generated artifact;
+ 
+- renamed repository;
+ 
+- incomplete implementation;
+ 
+- subsystem inside another repository.
+ 
+
+ 
+Do not assume the missing middle existed.
+ 
+But actively search for it.
+  
+# 17. IDENTIFY CONVERGENT SYSTEMS
+ 
+Not every similarity is lineage.
+ 
+Find systems that independently developed similar:
+ 
+ 
+- governance models;
+ 
+- control loops;
+ 
+- predictive controllers;
+ 
+- state machines;
+ 
+- execution guards;
+ 
+- evidence mechanisms;
+ 
+- orchestration structures.
+ 
+
+ 
+For each pair classify:
+ 
+**DIRECT LINEAGE**
+ 
+**LIKELY LINEAGE**
+ 
+**PARALLEL DEVELOPMENT**
+ 
+**CONVERGENT DESIGN**
+ 
+**UNKNOWN**
+ 
+This distinction is essential.
+  
+# 18. SENTINEL AS A HISTORICAL HUB
+ 
+Determine whether Sentinel is merely one project among many or whether it became a **historical convergence point**.
+ 
+Specifically measure how many independently surviving artifacts flowed into Sentinel.
+ 
+Potential inputs:
+ 
+ 
+- STRIDE;
+ 
+- GSA-815;
+ 
+- older governance systems;
+ 
+- production harnesses;
+ 
+- control components;
+ 
+- predictive systems;
+ 
+- archive-derived code;
+ 
+- conversation-derived artifacts.
+ 
+
+ 
+Then determine what subsequently flowed **out of Sentinel**.
+ 
+This could reveal Sentinel as an evolutionary hub rather than simply a repository.
+  
+# 19. GSA-815 AS A PARALLEL OR PREDECESSOR LINEAGE
+ 
+Determine whether GSA-815 is:
+ 
+ 
+- a predecessor to Sentinel;
+ 
+- a sibling system;
+ 
+- a downstream consumer;
+ 
+- a governance specialization;
+ 
+- a testing/production branch;
+ 
+- a repository that contributed components to Sentinel;
+ 
+- a repository that inherited components from Sentinel;
+ 
+- a parallel implementation;
+ 
+- some combination of the above.
+ 
+
+ 
+Do not assume the answer.
+ 
+Use Git chronology and artifact lineage.
+  
+# 20. FORTRESS INVESTIGATION
+ 
+Pass 6 established multiple FORTRESS source lineages.
+ 
+Pass 7 must go deeper.
+ 
+For every FORTRESS variant determine:
+ 
+ 
+- earliest recoverable date;
+ 
+- originating repository/archive;
+ 
+- whether it existed before Sentinel;
+ 
+- whether it contributed anything to Sentinel;
+ 
+- whether Sentinel contributed to it;
+ 
+- whether multiple FORTRESS variants independently evolved;
+ 
+- whether they later converged;
+ 
+- whether “FORTRESS” was originally one system or a later umbrella name.
+ 
+
+ 
+Especially investigate:
+ 
+ 
+- `fortress_kernel.py`;
+ 
+- `PredictiveStateController.py`;
+ 
+- `Fortress_orchestrator_incomplete.py`;
+ 
+- `PredictiveIntegrityController.py`.
+ 
+
+ 
+The goal is to turn “four variants” into an actual evolutionary map.
+  
+# 21. STRIDE INVESTIGATION
+ 
+Pass 6 proved partial STRIDE salvage.
+ 
+Now determine:
+ 
+ 
+- what STRIDE originally contained;
+ 
+- when it appeared;
+ 
+- what `governance_loop_guard.py` originally did;
+ 
+- what repository introduced it;
+ 
+- what happened to the missing queue/backpressure half;
+ 
+- whether that half survives elsewhere;
+ 
+- whether other STRIDE components survive under different names;
+ 
+- whether STRIDE concepts migrated into Sentinel;
+ 
+- whether STRIDE was itself derived from an earlier system.
+ 
+
+ 
+Search all four history archives for STRIDE.
+ 
+The deleted repository is not the endpoint of the investigation.
+ 
+It is a **lineage clue**.
+  
+# 22. SEARCH FOR ORPHANED COMPONENTS
+ 
+Identify components that appear in a destination system but whose source has not yet been found.
+ 
+Create an **orphan ledger**:
+ 
+  
+ 
+Component
+ 
+First known location
+ 
+Destination
+ 
+Suspected origin
+ 
+Search status
+ 
+  
+ 
+Then search backward specifically for those orphaned components.
+ 
+This recursive process should continue until:
+ 
+ 
+- origin is found;
+ 
+- origin is strongly bounded;
+ 
+- or the artifact remains unresolved.
+ 
+
+  
+# 23. SEARCH FOR DESCENDANTS
+ 
+Do the reverse.
+ 
+For every major older component, search forward:
+ 
+ 
+Where did this code go?
+ 
+ 
+This is particularly important for:
+ 
+ 
+- Sentinel components;
+ 
+- STRIDE fragments;
+ 
+- GSA-815 components;
+ 
+- FORTRESS components;
+ 
+- governance components;
+ 
+- production harnesses.
+ 
+
+ 
+A historical system is not fully understood until both its **ancestors and descendants** are examined.
+  
+# 24. RECONSTRUCTION VS RECOVERY
+ 
+Maintain the strict evidence distinction established in Pass 6.
+ 
+Every artifact must be classified as one of:
+ 
+### RECOVERED ORIGINAL SOURCE
+ 
+Historical source itself survives.
+ 
+### SALVAGED SOURCE
+ 
+Historical source survives because it was copied/migrated before its original repository disappeared.
+ 
+### COPIED SOURCE
+ 
+Code demonstrably moved from another surviving repository.
+ 
+### DERIVED IMPLEMENTATION
+ 
+New implementation based on older material.
+ 
+### RECONSTRUCTION
+ 
+New implementation from specification/forensics.
+ 
+### CONCEPTUAL DESCENDANT
+ 
+Architecture appears to continue an earlier idea, but source continuity is not proven.
+ 
+### UNKNOWN
+ 
+Insufficient evidence.
+ 
+Never upgrade one category into another merely because the code is similar.
+  
+# 25. EVIDENCE INDEPENDENCE
+ 
+Do not count repeated claims inside one repository as independent evidence.
+ 
+For example:
+ `README says X documentation says X recovery_status says X ` 
+may all derive from the same reconstruction effort.
+ 
+Instead prioritize independent evidence:
+ 
+ 
+- Git history;
+ 
+- separate repository;
+ 
+- raw conversation;
+ 
+- archive attachment;
+ 
+- deleted-source salvage;
+ 
+- another repository's commit;
+ 
+- contemporaneous artifact.
+ 
+
+ 
+Record independence explicitly.
+  
+# 26. REQUIRED LINEAGE TABLE
+ 
+Produce a master table:
+ 
+  
+ 
+System
+ 
+Earliest recovered evidence
+ 
+Source
+ 
+Major inputs
+ 
+Major outputs
+ 
+Historical status
+ 
+Confidence
+ 
+  
+ 
+Then a second table:
+ 
+  
+ 
+Artifact
+ 
+Origin
+ 
+Destination(s)
+ 
+First date
+ 
+Migration evidence
+ 
+Classification
+ 
+  
+ 
+Then a third:
+ 
+  
+ 
+System
+ 
+Previous name(s)
+ 
+Later name(s)
+ 
+Evidence
+ 
+  
+  
+# 27. REQUIRED SPAGHETTI GRAPH
+ 
+Produce the most complete defensible graph possible.
+ 
+It should look conceptually like:
+ `                         ┌──────────────┐                          │ Older System │                          └──────┬───────┘                                 │                  ┌──────────────┼──────────────┐                  ▼              ▼              ▼              SYSTEM A       SYSTEM B       SYSTEM C                  │              │              │                  │              └──────┐       │                  │                     ▼       │                  └──────────────►  FORTRESS ◄──┘                                       │                                       ▼                                    SENTINEL                                    /      \                                   /        \                                  ▼          ▼                              GSA-815      other                                 │                                 ▼                            later systems ` 
+But replace this conceptual diagram with the **actual evidence-derived graph**.
+ 
+Do not force every system into a single chain.
+  
+# 28. THE CRITICAL "SPAGHETTI" QUESTION
+ 
+Determine whether the historical architecture was actually:
+ `A → B → C → D → E ` 
+or something more like:
+ `        ┌── B ──────┐         │            ▼ A ──────┼───────── SENTINEL ───── GSA-815         │             ▲         ├── C ────────┤         │             │         └── D ── F ───┘               │               ▼           FORTRESS ` 
+The shape of the graph is itself a historical finding.
+  
+# 29. WHAT PASS 7 MUST NOT DO
+ 
+Do **not**:
+ 
+ 
+- attempt to prove TIE existed before August 2026;
+ 
+- attempt to prove GEMS existed before August 2026;
+ 
+- attempt to prove HERALD existed before August 2026;
+ 
+- treat Conservation_Kernel as historical simply because its name sounds architectural;
+ 
+- infer project birth from current repository creation;
+ 
+- treat conceptual similarity as source-code continuity;
+ 
+- treat current integrations as historical integrations;
+ 
+- assume every repository belongs to one architecture;
+ 
+- force a clean linear chronology;
+ 
+- treat missing GitHub repositories as proof that systems never existed;
+ 
+- treat AI-generated artifacts as automatically historical implementations;
+ 
+- count reconstructed documentation as independent historical evidence;
+ 
+- turn “not found” into “never existed.”
+ 
+
+  
+# 30. REQUIRED NEGATIVE FINDINGS
+ 
+For every major suspected lineage, explicitly document what failed.
+ 
+For example:
+ 
+ 
+FORTRESS → SENTINEL: code-level relationship proven.
+ 
+ 
+ 
+STRIDE → SENTINEL: salvaged source proven.
+ 
+ 
+ 
+SYSTEM X → SENTINEL: conceptual relationship found, source migration not proven.
+ 
+ 
+ 
+SYSTEM Y → SYSTEM Z: no qualifying evidence found.
+ 
+ 
+Negative findings are important because they prevent the graph from becoming an unconstrained speculation network.
+  
+# 31. HISTORICAL CONFIDENCE SCALE
+ 
+Use:
+ 
+### A — DIRECTLY PROVEN
+ 
+Primary artifact explicitly establishes lineage.
+ 
+### B — STRONGLY SUPPORTED
+ 
+Multiple independent artifacts establish lineage, but no single direct provenance statement exists.
+ 
+### C — PLAUSIBLE
+ 
+Strong temporal/code/conceptual evidence, but a critical link remains missing.
+ 
+### D — SPECULATIVE
+ 
+Interesting hypothesis requiring additional evidence.
+ 
+### X — DISPROVEN
+ 
+Evidence contradicts the proposed lineage.
+ 
+### N — NOT FOUND
+ 
+Search failed to recover qualifying evidence.
+  
+# 32. FINAL REQUIRED OUTPUT
+ 
+The final Pass 7 report must answer:
+ 
+## A. What is the earliest reliably recoverable system?
+ 
+## B. What are the earliest surviving code artifacts?
+ 
+## C. What systems directly contributed to Sentinel?
+ 
+## D. What systems directly contributed to GSA-815?
+ 
+## E. What did Sentinel contribute to later systems?
+ 
+## F. What did GSA-815 contribute to later systems?
+ 
+## G. What was STRIDE's actual lineage?
+ 
+## H. What was FORTRESS's actual lineage?
+ 
+## I. What other repositories form major historical branches?
+ 
+## J. Which repositories were renamed or consolidated?
+ 
+## K. Which repositories were deleted but left surviving source?
+ 
+## L. Which components migrated between repositories?
+ 
+## M. Which components appear independently in multiple systems?
+ 
+## N. Which systems were genuinely parallel/convergent rather than ancestral?
+ 
+## O. Which AI-history conversations can be temporally correlated with Git commits?
+ 
+## P. What are the strongest recovered human/AI development decision chains?
+ 
+## Q. What is the earliest evidence for the major architectural concepts?
+ 
+## R. What is the actual historical shape of the system ecosystem?
+ 
+## S. What major lineage questions remain unresolved?
+  
+# 33. THE MOST IMPORTANT FINAL TEST
+ 
+At the end of Pass 7, perform this test:
+ 
+ 
+**If all current August 2026 repositories — GEMS, TIE, HERALD, and Conservation_Kernel — disappeared permanently, could we still reconstruct a meaningful historical evolution of the older system ecosystem from Sentinel, GSA-815, the older repositories, Git histories, and the four historical archives?**
+ 
+ 
+If yes, demonstrate exactly what survives.
+ 
+Then ask:
+ 
+ 
+**How far backward can the surviving evidence take us before the chain becomes speculative?**
+ 
+ 
+Identify the precise boundary.
+  
+# 34. FINAL HISTORICAL MODEL
+ 
+Produce three separate graphs:
+ 
+### GRAPH 1 — RECOVERED SOURCE LINEAGE
+ 
+Only actual code/source migrations.
+ 
+### GRAPH 2 — CONCEPTUAL EVOLUTION
+ 
+Architectural ideas and design concepts.
+ 
+### GRAPH 3 — DEVELOPMENT/DECISION HISTORY
+ 
+Conversations, decisions, AI sessions, commits, migrations, and repository events.
+ 
+Then overlay them cautiously.
+ 
+The purpose is to determine whether these three graphs converge on the same historical story.
+ 
+If they do, that convergence is a major finding.
+ 
+If they do not, explain why.
+  
+# 35. FINAL JUDGMENT
+ 
+Do **not** attempt to produce a satisfying narrative.
+ 
+Produce the most defensible historical reconstruction.
+ 
+The final conclusion should explicitly distinguish:
+ 
+**WHAT DEFINITELY HAPPENED**
+ 
+**WHAT VERY LIKELY HAPPENED**
+ 
+**WHAT MAY HAVE HAPPENED**
+ 
+**WHAT IS UNKNOWN**
+ 
+**WHAT THE EVIDENCE CONTRADICTS**
+ 
+The ultimate objective is not to recover the architecture we have today.
+ 
+It is to determine:
+ 
+ 
+**How the older system ecosystem actually evolved into the state from which the August 2026 reconstruction wave emerged.**
+ 
+ 
+And the central methodological principle of Pass 7 is:
+ 
+ 
+**Do not follow the names. Follow the artifacts. Do not follow the architecture. Follow the timestamps. Do not follow the current repositories. Follow the surviving evidence backward.**
+ 
+ 
+**Pass 7 is complete only when the spiderweb has been unwound as far as the surviving primary evidence permits.**

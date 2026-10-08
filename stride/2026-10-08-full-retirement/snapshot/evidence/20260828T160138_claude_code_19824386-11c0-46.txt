@@ -1,0 +1,49 @@
+[tool_result] === current README: structure (headings) + length ===
+680 README.md
+1:# CITADEL
+3:## Deterministic Policy-Driven Detection, Evaluation, and Transformation Engine
+34:# Core Architectural Concept
+68:# Current Implementation
+89:# Application Versus Architecture
+139:# Why the Current Example Uses Language
+181:# Policy-Driven Architecture
+210:# Detection
+235:# Evaluation
+268:# Transformation
+274:### Identity
+278:### Hedging
+282:### Passive Voice
+286:### Causality
+290:### Punctuation
+294:### Prohibited Verbs
+302:# The Transformation Primitive
+338:# Enforcement Result
+364:# Determinism
+385:# Output Boundary
+416:# Relationship to STRIDE
+441:# Broader Architectural Potential
+487:# What CITADEL Currently Demonstrates
+504:# What CITADEL Does Not Currently Claim
+525:# Version 1.1
+547:# Version 1.2
+572:# Design Principles
+574:## Explicit Policy
+578:## Deterministic Detection
+582:## Separation of Detection and Response
+586:## Deterministic Transformation
+590:## Inspectable Enforcement
+594:## Boundary Enforcement
+598:## Application Independence
+602:## Provenance Preservation
+608:# Architectural Model
+653:# Current Application
+671:# Status
+
+=== does STRIDE repo exist? ===
+GraphQL: Could not resolve to a Repository with the name 'wking53214/STRIDE'. (repository)
+
+=== the 3 added py files ===
+citadel_v1.1_copy1.py      lines=259   parses=OK
+citadel_v1.1_copy2.py      lines=277   parses=OK
+citadel_v1.2.py            lines=226   parses=OK
+artifact_1.py              lines=0     parses=SyntaxError: invalid syntax

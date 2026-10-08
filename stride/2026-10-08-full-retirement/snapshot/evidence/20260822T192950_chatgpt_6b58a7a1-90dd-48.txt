@@ -1,0 +1,564 @@
+PASS 10 — COPILOT_HISTORY PROVENANCE UNWIND
+Audit date: August 22, 2026 Method: independent primary-source archaeology of wking53214/CoPilot_History, using the preserved Copilot activity CSV, indexed conversation manifest, and raw transcript files; surviving Git repositories used only as chronology comparison. Evidence standard: skeptical software historian. Labels: A original surviving artifact; B copied/migrated artifact or strong provenance; C reconstructed; D concept/specification only; N not found; U unresolved.
+ 
+⸻
+ 
+1. Executive verdict
+Yes. Copilot_History contains evidence materially older than several surviving repositories.
+The strongest new evidence is not a repository README or a current description. It is the Copilot conversation corpus itself, which contains:
+* 95,370 activity rows in the original CSV,
+* an indexed manifest with exact conversation start/end timestamps,
+* a May 16, 2026 “Review of FORTRESS v2 Controller Code” conversation containing an actual patched fortress_v2.py implementation and pytest suite,
+* a May 16, 2026 “GSA and DIT Architecture Analysis” conversation explicitly discussing GSA and DIT as an existing architectural artifact,
+* a May 16, 2026 “Citadel Omega-Handoff Explained” conversation containing the Citadel handoff artifact, though Copilot explicitly classified that artifact as fictional system-lore rather than literal software.
+This is especially important because the surviving repositories were created later. The current sentinel_os repository was created July 4, 2026; GSA-815 was created July 31; and FORTRESS was created August 19.
+Therefore:
+May 16 Copilot artifact
+        ↓
+June historical ecosystem established by Gemini_History
+        ↓
+July/August surviving repositories
+The strongest newly proven lineage is FORTRESS.
+Copilot_History preserves a May 16, 2026 actual FORTRESS v2 controller implementation, including a class named PredictiveIntegrityController, FortressConfig, a deterministic local RNG, error-history handling, provenance checks, causal-divergence logic, Lyapunov-style energy monitoring, authority blending, and a pytest test suite.
+That means the historical conclusion from the earlier passes must be strengthened:
+FORTRESS did not originate as an August repository reconstruction. A real FORTRESS v2 software implementation existed in Copilot context by May 16, 2026.
+The GSA/DIT evidence is slightly different. Copilot_History preserves a May 16 conversation whose user-supplied architectural extraction explicitly identifies GSA and DIT, while Copilot reframes the material as an architectural model rather than asserting literal execution. That establishes historical specification/architecture existence, but not necessarily executable source on that exact date.
+The Copilot corpus therefore supplies a second pre-July historical layer, independent of Gemini_History and Claude_History.
+ 
+⸻
+ 
+2. Corpus examined
+The CoPilot_History repository contains:
+* data/copilot-activity-history.csv
+* data/copilot-activity-history_head100.csv
+* index/manifest.json
+* transcripts/
+* summaries/
+* data/
+* notebooks/scripts.
+The README states that the original activity CSV contains:
+95,370 rows and 4 columns
+with:
+Conversation, Time, Author, Message.
+The index manifest gives exact conversation timestamps and participant information. It includes, among others:
+* GSA and DIT Architecture Analysis — May 16, 2026 20:34:36
+* Review of FORTRESS v2 Controller Code — May 16, 2026 02:01:27–02:03:24
+* Citadel Omega-Handoff Explained — May 16, 2026 17:17:39.
+It also contains non-project material extending back into March, so the archive itself predates the older software ecosystem.
+Coverage limitation
+The complete 95,370-row CSV is too large for the available GitHub file-fetch interface to read directly in one operation. Therefore the audit combines:
+1. the complete corpus manifest,
+2. the preserved raw transcript files,
+3. the 100-row preview,
+4. exact project-specific transcript retrieval,
+5. current repository chronology.
+I did not claim that every single CSV row was exhaustively grepped.
+That distinction matters for negative findings.
+ 
+⸻
+ 
+3. Earliest Copilot evidence
+There are two different historical boundaries.
+Earliest archive-level evidence
+The Copilot corpus contains a Handwritten notes/todo conversation beginning March 23, 2026, with activity through March 31.
+That proves the Copilot archive itself reaches at least March.
+It is not evidence of the older software ecosystem.
+Earliest relevant older-system evidence recovered
+May 16, 2026
+Three directly relevant conversations are preserved:
+A. FORTRESS v2
+“Review of FORTRESS v2 Controller Code”
+Start: May 16, 2026 02:01:27 End: May 16, 2026 02:03:24
+The assistant message explicitly says:
+“Patched controller … replaces your previous file.”
+and provides a complete fortress_v2.py implementation plus pytest tests.
+This is A — original surviving software artifact in Copilot_History.
+B. GSA + DIT
+“GSA and DIT Architecture Analysis”
+Time: May 16, 2026 20:34:36
+The user-supplied artifact calls itself a recovery of the:
+* Governance-State Architecture (GSA)
+* Deterministic Integrity Tower (DIT)
+and describes the integrated seven-layer stack and DIT escalation ladder. Copilot explicitly interprets it as a meta-governance architecture rather than asserting that it was literally running.
+This is therefore:
+A for preserved architectural artifact; D for executable-system existence on that exact date.
+C. Citadel
+“Citadel Omega-Handoff Explained”
+Time: May 16, 2026 17:17:39
+The user supplied a detailed “Citadel” handoff artifact, but Copilot explicitly says it is fictional system-lore, not a real protocol.
+Therefore:
+D — concept/specification/lore only.
+This is an important negative correction: Citadel should not be promoted to a real May-16 software ancestor solely from this transcript.
+ 
+⸻
+ 
+4. System provenance
+FORTRESS
+Historical evidence
+The May 16 FORTRESS v2 conversation contains actual source code.
+The implementation includes:
+* FortressConfig
+* Payload
+* MockSafeModel
+* PredictiveIntegrityController
+* latent predictive state
+* distortion calculation
+* provenance validation
+* causal divergence
+* volatility tracking
+* Lyapunov-style energy calculation
+* authority control
+* safe-model blending
+* deterministic demo harness
+* pytest coverage.
+The transcript explicitly says the file replaces a previous file.
+That is an especially valuable provenance statement:
+previous fortress_v2.py
+        ↓
+May 16 patched fortress_v2.py
+The earlier version itself is not preserved in the retrieved transcript, so its identity is U.
+Classification
+* FORTRESS concept: A
+* FORTRESS software: A
+* previous FORTRESS implementation: B/U
+* current August FORTRESS repository = same exact code lineage: B/U
+* FORTRESS as August-born system: X
+That last point is now effectively contradicted.
+ 
+⸻
+ 
+GSA
+Copilot preserves a May 16 architectural extraction explicitly identifying GSA and describing its seven-layer no-trust stack.
+This is earlier than the July repository layer and earlier than the July 2 Claude checkpoint.
+Gemini_History separately establishes GSA as part of the June 10 multi-system ecosystem and preserves gsa.zip.
+Therefore the cross-history result is unusually strong:
+May 16 Copilot
+    GSA architecture
+        ↓
+June 10 Gemini
+    GSA in 15-system prototype ecosystem
+        ↓
+July/August
+    GSA package / later GSA repositories
+Classification
+* GSA architecture existence: A
+* GSA software by May 16: U
+* GSA software by June 10: A/B from Gemini
+* GSA → GSA-815: U for exact file path
+ 
+⸻
+ 
+DIT
+DIT is explicitly named and architecturally defined in the May 16 GSA/DIT conversation.
+The transcript describes:
+* anomaly / pattern / mandate levels,
+* recursive audit,
+* logic-gate hardening,
+* immutable correction.
+This is A-level evidence of a historical DIT architecture artifact.
+The existence of the later actual DIT implementation is corroborated by Gemini_History.
+Classification
+* DIT architecture: A
+* DIT source code on May 16: U
+* DIT June software ecosystem presence: A
+* later migration into GSA-815: U
+ 
+⸻
+ 
+Citadel
+The May 16 Citadel handoff is explicitly labeled fictional by Copilot.
+Therefore this evidence must not be used as proof that real Citadel software existed.
+That said, Gemini_History independently contains real Citadel architecture and code later in June.
+Classification
+* May 16 Citadel lore: D
+* June Citadel software: A
+* current Citadel descendant: A/B
+ 
+⸻
+ 
+Sentinel
+No directly retrieved Copilot transcript establishing actual Sentinel software was recovered in this pass.
+The accessible Copilot evidence therefore does not independently prove the known STRIDE → Sentinel edge.
+Classification:
+N/U
+That is an important distinction from Gemini_History, which preserves multiple Sentinel bundles.
+ 
+⸻
+ 
+GSA-815
+No direct Copilot transcript tying GSA-815 to a May/June artifact was recovered.
+Current repository creation remains July 31.
+Classification:
+U
+The existence of earlier GSA/DIT/FORTRESS material is proven; the specific transition into GSA-815 is not.
+ 
+⸻
+ 
+GSA-GATEWAY
+No direct Copilot provenance evidence recovered.
+Current repository is the late consolidation layer described in Pass 8/11.
+Classification:
+U for Copilot ancestry.
+ 
+⸻
+ 
+STRIDE
+No direct Copilot evidence recovered.
+U
+ 
+⸻
+ 
+SAGE-K
+No direct Copilot evidence recovered.
+U
+ 
+⸻
+ 
+DGK
+No direct Copilot-origin artifact was recovered in this pass.
+The later DGK software is strongly documented by Gemini_History.
+U for Copilot lineage.
+ 
+⸻
+ 
+RADAR
+No direct Copilot evidence recovered.
+U
+ 
+⸻
+ 
+gsa-governance-core
+No direct Copilot evidence recovered under that exact name.
+The May 16 GSA/DIT architecture is clearly older conceptual material, but exact continuity to gsa-governance-core is unresolved.
+U
+ 
+⸻
+ 
+SECURE / UZTC / WRAPPER / EDDP / URE / ARCHIVE
+No direct Copilot migration artifact was recovered for these names in the accessible material.
+U/N
+ 
+⸻
+ 
+5. Artifact provenance
+The strongest artifacts recovered from Copilot are:
+Artifact	Copilot date	Classification	Provenance significance
+fortress_v2.py	May 16, 2026	A	Complete software source
+FortressConfig	May 16	A	Distinctive FORTRESS structure
+PredictiveIntegrityController	May 16	A	Distinctive class-level fingerprint
+FORTRESS pytest suite	May 16	A	Actual test artifact
+GSA + DIT seven-layer architecture	May 16	D/A	Historical architecture artifact
+DIT anomaly/pattern/mandate model	May 16	D/A	Distinctive architecture
+Citadel Omega-Handoff	May 16	D	Explicitly fictional/lore
+Earlier fortress_v2.py	pre-May 16	U	Referred to, not preserved
+The most important artifact-provenance sentence in the corpus is:
+the May 16 FORTRESS implementation “replaces your previous file.”
+That is direct internal evidence for an earlier software version.
+ 
+⸻
+ 
+6. Predecessor / alternate-name discoveries
+The Copilot record does not expose a clean sequence of alternate names such as:
+FORTRESS → former name → current name
+but it does expose version lineage.
+The FORTRESS conversation explicitly identifies:
+previous fortress_v2.py
+        ↓
+patched fortress_v2.py
+This means the FORTRESS family had at least one predecessor implementation before May 16.
+That is stronger than merely finding the same repository name later.
+For GSA/DIT, the May 16 artifact uses the full names:
+* Governance-State Architecture
+* Deterministic Integrity Tower
+rather than a later repository-centric naming scheme.
+This supports the interpretation that later repositories are name crystallization/consolidation layers, not necessarily the original naming layer.
+ 
+⸻
+ 
+7. Deleted / graveyard systems
+No directly evidenced Copilot “graveyard” system was recovered with enough detail to satisfy:
+* first date,
+* last date,
+* explicit retirement,
+* successor,
+* artifact destination.
+Therefore:
+No A-level graveyard discovery in this pass.
+There is, however, a narrower precursor case:
+FORTRESS previous implementation
+The prior fortress_v2.py is referenced as having existed before the May 16 patched version.
+That predecessor is a software-version graveyard candidate, not a separate system.
+ 
+⸻
+ 
+8. Migration events
+Directly proven from Copilot
+FORTRESS previous version → FORTRESS v2 patched version
+Source: previous fortress_v2.py Destination: patched fortress_v2.py Date: May 16, 2026 Type: code revision / replacement Evidence: explicit “replaces your previous file” statement.
+GSA/DIT architecture → later governance ecosystem
+This is cross-history supported, not Copilot-only.
+Copilot establishes the May 16 architecture. Gemini establishes the June 10 multi-system ecosystem. That is:
+B — strong cross-corpus continuity
+but not direct file-copy evidence.
+ 
+⸻
+ 
+Known Pass 7 edges not established in Copilot
+These remain unresolved from Copilot_History:
+STRIDE → Sentinel
+Sentinel → GSA-815
+DGK → GSA-815
+DIT → GSA-815
+GSA → GSA-815
+RADAR → GSA-815
+gsa-governance-core → GSA-815
+ARCHIVE → FORTRESS
+SAGE-K/Sentinel → FORTRESS
+Nothing in this pass contradicts them.
+Nothing in this pass independently upgrades them to A.
+ 
+⸻
+ 
+9. Human / AI development events
+The Copilot record is unusually useful for separating three different facts.
+Human-supplied specification
+The May 16 GSA/DIT artifact was supplied as a detailed architectural extraction.
+That is evidence of a human-directed architecture narrative.
+AI-assisted implementation
+The May 16 FORTRESS conversation contains an AI-generated patched implementation plus tests.
+That establishes:
+Copilot participated in code generation/refactoring.
+It does not establish that Copilot authored the original FORTRESS system.
+Prior human/AI development context
+The phrase:
+“replaces your previous file”
+indicates an earlier implementation context existed before the retrieved May 16 response.
+Therefore:
+original FORTRESS implementation
+        ↓
+previous fortress_v2.py
+        ↓
+Copilot review/refactor
+        ↓
+May 16 patched fortress_v2.py
+The first node remains U.
+That is the correct authorship/provenance separation.
+ 
+⸻
+ 
+10. Temporal graph
+The strongest cross-history graph is now:
+MARCH 2026
+Copilot archive already active
+        │
+        ▼
+MAY 16 2026
+        │
+        ├── GSA architecture
+        │      │
+        │      └── DIT architecture
+        │
+        ├── FORTRESS v2 actual source
+        │      │
+        │      └── previous fortress_v2.py
+        │
+        └── Citadel lore/specification
+               │
+               └── explicitly fictional
+        │
+        ▼
+JUNE 10 2026
+Gemini
+        │
+        ├── GALLM
+        ├── GOVERNANCE_KERNEL_V4
+        ├── FORTRESS 2.0
+        ├── GSA
+        ├── DIT
+        ├── URE
+        ├── EDDP
+        ├── CITADEL
+        ├── OBSERVE
+        └── broader 15-system ecosystem
+        │
+        ▼
+JULY
+        │
+        ├── Sentinel
+        ├── GSA packages
+        └── system specialization
+        │
+        ▼
+JULY 4+
+        │
+        └── sentinel_os repository
+        │
+        ▼
+JULY 31
+        │
+        └── GSA-815 repository
+        │
+        ▼
+AUGUST
+        │
+        ├── FORTRESS repository
+        └── GSA-GATEWAY consolidation
+This is now much closer to a chronological provenance map than the original repository-centric tree.
+ 
+⸻
+ 
+11. Evidence ledger
+ID	Evidence	Label
+C01	Copilot README: 95,370 original activity rows	A
+C02	Manifest contains exact conversation timestamps	A
+C03	May 16 FORTRESS v2 conversation	A
+C04	Actual fortress_v2.py source preserved	A
+C05	Actual FORTRESS pytest suite preserved	A
+C06	FORTRESS code explicitly replaces a prior file	A
+C07	May 16 GSA + DIT architecture conversation	A
+C08	GSA/DIT artifact explicitly supplied as architectural extraction	A
+C09	May 16 Citadel handoff artifact	A as artifact
+C10	Copilot explicitly classifies Citadel handoff as fictional	A
+C11	Current Sentinel repository created Jul 4	A
+C12	GSA-815 repository created Jul 31	A
+C13	FORTRESS repository created Aug 19	A
+C14	No directly recovered Copilot evidence for Sentinel ancestry	N/U
+C15	No direct Copilot evidence for GSA-815 migration	U
+ 
+⸻
+ 
+12. Unknown register
+U1 — FORTRESS’s first implementation
+The May 16 artifact references a previous fortress_v2.py, but the earlier file is not preserved in the retrieved transcript.
+U2 — FORTRESS v1
+Unknown whether there was a formally named FORTRESS v1 before the preserved v2 artifact.
+U3 — GSA executable source on May 16
+Architecture is directly evidenced; executable source is not.
+U4 — DIT executable source on May 16
+Architecture is directly evidenced; executable source is not.
+U5 — GSA → GSA-815
+Earlier GSA existence is proven across Copilot and Gemini; exact migrated files remain unresolved.
+U6 — DIT → GSA-815
+Same.
+U7 — FORTRESS May artifact → August FORTRESS repository
+Strongly supported by name and architectural continuity, but no byte-identical comparison was performed here.
+U8 — STRIDE → Sentinel
+Not found in Copilot.
+U9 — Sentinel → GSA-815
+Not found in Copilot.
+U10 — ARCHIVE → FORTRESS
+Not found in Copilot.
+U11 — SAGE-K → FORTRESS
+Not found in Copilot.
+U12 — RADAR → GSA-815
+Not found in Copilot.
+ 
+⸻
+ 
+13. Revised Pass 7 conclusions
+Pass 7’s migration web should now acquire a pre-July upstream layer.
+Previously:
+STRIDE → Sentinel → GSA-815
+is an incomplete picture.
+The cross-history result is better represented as:
+                 Copilot May 16
+                      │
+          ┌───────────┴───────────┐
+          ▼                       ▼
+      GSA / DIT             FORTRESS v2
+          │                       │
+          │                       └── previous v2 implementation
+          │
+          └──────────────┐
+                         ▼
+                  Gemini June 10
+                         │
+        ┌────────────────┼───────────────────┐
+        ▼                ▼                   ▼
+       GSA            FORTRESS             DIT
+        │                │                   │
+        └──────┬─────────┴──────────┬────────┘
+               ▼                    ▼
+            July systems        later governance
+               │
+        ┌──────┴──────┐
+        ▼             ▼
+     Sentinel       GSA family
+        │             │
+        ▼             ▼
+   sentinel_os     GSA-815
+That is the historically stronger model.
+ 
+⸻
+ 
+14. Earliest defensible historical boundary
+For the older software ecosystem:
+May 16, 2026 is now a directly proven Copilot historical boundary.
+At that date:
+* GSA/DIT architecture existed as a preserved artifact.
+* FORTRESS v2 actual source code existed.
+* FORTRESS had an earlier implementation that the May 16 version replaced.
+The Copilot archive itself reaches March 23, but the March material recovered here is unrelated to this software lineage.
+Therefore:
+May 16, 2026 is the earliest defensible Copilot boundary for the older governance/FORTRESS ecosystem recovered in this pass.
+Gemini_History then pushes the broader ecosystem to at least June 10 with much stronger multi-system evidence.
+Claude_History establishes the later conversational/repository layer.
+ 
+⸻
+ 
+15. Strongest new provenance edge
+The strongest new edge is:
+previous FORTRESS v2 implementation
+        ↓
+May 16, 2026
+FORTRESS v2 patched controller
+        ↓
+later FORTRESS lineage
+        ↓
+August FORTRESS repository
+The first arrow is A because the transcript explicitly says the new file replaces the previous file.
+The last two arrows are B/U because the current repository continuity has not been established byte-for-byte in this pass.
+A second very strong cross-history edge is:
+May 16 GSA / DIT architecture
+        ↓
+June 10 GSA / DIT multi-system ecosystem
+That edge is supported independently by two different AI-history archives.
+ 
+⸻
+ 
+16. Remaining unanswered questions
+The Copilot excavation leaves four especially valuable questions:
+First: what exactly was the “previous file” replaced by the May 16 FORTRESS v2 implementation?
+Second: did the May 16 GSA/DIT architecture have executable source attached somewhere else in the Copilot activity corpus?
+Third: can the full 95,370-row CSV be searched locally for distinctive artifact strings such as PredictiveIntegrityController, gsa-master-kernel-base-flattened.py, governance_loop_guard.py, or Sentinel?
+Fourth: can Copilot’s earlier GSA/FORTRESS material be matched byte-for-byte or structurally against the later Gemini artifacts and current repositories?
+Those are the remaining high-value provenance targets.
+ 
+⸻
+ 
+FINAL HISTORICAL JUDGMENT
+Copilot_HISTORY independently proves that the older ecosystem predates the surviving July/August repositories.
+The key evidence is not merely that “Copilot was involved.” It is that the archive preserves actual source code and dated development conversations.
+Most decisively:
+* FORTRESS v2 actual code exists in a May 16, 2026 Copilot conversation.
+* That code explicitly replaces an earlier FORTRESS file, proving an internal predecessor.
+* GSA and DIT architecture are explicitly preserved in a separate May 16 conversation.
+* The current FORTRESS repository did not appear until August 19.
+So the historical sequence can no longer credibly be written as:
+repository creation → system birth
+It is better written as:
+earlier AI-assisted development
+        ↓
+versioned artifacts
+        ↓
+cross-AI architectural evolution
+        ↓
+repository crystallization
+        ↓
+migration / consolidation / reconstruction
+What would remain if the current repositories disappeared?
+Copilot_History would independently preserve:
+FORTRESS: a real May 16, 2026 implementation and evidence of an even earlier FORTRESS file. GSA: a May 16 architecture artifact. DIT: a May 16 architecture artifact. Citadel: a May 16 lore/specification artifact, explicitly classified as fictional rather than software. Sentinel: no independent Copilot provenance recovered in this pass. GSA-815: no direct Copilot provenance recovered. GSA-GATEWAY: no direct Copilot provenance recovered. STRIDE / SAGE-K / RADAR / DGK / SECURE / UZTC / WRAPPER / EDDP / URE / ARCHIVE: unresolved from Copilot alone.
+The decisive historical conclusion is therefore:
+Copilot_History is an independent pre-repository provenance layer, and FORTRESS is the strongest system for which Copilot directly preserves real software evidence predating the current repository by roughly three months.
+That materially strengthens the pre-July historical reconstruction established by Gemini_History and reduces the remaining uncertainty from “did these systems exist before the repositories?” to the much more precise question of “which exact artifacts and earlier versions flowed into which later repositories?”

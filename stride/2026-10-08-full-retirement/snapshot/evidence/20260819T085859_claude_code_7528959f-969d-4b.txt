@@ -1,0 +1,3 @@
+[tool_result] {"name":"STRIDE","url":"https://github.com/wking53214/STRIDE"}
+origin	https://github.com/wking53214/STRIDE.git (fetch)
+origin	https://github.com/wking53214/STRIDE.git (push)

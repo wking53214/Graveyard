@@ -1,0 +1,34 @@
+[tool_result] === STATUS/DIV ===
+0	0
+
+=== HISTORY ===
+d1bbb1c 2026-08-24 Update README.md
+5cbae46 2026-08-21 README: mention citadel_v1.2.py
+f2e18f9 2026-08-21 Add readable split of artifact_1.py's two concatenated drafts
+4c8b87d 2026-08-21 Add citadel_v1.2.py
+f1591ab 2026-08-19 Add README cross-linking to STRIDE
+54abe1f 2026-08-13 Archive of pre-existing artifact. Preserved verbatim, unmodified.
+
+=== TREE ===
+PROVENANCE.md
+README.md
+TRANSCRIPT.md
+artifact_1.py
+citadel_v1.1_copy1.py
+citadel_v1.1_copy2.py
+citadel_v1.2.py
+--untracked--
+(none)
+
+=== gh desc ===
+Deterministic enforcement engine for constraining and validating LLM-generated outputs against explicit rules & governance requirements.  arch:false
+
+=== last commit stat ===
+commit d1bbb1c461832788f7a661ec6cc32e1bb26fea79
+Author: wking53214 <wking53214@gmail.com>
+Date:   Mon Aug 24 20:47:41 2026 -0400
+
+    Update README.md
+
+ README.md | 700 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++--
+ 1 file changed, 679 insertions(+), 21 deletions(-)

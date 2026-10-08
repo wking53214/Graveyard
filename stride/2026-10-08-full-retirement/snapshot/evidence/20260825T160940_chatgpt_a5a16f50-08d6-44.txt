@@ -1,0 +1,15 @@
+Pulled it. I found the repo under **`wking53214/GSA-GATEWAY`** — your original request had `wking532514`, but GitHub identifies the owner as `wking53214`.
+
+The repository is on `main`, public, and currently contains:
+
+- `secure/` — former SECURE repo
+- `uztc/` — Universal Zero-Trust Construct
+- `wrapper/` — GSA Universal Interlock Wrapper / sandbox kernel
+- `governance-stack/` — consolidated governance material from DGK and EDDP
+- Related but separate: CITADEL and STRIDE
+
+The README explicitly describes this as a **pure content consolidation pass**, with no code edits, bug fixes, or class renames yet. fileciteturn1file0L2-L7
+
+urlOpen GSA-GATEWAY on GitHubhttps://github.com/wking53214/GSA-GATEWAY
+
+I have the repo context loaded and can now inspect its **actual code, architecture, provenance, tests, and integration points** rather than treating the README as the repo itself.
