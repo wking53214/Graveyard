@@ -42,7 +42,7 @@ Each idea was checked against the live stack. Result: nothing ported. Each idea 
 - The README says the CLI is not implemented. STATUS says the CLI has working `inspect` commands. The two documents disagree, and this is not resolved here.
 - The `Ghost` in the design documents is not connected to ghost_tools in code. No file imports ghost_tools.
 - The scenario commits named in ghost_tools' fixture do not exist in this repo's history.
-- The repo has no LICENSE file.
+- The repo had no LICENSE file. The live tombstone branch was licensed under Apache-2.0 on 2026-10-08, per the standard for all repos. The snapshot itself has no license, as it was.
 
 ## Bringing it back
 
