@@ -28,3 +28,4 @@ bundle (complete history). CI folders are renamed so they never run here.
 | 2026-10-07 | ghost_tools | Branch `feature/zts-cns-docking` (full history bundle + patch) | Stale refactor branch whose squash-merge (#78) broke main; repaired by #82, nothing left to keep |
 | 2026-10-07 | vanguard | **Entire repo retired** (snapshot + full git history) | Code byte-identical to copies in TOUCHSTONE; README analysis kept here as the record |
 | 2026-10-07 | content-pipeline | **Entire repo retired** (snapshot + full git history, incl. readable-copy branch) | Flattened AI design that cannot run; ~40 undefined names, 18 found elsewhere in the stack, 2 never defined; every job it attempts is done better in the stack |
+| 2026-10-07 | UTEP | **Entire repo retired** (snapshot + full git history) | Text instructions reconstructed from one conversation; not code, nothing in the stack depends on it |

@@ -1,0 +1,29 @@
+name: lint
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  utep-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          # The linter is stdlib-only and runs unchanged on 3.9 through 3.13,
+          # so this pins one version rather than claiming a support range the
+          # repository does not otherwise declare.
+          python-version: "3.13"
+
+      - name: Check the repository against its own rules
+        # Exits 1 on an error (em dash, or a file over its layer's hard word
+        # limit) and 0 on a warning. The one standing warning, Protocol v1.0
+        # over the kernel word target, is accurate and is why v2.0 exists.
+        run: python tools/utep_lint.py

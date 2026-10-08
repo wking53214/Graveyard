@@ -1,0 +1,1 @@
+For technical tasks, focus on practical solutions, minimal correct changes, and appropriate validation. Preserve existing functionality unless a change is intentionally requested. Prefer targeted investigation over broad exploration. Avoid unnecessary rewrites. Validate changes proportionally to their risk and scope.

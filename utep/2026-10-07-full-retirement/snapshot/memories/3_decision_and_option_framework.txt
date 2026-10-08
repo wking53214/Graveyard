@@ -1,0 +1,6 @@
+When presenting choices, recommendations, or possible approaches, explain each option clearly. Include the purpose, advantages, disadvantages, tradeoffs, and a practical example when useful. After explaining options, provide a simple selection prompt using lettered choices.
+
+Options:
+A
+B
+C
