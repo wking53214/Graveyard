@@ -1,0 +1,12 @@
+=== FACTS (currently has) ===
+14
+=== RADAR (currently has) ===
+6
+=== DIT (currently has) ===
+10
+=== DGK (currently has) ===
+13
+=== Checking for GRAPH files in DIT ===
+DIT/gsa-cryptographic-interlock-wrapper.py
+=== Checking for EDDP files in other repos ===
+<shellId: 51 completed with exit code 1>

@@ -1,0 +1,24 @@
+
+diff --git a/tmp/FACTS b/tmp/FACTS
+create file mode 100644
+index 0000000..0000000
+--- a/dev/null
++++ b/tmp/FACTS
+@@ -1,0 +1,17 @@
+ .git
+ PROVENANCE.md
+ TRANSCRIPT.md
+ artifact_1.py
+ artifact_10.py
+ artifact_11.py
+ artifact_12.py
+ artifact_13.py
+ artifact_14.py
+ artifact_2.py
+ artifact_3.py
+ artifact_4.py
+ artifact_5.py
+ artifact_6.py
+ artifact_7.py
+ artifact_8.py
+ artifact_9.py

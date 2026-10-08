@@ -1,0 +1,216 @@
+# ROW_COUNT: 210
+# Version-Control-ID: HASH_CHECK_SUM_v1.0_AST_GRAPH_EXTRACTOR
+# SYSTEM_NAME: GRAPH (Governance, Routing, and Anchor Processing Hierarchy)
+# GRAPH_VERSION: v1.0_AST_BASED
+# MODULE_REGISTRY: {"GraphExtractor": "FNC_v1.0_AST", "extract_graph": "API_v1.0"}
+
+"""
+Abstract Syntax Tree Graph Extractor (ASTGE)
+
+This framework functions as a deterministic AST-based graph extractor
+that parses Python source code into structured nodes (classes, functions,
+modules), edges (function/method calls), and tracked imports to facilitate
+structural governance and code relationship analysis.
+
+SYSTEM CODE
+"""
+
+# ============================================================
+# DIAGNOSTIC/REPAIR LOG
+# ============================================================
+# 1. ISSUE: Missing line row indices for audit logging.
+#    FIX: Pre-pended [Row ###] indices to every line of code.
+# 2. ISSUE: Safe attribute chain resolution.
+#    FIX: Ensured recursive reversal of attribute chains for complex calls.
+# 3. ISSUE: PEP 8 import grouping and scope stack maintenance.
+#    FIX: Standardized standard library imports and `ast` traversal.
+
+[Row 021] import ast
+[Row 022] from dataclasses import dataclass, asdict
+[Row 023] from typing import Dict, List, Set, Tuple, Optional
+[Row 024] 
+[Row 025] # =========================================================
+[Row 026] # GRAPH IR
+[Row 027] # =========================================================
+[Row 028] 
+[Row 029] @dataclass(frozen=True)
+[Row 030] class Node:
+[Row 031]     """Represents an isolated code symbol or file within the AST graph."""
+[Row 032]     id: str
+[Row 033]     kind: str
+[Row 034]     file: str
+[Row 035] 
+[Row 036] @dataclass(frozen=True)
+[Row 037] class Edge:
+[Row 038]     """Represents a directional relationship or invocation between nodes."""
+[Row 039]     src: str
+[Row 040]     dst: str
+[Row 041]     kind: str
+[Row 042]     evidence: str
+[Row 043] 
+[Row 044] @dataclass
+[Row 045] class Graph:
+[Row 046]     """Container holding mapped nodes and recorded relationship edges."""
+[Row 047]     nodes: Dict[str, Node]
+[Row 048]     edges: List[Edge]
+[Row 049] 
+[Row 050] # =========================================================
+[Row 051] # AST VISITOR
+[Row 052] # =========================================================
+[Row 053] 
+[Row 054] class GraphExtractor(ast.NodeVisitor):
+[Row 055]     """
+[Row 056]     The Core Visitor: Walks the abstract syntax tree to identify
+[Row 057]     declarations, scopes, calls, and import registries deterministically.
+[Row 058]     """
+[Row 059]     def __init__(self, filename: str = "<module>"):
+[Row 060]         self.filename = filename
+[Row 061]         self.nodes: Dict[str, Node] = {}
+[Row 062]         self.edges: List[Edge] = []
+[Row 063]         self.current_scope: List[str] = []
+[Row 064]         self.defined: Set[str] = set()
+[Row 065] 
+[Row 066]     # -------------------------
+[Row 067]     # NODE HELPERS
+[Row 068]     # -------------------------
+[Row 069]     def add_node(self, name: str, kind: str):
+[Row 070]         """Registers a unique code artifact node into the IR map."""
+[Row 071]         if name not in self.nodes:
+[Row 072]             self.nodes[name] = Node(id=name, kind=kind, file=self.filename)
+[Row 073] 
+[Row 074]     def add_edge(self, src: str, dst: str, kind: str, evidence: str):
+[Row 075]         """Appends a relationship edge tracking code execution links."""
+[Row 076]         self.edges.append(Edge(src, dst, kind, evidence))
+[Row 077] 
+[Row 078]     def current_qualname(self, name: str) -> str:
+[Row 079]         """Resolves fully qualified nesting paths for inner functions/classes."""
+[Row 080]         if self.current_scope:
+[Row 081]             return ".".join(self.current_scope + [name])
+[Row 082]         return name
+[Row 083] 
+[Row 084]     # -------------------------
+[Row 085]     # MODULE LEVEL
+[Row 086]     # -------------------------
+[Row 087]     def visit_Module(self, node: ast.Module):
+[Row 088]         """Inits module level registration."""
+[Row 089]         self.add_node(self.filename, "module")
+[Row 090]         self.generic_visit(node)
+[Row 091] 
+[Row 092]     # -------------------------
+[Row 093]     # FUNCTION DEFINITIONS
+[Row 094]     # -------------------------
+[Row 095]     def visit_FunctionDef(self, node: ast.FunctionDef):
+[Row 096]         """Tracks synchronous function declarations."""
+[Row 097]         qname = self.current_qualname(node.name)
+[Row 098]         self.add_node(qname, "function")
+[Row 099]         self.defined.add(qname)
+[Row 100]         self.current_scope.append(node.name)
+[Row 101]         self.generic_visit(node)
+[Row 102]         self.current_scope.pop()
+[Row 103] 
+[Row 104]     def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef):
+[Row 105]         """Tracks asynchronous function declarations."""
+[Row 106]         qname = self.current_qualname(node.name)
+[Row 107]         self.add_node(qname, "async_function")
+[Row 108]         self.defined.add(qname)
+[Row 109]         self.current_scope.append(node.name)
+[Row 110]         self.generic_visit(node)
+[Row 111]         self.current_scope.pop()
+[Row 112] 
+[Row 113]     # -------------------------
+[Row 114]     # CLASS DEFINITIONS
+[Row 115]     # -------------------------
+[Row 116]     def visit_ClassDef(self, node: ast.ClassDef):
+[Row 117]         """Tracks class declarations within the scope stack."""
+[Row 118]         qname = self.current_qualname(node.name)
+[Row 119]         self.add_node(qname, "class")
+[Row 120]         self.defined.add(qname)
+[Row 121]         self.current_scope.append(node.name)
+[Row 122]         self.generic_visit(node)
+[Row 123]         self.current_scope.pop()
+[Row 124] 
+[Row 125]     # -------------------------
+[Row 126]     # CALLS (CORE OF GRAPH)
+[Row 127]     # -------------------------
+[Row 128]     def visit_Call(self, node: ast.Call):
+[Row 129]         """Extracts invocation evidence between caller and callee nodes."""
+[Row 130]         caller = ".".join(self.current_scope) if self.current_scope else self.filename
+[Row 131]         callee = self.resolve_call(node.func)
+[Row 132]         if callee:
+[Row 133]             self.add_edge(src=caller, dst=callee, kind="CALL", evidence=ast.unparse(node))
+[Row 134]         self.generic_visit(node)
+[Row 135] 
+[Row 136]     # -------------------------
+[Row 137]     # IMPORTS
+[Row 138]     # -------------------------
+[Row 139]     def visit_Import(self, node: ast.Import):
+[Row 140]         """Logs package imports."""
+[Row 141]         for alias in node.names:
+[Row 142]             self.add_node(alias.name, "import")
+[Row 143]         self.generic_visit(node)
+[Row 144] 
+[Row 145]     def visit_ImportFrom(self, node: ast.ImportFrom):
+[Row 146]         """Logs modular explicit imports."""
+[Row 147]         module = node.module or ""
+[Row 148]         for alias in node.names:
+[Row 149]             full = f"{module}.{alias.name}" if module else alias.name
+[Row 150]             self.add_node(full, "import")
+[Row 151]         self.generic_visit(node)
+[Row 152] 
+[Row 153]     # -------------------------
+[Row 154]     # RESOLUTION
+[Row 155]     # -------------------------
+[Row 156]     def resolve_call(self, func: ast.AST) -> Optional[str]:
+[Row 157]         """Resolves direct name references and attribute chains."""
+[Row 158]         if isinstance(func, ast.Name):
+[Row 159]             return func.id
+[Row 160]         if isinstance(func, ast.Attribute):
+[Row 161]             return self.resolve_attr_chain(func)
+[Row 162]         return None
+[Row 163] 
+[Row 164]     def resolve_attr_chain(self, node: ast.Attribute) -> str:
+[Row 165]         """Flattens recursive attribute trees into standard dot notation."""
+[Row 166]         parts = []
+[Row 167]         cur = node
+[Row 168]         while isinstance(cur, ast.Attribute):
+[Row 169]             parts.append(cur.attr)
+[Row 170]             cur = cur.value
+[Row 171]         if isinstance(cur, ast.Name):
+[Row 172]             parts.append(cur.id)
+[Row 173]         return ".".join(reversed(parts))
+[Row 174] 
+[Row 175] # =========================================================
+[Row 176] # PUBLIC API
+[Row 177] # =========================================================
+[Row 178] 
+[Row 179] def extract_graph(source: str, filename: str = "<module>") -> Graph:
+[Row 180]     """Parses code source and runs the AST Graph Extractor visitor."""
+[Row 181]     tree = ast.parse(source)
+[Row 182]     extractor = GraphExtractor(filename=filename)
+[Row 183]     extractor.visit(tree)
+[Row 184]     return Graph(nodes=extractor.nodes, edges=extractor.edges)
+[Row 185] 
+[Row 186] def graph_to_dict(graph: Graph) -> dict:
+[Row 187]     """Serializes extracted IR structures into JSON-compatible dictionaries."""
+[Row 188]     return {
+[Row 189]         "nodes": [asdict(n) for n in graph.nodes.values()],
+[Row 190]         "edges": [asdict(e) for e in graph.edges]
+[Row 191]     }
+[Row 192] 
+[Row 193] # =========================================================
+[Row 194] # DEMONSTRATION RUNTIME HOOK
+[Row 195] # =========================================================
+[Row 196] if __name__ == "__main__":
+[Row 197]     sample_code = "import math\n\nclass SampleProcessor:\n    async def compute(self, val):\n        return math.sqrt(val)"
+[Row 198]     res = extract_graph(sample_code)
+[Row 199]     print("Extracted Graph Dictionary:", graph_to_dict(res))
+[Row 200] 
+[Row 201] # ============================================================
+[Row 202] # .gitignore
+[Row 203] # ============================================================
+[Row 204] # __pycache__/
+[Row 205] # *.py[cod]
+[Row 206] # .venv/
+[Row 207] # *.log
+[Row 208] # .gsa_state/
+[Row 209] # .DS_Store
