@@ -44,7 +44,7 @@ Each idea was checked against the live stack. Result: nothing left to port.
 ## Known issues at time of burial
 
 - The package passes its 32 tests at burial time.
-- LICENSE is MIT. The Apache-2.0 standard set in October 2026 for all repos was not applied here. Left unchanged in the snapshot, because the snapshot is the record as it was.
+- The snapshot's LICENSE is MIT, left as it was, because the snapshot is the record as it was. The live repo's tombstone branch was relicensed to Apache-2.0 on 2026-10-08, per the October 2026 standard for all repos.
 - The README's corpus figures (11,540 blocks, 36 of 620 failing) cannot be checked from this burial.
 
 ## Bringing it back
