@@ -1,0 +1,8 @@
+parser:
+  include_patterns:
+    - "**/*.py"
+  exclude_patterns:
+    - "venv/**"
+    - ".venv/**"
+    - "tests/**"
+  max_file_size_kb: 512

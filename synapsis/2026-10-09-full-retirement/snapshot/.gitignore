@@ -1,0 +1,46 @@
+# --- Python basics ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.so
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Synapsis analysis artifacts ---
+data/
+data/reports/
+data/snapshots/
+data/graveyard/
+data/tmp/
+
+# --- Synapsis memory + storage ---
+synapsis_storage/
+*.json
+
+# --- Synapsis logs ---
+logs/
+*.log
+
+# --- Build artifacts ---
+build/
+dist/
+*.egg-info/
+
+# --- IDE / Editor ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+
+# --- Python tooling ---
+pip-wheel-metadata/
+pip-log.txt

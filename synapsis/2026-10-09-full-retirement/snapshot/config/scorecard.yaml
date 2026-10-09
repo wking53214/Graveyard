@@ -1,0 +1,13 @@
+scorecard:
+  categories:
+    - security
+    - reliability
+    - maintainability
+    - testability
+    - observability
+    - performance
+    - scalability
+    - architecture
+    - documentation
+    - governance
+  default_weight: 1.0

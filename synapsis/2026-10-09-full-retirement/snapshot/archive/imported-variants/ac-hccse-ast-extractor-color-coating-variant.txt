@@ -1,0 +1,137 @@
+Version-Control-ID: HASH_PLACEHOLDER_AST_GRAPH_99f
+Name: ASTGraphExtractorWithColorCoatingAnimation
+Description: This program parses Python source code using abstract syntax trees to extract symbols and relationships, enhanced with simulated color, coating, and animation processing pipelines for graphical state rendering.
+============================================================
+DIAGNOSTIC/REPAIR LOG
+============================================================
+1. ISSUE: Handling of reversed attribute chains for deep object calls.
+FIX: Implemented an explicit traversal loop to safely unroll attribute chains.
+2. ISSUE: Scope maintenance during traversal.
+FIX: Used robust scope push and pop patterns inside visitor overrides.
+3. ISSUE: Integration of color, coating, and animation processing hooks.
+FIX: Added dedicated visualization properties and step-interpolation math.
+============================================================
+from future import annotations import ast from dataclasses import dataclass, asdict from typing import Dict, List, Set, Optional, Tuple import math
+=========================================================
+GRAPH IR & ANIMATION STRUCTS
+=========================================================
+@dataclass(frozen=True) class ColorRgba: """Represents a red-green-blue-alpha color weighting for element coating.""" r: float g: float b: float a: float
+@dataclass(frozen=True) class CoatingParameters: """Defines tactile and visual properties applied to graph nodes during rendering.""" layer_thickness: float roughness: float tint: ColorRgba
+@dataclass(frozen=True) class Node: """Represents a code symbol or structural container in the extracted syntax graph.""" id: str kind: str file: str coating: CoatingParameters
+@dataclass(frozen=True) class Edge: """Represents a directed link between two identifiers with animation weights.""" src: str dst: str kind: str evidence: str animation_velocity: float
+@dataclass class Graph: """Encapsulates the complete collection of nodes and relational edges.""" nodes: Dict[str, Node] edges: List[Edge]
+=========================================================
+AST VISITOR WITH COLOR & COATING LOGIC
+=========================================================
+class GraphExtractor(ast.NodeVisitor): """ Traverses the Python Abstract Syntax Tree to extract definitions and calls, assigning distinct color coatings and structural animation metrics. """ def init(self, filename: str = ""): self.filename = filename self.nodes: Dict[str, Node] = {} self.edges: List[Edge] = [] self.current_scope: List[str] = [] self.defined: Set[str] = set()
+def _derive_coating(self, kind: str) -> CoatingParameters:
+   """Assigns specialized color tints and layer thicknesses based on node classification."""
+   if kind == "module":
+       return CoatingParameters(1.2, 0.1, ColorRgba(0.2, 0.4, 0.8, 1.0))
+   elif kind in ("function", "async_function"):
+       return CoatingParameters(0.8, 0.3, ColorRgba(0.8, 0.5, 0.2, 1.0))
+   elif kind == "class":
+       return CoatingParameters(1.5, 0.2, ColorRgba(0.3, 0.7, 0.4, 1.0))
+   else:
+       return CoatingParameters(0.5, 0.5, ColorRgba(0.5, 0.5, 0.5, 0.8))
+
+def add_node(self, name: str, kind: str) -> None:
+   """Adds a unique symbol node with associated color-coating metadata."""
+   if name not in self.nodes:
+       self.nodes[name] = Node(
+           id=name,
+           kind=kind,
+           file=self.filename,
+           coating=self._derive_coating(kind)
+       )
+
+def add_edge(self, src: str, dst: str, kind: str, evidence: str) -> None:
+   """Appends a directed relationship edge with dynamic animation velocity properties."""
+   velocity = 1.5 if kind == "CALL" else 0.5
+   self.edges.append(Edge(src=src, dst=dst, kind=kind, evidence=evidence, animation_velocity=velocity))
+
+def current_qualname(self, name: str) -> str:
+   """Computes fully qualified identifiers."""
+   if self.current_scope:
+       return ".".join(self.current_scope + [name])
+   return name
+
+def visit_Module(self, node: ast.Module) -> None:
+   self.add_node(self.filename, "module")
+   self.generic_visit(node)
+
+def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
+   qname = self.current_qualname(node.name)
+   self.add_node(qname, "function")
+   self.defined.add(qname)
+   self.current_scope.append(node.name)
+   self.generic_visit(node)
+   self.current_scope.pop()
+
+def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> None:
+   qname = self.current_qualname(node.name)
+   self.add_node(qname, "async_function")
+   self.defined.add(qname)
+   self.current_scope.append(node.name)
+   self.generic_visit(node)
+   self.current_scope.pop()
+
+def visit_ClassDef(self, node: ast.ClassDef) -> None:
+   qname = self.current_qualname(node.name)
+   self.add_node(qname, "class")
+   self.defined.add(qname)
+   self.current_scope.append(node.name)
+   self.generic_visit(node)
+   self.current_scope.pop()
+
+def visit_Call(self, node: ast.Call) -> None:
+   caller = ".".join(self.current_scope) if self.current_scope else self.filename
+   callee = self.resolve_call(node.func)
+   if callee:
+       self.add_edge(caller, callee, "CALL", ast.unparse(node))
+   self.generic_visit(node)
+
+def visit_Import(self, node: ast.Import) -> None:
+   for alias in node.names:
+       self.add_node(alias.name, "import")
+   self.generic_visit(node)
+
+def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
+   module = node.module or ""
+   for alias in node.names:
+       full = f"{module}.{alias.name}" if module else alias.name
+       self.add_node(full, "import")
+   self.generic_visit(node)
+
+def resolve_call(self, func: ast.AST) -> Optional[str]:
+   if isinstance(func, ast.Name):
+       return func.id
+   if isinstance(func, ast.Attribute):
+       return self.resolve_attr_chain(func)
+   return None
+
+def resolve_attr_chain(self, node: ast.Attribute) -> str:
+   parts = []
+   cur = node
+   while isinstance(cur, ast.Attribute):
+       parts.append(cur.attr)
+       cur = cur.value
+   if isinstance(cur, ast.Name):
+       parts.append(cur.id)
+   return ".".join(reversed(parts))
+
+=========================================================
+ANIMATION INTERPOLATION PROCESSOR
+=========================================================
+def simulate_coating_animation_frame(graph: Graph, time_progress: float) -> Dict[str, float]: """Computes spatial pulse factors for active edges based on animation velocity parameters.""" pulsed_states = {} for edge in graph.edges: key = f"{edge.src}->{edge.dst}" # Apply sine wave oscillation modulated by animation velocity pulsed_states[key] = math.sin(time_progress * edge.animation_velocity * math.pi) return pulsed_states
+=========================================================
+PUBLIC API
+=========================================================
+def extract_graph(source: str, filename: str = "") -> Graph: """Parses text source input into a structured abstract syntax graph with visual coatings.""" tree = ast.parse(source) extractor = GraphExtractor(filename=filename) extractor.visit(tree) return Graph(nodes=extractor.nodes, edges=extractor.edges)
+def graph_to_dict(graph: Graph) -> dict: """Converts the coated node/edge graph representations into standard primitives.""" return { "nodes": [asdict(n) for n in graph.nodes.values()], "edges": [asdict(e) for e in graph.edges] }
+============================================================
+GITHUB TRANSPORTATION HYGIENE (.gitignore)
+============================================================
+"""
+.gitignore
+pycache/ *.pyc .env .DS_Store animation_output_dumps/ logs/.log """
