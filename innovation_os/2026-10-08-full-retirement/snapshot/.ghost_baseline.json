@@ -1,0 +1,2213 @@
+[
+  {
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/governance/approval.py",
+      "line_end": null,
+      "line_start": null,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.163453+00:00",
+    "id": "ghost-ca8618024f96",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'ApprovalDecision' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/governance/guardrails.py",
+      "line_end": null,
+      "line_start": null,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.163565+00:00",
+    "id": "ghost-2643b49ba5df",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'IntelligenceGuardrails' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/governance/policy.py",
+      "line_end": null,
+      "line_start": null,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.163577+00:00",
+    "id": "ghost-b82059f6f7b2",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'IntelligencePolicy' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/memory/artifact_store.py",
+      "line_end": null,
+      "line_start": null,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.163609+00:00",
+    "id": "ghost-7df52c57b7de",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'ArtifactStore' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/models.py",
+      "line_end": null,
+      "line_start": null,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.163625+00:00",
+    "id": "ghost-ecd5edee7a68",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'Question' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/models.py",
+      "line_end": null,
+      "line_start": null,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.163638+00:00",
+    "id": "ghost-48b4e373e638",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'Concept' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "category": "dead_code",
+    "confidence": null,
+    "detail": "No ast.Name, ast.Attribute, or string-subscript-key node anywhere in the scanned files resolves to this identifier. Scope limit: getattr-by-string and decorator-based registration are still not traced, so this can false-positive on names only reached that way -- confirm before deleting.",
+    "detector": "dead_code",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/models.py",
+      "line_end": null,
+      "line_start": null,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.163645+00:00",
+    "id": "ghost-e839652c2c17",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'ArtifactRecord' is defined but never referenced anywhere in the scanned set"
+  },
+  {
+    "category": "complexity",
+    "confidence": null,
+    "detail": "Line-count proxy for the 'Long Method' smell, not true cyclomatic complexity -- a long function that's mostly a flat sequence of simple statements is a weaker signal than a short function with deep branching. Treat as a prompt to look, not a verdict.",
+    "detector": "long_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/demos/mvp2_demo.py",
+      "line_end": 95,
+      "line_start": 13,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.169195+00:00",
+    "id": "ghost-a3e88dcacec8",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'run_demo' spans 82 lines (threshold 80)"
+  },
+  {
+    "category": "complexity",
+    "confidence": null,
+    "detail": "Line-count proxy for the 'Long Method' smell, not true cyclomatic complexity -- a long function that's mostly a flat sequence of simple statements is a weaker signal than a short function with deep branching. Treat as a prompt to look, not a verdict.",
+    "detector": "long_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/classification/classifier.py",
+      "line_end": 108,
+      "line_start": 16,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.173786+00:00",
+    "id": "ghost-98fe89d9160c",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'classify' spans 92 lines (threshold 80)"
+  },
+  {
+    "category": "complexity",
+    "confidence": null,
+    "detail": "Line-count proxy for the 'Long Method' smell, not true cyclomatic complexity -- a long function that's mostly a flat sequence of simple statements is a weaker signal than a short function with deep branching. Treat as a prompt to look, not a verdict.",
+    "detector": "long_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/interface/natural_language.py",
+      "line_end": 118,
+      "line_start": 34,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.214150+00:00",
+    "id": "ghost-16a7b9aaa8ae",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'query' spans 84 lines (threshold 80)"
+  },
+  {
+    "category": "complexity",
+    "confidence": null,
+    "detail": "Line-count proxy for the 'Long Method' smell, not true cyclomatic complexity -- a long function that's mostly a flat sequence of simple statements is a weaker signal than a short function with deep branching. Treat as a prompt to look, not a verdict.",
+    "detector": "long_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/registry/artifact_registry.py",
+      "line_end": 158,
+      "line_start": 76,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.227428+00:00",
+    "id": "ghost-c81d5820c8a7",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'register' spans 82 lines (threshold 80)"
+  },
+  {
+    "category": "complexity",
+    "confidence": null,
+    "detail": "Line-count proxy for the 'Long Method' smell, not true cyclomatic complexity -- a long function that's mostly a flat sequence of simple statements is a weaker signal than a short function with deep branching. Treat as a prompt to look, not a verdict.",
+    "detector": "long_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/mvp/test_end_to_end_mvp.py",
+      "line_end": 112,
+      "line_start": 24,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.254128+00:00",
+    "id": "ghost-fcd858bc4d04",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_innovation_os_mvp_flow' spans 88 lines (threshold 80)"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/api/server.py",
+      "line_end": 54,
+      "line_start": 47,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/graph_storage/persistent_graph.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/graph_storage/persistent_graph.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/agents/capability_registry.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/memory/intelligence_memory.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/memory/intelligence_memory_system.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/memory/memory_index.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/memory/retrieval_engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/registry/intelligence_registry.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416311+00:00",
+    "id": "ghost-7cd9866d55c5",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "9 functions share identical AST structure (names/literals differ, control flow and shape don't): server.py:47:get_node, persistent_graph.py:47:get_node, persistent_graph.py:57:get_connections, capability_registry.py:27:get, intelligence_memory.py:33:recall, intelligence_memory_system.py:26:consolidate, memory_index.py:47:get, retrieval_engine.py:13:retrieve, intelligence_registry.py:27:resolve"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/assistant/research.py",
+      "line_end": 28,
+      "line_start": 21,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/copilot/interface.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416348+00:00",
+    "id": "ghost-08e462a711e2",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): research.py:21:add_knowledge, interface.py:21:add"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/attribution/engine.py",
+      "line_end": 33,
+      "line_start": 24,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/cluster_engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/duplicate_engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/pattern_engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/opportunity/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/similarity/engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416371+00:00",
+    "id": "ghost-0b3b1f0b3588",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "6 functions share identical AST structure (names/literals differ, control flow and shape don't): engine.py:24:register_project, cluster_engine.py:23:add, duplicate_engine.py:24:add, pattern_engine.py:24:add, engine.py:24:add, engine.py:22:add"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/branches/engine.py",
+      "line_end": 43,
+      "line_start": 34,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/code_registry/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/decision/alternative_engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/decision/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/decision/replay_engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/forecast/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/governance/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/ideation/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/nature/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/review/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/solution/engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416401+00:00",
+    "id": "ghost-1666c9418d21",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "11 functions share identical AST structure (names/literals differ, control flow and shape don't): engine.py:34:get_branch, engine.py:40:get_artifact, alternative_engine.py:38:get_alternative, engine.py:41:get_decision, replay_engine.py:34:get_replay, engine.py:38:get_scenario, engine.py:34:get_approval, engine.py:36:get_idea, engine.py:36:get_pattern, engine.py:36:get_review, engine.py:38:get_solution"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/branches/engine.py",
+      "line_end": 54,
+      "line_start": 45,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/code_registry/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/code_registry/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/decision/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/forecast/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/governance/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/ideation/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/nature/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/solution/engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416421+00:00",
+    "id": "ghost-0b937e6cd9cd",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "9 functions share identical AST structure (names/literals differ, control flow and shape don't): engine.py:45:get_child_branches, engine.py:51:find_by_idea, engine.py:62:find_by_problem, engine.py:52:get_decisions_for_problem, engine.py:49:find_by_solution, engine.py:45:get_for_target, engine.py:47:find_by_problem, engine.py:47:find_by_principle, engine.py:49:find_by_problem"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/branches/engine.py",
+      "line_end": 67,
+      "line_start": 56,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/solution/engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416431+00:00",
+    "id": "ghost-b02541fe4657",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): engine.py:56:update_status, engine.py:60:update_status"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/context_envelope/envelope.py",
+      "line_end": 181,
+      "line_start": 174,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/context_envelope/envelope.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416444+00:00",
+    "id": "ghost-5111394e3699",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): envelope.py:174:set_recoverable, envelope.py:183:set_inferred"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/core/pipeline.py",
+      "line_end": 55,
+      "line_start": 46,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/problem/alignment.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416458+00:00",
+    "id": "ghost-71ddd132938c",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): pipeline.py:46:get, alignment.py:39:get_result"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/decision/intelligence.py",
+      "line_end": 60,
+      "line_start": 53,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/decisions/decision_tracker.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/decisions/intelligence.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/lifecycle/state_machine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/map/innovation_map.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/portfolio/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/projects/manifest.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/registry/artifact_registry.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416477+00:00",
+    "id": "ghost-03852aaf208a",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "8 functions share identical AST structure (names/literals differ, control flow and shape don't): intelligence.py:53:get, decision_tracker.py:69:get, intelligence.py:49:get, state_machine.py:114:get, innovation_map.py:75:get_node, engine.py:45:get, manifest.py:36:get, artifact_registry.py:162:get"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/forecast/engine.py",
+      "line_end": 36,
+      "line_start": 13,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/ideation/engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416488+00:00",
+    "id": "ghost-247c01c48a15",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): engine.py:13:create_scenario, engine.py:11:generate_idea"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/graph/innovation_graph.py",
+      "line_end": 73,
+      "line_start": 56,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/graph/models.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/relationships.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416500+00:00",
+    "id": "ghost-46a17d557d91",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "3 functions share identical AST structure (names/literals differ, control flow and shape don't): innovation_graph.py:56:connect, models.py:43:connect, relationships.py:17:connect"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/graph/innovation_graph.py",
+      "line_end": 100,
+      "line_start": 77,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/personal_graph/engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416510+00:00",
+    "id": "ghost-1a39d6d5edd4",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): innovation_graph.py:77:related, engine.py:70:neighbors"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/graph/models.py",
+      "line_end": 71,
+      "line_start": 61,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/knowledge_graph/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/map/innovation_map.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/relationships/relationship_engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/relationships.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416529+00:00",
+    "id": "ghost-a046e7b648e2",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "5 functions share identical AST structure (names/literals differ, control flow and shape don't): models.py:61:get_connections, engine.py:40:find_connections, innovation_map.py:60:get_connections, relationship_engine.py:49:related_to, relationships.py:33:find_connections"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/graph_storage/persistent_graph.py",
+      "line_end": 30,
+      "line_start": 19,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/graph_storage/persistent_graph.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416543+00:00",
+    "id": "ghost-e3190de02747",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): persistent_graph.py:19:add_node, persistent_graph.py:33:add_relationship"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/history/evolution.py",
+      "line_end": 48,
+      "line_start": 29,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/pins.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416553+00:00",
+    "id": "ghost-d287504c987d",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): evolution.py:29:record, pins.py:20:create_pin"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/integration/code_pipeline.py",
+      "line_end": 44,
+      "line_start": 26,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/workflows/ingestion_workflow.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416586+00:00",
+    "id": "ghost-a00634959f03",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): code_pipeline.py:26:__init__, ingestion_workflow.py:27:__init__"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/adapters/cluster_adapter.py",
+      "line_end": 32,
+      "line_start": 15,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/adapters/duplicate_adapter.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/adapters/repository_adapter.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416598+00:00",
+    "id": "ghost-7c6659682056",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "3 functions share identical AST structure (names/literals differ, control flow and shape don't): cluster_adapter.py:15:translate, duplicate_adapter.py:15:translate, repository_adapter.py:15:translate"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/agents/capability_registry.py",
+      "line_end": 24,
+      "line_start": 16,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/health/health_monitor.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/integration/intelligence_bridge.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/kernel/kernel_runtime.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/registry/intelligence_registry.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416612+00:00",
+    "id": "ghost-288cd35aee17",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "5 functions share identical AST structure (names/literals differ, control flow and shape don't): capability_registry.py:16:register, health_monitor.py:16:register, intelligence_bridge.py:16:connect, kernel_runtime.py:18:register, intelligence_registry.py:16:register"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/cognition/learner.py",
+      "line_end": 24,
+      "line_start": 15,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/decision/replay.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/knowledge/inference.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/knowledge/knowledge_fabric.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/knowledge/knowledge_fabric.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/learning/feedback_engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/memory/intelligence_memory_system.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/observability/event_bus.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/orchestration/execution_graph.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/provenance/evidence_tracker.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/telemetry/collector.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416636+00:00",
+    "id": "ghost-13c07e5f9e2c",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "11 functions share identical AST structure (names/literals differ, control flow and shape don't): learner.py:15:learn, replay.py:15:record, inference.py:15:infer, knowledge_fabric.py:19:add_entity, knowledge_fabric.py:31:add_relationship, feedback_engine.py:15:record, intelligence_memory_system.py:13:store, event_bus.py:15:publish, execution_graph.py:19:add_node, evidence_tracker.py:16:add, collector.py:10:record"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/cognition/observer.py",
+      "line_end": 18,
+      "line_start": 10,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/cognition/perceiver.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/cognition/reasoner.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416648+00:00",
+    "id": "ghost-3db1c3b8edda",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "3 functions share identical AST structure (names/literals differ, control flow and shape don't): observer.py:10:observe, perceiver.py:10:perceive, reasoner.py:10:reason"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/evolution/pattern_evolution.py",
+      "line_end": 31,
+      "line_start": 16,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/reasoning/causal_engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416659+00:00",
+    "id": "ghost-0b32c383caf5",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): pattern_evolution.py:16:evolve, causal_engine.py:16:connect"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/governance/compliance_trace.py",
+      "line_end": 29,
+      "line_start": 13,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/observability/execution_trace.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416669+00:00",
+    "id": "ghost-77c654e69b27",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): compliance_trace.py:13:record, execution_trace.py:16:record"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/integration/adapters/audit_adapter.py",
+      "line_end": 26,
+      "line_start": 13,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/integration/adapters/decision_adapter.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/integration/adapters/memory_adapter.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/integration/adapters/provenance_adapter.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416682+00:00",
+    "id": "ghost-dfa717a59273",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "4 functions share identical AST structure (names/literals differ, control flow and shape don't): audit_adapter.py:13:log, decision_adapter.py:13:evaluate, memory_adapter.py:13:store, provenance_adapter.py:13:record"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/knowledge_graph.py",
+      "line_end": 48,
+      "line_start": 33,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/personal_graph/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/personal_map/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/personal_system/builder.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416694+00:00",
+    "id": "ghost-0c42dde7da71",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "4 functions share identical AST structure (names/literals differ, control flow and shape don't): knowledge_graph.py:33:add_node, engine.py:32:add_node, engine.py:26:add_node, builder.py:32:add_node"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/knowledge_graph.py",
+      "line_end": 69,
+      "line_start": 52,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/knowledge_graph/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/lineage/builder.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/personal_graph/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/personal_system/builder.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/platform/health.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/relationships/relationship_engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416709+00:00",
+    "id": "ghost-0f88fd8c1800",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "7 functions share identical AST structure (names/literals differ, control flow and shape don't): knowledge_graph.py:52:connect, engine.py:22:connect, builder.py:22:link, engine.py:51:connect, builder.py:51:connect, health.py:21:register, relationship_engine.py:26:connect"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/orchestration/execution_graph.py",
+      "line_end": 47,
+      "line_start": 31,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/reasoning/explanation_graph.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416721+00:00",
+    "id": "ghost-c5ebdd5b6964",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): execution_graph.py:31:connect, explanation_graph.py:31:connect"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/repository/architecture_map.py",
+      "line_end": 19,
+      "line_start": 12,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/runtime/intelligence_session.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416750+00:00",
+    "id": "ghost-1998851d9325",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): architecture_map.py:12:add_module, intelligence_session.py:14:add"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/repository/architecture_map.py",
+      "line_end": 32,
+      "line_start": 22,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/review_queue/approval.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416761+00:00",
+    "id": "ghost-776b866b0a09",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): architecture_map.py:22:find, approval.py:76:get"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/knowledge_graph/engine.py",
+      "line_end": 64,
+      "line_start": 55,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/lineage/builder.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/lineage/builder.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/matching/engine.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/platform/version.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416777+00:00",
+    "id": "ghost-030f86377611",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "5 functions share identical AST structure (names/literals differ, control flow and shape don't): engine.py:55:find_by_type, builder.py:43:trace_forward, builder.py:56:trace_backward, engine.py:54:get_matches, version.py:43:get"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/personal_graph/engine.py",
+      "line_end": 106,
+      "line_start": 97,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/personal_system/builder.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/portfolio/engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416789+00:00",
+    "id": "ghost-c44c521529f1",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "3 functions share identical AST structure (names/literals differ, control flow and shape don't): engine.py:97:find_by_type, builder.py:81:find_category, engine.py:64:by_priority"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/provenance/provenance.py",
+      "line_end": 394,
+      "line_start": 385,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/provenance/provenance.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416804+00:00",
+    "id": "ghost-26b2ad41d490",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): provenance.py:385:sources_of, provenance.py:396:derivatives_of"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/review_queue/approval.py",
+      "line_end": 60,
+      "line_start": 50,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/review_queue/approval.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416828+00:00",
+    "id": "ghost-cc62482cfacb",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): approval.py:50:approve, approval.py:63:reject"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/storage/database.py",
+      "line_end": 68,
+      "line_start": 47,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/storage/database.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416843+00:00",
+    "id": "ghost-87b917fa86dc",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): database.py:47:add_node, database.py:90:add_relationship"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/api/test_api.py",
+      "line_end": 42,
+      "line_start": 28,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/personal_graph/test_personal_graph.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/personal_system/test_builder.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/search/test_search_engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416864+00:00",
+    "id": "ghost-17fe115fddfe",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "4 functions share identical AST structure (names/literals differ, control flow and shape don't): test_api.py:28:test_api_search, test_personal_graph.py:64:test_type_search, test_builder.py:40:test_category_lookup, test_search_engine.py:30:test_search_no_match"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/branches/test_branch_engine.py",
+      "line_end": 19,
+      "line_start": 6,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/governance/test_approval_engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416885+00:00",
+    "id": "ghost-453efe2ce381",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_branch_engine.py:6:test_create_branch, test_approval_engine.py:6:test_create_approval"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/branches/test_branch_engine.py",
+      "line_end": 39,
+      "line_start": 22,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/governance/test_approval_engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416901+00:00",
+    "id": "ghost-0e914f9e193e",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_branch_engine.py:22:test_get_branch, test_approval_engine.py:22:test_get_approval"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/classification/test_classifier.py",
+      "line_end": 14,
+      "line_start": 6,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/classification/test_classifier.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/classification/test_classifier.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/interface/test_natural_language.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/memory/test_innovation_memory.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/reasoning/test_reasoning_engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416924+00:00",
+    "id": "ghost-0d914b10bb3d",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "6 functions share identical AST structure (names/literals differ, control flow and shape don't): test_classifier.py:6:test_code_classification, test_classifier.py:17:test_decision_classification, test_classifier.py:28:test_unknown_classification, test_natural_language.py:28:test_recommendation_intent, test_innovation_memory.py:6:test_memory_query, test_reasoning_engine.py:32:test_unknown_subject"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/cli/test_innovation_cli.py",
+      "line_end": 26,
+      "line_start": 7,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/mvp/test_mvp.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416937+00:00",
+    "id": "ghost-a0a9dd41f5ac",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_innovation_cli.py:7:test_cli_status, test_mvp.py:7:test_mvp_status"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/code_scanner/test_scanner.py",
+      "line_end": 35,
+      "line_start": 9,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/importer/test_importer.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416948+00:00",
+    "id": "ghost-7c6d7407dc8e",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_scanner.py:9:test_code_scanner, test_importer.py:9:test_import_markdown"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/context_envelope/test_context_envelope.py",
+      "line_end": 59,
+      "line_start": 49,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/context_envelope/test_context_envelope.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416958+00:00",
+    "id": "ghost-99bbd436a8fa",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_context_envelope.py:49:test_recoverable_context_is_retrievable, test_context_envelope.py:62:test_inferred_context_is_retrievable_and_marked_as_such"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/forecast/test_forecast_engine.py",
+      "line_end": 67,
+      "line_start": 50,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/ideation/test_ideation_engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416974+00:00",
+    "id": "ghost-86a7b5b10a26",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_forecast_engine.py:50:test_find_by_solution, test_ideation_engine.py:52:test_find_by_problem"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/governance/test_approval_engine.py",
+      "line_end": 58,
+      "line_start": 42,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/nature/test_nature_engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416983+00:00",
+    "id": "ghost-af0b21be9bc4",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_approval_engine.py:42:test_get_target_approvals, test_nature_engine.py:46:test_find_by_principle"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/graph_storage/test_persistent_graph.py",
+      "line_end": 23,
+      "line_start": 6,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/storage/test_database.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.416993+00:00",
+    "id": "ghost-0ba5f5666369",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_persistent_graph.py:6:test_graph_node_persistence, test_database.py:6:test_database_persistence"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/graph_storage/test_persistent_graph.py",
+      "line_end": 43,
+      "line_start": 26,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/storage/test_database.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.417006+00:00",
+    "id": "ghost-b9cbfaa1b889",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_persistent_graph.py:26:test_graph_relationship_persistence, test_database.py:26:test_relationship_storage"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/intelligence/bootstrap/test_bootstrap.py",
+      "line_end": 16,
+      "line_start": 10,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/intelligence/system/test_system.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.417028+00:00",
+    "id": "ghost-d11754ed33d9",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_bootstrap.py:10:process, test_system.py:9:process"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/intelligence/decision/test_decision.py",
+      "line_end": 17,
+      "line_start": 11,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/intelligence/runtime/test_runtime.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.417040+00:00",
+    "id": "ghost-b067b650d5a0",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_decision.py:11:test_context, test_runtime.py:7:test_context"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/intelligence/learning/test_learning.py",
+      "line_end": 30,
+      "line_start": 22,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/intelligence/observability/test_observability.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.417066+00:00",
+    "id": "ghost-55b917d6cf78",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_learning.py:22:test_feedback_engine, test_observability.py:9:test_event_bus"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/knowledge_graph/test_knowledge_graph_engine.py",
+      "line_end": 40,
+      "line_start": 23,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/lineage/test_lineage_builder.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/lineage/test_lineage_builder.py",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/search/test_search_interface.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.417082+00:00",
+    "id": "ghost-0d25281d9d74",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "4 functions share identical AST structure (names/literals differ, control flow and shape don't): test_knowledge_graph_engine.py:23:test_find_connections, test_lineage_builder.py:22:test_forward_trace, test_lineage_builder.py:43:test_backward_trace, test_search_interface.py:7:test_search"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/opportunity/test_opportunity_engine.py",
+      "line_end": 32,
+      "line_start": 6,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/similarity/test_engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.417095+00:00",
+    "id": "ghost-e90ba3ffc45d",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_opportunity_engine.py:6:test_opportunity_detection, test_engine.py:6:test_similarity_detection"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/reconstruction/test_archive_engine.py",
+      "line_end": 39,
+      "line_start": 9,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/repository/test_repository_mapper.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.417110+00:00",
+    "id": "ghost-018c1fec91c8",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_archive_engine.py:9:test_archive_scan, test_repository_mapper.py:9:test_repository_mapping"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/relationships/test_relationship_engine.py",
+      "line_end": 33,
+      "line_start": 7,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/search/test_search_engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.417121+00:00",
+    "id": "ghost-db0c6fda1693",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_relationship_engine.py:7:test_relationship_creation, test_search_engine.py:6:test_search_finds_matching_nodes"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/review_queue/test_approval.py",
+      "line_end": 36,
+      "line_start": 21,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/review_queue/test_approval.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.417130+00:00",
+    "id": "ghost-765c00893a6b",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_approval.py:21:test_review_approval, test_approval.py:39:test_review_rejection"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/test_models.py",
+      "line_end": 19,
+      "line_start": 11,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/test_models.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.417140+00:00",
+    "id": "ghost-45a5c9fbc181",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_models.py:11:test_problem_creation, test_models.py:22:test_relationship_creation"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/demos/mvp2_demo.py",
+      "line_end": 22,
+      "line_start": 22,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/demos/mvp2_demo.py:31-31"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.422703+00:00",
+    "id": "ghost-32adc96bd80f",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'run_demo' repeats the same single statement 2 times (lines 22-22, 31-31): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/classification/classifier.py",
+      "line_end": 24,
+      "line_start": 24,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/classification/classifier.py:40-40",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/classification/classifier.py:56-56",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/classification/classifier.py:72-72",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/classification/classifier.py:88-88"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.431308+00:00",
+    "id": "ghost-9c58b56b4b91",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "'classify' repeats the same single statement 5 times (lines 24-24, 40-40, 56-56, 72-72, 88-88): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/code/relationship_extractor.py",
+      "line_end": 66,
+      "line_start": 66,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/code/relationship_extractor.py:86-86"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.433714+00:00",
+    "id": "ghost-b2e85c8ff56f",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'analyze' repeats the same single statement 2 times (lines 66-66, 86-86): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/ingest/pipeline.py",
+      "line_end": 30,
+      "line_start": 30,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/ingest/pipeline.py:36-36"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.454850+00:00",
+    "id": "ghost-7fe7ecda2a00",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'ingest' repeats the same single statement 2 times (lines 30-30, 36-36): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/bootstrap/default_kernel.py",
+      "line_end": 66,
+      "line_start": 66,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/bootstrap/default_kernel.py:80-80"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.460427+00:00",
+    "id": "ghost-79307b5edc5a",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'create_intelligence_kernel' repeats the same single statement 2 times (lines 66-66, 80-80): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/governance/governor.py",
+      "line_end": 24,
+      "line_start": 24,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/governance/governor.py:32-32"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.470421+00:00",
+    "id": "ghost-629421eb63dd",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'evaluate' repeats the same single statement 2 times (lines 24-24, 32-32): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/governance/governor.py",
+      "line_end": 25,
+      "line_start": 25,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/src/innovation_os/intelligence/governance/governor.py:33-33"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.470446+00:00",
+    "id": "ghost-a483017f232b",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'evaluate' repeats the same single statement 2 times (lines 25-25, 33-33): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/branches/test_branch_engine.py",
+      "line_end": 46,
+      "line_start": 46,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/branches/test_branch_engine.py:54-54"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.535246+00:00",
+    "id": "ghost-ff0890c2eded",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_child_branches' repeats the same single statement 2 times (lines 46-46, 54-54): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/context_envelope/test_context_envelope.py",
+      "line_end": 133,
+      "line_start": 133,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/context_envelope/test_context_envelope.py:137-137"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.540542+00:00",
+    "id": "ghost-838734f7065a",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_provenance_of_reads_live_from_attached_engine' repeats the same single statement 2 times (lines 133-133, 137-137): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/decision/test_alternative_engine.py",
+      "line_end": 56,
+      "line_start": 56,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/decision/test_alternative_engine.py:66-66"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.544960+00:00",
+    "id": "ghost-ff39dbafde84",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_compare_alternatives' repeats the same single statement 2 times (lines 56-56, 66-66): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/history/test_evolution.py",
+      "line_end": 15,
+      "line_start": 15,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/history/test_evolution.py:23-23"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.552368+00:00",
+    "id": "ghost-d50cada79c15",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_evolution_history' repeats the same single statement 2 times (lines 15-15, 23-23): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/ingest/test_ingestion.py",
+      "line_end": 13,
+      "line_start": 13,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/ingest/test_ingestion.py:24-24"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.555162+00:00",
+    "id": "ghost-261e869895f4",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_ingestion_pipeline' repeats the same single statement 2 times (lines 13-13, 24-24): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/integration/test_code_pipeline.py",
+      "line_end": 61,
+      "line_start": 61,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/integration/test_code_pipeline.py:68-68"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.556697+00:00",
+    "id": "ghost-dc25f40c4fd7",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_code_pipeline_registers_uncertain_provenance' repeats the same single statement 2 times (lines 61-61, 68-68): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/provenance/test_provenance_events.py",
+      "line_end": 26,
+      "line_start": 26,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/provenance/test_provenance_events.py:28-28"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.586036+00:00",
+    "id": "ghost-f3cbddb629a6",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_registration_logs_an_origin_event' repeats the same single statement 2 times (lines 26-26, 28-28): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/provenance/test_provenance_events.py",
+      "line_end": 70,
+      "line_start": 70,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/provenance/test_provenance_events.py:72-72",
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/provenance/test_provenance_events.py:74-74"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.586465+00:00",
+    "id": "ghost-44b0659f8762",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "'test_adoption_preserves_machine_origin_after_status_moves' repeats the same single statement 3 times (lines 70-70, 72-72, 74-74): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/provenance/test_provenance_status.py",
+      "line_end": 37,
+      "line_start": 37,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/provenance/test_provenance_status.py:47-47"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.588668+00:00",
+    "id": "ghost-f6bbafebbbe6",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_cannot_register_with_undefined_category' repeats the same single statement 2 times (lines 37-37, 47-47): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/timeline/test_timeline_engine.py",
+      "line_end": 13,
+      "line_start": 13,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/timeline/test_timeline_engine.py:22-22"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.605440+00:00",
+    "id": "ghost-1ecccb0df5a7",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_timeline_ordering' repeats the same single statement 2 times (lines 13-13, 22-22): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/timeline/test_timeline_generation.py",
+      "line_end": 13,
+      "line_start": 13,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/timeline/test_timeline_generation.py:21-21"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.605827+00:00",
+    "id": "ghost-5605067ea487",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_timeline_generation' repeats the same single statement 2 times (lines 13-13, 21-21): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/workflows/test_ingestion_workflow.py",
+      "line_end": 14,
+      "line_start": 14,
+      "related_files": [
+        "/tmp/claude-1000/-home-wking53214/f7f86960-5cd3-4e63-a084-1fe153210437/scratchpad/ghost_survey/clones/innovation_os/tests/workflows/test_ingestion_workflow.py:26-26"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-03T03:41:17.606470+00:00",
+    "id": "ghost-12a51f0e7795",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_full_ingestion_workflow' repeats the same single statement 2 times (lines 14-14, 26-26): same shape, names/literals differ"
+  },
+  {
+    "category": "complexity",
+    "confidence": null,
+    "detail": "Line-count proxy for the 'Long Method' smell, not true cyclomatic complexity -- a long function that's mostly a flat sequence of simple statements is a weaker signal than a short function with deep branching. Treat as a prompt to look, not a verdict.",
+    "detector": "long_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/innovation_os/src/innovation_os/registry/artifact_registry.py",
+      "line_end": 207,
+      "line_start": 89,
+      "related_files": [],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:48.371958+00:00",
+    "id": "ghost-08fa24c83afa",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'register' spans 118 lines (threshold 80)"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/innovation_os/src/innovation_os/branches/engine.py",
+      "line_end": 69,
+      "line_start": 60,
+      "related_files": [
+        "/home/wking53214/innovation_os/src/innovation_os/code_registry/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/decision/alternative_engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/decision/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/decision/replay_engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/forecast/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/governance/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/ideation/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/nature/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/review/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/solution/engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:48.610654+00:00",
+    "id": "ghost-c14e28ccdc5d",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "11 functions share identical AST structure (names/literals differ, control flow and shape don't): engine.py:60:get_branch, engine.py:40:get_artifact, alternative_engine.py:38:get_alternative, engine.py:70:get_decision, replay_engine.py:34:get_replay, engine.py:38:get_scenario, engine.py:92:get_approval, engine.py:36:get_idea, engine.py:36:get_pattern, engine.py:36:get_review, engine.py:38:get_solution"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/innovation_os/src/innovation_os/branches/engine.py",
+      "line_end": 80,
+      "line_start": 71,
+      "related_files": [
+        "/home/wking53214/innovation_os/src/innovation_os/code_registry/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/code_registry/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/decision/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/forecast/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/governance/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/ideation/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/nature/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/solution/engine.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:48.610765+00:00",
+    "id": "ghost-051f8662ed67",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "9 functions share identical AST structure (names/literals differ, control flow and shape don't): engine.py:71:get_child_branches, engine.py:51:find_by_idea, engine.py:62:find_by_problem, engine.py:81:get_decisions_for_problem, engine.py:49:find_by_solution, engine.py:103:get_for_target, engine.py:47:find_by_problem, engine.py:47:find_by_principle, engine.py:49:find_by_problem"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/innovation_os/src/innovation_os/decision/intelligence.py",
+      "line_end": 60,
+      "line_start": 53,
+      "related_files": [
+        "/home/wking53214/innovation_os/src/innovation_os/decisions/decision_tracker.py",
+        "/home/wking53214/innovation_os/src/innovation_os/decisions/intelligence.py",
+        "/home/wking53214/innovation_os/src/innovation_os/lifecycle/state_machine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/map/innovation_map.py",
+        "/home/wking53214/innovation_os/src/innovation_os/portfolio/engine.py",
+        "/home/wking53214/innovation_os/src/innovation_os/projects/manifest.py",
+        "/home/wking53214/innovation_os/src/innovation_os/registry/artifact_registry.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:48.611037+00:00",
+    "id": "ghost-ef3c32c3e219",
+    "layer": "mechanical",
+    "severity": "major",
+    "status": "suppressed",
+    "summary": "8 functions share identical AST structure (names/literals differ, control flow and shape don't): intelligence.py:53:get, decision_tracker.py:69:get, intelligence.py:49:get, state_machine.py:119:get, innovation_map.py:75:get_node, engine.py:45:get, manifest.py:36:get, artifact_registry.py:234:get"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/innovation_os/src/innovation_os/intelligence/cognition/perceiver.py",
+      "line_end": 18,
+      "line_start": 10,
+      "related_files": [
+        "/home/wking53214/innovation_os/src/innovation_os/intelligence/cognition/reasoner.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:48.612047+00:00",
+    "id": "ghost-e4b1be6cf673",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): perceiver.py:10:perceive, reasoner.py:10:reason"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/innovation_os/tests/invariants/test_invariants.py",
+      "line_end": 47,
+      "line_start": 37,
+      "related_files": [
+        "/home/wking53214/innovation_os/tests/invariants/test_invariants.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:48.614373+00:00",
+    "id": "ghost-eb43b0765f8a",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_invariants.py:37:test_decision_without_authority_fails_validation, test_invariants.py:50:test_branch_without_parent_lineage_fails_validation"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match, not textual diff -- this is the 'copy-pasted then renamed' shape specifically. Confirm these are actually solving the same problem before merging; some structural matches are coincidental (e.g. two unrelated simple validators).",
+    "detector": "near_duplicate_function",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/innovation_os/tests/retry_guard/test_retry_guard.py",
+      "line_end": 63,
+      "line_start": 40,
+      "related_files": [
+        "/home/wking53214/innovation_os/tests/retry_guard/test_retry_guard.py"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:48.614783+00:00",
+    "id": "ghost-bbda2aae06cd",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): test_retry_guard.py:40:test_same_idea_with_changed_evidence_is_allowed, test_retry_guard.py:93:test_new_branch_allows_reentry_without_false_positive"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/innovation_os/tests/lineage/test_lineage_integrity.py",
+      "line_end": 11,
+      "line_start": 11,
+      "related_files": [
+        "/home/wking53214/innovation_os/tests/lineage/test_lineage_integrity.py:12-12"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:48.802202+00:00",
+    "id": "ghost-5d0a89adf1e0",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_changed_artifact_after_creation_is_detectably_different' repeats the same single statement 2 times (lines 11-11, 12-12): same shape, names/literals differ"
+  },
+  {
+    "category": "duplication",
+    "confidence": null,
+    "detail": "Structural fingerprint match within one function, not a whole-function match (near_duplicate_function's detection is blind to this shape). Typical real cause: several branches each hand-build the same kind of object or perform the same sequence of calls -- worth a single shared helper if the branches really are doing the same thing, not just a coincidental resemblance.",
+    "detector": "intra_function_duplicate_block",
+    "disposition": null,
+    "disposition_note": "",
+    "evidence": {
+      "file": "/home/wking53214/innovation_os/tests/retry_guard/test_retry_guard.py",
+      "line_end": 8,
+      "line_start": 8,
+      "related_files": [
+        "/home/wking53214/innovation_os/tests/retry_guard/test_retry_guard.py:18-18"
+      ],
+      "snippet": null
+    },
+    "first_seen": "2026-09-08T03:43:48.825975+00:00",
+    "id": "ghost-345d55fe7a26",
+    "layer": "mechanical",
+    "severity": "minor",
+    "status": "suppressed",
+    "summary": "'test_same_idea_repeated_without_new_evidence_is_flagged' repeats the same single statement 2 times (lines 8-8, 18-18): same shape, names/literals differ"
+  }
+]
