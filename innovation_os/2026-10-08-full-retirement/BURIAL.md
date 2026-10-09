@@ -32,9 +32,10 @@ Its useful parts were already done better elsewhere in the stack. The Sept 8 aud
 ## Left behind on purpose (only here)
 
 - **Lineage parent binding:** Conservation_Kernel already does it more strictly.
-- **Lifecycle table:** the same idea exists in GSA, Elegant, ghost_tools and TOUCHSTONE.
+- **Lifecycle table:** partly covered. CCC's provenance module and DGK's ledger check state transitions, but the full table was not found in GSA or ghost_tools. Elegant and TOUCHSTONE are not in the current repo list, so that part of the original claim could not be checked.
 - **Significance and the per-item record** from context envelopes.
-- **Confidence score, predicted-outcome records and replay** from decision records.
+- **Decision-record predictions and confidence:** the form that writes down a predicted outcome, its risks and a stated confidence before the result is only here. sentinel_os compares predicted and actual waits for recommendations (`recommendation_impact.py`), so predicted outcomes exist in STACK for that one domain, but not as a decision-record field.
+- **Replay of recorded decisions:** partly covered. observe-perceive's `governance_chain.py` re-verifies recorded decision chains. The decision-replay module here has no structured reconsideration record.
 - **Fingerprint archive** (`docs/fingerprints/`: schema, master archive, unresolved list, four cards, and the Sept 12 portfolio census). It was built to sort old conversations by which system a concept belongs to. The census is a dated measurement and the cards describe other repos as they were then.
 - **CEE-0001** (the original "Concept Evolution Engine" conversation), the decision ledger (an example entry only), the `memory/` notes (including "advisory enforcement defaults OFF"), and the architecture survey and inventory dumps.
 - **HERALD** was rejected as a home for keyword clustering.
@@ -47,6 +48,8 @@ Its useful parts were already done better elsewhere in the stack. The Sept 8 aud
 ## Known issues at time of burial
 
 - The approval engine accepted an approval with an empty reviewer name. This was never fixed in innovation_os. The observe-perceive seam now treats an approval with no named reviewer as not human review.
+- Lineage: `link_parent_artifact` and `link_idea` both make `verify` return False. Found in the October 2026 audit and reproduced on scratch copies. Not fixed here.
+- Retry guard: `assess_repetition` builds its check without `retry_count`, while the stored attempt record includes it, so a repeat after the first retry is not detected. The CNS port's note says this is fixed. That fix was not re-tested.
 - Several gap checks in the CNS composition tests assert a known gap rather than test a working feature.
 - Several carried-out pieces have no caller yet and do nothing until something calls them (see the table).
 - The history was scanned for tokens, keys and passwords before this went public, and none were found. Some baseline data holds a local home path; it is harmless.
