@@ -1,6 +1,6 @@
 # Burial: innovation_os, retired in full
 
-**Repo:** `wking53214/innovation_os` (private; archived on GitHub after this burial)
+**Repo:** `wking53214/innovation_os` (private; reduced to a LICENSE and a gravestone by innovation_os PR #3, with archiving on GitHub left to the owner)
 **Snapshot commit:** `08470f1` (main), "docs: complete architectural rewrite with transparent gap accounting"
 **Branches and tags in the bundle:** `main`, the unmerged `claude/licenses-72o5xt` (`872c4d1`), and 65 tags (v0.1.0, v3.0.0 to v3.0.2, and the intelligence-v* tags)
 **Date:** 2026-10-08
@@ -23,7 +23,7 @@ Its useful parts were already done better elsewhere in the stack. The Sept 8 aud
 | Decision records (options, selected, rejected, deferred, assumptions, plus `DEC-TEMPLATE_v1.md`) | CCC PR #24 | Merged. **No caller yet** |
 | Two invariants (a rejected record is final; a record can be superseded only once) | CCC PR #25 | Merged |
 | Git commit lister | Ecology PR #18 (`commit_loader.py`, `commit_history_v1` index) | Merged |
-| Keyword clustering | CCC PR #26 (recurring groups) and observe-perceive PR #34 | Merged. Goes live once observe-perceive's CCC pin is bumped; the pin was still older than CCC #26 at burial |
+| Keyword clustering | CCC PR #26 (recurring groups) and observe-perceive PR #34 | Merged. Live now: observe-perceive's CCC pin was bumped after burial (observe-perceive PR #38 and #41) |
 | Fingerprint extractor, two parts (numbers set in code with value and line; a cryptography boundary) | ghost_tools PR #85 | Merged. Hashing was left out on purpose |
 | Approval adapter | observe-perceive PR #37, renamed `approval_governance_adapter`, neutral origin label | Merged. **No caller yet** |
 | Adapter, decision model and translators inside CNS | Removed by CNS PR #9 | Merged |
