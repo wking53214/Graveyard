@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=77.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "content-polish-pipeline"
+version = "1.2.0"
+description = "LLM output quality gate: validates generated text against linguistic constraints and retries with recalibration feedback."
+readme = "README.md"
+# Requires 3.9+: PEP 585 builtin generics (list[str]) are evaluated at
+# function-definition time here (no `from __future__ import annotations`).
+requires-python = ">=3.9"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.setuptools]
+packages = ["content_polish_pipeline"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
