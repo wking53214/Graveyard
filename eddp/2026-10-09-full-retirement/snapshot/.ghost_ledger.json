@@ -1,0 +1,1370 @@
+{
+  "schema": 1,
+  "totals": {
+    "runs": 32
+  },
+  "runs": [
+    {
+      "run_id": "2026-09-17T19:15:31+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:15:31+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "declined",
+        "project": "ran",
+        "secrets": "could_not_run",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "absent"
+      },
+      "link": "4babcc8b65a3a3e7",
+      "counts": {
+        "found": 8,
+        "primary": 8,
+        "found_remembered": 8,
+        "scanned": 11
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:15:48+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:15:48+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "could_not_run",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "absent"
+      },
+      "link": "327d745d2fec262f",
+      "counts": {
+        "found": 10,
+        "primary": 10,
+        "found_remembered": 10,
+        "scanned": 11
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:15:59+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:15:59+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "could_not_run",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "absent"
+      },
+      "link": "54a7a613a43c48d2",
+      "counts": {
+        "found": 10,
+        "primary": 10,
+        "found_remembered": 10,
+        "scanned": 11
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:24:14+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:24:14+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "absent"
+      },
+      "link": "a574c45fa0846032",
+      "counts": {
+        "found": 12,
+        "primary": 12,
+        "found_remembered": 12,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:24:29+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:24:29+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "absent"
+      },
+      "link": "cef79066193c663e",
+      "counts": {
+        "found": 12,
+        "primary": 12,
+        "found_remembered": 12,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:27:13+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:27:13+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "absent"
+      },
+      "link": "9ecef6b0bf44693b",
+      "counts": {
+        "found": 7,
+        "primary": 7,
+        "found_remembered": 7,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:28:02+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:28:02+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "absent"
+      },
+      "link": "3e7998a5ecb4b16e",
+      "counts": {
+        "found": 3,
+        "primary": 3,
+        "found_remembered": 3,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:28:15+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:28:15+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "ran",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "absent"
+      },
+      "link": "00b1f2468970c8a6",
+      "counts": {
+        "found": 4,
+        "primary": 4,
+        "found_remembered": 4,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:28:45+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:28:45+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "ran",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "absent"
+      },
+      "link": "84632b0656af5dc9",
+      "counts": {
+        "found": 3,
+        "primary": 3,
+        "found_remembered": 3,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:28:55+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:28:55+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "ran",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "declined",
+        "project": "ran",
+        "secrets": "declined",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "absent"
+      },
+      "link": "ac0b1e8c78f53ab1",
+      "counts": {
+        "found": 3,
+        "primary": 3,
+        "found_remembered": 3,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:29:17+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:29:17+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "ran",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "absent"
+      },
+      "link": "73a2f04cd39cf70f",
+      "counts": {
+        "found": 4,
+        "primary": 4,
+        "found_remembered": 4,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:29:51+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:29:51+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "ran",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "absent"
+      },
+      "link": "2e3cb350b7caa145",
+      "counts": {
+        "found": 3,
+        "primary": 3,
+        "found_remembered": 3,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:30:18+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:30:18+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "absent"
+      },
+      "link": "636b372f0b9f5b82",
+      "counts": {
+        "found": 3,
+        "primary": 3,
+        "found_remembered": 3,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:30:57+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:30:57+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "a7ab5203c09ad92d"
+      },
+      "link": "5e9709f0848a49e5",
+      "counts": {
+        "found": 3,
+        "primary": 3,
+        "found_remembered": 3,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:31:37+00:00:c6b3ba0f98e6",
+      "at": "2026-09-17T19:31:37+00:00",
+      "commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "ran",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "a7ab5203c09ad92d"
+      },
+      "link": "4e533eeb66e3ed22",
+      "counts": {
+        "found": 3,
+        "primary": 3,
+        "found_remembered": 3,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:38:30+00:00:67f9525dbc4d",
+      "at": "2026-09-17T19:38:30+00:00",
+      "commit": "67f9525dbc4d7b0bebadf8ea840c201758a9e815",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "a7ab5203c09ad92d"
+      },
+      "link": "93d9c36dbd8b92cd",
+      "counts": {
+        "found": 5,
+        "primary": 5,
+        "found_remembered": 5,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:39:38+00:00:67f9525dbc4d",
+      "at": "2026-09-17T19:39:38+00:00",
+      "commit": "67f9525dbc4d7b0bebadf8ea840c201758a9e815",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "846059a7fdbeeb4a",
+      "counts": {
+        "found": 5,
+        "primary": 5,
+        "found_remembered": 5,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:39:58+00:00:67f9525dbc4d",
+      "at": "2026-09-17T19:39:58+00:00",
+      "commit": "67f9525dbc4d7b0bebadf8ea840c201758a9e815",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "1152ef28e27a83ef",
+      "counts": {
+        "found": 5,
+        "primary": 5,
+        "found_remembered": 5,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:40:27+00:00:bd05973fced8",
+      "at": "2026-09-17T19:40:27+00:00",
+      "commit": "bd05973fced8ec5216ec77ca766d98d8090d7d2e",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "4220b041f90a3f4b",
+      "counts": {
+        "found": 6,
+        "primary": 6,
+        "found_remembered": 6,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:40:41+00:00:bd05973fced8",
+      "at": "2026-09-17T19:40:41+00:00",
+      "commit": "bd05973fced8ec5216ec77ca766d98d8090d7d2e",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "8aac2d8ee5804f99",
+      "counts": {
+        "found": 6,
+        "primary": 6,
+        "found_remembered": 6,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:42:03+00:00:67f9525dbc4d",
+      "at": "2026-09-17T19:42:03+00:00",
+      "commit": "67f9525dbc4d7b0bebadf8ea840c201758a9e815",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "declined",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "94a852027d2d6a1a",
+      "counts": {
+        "found": 5,
+        "primary": 5,
+        "found_remembered": 5,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:42:19+00:00:67f9525dbc4d",
+      "at": "2026-09-17T19:42:19+00:00",
+      "commit": "67f9525dbc4d7b0bebadf8ea840c201758a9e815",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "a822b17556fcd32c",
+      "counts": {
+        "found": 4,
+        "primary": 4,
+        "found_remembered": 4,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T19:56:03+00:00:9cf44ac50572",
+      "at": "2026-09-17T19:56:03+00:00",
+      "commit": "9cf44ac5057210fcdd9c5787baf4c63fe9e2a337",
+      "tool_version": "1.7.8",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "397f19e729ff73fe",
+      "counts": {
+        "found": 4,
+        "primary": 4,
+        "found_remembered": 4,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T20:09:33+00:00:9cf44ac50572",
+      "at": "2026-09-17T20:09:33+00:00",
+      "commit": "9cf44ac5057210fcdd9c5787baf4c63fe9e2a337",
+      "tool_version": "1.7.9",
+      "checks": {
+        "structural": "ran",
+        "mutate": "ran",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "declined",
+        "project": "ran",
+        "secrets": "declined",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "ce6993774f8965ec",
+      "counts": {
+        "found": 4,
+        "primary": 4,
+        "found_remembered": 4,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T20:14:56+00:00:13cb95325788",
+      "at": "2026-09-17T20:14:56+00:00",
+      "commit": "13cb953257887f1e3bc0b50f868eb11d63a0475f",
+      "tool_version": "1.7.9",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "beceaf13466d337d",
+      "counts": {
+        "found": 4,
+        "primary": 4,
+        "found_remembered": 4,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T20:17:37+00:00:13cb95325788",
+      "at": "2026-09-17T20:17:37+00:00",
+      "commit": "13cb953257887f1e3bc0b50f868eb11d63a0475f",
+      "tool_version": "1.7.9",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "b6cb88e1149e6303",
+      "counts": {
+        "found": 4,
+        "primary": 4,
+        "found_remembered": 4,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T20:18:04+00:00:13cb95325788",
+      "at": "2026-09-17T20:18:04+00:00",
+      "commit": "13cb953257887f1e3bc0b50f868eb11d63a0475f",
+      "tool_version": "1.7.9",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "de7909aa09b058cd",
+      "counts": {
+        "found": 4,
+        "primary": 4,
+        "found_remembered": 4,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-17T20:18:14+00:00:13cb95325788",
+      "at": "2026-09-17T20:18:14+00:00",
+      "commit": "13cb953257887f1e3bc0b50f868eb11d63a0475f",
+      "tool_version": "1.7.9",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "ran",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "9a11004299e64464",
+      "counts": {
+        "found": 4,
+        "primary": 4,
+        "found_remembered": 4,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-18T11:21:56+00:00:fcd09c7e2483",
+      "at": "2026-09-18T11:21:56+00:00",
+      "commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "tool_version": "1.8.1",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "could_not_run",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "d35ad094ba3508e2",
+      "counts": {
+        "found": 8,
+        "primary": 8,
+        "found_remembered": 8,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-18T11:22:01+00:00:fcd09c7e2483",
+      "at": "2026-09-18T11:22:01+00:00",
+      "commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "tool_version": "1.8.1",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "could_not_run",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "768cc96eefb9ed2c",
+      "counts": {
+        "found": 8,
+        "primary": 8,
+        "found_remembered": 8,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-18T11:22:04+00:00:fcd09c7e2483",
+      "at": "2026-09-18T11:22:04+00:00",
+      "commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "tool_version": "1.8.1",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "could_not_run",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "3e9baf7f92f14cab",
+      "counts": {
+        "found": 8,
+        "primary": 8,
+        "found_remembered": 8,
+        "scanned": 17
+      }
+    },
+    {
+      "run_id": "2026-09-18T11:22:07+00:00:fcd09c7e2483",
+      "at": "2026-09-18T11:22:07+00:00",
+      "commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "tool_version": "1.8.1",
+      "checks": {
+        "structural": "ran",
+        "mutate": "not_run",
+        "kernel": "not_run",
+        "boundary": "not_run",
+        "structure": "ran",
+        "branches": "ran",
+        "tests": "ran",
+        "project": "ran",
+        "secrets": "could_not_run",
+        "correlate": "ran",
+        "ledger": "ran"
+      },
+      "records": {
+        "baseline": "absent",
+        "casefile": "5b95e8e33cce0348"
+      },
+      "link": "2d4779c4ecd33fc8",
+      "counts": {
+        "found": 8,
+        "primary": 8,
+        "found_remembered": 8,
+        "scanned": 17
+      }
+    }
+  ],
+  "findings": {
+    "ghost-0b02b261f99b": {
+      "detector": "no_ci_configuration",
+      "file": "user/eddp",
+      "summary": "tests nobody runs: 5 test file(s) exist and no CI configuration runs them",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-17T19:24:14+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:24:29+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 2,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-13bdf0b100c6": {
+      "detector": "unreachable_declared_state",
+      "file": "eddp_telemetry_guardrail.py",
+      "summary": "'WS3SignalType.DRIFT' is produced only by reading stored data, and nothing says so",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-17T19:27:13+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:27:13+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 1,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-15583be468d4": {
+      "detector": "committed_secret",
+      "file": "TRANSCRIPT.md",
+      "summary": "a 'generic-api-key' secret is committed in TRANSCRIPT.md:277:18214 (commit c6b3ba0f98e6)",
+      "renamed_from": "",
+      "severity": "major",
+      "first_seen": "2026-09-17T19:15:48+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:24:29+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 4,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-1853d20d0079": {
+      "detector": "unreachable_declared_state",
+      "file": "eddp_telemetry_guardrail.py",
+      "summary": "'WS3SignalType.ACCURACY' is produced only by reading stored data, and nothing says so",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-17T19:27:13+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:27:13+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 1,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-26fe50378303": {
+      "detector": "committed_secret",
+      "file": ".gitleaksignore",
+      "summary": "a 'generic-api-key' secret is committed in .gitleaksignore:6:8 (commit 67f9525dbc4d)",
+      "renamed_from": "",
+      "severity": "major",
+      "first_seen": "2026-09-17T19:38:30+00:00",
+      "first_commit": "67f9525dbc4d7b0bebadf8ea840c201758a9e815",
+      "last_seen": "2026-09-17T19:42:03+00:00",
+      "last_commit": "67f9525dbc4d7b0bebadf8ea840c201758a9e815",
+      "runs_seen": 6,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-295ea3ff1a03": {
+      "detector": "unreachable_declared_state",
+      "file": "eddp_telemetry_guardrail.py",
+      "summary": "'WS3SignalType.ACCURACY' is declared and no code ever puts anything into it, though 1 other member(s) of WS3SignalType are produced",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-17T19:15:31+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:24:29+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 5,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-2cd3830c00d2": {
+      "detector": "name_disagreement",
+      "file": "eddp_ingestion_authentication.py",
+      "summary": "`provided_signature` and `inbound_signature` are one value under two names, across 1 file(s)",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-17T19:15:31+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:24:29+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 5,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-3a069ceb8728": {
+      "detector": "vacuous_check",
+      "file": "Tests/test_telemetry_guardrail.py",
+      "summary": "'TestSignalTypeVocabulary::test_the_declared_vocabulary_is_exactly_these_five' still passes with extend_set applied to the source",
+      "renamed_from": "",
+      "severity": "major",
+      "first_seen": "2026-09-17T19:28:15+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:28:15+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 1,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-48e1e0b8a533": {
+      "detector": "unreachable_declared_state",
+      "file": "eddp_telemetry_guardrail.py",
+      "summary": "'WS3SignalType.CAPACITY' is declared and no code ever puts anything into it, though 1 other member(s) of WS3SignalType are produced",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-17T19:15:31+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:24:29+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 5,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-5e50bf60e47d": {
+      "detector": "unreachable_declared_state",
+      "file": "eddp_telemetry_guardrail.py",
+      "summary": "'WS3SignalType.SYSTEM_HEALTH' is declared and no code ever puts anything into it, though 1 other member(s) of WS3SignalType are produced",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-17T19:15:31+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:24:29+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 5,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-67a69945afdb": {
+      "detector": "name_disagreement",
+      "file": "metric_assessment_telemetry_dispatch_adapter.py",
+      "summary": "`target_object` and `val_data` are one value under two names, across 1 file(s)",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-17T19:15:31+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-18T11:22:07+00:00",
+      "last_commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "runs_seen": 32,
+      "consecutive": 32,
+      "returns": 0,
+      "absent_last_run": false,
+      "dispositions": []
+    },
+    "ghost-6c260977de69": {
+      "detector": "committed_secret",
+      "file": "TRANSCRIPT.md",
+      "summary": "a 'generic-api-key' secret is committed in TRANSCRIPT.md:674:49 (commit c6b3ba0f98e6)",
+      "renamed_from": "",
+      "severity": "major",
+      "first_seen": "2026-09-17T19:15:48+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:24:29+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 4,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-6dc8589983d4": {
+      "detector": "near_duplicate_function",
+      "file": "_archive/metric_assessment_telemetry_dispatch_source_flattened.recovered.py",
+      "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): metric_assessment_telemetry_dispatch_source_flattened.recovered.py:64:enforce_schema, eddp-core-engine-v2-refined.py:79:process_data_validation",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-17T19:15:31+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-18T11:22:07+00:00",
+      "last_commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "runs_seen": 32,
+      "consecutive": 32,
+      "returns": 0,
+      "absent_last_run": false,
+      "dispositions": []
+    },
+    "ghost-719f2f4dbc78": {
+      "detector": "unmerged_branch",
+      "file": ".git/refs/remotes/origin/claude/ghost-tools-eddp-jz5g0r",
+      "summary": "branch 'origin/claude/ghost-tools-eddp-jz5g0r' has commits not reflected in 'origin/main'",
+      "renamed_from": "",
+      "severity": "major",
+      "first_seen": "2026-09-17T19:40:27+00:00",
+      "first_commit": "bd05973fced8ec5216ec77ca766d98d8090d7d2e",
+      "last_seen": "2026-09-17T19:40:41+00:00",
+      "last_commit": "bd05973fced8ec5216ec77ca766d98d8090d7d2e",
+      "runs_seen": 2,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-7756fa53f619": {
+      "detector": "unreachable_declared_state",
+      "file": "eddp_telemetry_guardrail.py",
+      "summary": "'WS3SignalType.DRIFT' is declared and no code ever puts anything into it, though 1 other member(s) of WS3SignalType are produced",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-17T19:15:31+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:24:29+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 5,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-79f5b434061e": {
+      "detector": "vacuous_check",
+      "file": "Tests/test_telemetry_guardrail.py",
+      "summary": "'TestSignalTypeVocabulary::test_the_declared_vocabulary_has_exactly_these_five_values' still passes with extend_set applied to the source",
+      "renamed_from": "",
+      "severity": "major",
+      "first_seen": "2026-09-17T19:29:17+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:29:17+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 1,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-80fc926cceca": {
+      "detector": "unreachable_declared_state",
+      "file": "eddp_telemetry_guardrail.py",
+      "summary": "'WS3SignalType.CAPACITY' is produced only by reading stored data, and nothing says so",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-17T19:27:13+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:27:13+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 1,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-8378e19bcfc8": {
+      "detector": "inconsistent_bounding",
+      "file": "_archive/ws3_telemetry_guardrail_source_flattened.recovered.py",
+      "summary": "`self._history` in WS3UniversalEngine grows without a bound, while `self.bounded_audit_history` in SecureDataIngestionPipeline bounds the same kind (deque(maxlen=...))",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-18T11:21:56+00:00",
+      "first_commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "last_seen": "2026-09-18T11:22:07+00:00",
+      "last_commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "runs_seen": 4,
+      "consecutive": 4,
+      "returns": 0,
+      "absent_last_run": false,
+      "dispositions": []
+    },
+    "ghost-86fd6f738840": {
+      "detector": "inconsistent_bounding",
+      "file": "eddp-core-engine-v2-refined.py",
+      "summary": "`self.execution_history` in PipelineFeedbackSystem grows without a bound, while `self.bounded_audit_history` in SecureDataIngestionPipeline bounds the same kind (deque(maxlen=...))",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-18T11:21:56+00:00",
+      "first_commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "last_seen": "2026-09-18T11:22:07+00:00",
+      "last_commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "runs_seen": 4,
+      "consecutive": 4,
+      "returns": 0,
+      "absent_last_run": false,
+      "dispositions": []
+    },
+    "ghost-a0c6f16424fc": {
+      "detector": "unreachable_declared_state",
+      "file": "eddp_telemetry_guardrail.py",
+      "summary": "'WS3SignalType.SYSTEM_HEALTH' is produced only by reading stored data, and nothing says so",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-17T19:27:13+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:27:13+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 1,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-af9bc68d93e6": {
+      "detector": "unmerged_branch",
+      "file": ".git/refs/heads/claude/ghost-tools-eddp-jz5g0r",
+      "summary": "branch 'claude/ghost-tools-eddp-jz5g0r' has commits not reflected in 'origin/main'",
+      "renamed_from": "",
+      "severity": "major",
+      "first_seen": "2026-09-17T19:38:30+00:00",
+      "first_commit": "67f9525dbc4d7b0bebadf8ea840c201758a9e815",
+      "last_seen": "2026-09-18T11:22:07+00:00",
+      "last_commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "runs_seen": 17,
+      "consecutive": 17,
+      "returns": 0,
+      "absent_last_run": false,
+      "dispositions": []
+    },
+    "ghost-bf9fd3e6d3e8": {
+      "detector": "inconsistent_bounding",
+      "file": "eddp-core-engine-v1.py",
+      "summary": "`self.history` in FeedbackLoop grows without a bound, while `self.bounded_audit_history` in SecureDataIngestionPipeline bounds the same kind (deque(maxlen=...))",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-18T11:21:56+00:00",
+      "first_commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "last_seen": "2026-09-18T11:22:07+00:00",
+      "last_commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "runs_seen": 4,
+      "consecutive": 4,
+      "returns": 0,
+      "absent_last_run": false,
+      "dispositions": []
+    },
+    "ghost-c88d463f90a0": {
+      "detector": "inconsistent_bounding",
+      "file": "_archive/metric_assessment_telemetry_dispatch_source_flattened.recovered.py",
+      "summary": "`self.audit_history` in TransactionAuditLedger grows without a bound, while `self.bounded_audit_history` in SecureDataIngestionPipeline bounds the same kind (deque(maxlen=...))",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-18T11:21:56+00:00",
+      "first_commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "last_seen": "2026-09-18T11:22:07+00:00",
+      "last_commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "runs_seen": 4,
+      "consecutive": 4,
+      "returns": 0,
+      "absent_last_run": false,
+      "dispositions": []
+    },
+    "ghost-d13bb694629a": {
+      "detector": "test_status",
+      "file": "Tests/test_ingestion_authentication.py",
+      "summary": "expected failure: Tests/test_ingestion_authentication.py::TestIngestionAudit::test_a_signed_envelope_verifies_on_a_second_pass fails as expected (KNOWN DEFECT: signature_origin is stamped onto the payload after signing but is covered by verification, so ingest rejects its own output on a second pass. Recorded here rather than left silent.)",
+      "renamed_from": "",
+      "severity": "informational",
+      "first_seen": "2026-09-17T19:24:14+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-17T19:24:29+00:00",
+      "last_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "runs_seen": 2,
+      "consecutive": 0,
+      "returns": 0,
+      "absent_last_run": true,
+      "dispositions": []
+    },
+    "ghost-f8fbe84ceb94": {
+      "detector": "near_duplicate_function",
+      "file": "eddp-core-engine-v1.py",
+      "summary": "2 functions share identical AST structure (names/literals differ, control flow and shape don't): eddp-core-engine-v1.py:210:__init__, eddp-core-engine-v2-refined.py:255:__init__",
+      "renamed_from": "",
+      "severity": "minor",
+      "first_seen": "2026-09-17T19:15:31+00:00",
+      "first_commit": "c6b3ba0f98e6e71c3b0dadd3b3b703d0d7848b80",
+      "last_seen": "2026-09-18T11:22:07+00:00",
+      "last_commit": "fcd09c7e2483f8e65af63986f555dd001edec542",
+      "runs_seen": 32,
+      "consecutive": 32,
+      "returns": 0,
+      "absent_last_run": false,
+      "dispositions": []
+    }
+  }
+}

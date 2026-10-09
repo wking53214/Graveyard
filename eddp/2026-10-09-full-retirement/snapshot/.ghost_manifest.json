@@ -1,0 +1,9 @@
+{
+  "preserved": [
+    "_archive/*",
+    "eddp-core-engine-v1.py",
+    "eddp-core-engine-v2-refined.py",
+    "PROVENANCE.md"
+  ],
+  "rationale": "Recovered source artifacts and reference implementations preserved for traceability and forensic reconstruction"
+}

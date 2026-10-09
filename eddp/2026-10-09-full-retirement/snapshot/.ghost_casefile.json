@@ -1,0 +1,34 @@
+{
+  "cases": [
+    {
+      "detector": "near_duplicate_function",
+      "shape": "near_duplicate_function",
+      "outcome": "false",
+      "note": "Deliberate: a recovered flattened source preserved in _archive beside the refined implementation derived from it. The structural match is the provenance link this archive exists to keep, not copy-paste to be merged. Merging them would destroy the record.",
+      "when": "2026-09-17T19:30:32.881824+00:00",
+      "finding_id": "ghost-6dc8589983d4",
+      "file": "_archive/metric_assessment_telemetry_dispatch_source_flattened.recovered.py",
+      "decision": "suppress"
+    },
+    {
+      "detector": "near_duplicate_function",
+      "shape": "near_duplicate_function",
+      "outcome": "false",
+      "note": "Deliberate: eddp-core-engine-v1 and -v2-refined are two preserved revisions of the same engine. Structural similarity between a revision and its successor is expected and is the point of keeping both.",
+      "when": "2026-09-17T19:30:32.881834+00:00",
+      "finding_id": "ghost-f8fbe84ceb94",
+      "file": "eddp-core-engine-v1.py",
+      "decision": "suppress"
+    },
+    {
+      "detector": "name_disagreement",
+      "shape": "name_disagreement",
+      "outcome": "false",
+      "note": "Deliberate: compute_stable_hash is a general-purpose utility and target_object is its contract; val_data is one caller's local, holding validated pipeline data. They are names at two levels of abstraction that happen to meet at a single call site, not one value under two names. Renaming the parameter to val_data would import a caller's vocabulary into a utility that serves other callers; renaming the local to target_object would lose what it holds. Both names stay.",
+      "when": "2026-09-17T19:39:30.366023+00:00",
+      "finding_id": "ghost-67a69945afdb",
+      "file": "metric_assessment_telemetry_dispatch_adapter.py",
+      "decision": "suppress"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+# Fingerprints reviewed and dismissed, with the reason.
+#
+# The one remaining entry points at a synthetic string: a sequential
+# alphabet-and-digit run assigned to a key-shaped name, written inside a
+# demonstration payload to show a detector firing. It is not a credential any
+# provider issued and there is nothing to rotate. gitleaks matches it on shape,
+# a high-entropy string next to a key-like word.
+#
+# The value is deliberately NOT reproduced in this file. It came from the source
+# transcript, which now lives in the Gemini_History repo at
+# recovered/eddp-gemini-bc9823e74bfc1124/TRANSCRIPT.md (lines 277 and 674).
+# The two entries that dismissed it inside TRANSCRIPT.md were dropped on
+# 2026-09-24, when this repo's history was rewritten to remove the transcript.
+#
+# The entry below is this file's own first version, which quoted the value into
+# a comment while explaining it. That made this file a second hit for the same
+# rule -- a compact demonstration of why the value is no longer written here,
+# and of the rule the finding itself states: removing a secret in a later
+# commit does not remove it from history. The quoting is gone from the working
+# tree; the commit that contained it stays, so it is dismissed by fingerprint
+# rather than by rewriting a pushed branch over a value that
+# was never real.
+9971fd69008a65a8e0b500c6abbf8f54f116e46b:.gitleaksignore:generic-api-key:6
