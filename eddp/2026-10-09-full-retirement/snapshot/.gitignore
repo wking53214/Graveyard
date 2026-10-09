@@ -1,0 +1,4 @@
+__pycache__/
+*.py[cod]
+*.log
+vanguard_audit.log
