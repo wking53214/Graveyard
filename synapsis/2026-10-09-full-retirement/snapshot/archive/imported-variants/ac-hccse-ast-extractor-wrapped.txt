@@ -1,0 +1,147 @@
+Version-Control-ID: HASH_PLACEHOLDER_AST_GRAPH_99f
+Name: ASTGraphExtractor
+Description: This program parses Python source code using the built-in abstract syntax tree
+module to extract structural symbols like classes and functions as nodes, alongside
+function invocations and import statements as directed relationships or edges.
+============================================================
+DIAGNOSTIC/REPAIR LOG
+============================================================
+1. ISSUE: Handling of reversed attribute chains for deep object calls.
+FIX: Implemented an explicit traversal loop to safely unroll attribute chains
+without raising attribute errors on malformed expressions.
+2. ISSUE: Scope maintenance during traversal.
+FIX: Used robust scope push and pop patterns inside visitor overrides for functions
+and classes to maintain correct fully-qualified naming hierarchies.
+3. ISSUE: PEP 8 styling requirements and explicit type declarations.
+FIX: Standardized imports, enforced immutability using frozen dataclasses for IR entities,
+and clarified type boundaries across all visitor helper methods.
+============================================================
+from future import annotations import ast from dataclasses import dataclass, asdict from typing import Dict, List, Set, Optional
+=========================================================
+GRAPH IR
+=========================================================
+@dataclass(frozen=True) class Node: """Represents a code symbol or structural container in the extracted syntax graph.""" id: str kind: str file: str
+@dataclass(frozen=True) class Edge: """Represents a directed link (such as a call) between two identifiers.""" src: str dst: str kind: str evidence: str
+@dataclass class Graph: """Encapsulates the complete collection of nodes and relational edges.""" nodes: Dict[str, Node] edges: List[Edge]
+=========================================================
+AST VISITOR
+=========================================================
+class GraphExtractor(ast.NodeVisitor): """ Traverses the Python Abstract Syntax Tree to deterministically extract definitions, calls, and import statements without complex type inference. """ def init(self, filename: str = ""): self.filename = filename self.nodes: Dict[str, Node] = {} self.edges: List[Edge] = [] self.current_scope: List[str] = [] self.defined: Set[str] = set()
+def add_node(self, name: str, kind: str) -> None:
+   """Adds a unique symbol node to the internal tracking dictionary if absent."""
+   if name not in self.nodes:
+       self.nodes[name] = Node(
+           id=name,
+           kind=kind,
+           file=self.filename
+       )
+
+def add_edge(self, src: str, dst: str, kind: str, evidence: str) -> None:
+   """Appends a new directed relationship edge to the sequence list."""
+   self.edges.append(Edge(src=src, dst=dst, kind=kind, evidence=evidence))
+
+def current_qualname(self, name: str) -> str:
+   """Computes the fully qualified name based on the current nesting scope."""
+   if self.current_scope:
+       return ".".join(self.current_scope + [name])
+   return name
+
+def visit_Module(self, node: ast.Module) -> None:
+   """Registers the root module node and continues traversal."""
+   self.add_node(self.filename, "module")
+   self.generic_visit(node)
+
+def visit_FunctionDef(self, node: ast.FunctionDef) -> None:
+   """Captures standard synchronous function definitions within the current scope."""
+   qname = self.current_qualname(node.name)
+   self.add_node(qname, "function")
+   self.defined.add(qname)
+
+   self.current_scope.append(node.name)
+   self.generic_visit(node)
+   self.current_scope.pop()
+
+def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> None:
+   """Captures asynchronous function definitions within the current scope."""
+   qname = self.current_qualname(node.name)
+   self.add_node(qname, "async_function")
+   self.defined.add(qname)
+
+   self.current_scope.append(node.name)
+   self.generic_visit(node)
+   self.current_scope.pop()
+
+def visit_ClassDef(self, node: ast.ClassDef) -> None:
+   """Captures class structures and descends into their body context."""
+   qname = self.current_qualname(node.name)
+   self.add_node(qname, "class")
+   self.defined.add(qname)
+
+   self.current_scope.append(node.name)
+   self.generic_visit(node)
+   self.current_scope.pop()
+
+def visit_Call(self, node: ast.Call) -> None:
+   """Extracts call references from executable statement nodes."""
+   caller = ".".join(self.current_scope) if self.current_scope else self.filename
+   callee = self.resolve_call(node.func)
+
+   if callee:
+       self.add_edge(
+           src=caller,
+           dst=callee,
+           kind="CALL",
+           evidence=ast.unparse(node)
+       )
+
+   self.generic_visit(node)
+
+def visit_Import(self, node: ast.Import) -> None:
+   """Registers external standard import statement names."""
+   for alias in node.names:
+       self.add_node(alias.name, "import")
+   self.generic_visit(node)
+
+def visit_ImportFrom(self, node: ast.ImportFrom) -> None:
+   """Registers component names brought in via from-import patterns."""
+   module = node.module or ""
+   for alias in node.names:
+       full = f"{module}.{alias.name}" if module else alias.name
+       self.add_node(full, "import")
+   self.generic_visit(node)
+
+def resolve_call(self, func: ast.AST) -> Optional[str]:
+   """Resolves target names directly from names or attribute paths."""
+   if isinstance(func, ast.Name):
+       return func.id
+   if isinstance(func, ast.Attribute):
+       return self.resolve_attr_chain(func)
+   return None
+
+def resolve_attr_chain(self, node: ast.Attribute) -> str:
+   """Unrolls nested attribute structures into a standard dot-separated string."""
+   parts = []
+   cur = node
+   while isinstance(cur, ast.Attribute):
+       parts.append(cur.attr)
+       cur = cur.value
+   if isinstance(cur, ast.Name):
+       parts.append(cur.id)
+   return ".".join(reversed(parts))
+
+=========================================================
+PUBLIC API
+=========================================================
+def extract_graph(source: str, filename: str = "") -> Graph: """Parses text source input into a structured abstract syntax relationship graph.""" tree = ast.parse(source) extractor = GraphExtractor(filename=filename) extractor.visit(tree)
+return Graph(
+   nodes=extractor.nodes,
+   edges=extractor.edges
+)
+
+def graph_to_dict(graph: Graph) -> dict: """Converts the internal node/edge graph representations into standard primitives.""" return { "nodes": [asdict(n) for n in graph.nodes.values()], "edges": [asdict(e) for e in graph.edges] }
+============================================================
+GITHUB TRANSPORTATION HYGIENE (.gitignore)
+============================================================
+"""
+.gitignore
+pycache/ *.pyc .env .DS_Store graph_output_dumps/ logs/.log """

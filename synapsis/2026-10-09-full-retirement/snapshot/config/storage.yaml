@@ -1,0 +1,4 @@
+storage:
+  default_backend: "filesystem"
+  sqlite_path: "data/knowledge/synapsis.db"
+  vector_index_path: "data/knowledge/vector.index"

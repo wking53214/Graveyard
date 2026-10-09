@@ -1,0 +1,23 @@
+reporting:
+  formats:
+    - markdown
+    - json
+  default_format: "markdown"
+  include_sections:
+    - executive_summary
+    - scorecard
+    - project_metrics
+    - project_dna
+    - conversation_dna
+    - architecture
+    - security
+    - reliability
+    - performance
+    - observability
+    - governance
+    - dependency_analysis
+    - graveyard_report
+    - timeline
+    - risks
+    - recommendations
+    - appendix

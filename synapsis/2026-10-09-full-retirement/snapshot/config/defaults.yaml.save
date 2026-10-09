@@ -1,0 +1,26 @@
+  GNU nano 7.2                /home/wking53214/synapsis/config/defaults.yaml                         
+# config/defaults.yaml
+project:
+  name: "synapsis"
+  version: "2.0.0"
+
+paths:
+  data_root: "data"
+  reports_root: "data/reports"
+  snapshots_root: "data/snapshots"
+  graveyard_root: "data/graveyard"
+
+logging:
+ level: "INFO"# config/defaults.yaml
+project:
+  name: "synapsis"
+  version: "2.0.0"
+
+paths:
+  data_root: "data"
+  reports_root: "data/reports"
+  snapshots_root: "data/snapshots"
+  graveyard_root: "data/graveyard"
+
+logging:
+  level: "INFO"

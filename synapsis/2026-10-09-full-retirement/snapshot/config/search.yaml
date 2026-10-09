@@ -1,0 +1,4 @@
+search:
+  index_backend: "filesystem"
+  enable_fuzzy: true
+  max_results: 100

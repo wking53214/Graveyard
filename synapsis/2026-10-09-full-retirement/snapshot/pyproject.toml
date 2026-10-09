@@ -1,0 +1,16 @@
+[project]
+name = "synapsis"
+version = "0.1.0"
+description = "A modular multi-phase code intelligence engine."
+authors = [
+    { name = "William N. King", email = "YOUR_EMAIL@example.com" }
+]
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+dependencies = [
+    "pyyaml"
+]
+
+[project.scripts]
+synapsis = "synapsis.cli.cli:main"

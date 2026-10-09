@@ -1,0 +1,5 @@
+archaeology:
+  enable_chat_import: true
+  enable_graveyard_tracking: true
+  snapshot_prefix: "snapshot_"
+  snapshot_extension: ".json"
