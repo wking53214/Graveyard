@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ac-hccse"
+version = "0.1.0"
+description = "Anti-Cog / Human-Centered Customer Service Engine - friction scoring, batch review directives, and interaction routing"
+requires-python = ">=3.10"
+license = { text = "Apache-2.0" }
+dependencies = []
+
+[tool.setuptools.packages.find]
+include = ["ac_hccse*"]
