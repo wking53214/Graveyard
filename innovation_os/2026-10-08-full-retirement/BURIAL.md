@@ -18,7 +18,7 @@ Its useful parts were already done better elsewhere in the stack. The Sept 8 aud
 
 | Part | Where it lives now | State |
 |---|---|---|
-| Retry guard | CNS PR #8, `cns_composition/resubmission.py` | Merged. **No caller yet** |
+| Retry guard | CNS PR #8, `cns_composition/resubmission.py` | Merged. **Called by link** (`admit_session`, link PR #1) |
 | Scope part of context envelopes | Conservation_Kernel PR #12 (`Proposition.conditions`, scope-widening approval) | Merged. **No caller yet** |
 | Decision records (options, selected, rejected, deferred, assumptions, plus `DEC-TEMPLATE_v1.md`) | CCC PR #24 | Merged. **No caller yet** |
 | Two invariants (a rejected record is final; a record can be superseded only once) | CCC PR #25 | Merged |
