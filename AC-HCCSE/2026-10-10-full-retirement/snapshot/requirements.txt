@@ -1,0 +1,2 @@
+# No hard dependencies -- stdlib only.
+# pytest is needed to run the test suite, nothing else.
