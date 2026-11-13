@@ -1,0 +1,715 @@
+diff --git a/.github/workflows/tests.yml b/.github/workflows/tests.yml
+index 3459930..fc3966b 100644
+--- a/.github/workflows/tests.yml
++++ b/.github/workflows/tests.yml
+@@ -99,13 +99,7 @@ jobs:
+           python -m pip install -r requirements-demo.txt
+           python -m pip install -r requirements.txt
+       - name: Test with CNS and the demo libraries required
+-        # AUGUR warns on stderr when AUGUR_AUDIT_KEY is unset, and the demo's
+-        # script test requires empty stderr. The key is a fresh random value
+-        # made in this step and masked in the log; no key is stored anywhere.
+         env:
+           OBSERVE_PERCEIVE_REQUIRE_CNS: "1"
+         run: |
+-          AUGUR_AUDIT_KEY="$(python -c 'import secrets; print(secrets.token_hex(32))')"
+-          echo "::add-mask::$AUGUR_AUDIT_KEY"
+-          export AUGUR_AUDIT_KEY
+           python -m pytest -q -rs
+diff --git a/.gitignore b/.gitignore
+index f854bc7..f460fe8 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -17,7 +17,6 @@ build/
+ venv/
+ env/
+ 
+-# HMAC audit logs written by AUGUR and fortress-kernel during test runs.
++# HMAC audit logs written by fortress-kernel during test runs.
+ # They are run artifacts, not fixtures; nothing reads them back.
+-augur_audit.log
+ fortress_audit.log
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 091f738..f227b79 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2,6 +2,19 @@
+ 
+ ## Unreleased
+ 
++- **AUGUR's simulation screen is removed from the chain.** The optional veto-only screen
++  (`simulation_screen`, `simulation_seed`, the PHASE 1b stage, the `simulation_screen` record key) is gone, and so
++  are `augur_screen_adapter.py`, its test file and the demo stand-in `fixture_augur.py`; they are buried verbatim in
++  the Graveyard repo (`observe-perceive/2026-11-13-augur-screen-adapter`). The demo chain goes from five gates to
++  four (governance_gateway, ccc, dit, conservation_kernel), the `augur` pins leave `pyproject.toml` and
++  `requirements-demo.txt`, and CI no longer makes an `AUGUR_AUDIT_KEY`. `demo_why.py` keeps step 6 as an
++  explicit "no stage" line so the ten-step numbering holds. Edited pre-existing tests (they assert the exact
++  behaviour changed): `test_cns_governed_decision_demo.py` (gate list, S1 to S7b expectations, S4 now refused by ccc,
++  fixture file set, requirements set, script test no longer needs the key, fixture file count 8 to 7);
++  removed: `test_a_crashing_screen_refuses_and_says_it_crashed` in `test_chain_failure_paths.py` and
++  `test_augur_screen_adapter.py` (both test only the removed stage). Dated audit and closure documents still
++  mention AUGUR on purpose: they are history.
++
+ - **A person who is told can be followed up, and "delivered" stops meaning "a function returned".**
+   `human_escalation.py` adds an `EscalationDesk`. Every event that used to call `alert_human` (a crashed
+   stage, a lost receipt, a failed execution) opens a ticket in a hash-chained, signed log. A ticket is
+diff --git a/README.md b/README.md
+index 5b5cd5d..796410a 100644
+--- a/README.md
++++ b/README.md
+@@ -1,6 +1,6 @@
+ # observe-perceive
+ 
+-**Hub of the governed action stack.** Version `1.3.0`. Python ≥ 3.11. Hard dependency: [`Conservation_Kernel`](https://github.com/wking53214/Conservation_Kernel) `@4e7c0d9`. Optional extras: Gateway, CCC, AUGUR, GEMS (pinned to last commit that still has `HumanAuthorityGuard`), fortress-kernel.
++**Hub of the governed action stack.** Version `1.3.0`. Python ≥ 3.11. Hard dependency: [`Conservation_Kernel`](https://github.com/wking53214/Conservation_Kernel) `@4e7c0d9`. Optional extras: Gateway, CCC, GEMS (pinned to last commit that still has `HumanAuthorityGuard`), fortress-kernel.
+ 
+ Pediatric sepsis monitoring is the **reference domain**, not the product boundary.
+ 
+@@ -24,8 +24,7 @@ Signals / artifacts
+  POLICY             perceive_consolidated       PERCEIVE gates (advisory default)
+         │
+         ▼
+- OPTIONAL SCREENS   AUGUR (veto-only)           may refuse; may never approve
+-                    fortress-kernel             containment / slew
++ OPTIONAL SCREENS   fortress-kernel             containment / slew
+         │
+         ▼
+  CONSERVATION       Conservation_Kernel.submit  undeclared epistemic shift → REJECT
+@@ -72,7 +71,7 @@ Integrity ≠ authenticity: anyone in-process can recompute hashes. With a signe
+ 
+ ### Adapters (vocabulary translation at seams)
+ 
+-`gateway_admission_adapter` · `augur_screen_adapter` · `fortress_perceive_adapter` · `perceive_conservation_adapter` · `gsa815_observe_adapter` · `sentinel_perceive_adapter` · `gems_governance_adapter` · `herald_governance_adapter` · `approval_governance_adapter` · `tie_governance_adapter` · `orchestrator_ccc_adapter` · `conservation_gsa815_adapter`
++`gateway_admission_adapter` · `fortress_perceive_adapter` · `perceive_conservation_adapter` · `gsa815_observe_adapter` · `sentinel_perceive_adapter` · `gems_governance_adapter` · `herald_governance_adapter` · `approval_governance_adapter` · `tie_governance_adapter` · `orchestrator_ccc_adapter` · `conservation_gsa815_adapter`
+ 
+ `approval_governance_adapter` has **no caller yet**: nothing in this repo or the rest of the stack feeds it records, so it does nothing until a caller is added. It was written for innovation_os approvals (that repo is retired) and is kept as a general seam for approval records, for example CCC decision records. It reads a record by shape and does not import its source. The rule that an approval with no named reviewer is not human review is built in.
+ 
+@@ -107,7 +106,7 @@ From `CLAUDE_ARCHITECTURE_STATE.md` and `docs/audit/COMMERCIAL_RED_TEAM_2026-09-
+ | Untyped orchestrator output | Commercial audit: result is an untyped dict. |
+ | No actor registry / grant lifecycle | Architecture epic, missing. |
+ | sentinel_os / GSA-815 | Never imported. Diagrams that show them as chain stages are conceptual. |
+-| Optional stages | AUGUR/CCC/fortress/Gateway/GEMS skipped if absent. A clone without extras is a shorter chain. |
++| Optional stages | CCC/fortress/Gateway/GEMS skipped if absent. A clone without extras is a shorter chain. |
+ | Root guard | `root_admission.RootAdmission` makes the kernel register a root only after a CNS roster approves that document (needs the `cns` extra). The two examples (`demo_why.py`, `vertical_slice.py`) build the kernel with this guard, so they need the `cns` extra and stop at the start, naming the install command, without it. Test fixtures for other components still build the kernel with `allow_unguarded_roots=True`. The approval proof is process-local, so it does not stop hostile code in the same process or mean anything to another process. |
+ 
+ Measured (architecture state): 610 passed / 5 skipped with all packs. `pip install -e ".[test,chain,fortress]" && pytest`.
+@@ -132,7 +131,6 @@ Duck-typed sentinel artifact with event time → orchestrator result dict + rece
+ ```text
+                     ┌── Governance_Gateway (opt, extra `chain`)
+                     ├── CCC (opt)
+-                    ├── AUGUR (opt, veto-only)
+                     ├── GEMS @f70da70 (opt; pinned, see pyproject)
+                     └── fortress-kernel (opt, extra `fortress`)
+ observe-perceive ───┤
+@@ -163,7 +161,7 @@ What it is not. It is a verdict-combining layer. It does not replace `Governance
+ 
+ What it needs. CNS, a private package, through the optional extra `cns` (pinned to the tag v4.0.0; `DecisionGuard`, which root admission needs, arrived in v2.2.0; `requirements-demo.txt` pins the same tag and installs the other libraries without their `[cns]` extras, whose pins at those commits are older and conflict). This repository imports CNS only when a pipeline is built or run. Without CNS, everything else here works as before and building a pipeline raises `CnsNotInstalled` with the install command. No runtime dependency was added.
+ 
+-Run the demo. It builds one pipeline from the real CNS gates of five libraries (governance_gateway, ccc and augur before the work; dit and conservation_kernel on the result) and a stub work function, then runs eleven scenarios and prints every verdict, whether the work ran, and the final decision:
++Run the demo. It builds one pipeline from the real CNS gates of four libraries (governance_gateway and ccc before the work; dit and conservation_kernel on the result) and a stub work function, then runs eleven scenarios and prints every verdict, whether the work ran, and the final decision:
+ 
+ ```text
+ python -m venv .venv-demo && . .venv-demo/bin/activate
+@@ -171,9 +169,9 @@ pip install -r requirements-demo.txt
+ PYTHONPATH=. python examples/cns_governed_decision_demo.py
+ ```
+ 
+-`requirements-demo.txt` installs each library from the branch that carries its connector. Those are branch refs, not commit SHAs, and should be pinned once the branches are final. A recorded run is in `docs/CNS_GOVERNED_DECISION_DEMO.md`. The tests are in `test_cns_governed_decision_demo.py` and skip cleanly, with a reason, where CNS or a library is missing. CI's `cns` job installs `requirements-demo.txt` and sets `OBSERVE_PERCEIVE_REQUIRE_CNS=1`, which turns each of those skips into a failure. The test that runs the demo as a script requires empty stderr, so it needs `AUGUR_AUDIT_KEY` set to a fresh random value (for example `export AUGUR_AUDIT_KEY="$(python -c 'import secrets; print(secrets.token_hex(32))')"`); without it AUGUR warns on stderr and the test fails saying so. CI generates a new key on every run; no key is written anywhere in this repository.
++`requirements-demo.txt` installs each library from the branch that carries its connector. Those are branch refs, not commit SHAs, and should be pinned once the branches are final. A recorded run is in `docs/CNS_GOVERNED_DECISION_DEMO.md`. The tests are in `test_cns_governed_decision_demo.py` and skip cleanly, with a reason, where CNS or a library is missing. CI's `cns` job installs `requirements-demo.txt` and sets `OBSERVE_PERCEIVE_REQUIRE_CNS=1`, which turns each of those skips into a failure.
+ 
+-Limits of the demo. The work is a stub, not a model. Two scenarios (a required library is missing) are simulated by leaving a slot empty; nothing stands in for the missing gate. AUGUR's gate appends audit lines to a log, and the demo sends them to a temporary file that is not deleted. The digests are tamper-evidence, not tamper-proofing: someone who rebuilds a verdict with a recomputed digest is not caught by the digest alone, and the demo shows that too.
++Limits of the demo. The work is a stub, not a model. Two scenarios (a required library is missing) are simulated by leaving a slot empty; nothing stands in for the missing gate. The digests are tamper-evidence, not tamper-proofing: someone who rebuilds a verdict with a recomputed digest is not caught by the digest alone, and the demo shows that too.
+ 
+ The rules the layer enforces, each with tests that fail without it (`test_cns_governed_decision.py`):
+ 
+diff --git a/demo_why.py b/demo_why.py
+index 520aa09..3305e95 100644
+--- a/demo_why.py
++++ b/demo_why.py
+@@ -16,7 +16,9 @@ The ten steps the mission asks for, and where each lives in this run:
+   4. epistemic status        carried from the artifact into the request,
+                              the handoff, and the commitment; never collapsed
+   5. authority               same: recorded and committed, refused if absent
+-  6. prediction              AUGUR's simulation screen, veto-only, when present
++  6. prediction              no stage: the veto-only simulation screen was retired
++                             (moved to the Graveyard repo); the step is kept so
++                             the ten-step numbering stays stable
+   7. permission              PERCEIVE's decision, in its audit ledger
+   8. execution               the caller's operation, with the approval and
+                              context that authorised it
+@@ -105,18 +107,12 @@ def run_scenario(quiet: bool = False):
+     artifact = Artifact("demo-escalation-001", content)
+     context = {"patient_id": "P001", "severity": "high", "execution_id": "exec-demo-001"}
+ 
+-    try:
+-        import augur_screen_adapter
+-        screen = augur_screen_adapter.Augur is not None   # the adapter imports without the pack
+-    except ImportError:
+-        screen = False
+-
+     # The kernel holds the real root guard: a root registers only after a CNS roster approves that document.
+     require_root_admission()
+     admission = RootAdmission()
+     orchestrator = GovernanceOrchestrator(
+         _perceive(), ConservationKernel(root_guard=admission), ObserveClinicalEngine(),
+-        simulation_screen=screen, root_admission=admission,
++        root_admission=admission,
+     )
+ 
+     def operation(execution_context):
+@@ -152,11 +148,7 @@ def run_scenario(quiet: bool = False):
+     _say(3, "interpretation", f"PERCEIVE gates: {', '.join(result['governance_decision'].applied_gates) or 'none applied'}")
+     _say(4, "epistemic status", f"{request.epistemic_status} (carried in request, handoff and commitment)")
+     _say(5, "authority", f"{request.authority}, origin {request.origin}")
+-    screen_result = result.get("simulation_screen")
+-    if screen_result is None:
+-        _say(6, "prediction", "AUGUR not checked out beside this repo: no screen (stated)")
+-    else:
+-        _say(6, "prediction", f"screen {'evaluated' if screen_result.screened else 'abstained'}: {screen_result.reason}")
++    _say(6, "prediction", "no simulation screen in this chain (retired); nothing here can predict, so nothing is claimed")
+     decision = result["governance_decision"]
+     _say(7, "permission", f"{decision.approval.value} by PERCEIVE, decision {decision.decision_id}")
+     _say(8, "execution", f"{result['status']} / {result.get('execution_status')}: {result.get('gsa815_result')}")
+diff --git a/examples/cns_governed_decision_demo.py b/examples/cns_governed_decision_demo.py
+index 2c71db8..3f292b5 100644
+--- a/examples/cns_governed_decision_demo.py
++++ b/examples/cns_governed_decision_demo.py
+@@ -1,10 +1,10 @@
+-"""End-to-end demo: one GovernedPipeline over five libraries' real CNS gates.
++"""End-to-end demo: one GovernedPipeline over four libraries' real CNS gates.
+ 
+ What this runs. ``cns_governed_decision.GovernedPipeline`` combines gates from
+ separate libraries into one fail-closed decision. Here it holds the real CNS
+-connector gate of each of five libraries, placed by the end each one declares:
++connector gate of each of four libraries, placed by the end each one declares:
+ 
+-    ALPHA, judged before the work    governance_gateway, ccc, augur
++    ALPHA, judged before the work    governance_gateway, ccc
+     the work                         a stub that writes a release summary
+     OMEGA, judged on the result      dit, conservation_kernel
+ 
+@@ -22,7 +22,7 @@ Scenarios. S1 to S8 plus three variants (S3b, S6b, S7b) the fixtures support:
+     S3   an OMEGA gate (conservation_kernel) refuses terminally while every
+          other gate passed: TERMINAL_BREACH
+     S3b  a RETRY and a TERMINAL_BREACH together: terminal wins
+-    S4   an ALPHA gate (augur) refuses: the work is never called and the OMEGA
++    S4   an ALPHA gate (ccc) refuses: the work is never called and the OMEGA
+          gates are not evaluated
+     S5   two ALPHA gates would refuse; the first terminal one stops the rest
+     S6   a required ALPHA library is missing (a Slot with gate None): fail closed
+@@ -37,14 +37,13 @@ the point of those two is a pipeline that has a required slot with no gate.
+ 
+ Not shown, because the fixtures cannot drive it: a gate that returns RETRY
+ from an ALPHA library (ccc's RETRY path needs an artifact id that a
+-zero-argument candidate cannot name; augur reserves RETRY for scenarios it
+-cannot screen).
++zero-argument candidate cannot name).
+ 
+ Limits, stated plainly. This is a verdict-combining layer. It does not replace
+ GovernanceOrchestrator, and it only works for libraries that ship a CNS
+ connector. APPROVED means every gate in this pipeline passed; a library's PASS
+ is "no objection", not proof that the summary is correct (the conservation
+-kernel checks the typed envelope, not the prose; AUGUR cannot approve). The
++kernel checks the typed envelope, not the prose). The
+ digests are tamper-evidence, not tamper-proofing: someone who rebuilds a
+ verdict with a recomputed digest is not caught by the digest alone (S8 shows
+ this).
+@@ -77,7 +76,6 @@ for _path in (_HERE, _HERE.parent):
+ 
+ import cns_governed_decision as cgd  # noqa: E402
+ from cns_demo import (  # noqa: E402
+-    fixture_augur,
+     fixture_ccc,
+     fixture_conservation_kernel,
+     fixture_dit,
+@@ -127,9 +125,6 @@ class Plan:
+     #: "ok" (INFERENCE), "refused" (HISTORICAL_RECORD) or "malformed" (not an
+     #: Attempt, so the real gate raises).
+     filing: str = "ok"
+-    #: augur simulates the planned action's scenario: "ok" (calm) or "refused"
+-    #: (violent).
+-    scenario: str = "ok"
+     #: What the stub work writes: "ok", or "hedged" (a hedge word for dit).
+     wording: str = "ok"
+     #: The typed record of source to summary that conservation_kernel judges:
+@@ -240,12 +235,6 @@ LIBRARIES: tuple[Library, ...] = (
+         fixture_ccc,
+         lambda plan: _candidate(fixture_ccc, plan.filing),
+     ),
+-    Library(
+-        "augur",
+-        "augur",
+-        fixture_augur,
+-        lambda plan: _candidate(fixture_augur, plan.scenario),
+-    ),
+     Library("dit", "dit", fixture_dit, lambda plan, release: release.text),
+     Library(
+         "conservation_kernel",
+@@ -255,7 +244,7 @@ LIBRARIES: tuple[Library, ...] = (
+     ),
+ )
+ 
+-_PLAN_FIELD = {"governance_gateway": "source", "ccc": "filing", "augur": "scenario"}
++_PLAN_FIELD = {"governance_gateway": "source", "ccc": "filing"}
+ 
+ 
+ def load_gates() -> tuple[dict[str, CountingGate], dict[str, str]]:
+@@ -325,7 +314,7 @@ SCENARIOS: tuple[Scenario, ...] = (
+         "S3",
+         "An OMEGA gate refuses terminally; every other gate passed",
+         "The work restates the shelf-life estimate as fact. conservation_kernel answers "
+-        "TERMINAL_BREACH. The three ALPHA gates and dit all passed, and the refusal still "
++        "TERMINAL_BREACH. The two ALPHA gates and dit all passed, and the refusal still "
+         "decides the whole run.",
+         Plan(transformation="refused"),
+         "terminal_breach",
+@@ -343,9 +332,9 @@ SCENARIOS: tuple[Scenario, ...] = (
+     Scenario(
+         "S4",
+         "An ALPHA gate refuses: the work is never called",
+-        "augur is handed a violent scenario and vetoes it. The two ALPHA gates before it "
+-        "passed. The work does not run and neither OMEGA gate is asked.",
+-        Plan(scenario="refused"),
++        "ccc is asked to file the summary as human-established history and refuses. The "
++        "ALPHA gate before it passed. The work does not run and neither OMEGA gate is asked.",
++        Plan(filing="refused"),
+         "terminal_breach",
+         0,
+     ),
+@@ -561,7 +550,6 @@ def _render_header(run: DemoRun) -> list[str]:
+         "after sealing)",
+         "  filing          the status ccc is asked to file the summary under (refused: "
+         "HISTORICAL_RECORD; malformed: not an Attempt)",
+-        "  scenario        the planned action augur simulates (refused: a violent one)",
+         "  wording         what the work writes (hedged: 'may be')",
+         "  transformation  the typed record conservation_kernel judges (refused: the "
+         "shelf-life estimate restated as fact; malformed: not a TransformationCandidate)",
+@@ -672,7 +660,7 @@ def main() -> int:
+     except ImportError as exc:
+         print(f"The demo cannot run: {exc}", file=sys.stderr)
+         print(
+-            "It needs CNS and the five libraries with their CNS connectors. "
++            "It needs CNS and the four libraries with their CNS connectors. "
+             "Install them with: pip install -r requirements-demo.txt",
+             file=sys.stderr,
+         )
+diff --git a/governance_orchestrator.py b/governance_orchestrator.py
+index e9707c9..5a7d1cf 100644
+--- a/governance_orchestrator.py
++++ b/governance_orchestrator.py
+@@ -27,7 +27,6 @@ class GovernanceOrchestrator:
+ 
+     def __init__(self, perceive=None, conservation_kernel=None, observe_engine=None,
+                  fortress_controller: str = None,
+-                 simulation_screen: bool = False, simulation_seed: int = 42,
+                  require_declared_scope: bool = False,
+                  require_vitals: bool = False,
+                  raise_on_stage_error: bool = False,
+@@ -54,12 +53,6 @@ class GovernanceOrchestrator:
+                 Conservation Kernel. None (the default) leaves it out
+                 entirely, so the chain behaves as it did before and a missing
+                 fortress-kernel checkout is never a hard failure.
+-            simulation_screen: place AUGUR's behavioural-simulation screen
+-                ahead of PERCEIVE. A different system from fortress-kernel
+-                above; the two were both called FORTRESS until AUGUR was
+-                renamed. Off by default.
+-            simulation_seed: seed for that screen, so its runs are
+-                reproducible by a reviewer.
+             require_declared_scope: refuse to execute a request that declares
+                 no gateway scope at all. Defaults False, matching the advisory
+                 pattern PolicyEnforcementConfig uses in PERCEIVE: the check
+@@ -213,17 +206,6 @@ class GovernanceOrchestrator:
+             from fortress_perceive_adapter import FortressPerceiveAdapter
+             self.fortress_adapter = FortressPerceiveAdapter(controller_mode=fortress_controller)
+ 
+-        # AUGUR's behavioural-simulation screen, also opt-in. A different
+-        # system from the fortress-kernel containment adapter above -- both
+-        # were called FORTRESS until AUGUR took its own name. Runs first
+-        # among the judging stages: it can only
+-        # refuse, never approve, which is the right shape for a screen and
+-        # means it cannot smuggle an endorsement into the chain.
+-        self.simulation_screen = None
+-        if simulation_screen:
+-            from augur_screen_adapter import AugurScreenAdapter
+-            self.simulation_screen = AugurScreenAdapter(seed=simulation_seed)
+-
+     def _verify_on_the_way_out(self, result: dict, forensic_proof) -> dict:
+         """Recompute the whole chain before handing the record over.
+ 
+@@ -543,59 +525,6 @@ class GovernanceOrchestrator:
+         if temporal_anomalies:
+             logger.warning(f"[Orchestrator] Temporal anomalies on {governance_request.request_id}: {temporal_anomalies}")
+ 
+-        # PHASE 1b: behavioural-simulation screen
+-        #
+-        # First of the judging stages, and veto-only by construction: it can
+-        # refuse but can never approve, so it cannot smuggle an endorsement
+-        # into the chain. Removing doomed work here costs one model run
+-        # instead of the whole chain.
+-        #
+-        # It abstains on any request with no trajectory to simulate, which is
+-        # most of them. `screened` distinguishes "looked at it and had no
+-        # objection" from "could not evaluate it" -- both proceed, only one is
+-        # coverage.
+-        screen_result = None
+-        if self.simulation_screen:
+-            try:
+-                screen_result = self.simulation_screen.screen_request(context)
+-            except Exception as e:
+-                # The screen can only refuse, never approve. A screen that
+-                # crashed did neither; letting the request through would treat
+-                # "could not evaluate" as "no objection", so it refuses, and
+-                # the record says it was a crash, not a verdict.
+-                logger.warning(
+-                    "[Orchestrator] Simulation screen did not run to a verdict -- "
+-                    f"it raised {type(e).__name__}: {e}. Recording REJECTED with "
+-                    "stage_refused=False."
+-                )
+-                human_alert = self._alert_stage_error("simulation_screen", e, governance_request)
+-                if self.raise_on_stage_error:
+-                    raise
+-                return self._stamp({
+-                    "status": "REJECTED",
+-                    "reason": f"Simulation screen did not run to a verdict: {type(e).__name__}: {e}",
+-                    "refused_by": None,
+-                    "stage_refused": False,
+-                    "stage_error": f"{type(e).__name__}: {e}",
+-                    **self._alert_field(human_alert),
+-                    "simulation_screen": None,
+-                    "governance_decision": None,
+-                    "audit_chain": None,
+-                }, governance_request)
+-            if screen_result.screened:
+-                logger.info(f"[Orchestrator] Phase 1b: simulation screen -- {screen_result.reason}")
+-            else:
+-                logger.info(f"[Orchestrator] Phase 1b: simulation screen abstained -- {screen_result.reason}")
+-            if not screen_result.proceed:
+-                logger.error("[Orchestrator] Simulation screen refused: halting before PERCEIVE")
+-                return self._stamp({
+-                    "status": "REJECTED",
+-                    "reason": f"Simulation screen refused: {screen_result.reason}",
+-                    "simulation_screen": screen_result,
+-                    "governance_decision": None,
+-                    "audit_chain": None,
+-                }, governance_request)
+-
+         # PHASE 2: PERCEIVE evaluation
+         #
+         # Goes through the adapter, not straight at the kernel: PERCEIVE
+@@ -1030,7 +959,6 @@ class GovernanceOrchestrator:
+                 "scope_sealed": scope_sealed,
+                 "declared_scope": declared_scope,
+                 "governance_decision": perceive_decision,
+-                "simulation_screen": screen_result,
+                 "fortress_result": fortress_result,
+                 "conservation_decision": conservation_decision,
+                 "execution_approval": execution_approval,
+@@ -1113,7 +1041,6 @@ class GovernanceOrchestrator:
+             "executed_at": executed_at,
+             "advisory_violations": list(getattr(perceive_decision, "advisory_violations", None) or []),
+             "governance_decision": perceive_decision,
+-            "simulation_screen": screen_result,
+             "fortress_result": fortress_result,
+             "conservation_decision": conservation_decision,
+             "execution_approval": execution_approval,
+diff --git a/pyproject.toml b/pyproject.toml
+index 8cae122..507b949 100644
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -38,7 +38,6 @@ chain = [
+   "cognitive-continuity-constitution @ git+https://github.com/wking53214/CCC@4aa182659dee69efaaab7376c7eba3378eb670e2",
+   # CCCb: the text matcher current CCC requires before it records a finding.
+   "cccb @ git+https://github.com/wking53214/CCCb@23911917e25f48522da7318b2e250d119536591f",
+-  "augur @ git+https://github.com/wking53214/AUGUR@1fc76118f75024be5ebebed227c2d9a4530c78b7",
+   "gems-infrastructure @ git+https://github.com/wking53214/GEMS@f70da70",
+   "governance-gateway @ git+https://github.com/wking53214/Governance_Gateway@c507be7279c4488f98404514fcea2c900c53168e",
+ ]
+@@ -55,7 +54,7 @@ test = ["pytest>=8", "hypothesis", "freezegun"]
+ [tool.setuptools]
+ # Flat layout: every module sits at the repository root.
+ py-modules = [
+-  "adversarial_sensor_faults", "augur_screen_adapter", "capacity_planning", "cassette",
++  "adversarial_sensor_faults", "capacity_planning", "cassette",
+   "clinical_governance_system", "cns_connector", "cns_governed_decision", "compliance_exporters",
+   "conservation_gsa815_adapter", "demo_why", "deterioration_simulator",
+   "execution_guard",
+diff --git a/requirements-demo.txt b/requirements-demo.txt
+index 419f8d7..3a407d4 100644
+--- a/requirements-demo.txt
++++ b/requirements-demo.txt
+@@ -14,7 +14,7 @@
+ # CNS comes from the one explicit line below, the tag v4.0.0 (commit eabe6c7).
+ # None of the libraries is installed with its [cns] extra. Each of these commits
+ # has a [cns] extra that pins an older CNS (Governance Gateway, CCC, DIT and the
+-# Conservation Kernel pin v2.2.0, AUGUR pins v1.4.0), and pip cannot install two
++# Conservation Kernel pin v2.2.0), and pip cannot install two
+ # CNS versions: asking for the extra made the resolver fail on 2026-10-31
+ # (cognitive-continuity-constitution[cns] needs cns 2.2.0, this file needs 3.0.0).
+ # The extra only adds the cns dependency, which is already here, and each
+@@ -27,6 +27,5 @@
+ cns @ git+https://github.com/wking53214/CNS.git@v4.0.0
+ governance-gateway @ git+https://github.com/wking53214/governance_gateway.git@ad8b644ca2edffc2b2de5e30e54f0157c288d925
+ cognitive-continuity-constitution @ git+https://github.com/wking53214/ccc.git@98065733ee1afa22dc80db3c8dcfd0e1a3094909
+-augur @ git+https://github.com/wking53214/augur.git@1fc76118f75024be5ebebed227c2d9a4530c78b7
+ dit @ git+https://github.com/wking53214/dit.git@c801374757411f0975a71d1b794f2711d680985e
+ conservation-kernel @ git+https://github.com/wking53214/conservation_kernel.git@4e7c0d9fbf6a40fd1f9a81896a7e2db00a63c47a
+diff --git a/test_chain_failure_paths.py b/test_chain_failure_paths.py
+index 57dff8e..99772ce 100644
+--- a/test_chain_failure_paths.py
++++ b/test_chain_failure_paths.py
+@@ -86,21 +86,6 @@ def test_advisory_denial_is_visible_on_an_approved_record(orchestrator):
+     assert result["advisory_violations"], "the export gate's objection was dropped from the record"
+ 
+ 
+-# --- prediction failure ------------------------------------------------------------------
+-
+-def test_a_crashing_screen_refuses_and_says_it_crashed(perceive, kernel, monkeypatch):
+-    if pytest.importorskip("augur_screen_adapter").Augur is None:
+-        pytest.skip("AUGUR checkout not available")
+-    orchestrator = GovernanceOrchestrator(perceive, kernel, ObserveClinicalEngine(), simulation_screen=True)
+-
+-    def crash(context):
+-        raise RuntimeError("simulator exploded")
+-    monkeypatch.setattr(orchestrator.simulation_screen, "screen_request", crash)
+-    result, ran = run_chain(orchestrator, "screen-crash")
+-    assert result["status"] == "REJECTED" and not ran
+-    assert result["stage_refused"] is False and "RuntimeError" in result["stage_error"]
+-
+-
+ # --- execution failure / partial execution -------------------------------------------------
+ 
+ def test_execution_failure_is_a_recorded_state_that_keeps_the_approval(orchestrator):
+diff --git a/test_cns_governed_decision_demo.py b/test_cns_governed_decision_demo.py
+index a43e27d..c0af2b3 100644
+--- a/test_cns_governed_decision_demo.py
++++ b/test_cns_governed_decision_demo.py
+@@ -11,20 +11,12 @@ and README section that say what they should.
+ The connected half runs the real demo against the real libraries and asserts
+ every scenario's verdicts, its not-evaluated list, how often each gate was
+ asked, and how often the work ran. It skips cleanly, with a reason, when CNS or
+-any of the five libraries (or a version of one that has no CNS connector) is
++any of the four libraries (or a version of one that has no CNS connector) is
+ not installed, unless OBSERVE_PERCEIVE_REQUIRE_CNS=1 (CI's CNS job), which
+ makes each of those a failure instead:
+ 
+     pip install -r requirements-demo.txt
+-    export AUGUR_AUDIT_KEY="$(python -c 'import secrets; print(secrets.token_hex(32))')"
+     PYTHONPATH=. python -m pytest test_cns_governed_decision_demo.py
+-
+-AUGUR_AUDIT_KEY must be set (to a fresh random value; never a fixed one) for
+-the test that runs the demo as a script and requires empty stderr. Without it,
+-AUGUR warns on stderr that it signs its audit log with a key held only by that
+-process, and the test fails saying so. The script runs in a minimal
+-environment, which carries AUGUR_AUDIT_KEY through and nothing else from the
+-caller's. CI's CNS job generates one per run.
+ """
+ 
+ from __future__ import annotations
+@@ -49,15 +41,15 @@ REQUIREMENTS = HERE / "requirements-demo.txt"
+ README = HERE / "README.md"
+ RECORDED = HERE / "docs" / "CNS_GOVERNED_DECISION_DEMO.md"
+ 
+-LIBRARY_MODULES = ("governance_gateway", "ccc", "augur", "dit", "conservation_kernel")
++LIBRARY_MODULES = ("governance_gateway", "ccc", "dit", "conservation_kernel")
+ CNS_MODULES = ("cns", "cns.gate")
+ BRANCH = "claude/lean-technical-review-9n6xwk"
+ CNS_PIN = "v4.0.0"
+ 
+ EM_DASH, EN_DASH = chr(0x2014), chr(0x2013)
+ 
+-GATE_NAMES = ["governance_gateway", "ccc.transition", "augur_screen", "dit", "conservation"]
+-ALPHA_GATES, OMEGA_GATES = GATE_NAMES[:3], GATE_NAMES[3:]
++GATE_NAMES = ["governance_gateway", "ccc.transition", "dit", "conservation"]
++ALPHA_GATES, OMEGA_GATES = GATE_NAMES[:2], GATE_NAMES[2:]
+ 
+ 
+ # ---------------------------------------------------------------------------
+@@ -72,8 +64,6 @@ def _block(*modules: str) -> str:
+ 
+ def _python(code: str, *, cwd: Path | None = None) -> subprocess.CompletedProcess[str]:
+     env = {"PYTHONPATH": str(HERE), "PATH": os.environ.get("PATH", ""), "PYTHONDONTWRITEBYTECODE": "1"}
+-    if os.environ.get("AUGUR_AUDIT_KEY"):  # the caller's key, never a fixed one: see the module docstring
+-        env["AUGUR_AUDIT_KEY"] = os.environ["AUGUR_AUDIT_KEY"]
+     return subprocess.run(
+         [sys.executable, "-c", textwrap.dedent(code)],
+         capture_output=True,
+@@ -185,7 +175,7 @@ def test_running_the_demo_without_cns_exits_2_and_says_what_to_install(tmp_path)
+ 
+ def test_no_new_file_imports_cns_or_a_library_at_module_level():
+     files = [DEMO, *sorted(FIXTURE_DIR.glob("*.py")), Path(__file__)]
+-    assert len(files) >= 8, files
++    assert len(files) >= 7, files
+     forbidden = set(CNS_MODULES[:1]) | set(LIBRARY_MODULES)
+     for path in files:
+         assert _top_level_imports(path).isdisjoint(forbidden), (
+@@ -197,7 +187,6 @@ def test_no_new_file_imports_cns_or_a_library_at_module_level():
+ def test_the_demo_is_a_runnable_script_and_a_package_next_to_it():
+     assert DEMO.is_file() and (FIXTURE_DIR / "__init__.py").is_file()
+     assert {p.name for p in FIXTURE_DIR.glob("fixture_*.py")} == {
+-        "fixture_augur.py",
+         "fixture_ccc.py",
+         "fixture_conservation_kernel.py",
+         "fixture_dit.py",
+@@ -235,7 +224,6 @@ def test_requirements_demo_names_cns_and_each_library_at_its_branch():
+         "cns",
+         "governance-gateway",
+         "cognitive-continuity-constitution",
+-        "augur",
+         "dit",
+         "conservation-kernel",
+     }
+@@ -243,7 +231,6 @@ def test_requirements_demo_names_cns_and_each_library_at_its_branch():
+     repos = {
+         "governance-gateway": "governance_gateway",
+         "cognitive-continuity-constitution": "ccc",
+-        "augur": "augur",
+         "dit": "dit",
+         "conservation-kernel": "conservation_kernel",
+     }
+@@ -299,7 +286,7 @@ def test_the_recorded_run_is_the_demo_output_with_every_scenario_as_expected():
+ 
+ 
+ # ---------------------------------------------------------------------------
+-# Connected half: needs CNS and the five libraries, skips cleanly without them.
++# Connected half: needs CNS and the four libraries, skips cleanly without them.
+ # ---------------------------------------------------------------------------
+ 
+ 
+@@ -353,7 +340,6 @@ def verdict(report, gate):
+ ALL_PASS = [
+     ("governance_gateway", "ALPHA", "PASS"),
+     ("ccc.transition", "ALPHA", "PASS"),
+-    ("augur_screen", "ALPHA", "PASS"),
+     ("dit", "OMEGA", "PASS"),
+     ("conservation", "OMEGA", "PASS"),
+ ]
+@@ -377,7 +363,7 @@ def test_every_gate_is_the_librarys_own_and_sits_in_the_slot_for_its_declared_en
+         assert gate.position.name == lib.fixture.POSITION
+         assert type(gate._gate).__module__ == f"{lib.key}.cns_connector"
+     chain = GateChain(
+-        alpha=tuple(gates[k] for k in ("governance_gateway", "ccc", "augur")),
++        alpha=tuple(gates[k] for k in ("governance_gateway", "ccc")),
+         omega=tuple(gates[k] for k in ("dit", "conservation_kernel")),
+     )
+     assert chain.misplaced() == () and chain.complete()
+@@ -393,15 +379,12 @@ def test_s1_everything_passes_and_the_work_runs_once(reports):
+     assert d.not_evaluated == () and d.work_error is None and d.result_withheld is False
+     assert d.result.text.startswith("Lot L-2291 of Compound X 10 mg tablets was released")
+     assert asked(r) == {name: 1 for name in GATE_NAMES}
+-    assert verdict(r, "augur_screen").reason.startswith(
+-        "no objection: the simulation ended in regime STABLE"
+-    )
+ 
+ 
+ def test_s2_an_omega_text_gate_refuses_retryably_and_the_work_ran(reports):
+     r = reports["S2"]
+     d = r.decision
+-    assert triples(r) == [*ALL_PASS[:3], ("dit", "OMEGA", "RETRY"), ("conservation", "OMEGA", "PASS")]
++    assert triples(r) == [*ALL_PASS[:2], ("dit", "OMEGA", "RETRY"), ("conservation", "OMEGA", "PASS")]
+     assert (d.outcome, d.executed, r.work_calls) == ("retry", True, 1)
+     assert "hedging" in verdict(r, "dit").reason and "'may'" in verdict(r, "dit").reason
+     assert d.result is None and d.result_withheld is True
+@@ -411,7 +394,7 @@ def test_s2_an_omega_text_gate_refuses_retryably_and_the_work_ran(reports):
+ def test_s3_an_omega_terminal_refusal_overrides_every_passing_gate(reports):
+     r = reports["S3"]
+     d = r.decision
+-    assert triples(r) == [*ALL_PASS[:4], ("conservation", "OMEGA", "TERMINAL_BREACH")]
++    assert triples(r) == [*ALL_PASS[:3], ("conservation", "OMEGA", "TERMINAL_BREACH")]
+     assert (d.outcome, d.executed, r.work_calls) == ("terminal_breach", True, 1)
+     reason = verdict(r, "conservation").reason
+     assert reason.startswith("REJECT: ")
+@@ -423,7 +406,7 @@ def test_s3_an_omega_terminal_refusal_overrides_every_passing_gate(reports):
+ def test_s3b_a_retry_and_a_terminal_breach_together_resolve_to_terminal(reports):
+     r = reports["S3b"]
+     assert triples(r) == [
+-        *ALL_PASS[:3],
++        *ALL_PASS[:2],
+         ("dit", "OMEGA", "RETRY"),
+         ("conservation", "OMEGA", "TERMINAL_BREACH"),
+     ]
+@@ -436,14 +419,12 @@ def test_s4_an_alpha_refusal_means_the_work_is_never_called(reports):
+     d = r.decision
+     assert r.work_calls == 0, "the work function must never run when an ALPHA gate refuses"
+     assert (d.outcome, d.executed) == ("terminal_breach", False)
+-    assert triples(r) == [*ALL_PASS[:2], ("augur_screen", "ALPHA", "TERMINAL_BREACH")]
+-    assert verdict(r, "augur_screen").reason.startswith(
+-        "refused: the simulation predicts regime CRITICAL at its last step"
+-    )
++    assert triples(r) == [*ALL_PASS[:1], ("ccc.transition", "ALPHA", "TERMINAL_BREACH")]
++    assert verdict(r, "ccc.transition").reason.startswith("CCC-RATIFICATION-001")
+     assert set(not_evaluated(r)) == {"dit", "conservation"}
+     assert all("alpha gate did not pass" in why for why in not_evaluated(r).values())
+     assert asked(r) == {
+-        "governance_gateway": 1, "ccc.transition": 1, "augur_screen": 1, "dit": 0, "conservation": 0,
++        "governance_gateway": 1, "ccc.transition": 1, "dit": 0, "conservation": 0,
+     }
+     assert d.result is None and d.result_withheld is False
+ 
+@@ -455,11 +436,10 @@ def test_s5_the_first_terminal_alpha_verdict_stops_the_second_gate(reports):
+     assert triples(r) == [("governance_gateway", "ALPHA", "TERMINAL_BREACH")]
+     assert verdict(r, "governance_gateway").reason == "INTEGRITY_FAILURE"
+     skipped = not_evaluated(r)
+-    assert list(skipped) == ["ccc.transition", "augur_screen", "dit", "conservation"]
++    assert list(skipped) == ["ccc.transition", "dit", "conservation"]
+     assert skipped["ccc.transition"] == "short-circuit: governance_gateway returned TERMINAL_BREACH"
+-    assert skipped["augur_screen"] == "short-circuit: governance_gateway returned TERMINAL_BREACH"
+     assert asked(r) == {
+-        "governance_gateway": 1, "ccc.transition": 0, "augur_screen": 0, "dit": 0, "conservation": 0,
++        "governance_gateway": 1, "ccc.transition": 0, "dit": 0, "conservation": 0,
+     }
+ 
+ 
+@@ -480,7 +460,7 @@ def test_s6_a_required_alpha_library_that_is_missing_fails_closed(reports):
+     assert synthetic.subject == "synthetic:gate_unavailable"
+     assert "gate unavailable" in synthetic.reason and "required" in synthetic.reason
+     assert asked(r)["ccc.transition"] == 0
+-    assert "short-circuit" in not_evaluated(r)["augur_screen"]
++    assert set(not_evaluated(r)) == {"dit", "conservation"}
+ 
+ 
+ def test_s6b_a_required_omega_library_that_is_missing_stops_the_work_before_it_starts(reports):
+@@ -488,8 +468,8 @@ def test_s6b_a_required_omega_library_that_is_missing_stops_the_work_before_it_s
+     d = r.decision
+     assert reports["S6b"].scenario.withhold == ("conservation_kernel",)
+     assert r.work_calls == 0 and (d.outcome, d.executed) == ("terminal_breach", False)
+-    assert triples(r)[:3] == ALL_PASS[:3]
+-    assert triples(r)[3] == ("conservation", "OMEGA", "TERMINAL_BREACH")
++    assert triples(r)[:2] == ALL_PASS[:2]
++    assert triples(r)[2] == ("conservation", "OMEGA", "TERMINAL_BREACH")
+     assert verdict(r, "conservation").subject == "synthetic:gate_unavailable"
+     assert "the work was not started" in verdict(r, "conservation").reason
+     assert not_evaluated(r) == {
+@@ -507,16 +487,15 @@ def test_s7_a_real_alpha_gate_that_raises_fails_closed_without_a_crash(reports):
+     assert synthetic.subject == "synthetic:gate_error"
+     assert "raised TypeError" in synthetic.reason
+     assert asked(r)["ccc.transition"] == 1, "the real gate was asked, and it was the real gate that raised"
+-    assert asked(r)["augur_screen"] == 0
+-    assert set(not_evaluated(r)) == {"augur_screen", "dit", "conservation"}
++    assert set(not_evaluated(r)) == {"dit", "conservation"}
+ 
+ 
+ def test_s7b_a_real_omega_gate_that_raises_withholds_the_result(reports):
+     r = reports["S7b"]
+     d = r.decision
+     assert r.work_calls == 1 and (d.outcome, d.executed) == ("terminal_breach", True)
+-    assert triples(r)[:4] == ALL_PASS[:4]
+-    assert triples(r)[4] == ("conservation", "OMEGA", "TERMINAL_BREACH")
++    assert triples(r)[:3] == ALL_PASS[:3]
++    assert triples(r)[3] == ("conservation", "OMEGA", "TERMINAL_BREACH")
+     assert verdict(r, "conservation").subject == "synthetic:gate_error"
+     assert "raised TypeError" in verdict(r, "conservation").reason
+     assert d.result is None and d.result_withheld is True
+@@ -654,13 +633,6 @@ def test_a_missing_library_is_reported_and_exits_2_when_cns_is_present(tmp_path,
+ 
+ 
+ def test_run_as_a_script_it_exits_0_prints_the_same_thing_twice_and_leaves_no_files(tmp_path, demo):
+-    if not os.environ.get("AUGUR_AUDIT_KEY"):
+-        pytest.fail(
+-            "AUGUR_AUDIT_KEY is not set, so AUGUR warns on stderr that it signs its audit log "
+-            "with a key held only by this process, and this test requires empty stderr. Set it "
+-            "to a fresh random value: export AUGUR_AUDIT_KEY=\"$(python -c 'import secrets; "
+-            "print(secrets.token_hex(32))')\""
+-        )
+     first = _run_script(cwd=tmp_path)
+     second = _run_script(cwd=tmp_path)
+     assert first.returncode == 0, first.stderr
