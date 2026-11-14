@@ -32,7 +32,7 @@ would duplicate them.
 
 ## What's here
 
-- `snapshot/`: every tracked file at `9d4f818`, exactly as it was.
+- `snapshot/`: every tracked file at `9d4f818`, exactly as it was, except for the one redaction recorded below.
 - `arlf-full-history.bundle`: complete history (8 commits on main).
 
 ## Known issues at time of burial
@@ -41,6 +41,19 @@ would duplicate them.
 - Verdict scheme was not ported. Certificate and discharge concepts were only partly ported.
 - The two open PRs (DGK #19, ZTS #8) must be merged or closed before the ideas
   count as in the stack.
+
+## Redaction (2026-11-13)
+
+One personal sentence was removed from this public copy. It was a quoted prompt from the source
+conversation (record 2117) that named a family member and a location. It appeared in two files:
+`snapshot/evidence/source_records.jsonl` (the `prompt` field) and `snapshot/evidence/evidence_ledger.jsonl`
+(the `claim` field). Each now holds a redaction marker in its place. Nothing else in either file changed,
+and both still parse line by line as JSON. The `chars` and `record_chars` numbers still describe the
+original record, so they no longer match the shortened text.
+
+The full history bundle (`arlf-full-history.bundle`) was not changed and still contains the original
+sentence in its older commits. The same text exists in the private `Gemini_Extraction` repo. Rewriting the
+bundle is a separate decision for the owner.
 
 ## Bringing it back
 
