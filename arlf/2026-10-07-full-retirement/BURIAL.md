@@ -39,8 +39,8 @@ would duplicate them.
 
 - The reference modules were never executed. Their tests were never run.
 - Verdict scheme was not ported. Certificate and discharge concepts were only partly ported.
-- The two open PRs (DGK #19, ZTS #8) must be merged or closed before the ideas
-  count as in the stack.
+- Update 2026-11-13: both PRs named at burial time (DGK #19, ZTS #8) are merged, so the
+  ported ideas are in the stack.
 
 ## Redaction (2026-11-13)
 

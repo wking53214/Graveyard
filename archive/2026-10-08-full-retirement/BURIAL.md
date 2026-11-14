@@ -54,3 +54,13 @@ Each idea was checked against the live stack. Result: nothing ported.
 
 - Whole repo with history: `git clone archive-full-history.bundle archive`
 - Files only: copy `snapshot/`.
+
+## Correction (2026-11-13)
+
+The tables above send readers to ZTGKT as a live home. ZTGKT was itself retired two days later (2026-10-10) and is buried in this repo under `ZTGKT/`. Read each ZTGKT pointer above as follows:
+
+| Part | Where it lives now |
+|---|---|
+| Linguistic filters, pacing | ZTS (gates, Kinetic Governor) and DIT |
+| Clinical validation | OBSERVE (`DomainSignalValidator`, OBSERVE PR #13) |
+| UGPIS integration map and reference files | `ZTGKT/2026-10-10-full-retirement/snapshot/` in this repo |

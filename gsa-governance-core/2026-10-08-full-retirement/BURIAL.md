@@ -21,7 +21,7 @@ Each layer was checked against the live stack. Result: nothing ported.
 | Immutable audit ledger | Not ported. The README says it is an in-memory dict that does not persist, and it does not link one entry to the next. The live ledgers are DIT and PERCEIVE. |
 | Module attestation and cryptographic sealing | Not ported. The README says `verified=True` is set unconditionally, and the seal is not a signature. |
 | Human approval workflow | Not ported. It waits 10 ms and then approves. A stub, not a control. |
-| Runtime health monitor, adaptive threshold controller, adaptive queue controller | Not ported. No live equivalent under these names, but the implementations are unverified and their values are fixed starting points. Revisit only as a fresh design. |
+| Runtime health monitor, adaptive threshold controller, adaptive queue controller | Not ported. Corrected 2026-11-13: live equivalents do exist. URE has an adaptive threshold controller (`ure_engine/thresholds.py`), and similar health-monitor and queue-controller code is in the GSA and OBSERVE copies. The versions buried here are unverified and their values are fixed starting points. Revisit only as a fresh design. |
 
 ## Where each part lives now
 
