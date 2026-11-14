@@ -42,7 +42,7 @@ The one idea that existed only in STRIDE, the analytics layer (distortion, fragi
 - The duplicate-payload set in the execute path has no size limit.
 - The interlock's hash chain uses plain SHA-256 with no secret key, and the verifier checks only the last link. It catches accidental changes, not tampering.
 - About 30 repos could not be read, and non-default branches were not checked. The library review was done by name and behavior, not line by line.
-- Open PRs that must be merged or closed before this counts as finished: Graveyard #10 (this burial), STRIDE #1 (retirement notice), ZTS #9, and governance_gateway #8.
+- Update 2026-11-13: the PRs listed at burial time (Graveyard #10, STRIDE #1, ZTS #9, governance_gateway #8) are all merged. Nothing is pending.
 
 ## Bringing it back
 
