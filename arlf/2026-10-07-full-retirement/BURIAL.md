@@ -33,7 +33,7 @@ would duplicate them.
 ## What's here
 
 - `snapshot/`: every tracked file at `9d4f818`, exactly as it was, except for the one redaction recorded below.
-- `arlf-full-history.bundle`: complete history (8 commits on main).
+- `arlf-full-history.bundle`: complete history (8 commits on main), rewritten 2026-11-13 to drop the redacted sentence (see Redaction).
 
 ## Known issues at time of burial
 
@@ -51,9 +51,15 @@ conversation (record 2117) that named a family member and a location. It appeare
 and both still parse line by line as JSON. The `chars` and `record_chars` numbers still describe the
 original record, so they no longer match the shortened text.
 
-The full history bundle (`arlf-full-history.bundle`) was not changed and still contains the original
-sentence in its older commits. The same text exists in the private `Gemini_Extraction` repo. Rewriting the
-bundle is a separate decision for the owner.
+The full history bundle (`arlf-full-history.bundle`) was rewritten the same day so that no commit in it
+contains the sentence. All 8 commits got new hashes: the old head `9d4f818` is now `ce33642`. The tree at
+the new head is identical to `snapshot/` here (checked file by file). Any reference to the old hashes, such
+as the snapshot commit named at the top of this note, points to the pre-rewrite history.
+
+The original sentence still exists in these places, which this change does not reach: the private,
+archived `ARLF` repo, the private `Gemini_Extraction` repo, and the older commits of this Graveyard repo
+(the earlier version of the two evidence files and of the old bundle). Removing it from this repo's own
+history would need a history rewrite of the whole Graveyard repo, which is a separate decision.
 
 ## Bringing it back
 
